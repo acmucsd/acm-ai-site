@@ -27,6 +27,7 @@ import { message } from 'antd';
 import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/HideAndSeek2020';
 import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
+import AboutPage from './pages/AboutPage';
 
 
 let cookie = getCookie(COOKIE_NAME);
@@ -70,6 +71,7 @@ function App() {
         <UserProvider value={{user: user, setUser: setUser}}>
           
           <Route path="/" exact component={MainPage} />
+          <Route path="/about" exact component={AboutPage} />
           <Route path="/competitions" exact component={CompetitionsPage} />
           <Route path="/competitions/hide-and-seek2020" exact component={HideAndSeek2020Page} />
           <Route path="/register" exact component={RegisterPage} />
