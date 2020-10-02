@@ -29,7 +29,6 @@ function RegisterPage() {
             <h2 style={{margin: 0}}>Register</h2>
             <p>An ACM AI account will help you get the most out of our events and opportunities whether it be for awesome competitions or cool networking events!</p>
             <br />
-            <Form>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller 
                   as={
@@ -106,7 +105,6 @@ function RegisterPage() {
                 {errors.confirmPassword?.type === 'validate' && <p className='danger'>Passwords need to match</p>}
                 <Button htmlType="submit" className='registerButton'>Register</Button>
               </form>
-            </Form>
             <div className='login-info'>
               <Link to='./login'>Login here</Link>
             </div>

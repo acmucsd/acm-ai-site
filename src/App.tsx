@@ -34,19 +34,15 @@ let cookie = getCookie(COOKIE_NAME);
 function App() {
 
   const [user, setUser] = useState(defaultUser);
+  const [initializedGA, setGA] = useState(false);
   const [tournament, setTournament] = useState(defaultTournament);
   const [verifying, setVerifying] =  useState(true);
-  function usePageViews() {
-    let location = useLocation()
-    ReactGA.initialize('UA-167602471-1');
-    useEffect(() => {
-      console.log(location.pathname);
-      ReactGA.pageview(location.pathname);
-    }, [location]);
-  }
+  const location = useLocation();
   const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
   
   useEffect(() => {
+    ReactGA.initialize('UA-167602471-1');
+    setGA(true);
     if (cookie) {
       // verify cookie
       verifyToken(DIMENSION_ID, cookie).then(() => {
@@ -63,7 +59,12 @@ function App() {
       setVerifying(false);
     }
   }, []);
-  usePageViews();
+  useEffect(() => {
+    if (initializedGA) {
+      console.log(location.pathname);
+      ReactGA.pageview(location.pathname);
+    }
+  }, [initializedGA, location]);
   return (
     <div>
       <Switch>
