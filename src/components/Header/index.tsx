@@ -28,6 +28,9 @@ function Header() {
   if (path.match(`register`)) {
     initKeys=['register'];
   }
+  if (path.match(`/competitions`)) {
+    initKeys=['competitions'];
+  }
   const [key, setKey] = useState<Array<string>>(initKeys);
   const params: any = useParams();
   const handleClick = (e: any) => {
@@ -82,6 +85,11 @@ function Header() {
       <Menu.Item key="home">
         <Link to="/" rel="noopener noreferrer">
           Home
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="competitions">
+        <Link to="/competitions" rel="noopener noreferrer">
+          Competitions
         </Link>
       </Menu.Item>
       {/* <Menu.Item key="tournament">

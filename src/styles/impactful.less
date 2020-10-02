@@ -1,0 +1,97 @@
+@import './base.less';
+#title {
+  color: @white;
+  display: inline-block;
+  .leftPaddedText();
+}
+.hero {
+  background: linear-gradient(135deg, #D64550, #EB8B90);
+  // background: @b2;
+  padding-top: 60px;
+  .subtext {
+    .leftPaddedText();
+    font-size: @font4;
+    color: @white;
+  }
+  padding-bottom: 90px;
+  line-height: 2;
+  .button-wrapper {
+    .leftPaddedText();
+    .text {
+      font-size: @font3;
+      color: @white;
+      margin-top: 1.5rem;
+    }
+  }
+  
+  .registerbtn {
+    font-size: @font3;
+    height: @font3 * 2;
+    width: 180px;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+  }
+  .getstartedbtn {
+    font-size: @font3;
+    height: @font3 * 2;
+    width: 180px;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+  }
+}
+.dimensions-list {
+  margin-top: 24px;
+  display: flex;
+  margin-left: calc(10% - 24px);
+}
+.content {
+  width:100%;
+  margin: 0;
+}
+.main-section {
+  color: @white;
+  background: @b2;
+  position: relative;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  .section-container-padding();
+  ol {
+    padding-left: 2rem;
+    list-style: decimal;
+  }
+  li {
+    margin-bottom: 0.5rem;
+  }
+  p, ul, ol, li {
+    font-size: @font3;
+  }
+  .prize-title {
+    color: @white;
+    font-weight: 400;
+  }
+  .statement {
+    color: @white;
+    border-left: 4px solid @white;
+    padding-left: 1rem;
+  }
+}
+.main-section:last-child {
+  padding-bottom: 12rem;
+}
+.main-section:nth-child(odd) {
+  background: @white;
+  color: @b2;
+  box-shadow:0px 0px 40px rgba(30, 55, 77, 0.52);
+  z-index:10;
+  .statement {
+    color: @b1;
+    font-weight: 600;
+    border-left: 0.5rem solid @b2;
+  }
+  
+}
+.main-section .statement {
+  font-size: @font5;
+  font-weight: 600;
+  border-left: 0.5rem solid @white;
+}

@@ -1,27 +1,13 @@
 import React from 'react';
 import './index.less';
-import DefaultLayout from "../../components/layouts/default";
-import { Button } from "antd";
-import { OPEN_TO_PUBLIC } from '../../configs';
+import DefaultLayout from "../../../components/layouts/default";
 import { Link } from 'react-router-dom';
-function MainPage() {
+
+function HideAndSeek2020Page(props: any) {
   return (
     <DefaultLayout>
-      <div className='Main'>
-        <div className='hero'>
-          <h1 id='title'>ACM AI Competition</h1>
-          <p className='subtext'>Congratulations to Joe Cai for winning the first AI Competition 🥇</p>
-          <p className='subtext'>And congratulations to Matei Gardus for winning the best hack award 💻</p>
-          <div className='button-wrapper'>
-          <p className='text'>Competition has ended but you can still register for updates and for upcoming competitions!</p>   
-          <Link to='register'><Button className='registerbtn'>Register</Button></Link>
-          {
-            OPEN_TO_PUBLIC && <a href='https://github.com/acmucsd/hide-and-seek-ai' target='_blank' rel="noopener noreferrer"><Button className='getstartedbtn'>Get Started</Button></a>
-          }
-          </div>
-          
-        </div>
-        <div className='main-section'>
+      <div className='HideAndSeek2020Page'>
+      <div className='main-section'>
           <h1 className='statement'>Welcome to Hide and Seek 🙈🏃</h1>
           <p>This was the first ACM AI Competition, and the first of its kind at UCSD. You must use your wits and strategies, along with knowledge of programming, to effectively hide and see. Your AI must be able to play the <span className='seeker'>Seeker</span> and the <span className='hider'>Hider</span>, and must either find and tag all <span className='hider'>hiders</span> or hide from all <span className='seeker'>seekers</span>. Are you up for the challenge? Make sure to join our community through discord here: <a href='https://discord.gg/XsG5etY'>https://discord.gg/XsG5etY</a></p>
           <br />
@@ -71,4 +57,4 @@ function MainPage() {
   );
 }
 
-export default MainPage
+export default HideAndSeek2020Page
