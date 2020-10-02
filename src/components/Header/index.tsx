@@ -102,11 +102,6 @@ function Header() {
           Leaderboard
         </Link>
       </Menu.Item> */}
-      <Menu.Item key="leaderboard">
-        <Link to={`/history/hide-and-seek2020`} rel="noopener noreferrer">
-          Hide and Seek 2020 Results
-        </Link>
-      </Menu.Item> 
       { 
         loginItems
       }

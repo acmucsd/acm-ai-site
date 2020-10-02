@@ -84,7 +84,7 @@ function App() {
               exact 
               render={() => <SetupTournament component={<TournamentPage />} />}
             /> */}
-            <Route 
+            {/* <Route 
               path="/tournaments/:tournamentID/ranks" 
               exact 
               render={() => <SetupTournament component={<TournamentRankingsPage />} />}
@@ -101,7 +101,7 @@ function App() {
             />
             <Route path="/tournaments/:tournamentID/upload" exact 
               render={() => <SetupTournament component={<UploadBotPage />} />}
-            />
+            /> */}
           </TournamentProvider>
         </UserProvider> :
         <div className='Loading' style={{

@@ -9,11 +9,10 @@ import { useParams, useHistory, Link } from 'react-router-dom';
 import { DIMENSION_ID } from '../../../configs';
 
 function RegisterPage() {
-  const params: any = useParams();
   const history = useHistory();
   const { handleSubmit, watch, errors, control } = useForm();
   const onSubmit = (values: any) => {
-    if(errors.confirmPassword) {
+    if (errors.confirmPassword) {
       handlePasswordErrors(errors)
     }
   
@@ -27,7 +26,8 @@ function RegisterPage() {
       <div className='RegisterPage'>
         <Card className="registerCard">
           <div className="cardContent">
-            <h2>Register</h2>
+            <h2 style={{margin: 0}}>Register</h2>
+            <p>An ACM AI account will help you get the most out of our events and opportunities whether it be for awesome competitions or cool networking events!</p>
             <br />
             <Form>
               <form onSubmit={handleSubmit(onSubmit)}>
