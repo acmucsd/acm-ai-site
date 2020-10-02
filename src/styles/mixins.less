@@ -1,0 +1,34 @@
+@import './vars.less';
+.smack-center {
+  margin: auto;
+  position: absolute;
+  top:50%;
+  transform: translate(-50%, -50%);
+  left:50%;
+}
+
+.noContainer {
+  margin-left: -@container-left-margin;
+  margin-right: -@container-right-margin;
+}
+
+.section-container-padding {
+  padding-left: 6rem;
+  padding-right: 6rem;
+  @media only screen and (max-width: @sm) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/*
+Keeps text left padded by 10%, and then by 24px on small screens
+*/
+.leftPaddedText {
+  margin-left: 10%;
+  margin-right: 10%;
+  @media screen and (max-width: @xs){
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+}
