@@ -39,6 +39,7 @@ function MainPage() {
             <p>We are always looking for more people to join our mission and build the growing AI community at UCSD. The following roles are open to all undergraduate UCSD students:</p>
             <li>Developer - apply here <a href="https://acmurl.com/ai-dev">https://acmurl.com/ai-dev</a></li>
             <li>Event Lead - apply here <a href="https://acmurl.com/ai-events">https://acmurl.com/ai-events</a></li>
+            <li>Marketing / Sponsorship - apply here <a href="https://acmurl.com/ai-marketing-sponsorship-app">https://acmurl.com/ai-marketing-sponsorship-app</a></li>
             <p>More details, including application forms, can be found on our discord</p>
           </div>
           <div className='main-section' id='events'>
