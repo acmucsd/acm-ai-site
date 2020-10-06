@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './index.less';
 import DefaultLayout from "../../components/layouts/default";
 import { Col, Row } from 'antd';
 import Card from '../../components/Card';
 
-function AboutPage(props: any) {
+function AboutPage() {
   return (
     <DefaultLayout>
       <div className='AboutPage'>

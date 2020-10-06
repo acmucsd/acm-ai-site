@@ -1,17 +1,16 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import './index.less';
 import DefaultLayout from "../../../components/layouts/default";
 import Card from '../../../components/Card';
 import { Form, Input, message, Button } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { loginUser, getUserFromToken } from '../../../actions/auth';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import UserContext from '../../../UserContext';
 import { DIMENSION_ID } from '../../../configs';
 
 function LoginPage() {
-  let {user, setUser} = useContext(UserContext);
-  const params: any = useParams();
+  let { setUser } = useContext(UserContext);
   const history = useHistory();
   const { handleSubmit, errors, control } = useForm();
   const onSubmit = (values: any) => {
