@@ -28,6 +28,7 @@ import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/Hide
 import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
 import AboutPage from './pages/AboutPage';
+import EventHasNotStartedPage from './pages/EventHasNotStarted';
 
 
 let cookie = getCookie(COOKIE_NAME);
@@ -76,6 +77,7 @@ function App() {
           <Route path="/competitions" exact component={CompetitionsPage} />
           <Route path="/competitions/hide-and-seek2020" exact component={HideAndSeek2020Page} />
           <Route path="/register" exact component={RegisterPage} />
+          <Route path="/eventhasnotstarted" exact component={EventHasNotStartedPage} />
           <Route path="/login" exact component={LoginPage} />
           {/* <Route path="/dimensions/:id/matches/:matchID" exact component={MatchPage} / */}
           <Route exact path="/history/hide-and-seek2020" component={() => {
