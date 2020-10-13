@@ -29,7 +29,8 @@ const MatchList = (props:
     loading?: boolean,
     tournamentID: string,
     dimID: string,
-  } = {matches: {}, className:"", loading: false, tournamentID: "", dimID: ""}
+    competitionKey: string,
+  } = {matches: {}, className:"", loading: false, tournamentID: "", dimID: "", competitionKey: ""}
 ) => {
   const params: any = useParams();
   const { user } = useContext(UserContext);
@@ -65,7 +66,7 @@ const MatchList = (props:
           <div>
             {
               (agents && agents.length) ? agents.map((a) => {
-                return <Link className='profile-link' target='_blank' rel="noopener noreferrer" to={`/tournaments/${props.tournamentID}/user/${a.tournamentID.id}`}>{a.name}</Link>
+                return <Link className='profile-link' target='_blank' rel="noopener noreferrer" to={`/competitions/${props.competitionKey}/user/${a.tournamentID.id}`}>{a.name}</Link>
               }) : <span>loading...</span>
             }
           </div>
@@ -86,7 +87,7 @@ const MatchList = (props:
         return (
           <>
             {match.id ? <>
-              <Button onClick={
+              <Button className="replaydownloadbtn" onClick={
               () => {
                 downloadReplay(props.dimID, props.tournamentID, match.id);
               }

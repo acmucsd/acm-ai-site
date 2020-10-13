@@ -24,7 +24,7 @@ export const EnergiumRoutes = () => {
             <Route 
               path="/competitions/energium/user/:userID" 
               exact 
-              render={() => Setupfall2020Tourney(<ProfilePage />)}
+              render={() => Setupfall2020Tourney(<ProfilePage competitionKey='energium' />)}
             />
             <Route 
               path="/competitions/energium/match/:matchID" 

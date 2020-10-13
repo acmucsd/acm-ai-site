@@ -11,7 +11,7 @@ import { Skeleton, Divider, Button, message } from 'antd';
 import UserContext from '../../UserContext';
 import MatchList from '../../components/MatchList';
 
-function ProfilePage() {
+function ProfilePage({competitionKey}: {competitionKey: string}) {
   const params: any = useParams();
   const history = useHistory();
   const [dbuser, setUser] = useState<Database.User>();
@@ -115,6 +115,7 @@ function ProfilePage() {
         <h3>Last 20 Matches</h3>
         <MatchList 
           matches={matches}
+          competitionKey={competitionKey}
           dimID={tournament.dimID}
           tournamentID={tournament.id}
         />
