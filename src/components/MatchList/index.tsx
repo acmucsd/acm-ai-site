@@ -85,11 +85,12 @@ const MatchList = (props:
       render: (match: Match) => {
         return (
           <>
-            {match.id ? <Button onClick={
+            {match.id ? <>
+              <Button onClick={
               () => {
                 downloadReplay(props.dimID, props.tournamentID, match.id);
               }
-            }>Replay</Button> : 'No Replay'}
+            }>Download Replay</Button><a target="_blank" rel="noopener noreferrer" href={`http://localhost:5000/?matchID=${match.id}`}><Button>Watch Replay</Button></a></> : 'No Replay'}
           </>
         )
       }
