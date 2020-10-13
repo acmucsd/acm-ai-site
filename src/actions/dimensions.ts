@@ -23,7 +23,7 @@ export const getDimension = async (id: nanoid = '-1'): Promise<Array<DimensionTy
 
 export const getUser = async (dimensionID: nanoid, playerID: nanoid): Promise<Database.User> => {
   let token = getToken();
-  return axios.get(competitionAPI + `/dimensions/${dimensionID}/user/${playerID}`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.user)
+  return axios.get(competitionAPI + `/dimensions/${dimensionID}/users/${playerID}`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.user)
 }
 
 

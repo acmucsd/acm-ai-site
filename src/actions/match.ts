@@ -61,7 +61,7 @@ export const removeMatch = async (dimensionID: nanoid, matchID: nanoid): Promise
 
 export const getUrlForAgentLog = async (dimensionID: nanoid, matchID: nanoid, agentID: number): Promise<any> => {
   return new Promise((resolve, reject) => {
-    axios.get(competitionAPI + `/dimensions/${dimensionID}/match/${matchID}/agent/${agentID}/logs`).then((res: AxiosResponse) => {
+    axios.get(competitionAPI + `/dimensions/${dimensionID}/match/${matchID}/agents/${agentID}/logs`).then((res: AxiosResponse) => {
       resolve(res.data);
     }).catch((error) => {
       reject(error);

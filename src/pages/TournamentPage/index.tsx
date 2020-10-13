@@ -41,7 +41,7 @@ function TournamentPage() {
     <DefaultLayout>
       <div className='TournamentPage'>
         <br />
-        <BackLink to='../../'/>
+        <BackLink to='../'/>
         <h2>{tournament.name}</h2>
         <Link className='ranks-link' to={
           path.join(history.location.pathname, 'ranks')

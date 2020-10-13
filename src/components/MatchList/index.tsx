@@ -6,9 +6,9 @@ import { Link, useParams } from 'react-router-dom';
 import { Table, Button } from 'antd';
 import MatchActionButton from '../MatchActionButton';
 import UserContext from '../../UserContext';
-import { DIMENSION_ID } from '../../configs';
 import { downloadReplay } from '../../actions/tournament';
 import { getUrlForAgentLog } from '../../actions/match';
+import { competitionAPI } from '../../configs';
 
 
 
@@ -27,7 +27,9 @@ const MatchList = (props:
     } | Array<Match>, 
     className?: string,
     loading?: boolean,
-  } = {matches: {}, className:"", loading: false}
+    tournamentID: string,
+    dimID: string,
+  } = {matches: {}, className:"", loading: false, tournamentID: "", dimID: ""}
 ) => {
   const params: any = useParams();
   const { user } = useContext(UserContext);
@@ -38,9 +40,9 @@ const MatchList = (props:
   const forceUpdate = useForceUpdate();
   const matchLinkRender = (match: Match) => 
   {
-    if (params.tournamentID) {
+    if (props.tournamentID) {
       return (
-        <Link to={`/tournaments/${params.tournamentID}/match/${match.id}`}>{match.name}</Link>
+        <Link to={`/competitions/energium/match/${match.id}`}>{match.name}</Link>
       )
     }
     else {
@@ -63,7 +65,7 @@ const MatchList = (props:
           <div>
             {
               (agents && agents.length) ? agents.map((a) => {
-                return <Link className='profile-link' target='_blank' rel="noopener noreferrer" to={`/tournaments/${params.tournamentID}/user/${a.tournamentID.id}`}>{a.name}</Link>
+                return <Link className='profile-link' target='_blank' rel="noopener noreferrer" to={`/tournaments/${props.tournamentID}/user/${a.tournamentID.id}`}>{a.name}</Link>
               }) : <span>loading...</span>
             }
           </div>
@@ -85,7 +87,7 @@ const MatchList = (props:
           <>
             {match.id ? <Button onClick={
               () => {
-                downloadReplay(DIMENSION_ID, params.tournamentID, match.id);
+                downloadReplay(props.dimID, props.tournamentID, match.id);
               }
             }>Replay</Button> : 'No Replay'}
           </>
@@ -98,7 +100,7 @@ const MatchList = (props:
       render: (match: Match) => {
         return (
           <>
-           {match.results ? <a target='_blank' rel="noopener noreferrer" href={process.env.REACT_APP_API + `/api/dimensions/${DIMENSION_ID}/match/${match.id}/results`}><div>Winner: {match.results.winner}, Loser: {match.results.loser}</div><div>Seeker: {match.results.seeker}, Hider: {match.results.hider}</div></a> : 'No results yet'}
+           {match.results ? <a target='_blank' rel="noopener noreferrer" href={competitionAPI + `/dimensions/${props.dimID}/match/${match.id}/results`}><div>Winner: {match.results.winner}, Loser: {match.results.loser}</div><div>Seeker: {match.results.seeker}, Hider: {match.results.hider}</div></a> : 'No results yet'}
           </>
         )
       }
@@ -129,14 +131,14 @@ const MatchList = (props:
     dataIndex: 'action',
     render: (match: Match) => {
       //@ts-ignore
-      return (<MatchActionButton match={match} update={update} dimensionID={DIMENSION_ID}/>)
+      return (<MatchActionButton match={match} update={update} dimensionID={props.dimID}/>)
     }
   }];
   const fetchLogs = (match: Match) => {
     let promises: Array<Promise<{url: string, agent: Agent}>> = [];
     if (match.results) {
       match.agents.forEach((agent) => {
-        let geturlpromise = getUrlForAgentLog(DIMENSION_ID, match.id, agent.id).then((res) => {return {url: res.url, agent: agent}});
+        let geturlpromise = getUrlForAgentLog(props.dimID, match.id, agent.id).then((res) => {return {url: res.url, agent: agent}});
         promises.push(geturlpromise);
       });
     }

@@ -4,13 +4,11 @@ import { UserProvider } from './UserContext'
 import { TournamentProvider } from './contexts/tournament';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import SetupTournament from './containers/tournament';
 
 import './styles/index.less';
 import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
 
-import MatchPage from './pages/MatchPage';
 import TournamentRankingsPage from './pages/TournamentRankingsPage';
 import TournamentPage from './pages/TournamentPage';
 import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
@@ -29,6 +27,7 @@ import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
 import AboutPage from './pages/AboutPage';
 import EventHasNotStartedPage from './pages/EventHasNotStarted';
+import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
 
 
 let cookie = getCookie(COOKIE_NAME);
@@ -66,9 +65,7 @@ function App() {
       ReactGA.pageview(location.pathname);
     }
   }, [initializedGA, location]);
-  const Setupfall2020Tourney = (component: JSX.Element) => {
-    return <SetupTournament component={component} dimensionID='acmdim' tournamentID='tourney' />
-  }
+  
   return (
     <div>
       <Switch>
@@ -87,29 +84,7 @@ function App() {
             return <TournamentRankingsPageHistorical dataDir="2020summer" description={HideAndSeek2020}/>
           }} />
           <TournamentProvider value={{tournament: tournament, setTournament: setTournament}}>
-            <Route 
-              path="/competitions/energium" 
-              exact 
-              render={() => Setupfall2020Tourney(<TournamentPage />)}
-            />
-            <Route 
-              path="/competitions/energium/ranks" 
-              exact 
-              render={() => Setupfall2020Tourney(<TournamentRankingsPage />)}
-            />
-            <Route 
-              path="/competitions/energium/user/:userID" 
-              exact 
-              render={() => Setupfall2020Tourney(<ProfilePage />)}
-            />
-            <Route 
-              path="/competitions/energium/match/:matchID" 
-              exact 
-              render={() => Setupfall2020Tourney(<TournamentMatchPage />)}
-            />
-            <Route path="/competitions/energium/upload" exact 
-              render={() => Setupfall2020Tourney(<UploadBotPage />)}
-            />
+            <EnergiumRoutes />
           </TournamentProvider>
         </UserProvider> :
         <div className='Loading' style={{

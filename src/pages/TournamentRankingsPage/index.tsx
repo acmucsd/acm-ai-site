@@ -136,7 +136,7 @@ function TournamentPage() {
     <DefaultLayout>
       <div className='TournamentRankingsPage'>
         <br />
-        {/* <BackLink to='../'/> */}
+        <BackLink to='../'/>
         <h2>{tournament.name}</h2>
         <Button onClick={() => {
           history.push(path.join(history.location.pathname, '../upload'));

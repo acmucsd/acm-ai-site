@@ -87,17 +87,17 @@ export const removeTournament = async (dimensionID: nanoid, tournamentID: nanoid
 
 export const getPlayer = async (dimensionID: nanoid, tournamentID: nanoid, playerID: nanoid): Promise<Player> => {
   let token = getToken();
-  return axios.get(competitionAPI + `/dimensions/${dimensionID}/tournaments/${tournamentID}/player/${playerID}`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.player)
+  return axios.get(competitionAPI + `/dimensions/${dimensionID}/tournaments/${tournamentID}/players/${playerID}`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.player)
 }
 
 export const getPlayerMatches = async (dimensionID: nanoid, tournamentID: nanoid, playerID: nanoid, offset: number = 0, limit: number = 10): Promise<Array<Match>> => {
   let token = getToken();
-  return axios.get(competitionAPI + `/dimensions/${dimensionID}/tournaments/${tournamentID}/player/${playerID}/match?offset=${offset}&limit=${limit}&order=-1`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.matches)
+  return axios.get(competitionAPI + `/dimensions/${dimensionID}/tournaments/${tournamentID}/players/${playerID}/match?offset=${offset}&limit=${limit}&order=-1`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.matches)
 }
 
 export const downloadBot = async (dimensionID: nanoid, tournamentID: nanoid, playerID: nanoid): Promise<any> => {
   let token = getToken();
-  return axios.get(competitionAPI + `/dimensions/${dimensionID}/tournaments/${tournamentID}/player/${playerID}/bot`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.url)
+  return axios.get(competitionAPI + `/dimensions/${dimensionID}/tournaments/${tournamentID}/players/${playerID}/bot`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.url)
 };
 
 export const downloadReplay = async (dimensionID: nanoid, tournamentID: nanoid, matchID: nanoid): Promise<any> => {

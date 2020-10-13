@@ -10,7 +10,6 @@ import TournamentContext from '../../contexts/tournament';
 import { Skeleton, Divider, Button, message } from 'antd';
 import UserContext from '../../UserContext';
 import MatchList from '../../components/MatchList';
-import { DIMENSION_ID, OPEN_TO_PUBLIC } from '../../configs';
 
 function ProfilePage() {
   const params: any = useParams();
@@ -25,14 +24,13 @@ function ProfilePage() {
     if (tournament.id) {
       setRankSystem(tournament.configs.rankSystem);
       let tourneyKey = tournament.name.replace(/ /g, "_") + "_" + tournament.id;
-      getUser(DIMENSION_ID, params.userID).then((res) => {
+      getUser(tournament.dimID, params.userID).then((res) => {
         setUser(res);
         if (res.statistics) {
           let s = res.statistics![tourneyKey];
           if (s) {
             setStats(s);
           }
-          // setPlayer(s.player);
         }
       }).catch((err) => {
         if (!user.loggedIn) {
@@ -43,7 +41,7 @@ function ProfilePage() {
         }
         history.push('../');
       });
-      getPlayerMatches(DIMENSION_ID, tournament.id, params.userID, 0, 20).then((matches) => {
+      getPlayerMatches(tournament.dimID, tournament.id, params.userID, 0, 20).then((matches) => {
         matches = matches.map((m) => {
           // @ts-ignore
           m.matchStatus = "finished";
@@ -104,7 +102,7 @@ function ProfilePage() {
             }} disabled>Upload</Button>
             <h4>Download Bot</h4>
             <Button onClick={() => {
-              downloadBot(DIMENSION_ID, tournament.id, params.userID).then((url) => {
+              downloadBot(tournament.dimID, tournament.id, params.userID).then((url) => {
                 window.open(url);
               }).catch((err) => {
                 console.error(err.message);
@@ -117,6 +115,8 @@ function ProfilePage() {
         <h3>Last 20 Matches</h3>
         <MatchList 
           matches={matches}
+          dimID={tournament.dimID}
+          tournamentID={tournament.id}
         />
       </div>
     </DefaultLayout>
