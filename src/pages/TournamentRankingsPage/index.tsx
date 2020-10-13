@@ -3,7 +3,7 @@ import './index.less';
 import { Tournament } from 'dimensions-ai';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
-import { getRanks } from '../../actions/tournament';
+import { getRanks } from '../../actions/dimensions/tournament';
 import TournamentActionButton from '../../components/TournamentActionButton';
 import { Table, Button } from 'antd';
 import UserContext from '../../UserContext';
@@ -96,7 +96,7 @@ const eloCols = [
 ]
 
 
-function TournamentPage() {
+function TournamentRankingsPage() {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [ updateTime, setUpdateTime ] = useState<Date>();
@@ -140,7 +140,7 @@ function TournamentPage() {
         <h2>{tournament.name}</h2>
         <Button onClick={() => {
           history.push(path.join(history.location.pathname, '../upload'));
-        }} disabled>Upload Bot</Button>
+        }}>Upload Bot</Button>
         <Button className='refresh-btn' onClick={() => {
           update();
         }}>Refresh Leaderboard</Button>
@@ -180,4 +180,4 @@ function TournamentPage() {
   );
 }
 
-export default TournamentPage
+export default TournamentRankingsPage

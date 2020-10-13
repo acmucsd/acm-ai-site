@@ -10,7 +10,6 @@ import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
 
 import TournamentRankingsPage from './pages/TournamentRankingsPage';
-import TournamentPage from './pages/TournamentPage';
 import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
 import TournamentMatchPage from './pages/TournamentMatchPage';
 import RegisterPage from './pages/Auth/RegisterPage';
@@ -61,7 +60,6 @@ function App() {
   }, []);
   useEffect(() => {
     if (initializedGA) {
-      console.log(location.pathname);
       ReactGA.pageview(location.pathname);
     }
   }, [initializedGA, location]);

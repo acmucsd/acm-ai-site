@@ -3,6 +3,6 @@ import { COOKIE_NAME } from '../configs';
 /**
  * Get current stored token
  */
-export const getToken = () => {
-  return getCookie(COOKIE_NAME);
+export const getToken = (cookie = COOKIE_NAME) => {
+  return getCookie(cookie);
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
 import DefaultLayout from "../../components/layouts/default";
 import Match from "../../components/Match";
-import { getMatch } from '../../actions/tournament';
+import { getMatch } from '../../actions/dimensions/tournament';
 import TournamentContext from '../../contexts/tournament';
 import { useParams } from 'react-router-dom';
 import { Match as DMatch } from 'dimensions-ai';

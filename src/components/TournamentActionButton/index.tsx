@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { stopTournament, runTournament } from '../../actions/tournament';
+import { stopTournament, runTournament } from '../../actions/dimensions/tournament';
 import { nanoid, Tournament } from 'dimensions-ai';
 import './index.less';
 import { TournamentMeta } from '../../contexts/tournament';

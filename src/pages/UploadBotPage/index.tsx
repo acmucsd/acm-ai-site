@@ -7,13 +7,12 @@ import Card from '../../components/Card';
 import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import TournamentContext from '../../contexts/tournament';
-import { uploadBot } from '../../actions/tournament';
-import UserContext from '../../UserContext';
+import { uploadBot } from '../../actions/dimensions/tournament';
+import UserContext, { COMPETITION_NAMES } from '../../UserContext';
 import path from 'path';
-import { DIMENSION_ID, OPEN_TO_PUBLIC } from '../../configs';
 
 
-function UploadBotPage() {
+function UploadBotPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
   const { handleSubmit, control} = useForm();
   const [botFile, setFile] = useState<any>();
   const { tournament } = useContext(TournamentContext);
@@ -21,11 +20,17 @@ function UploadBotPage() {
   const history = useHistory();
   const params: any = useParams();
   useEffect(() => {
-    message.info("upload disabled") && history.replace("/");
-    // !user.loggedIn && message.info('You need to login to upload a bot') && history.replace(path.join(window.location.pathname, '../../../login'));
+    !user.loggedIn && message.info('You need to login to upload a bot') && history.replace(path.join(window.location.pathname, '../../../login'));
+    
   }, []);
+  useEffect(() => {
+    if (user.competitionRegistrations[competitionKey] !== undefined)  {
+      !user.competitionRegistrations[competitionKey] && message.info("You need to register into the competition to upload a bot") && history.replace(path.join(window.location.pathname, '../'));
+    }
+  }, [user]);
   const onSubmit = (values: any) => {
-    uploadBot(DIMENSION_ID, tournament.id, values.botname, botFile, user, values.path).then(() => {
+    // TODO: remove hardcoded competition specific names
+    uploadBot(tournament.dimID, tournament.id, values.botname, botFile, user.competitionData[competitionKey]?.id as string, values.path).then(() => {
       message.success('Succesfully uploaded bot');
     });
   }
@@ -50,7 +55,6 @@ function UploadBotPage() {
   }
   return (
     <DefaultLayout>
-      {!OPEN_TO_PUBLIC && <Redirect to='/'/>}
       <div className='UploadBotPage'>
         <Card className='upload-form-card'>
           <h2>Submit Bot</h2>

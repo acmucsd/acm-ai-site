@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 import { DimensionType, Match, Tournament, nanoid } from 'dimensions-ai';
-import { TournamentMeta } from '../contexts/tournament';
-import { getToken } from '../utils/token';
+import { TournamentMeta } from '../../contexts/tournament';
+import { getToken } from '../../utils/token';
 import { Database } from 'dimensions-ai/lib/Plugin/Database';
-import { competitionAPI } from '../configs';
+import { competitionAPI, COMPETITIONS_COOKIE_NAME } from '../../configs';
 
 // Returns all dimensions if no input
 export const getDimension = async (id: nanoid = '-1'): Promise<Array<DimensionType> | DimensionType> => {
@@ -22,7 +22,7 @@ export const getDimension = async (id: nanoid = '-1'): Promise<Array<DimensionTy
 }
 
 export const getUser = async (dimensionID: nanoid, playerID: nanoid): Promise<Database.User> => {
-  let token = getToken();
+  let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
   return axios.get(competitionAPI + `/dimensions/${dimensionID}/users/${playerID}`, { headers: { Authorization: `Bearer ${token}` } }).then((res) => res.data.user)
 }
 

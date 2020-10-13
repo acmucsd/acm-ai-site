@@ -1,21 +1,18 @@
 import axios, { AxiosResponse } from 'axios';
 import { message } from 'antd';
-import { setCookie, deleteCookie } from '../utils/cookie';
+import { setCookie, deleteCookie } from '../../utils/cookie';
 import { nanoid } from 'dimensions-ai';
-import { User } from '../UserContext';
-import { COOKIE_NAME } from '../configs';
-import { isNullOrUndefined } from 'util';
+import { User } from '../../UserContext';
+import { competitionAPI, COMPETITIONS_COOKIE_NAME } from '../../configs';
 
-export const registerUser = async (dimensionID: nanoid, data: { username: string, password: string, email: string}) => {
+// use same password as acm ai user
+export const registerUser = async (dimensionID: nanoid, data: { username: string, password: string}) => {
   let body = {
     username: data.username,
     password: data.password,
-    userData: {
-      email: data.email
-    }
   }
   return new Promise((resolve, reject) => {
-    axios.post(process.env.REACT_APP_API + '/api/dimensions/' + dimensionID + '/auth/register', body).then((res: AxiosResponse) => {
+    axios.post(competitionAPI + '/dimensions/' + dimensionID + '/auth/register', body).then((res: AxiosResponse) => {
       resolve(res);
     }).catch((error) => {
       message.error(error.response.data.error.message);
@@ -24,9 +21,7 @@ export const registerUser = async (dimensionID: nanoid, data: { username: string
   });
 }
 
-export const logoutUser = () => {
-  deleteCookie(COOKIE_NAME);
-}
+
 export const getUserFromToken = (token: string): User => {
   let res = tokenGetClaims(token);
   return {
@@ -35,8 +30,8 @@ export const getUserFromToken = (token: string): User => {
     username: res.username,
     id: res.playerID,
     competitionRegistrations: {
-      energium: undefined,
-      openai: undefined,
+      energium: false,
+      openai: false,
     },
     competitionData: {
       energium: undefined,
@@ -58,8 +53,8 @@ export const tokenGetClaims = (token: string): any => {
 
 export const loginUser = async (dimensionID: nanoid, data: { username: string, password: string}) => {
   return new Promise((resolve, reject) => {
-    axios.post(process.env.REACT_APP_API + '/api/dimensions/' + dimensionID + '/auth/login', data).then((res: AxiosResponse) => {
-      setCookie(COOKIE_NAME, res.data.token, 7);
+    axios.post(competitionAPI + '/dimensions/' + dimensionID + '/auth/login', data).then((res: AxiosResponse) => {
+      setCookie(COMPETITIONS_COOKIE_NAME.energium, res.data.token, 7);
       resolve(res.data.token);
     }).catch((error) => {
       message.error(error.response.data.error.message);
@@ -70,7 +65,7 @@ export const loginUser = async (dimensionID: nanoid, data: { username: string, p
 
 export const verifyToken = async (dimensionID: nanoid, token: string) => {
   return new Promise((resolve, reject) => {
-    axios.post(process.env.REACT_APP_API + '/api/dimensions/' + dimensionID + '/auth/verify', {}, {
+    axios.post(competitionAPI + '/dimensions/' + dimensionID + '/auth/verify', {}, {
       headers: { Authorization: `Bearer ${token}` }
     }).then((res: AxiosResponse) => {
       resolve(res);

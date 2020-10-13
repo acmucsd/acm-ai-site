@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { DimensionType, nanoid } from 'dimensions-ai';
-import { competitionAPI } from '../configs';
+import { competitionAPI } from '../../configs';
 
 // Returns all dimensions if no input
 export const getDimension = async (id: nanoid = '-1'): Promise<Array<DimensionType> | DimensionType> => {

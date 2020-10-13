@@ -6,8 +6,8 @@ import { Link, useParams } from 'react-router-dom';
 import { Table, Button } from 'antd';
 import MatchActionButton from '../MatchActionButton';
 import UserContext from '../../UserContext';
-import { downloadReplay } from '../../actions/tournament';
-import { getUrlForAgentLog } from '../../actions/match';
+import { downloadReplay } from '../../actions/dimensions/tournament';
+import { getUrlForAgentLog } from '../../actions/dimensions/match';
 import { competitionAPI } from '../../configs';
 
 
@@ -112,7 +112,6 @@ const MatchList = (props:
         return (
           <>
             {matchlogs.get(match.id) !== undefined ? matchlogs.get(match.id)!.map((info) => {
-            console.log(info);
               return (
               <a target='_blank' rel="noopener noreferrer" href={info.url}><div>{info.agent.name} logs</div></a>
               );

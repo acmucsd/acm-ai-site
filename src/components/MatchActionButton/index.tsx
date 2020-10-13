@@ -1,5 +1,5 @@
 import React from 'react';
-import { runMatch, stopMatch, removeMatch, resumeMatch } from '../../actions/match';
+import { runMatch, stopMatch, removeMatch, resumeMatch } from '../../actions/dimensions/match';
 import { Button } from 'antd';
 import { Match, nanoid } from 'dimensions-ai';
 import './index.less';

@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './index.less';
+import { LoadingOutlined } from '@ant-design/icons';
 import DefaultLayout from "../../../components/layouts/default";
 import { Link } from 'react-router-dom';
 import { Energium } from '../../../components/Text/Energium';
-import { Button } from 'antd';
+import { Button, message, Spin } from 'antd';
 import DiscordLink from '../../../components/DiscordLink';
 import CompetitionDiscordLink from '../../../components/CompetitionDiscordLink';
+import UserContext from '../../../UserContext';
+import TournamentContext from '../../../contexts/tournament';
+import { registerUser, loginUser } from '../../../actions/dimensions/auth';
 
 export const Energium2020Page = (props: any) => {
+  const _user = useContext(UserContext);
+  const user=  _user.user;
+  const { tournament } = useContext(TournamentContext);
+  const registerForCompetition = () => {
+    registerUser(tournament.dimID, {
+      username: user.username,
+      password: process.env.REACT_APP_BOT_PASSWORDS as string
+    }).then(() => {
+      loginUserToCompetition();
+    });
+  };
+  const loginUserToCompetition = () => {
+    loginUser(tournament.dimID, {
+      username: user.username,
+      password: process.env.REACT_APP_BOT_PASSWORDS as string
+    }).then(() => {
+      message.success("Registered into competition! Good luck!")
+    });
+  }
+  const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
   return (
     <DefaultLayout>
       <div className='Energium2020Page'>
       <div className='main-section'>
           <h1 className='statement'>Welcome to the Fall 2020 AI competition - <Energium /></h1>
-          <p><Link to='/competitions/energium/ranks'><Button className="tourney-btn" type="primary">View Leaderboard</Button></Link><Link to='/competitions/energium/upload'><Button className="tourney-btn" type="primary">Upload Bot</Button></Link></p>
+          <p><Link to='/competitions/energium/ranks'><Button className="tourney-btn" type="primary">View Leaderboard</Button></Link>
+            {user.competitionRegistrations.energium === undefined ? <span className='Loading'>Loading <Spin indicator={antIcon} /></span>: user.competitionRegistrations.energium ? <Link to='/competitions/energium/upload'><Button className="tourney-btn" type="primary">Upload Bot</Button></Link> : <Button onClick={registerForCompetition} className="tourney-btn" type="primary">Register</Button>}
+            </p>
           <br />
           <p>Welcome to the 2nd ACM AI Competition, completely unique and different from any other competition. You must use your wits and strategies, along with knowledge of programming, to create an intelligent bot that beats all of the other competitors. Here's a quick back story</p>
           

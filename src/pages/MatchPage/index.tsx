@@ -4,7 +4,7 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { getMatchFromDimension } from '../../actions/dimensions';
+import { getMatchFromDimension } from '../../actions/dimensions/dimensions';
 
 // NOTE!! Can import outside src as long as we dont use instanceof dimension or actually use it, we can just it for typings
 import Match from '../../components/Match';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route} from 'react-router-dom';
 import TournamentRankingsPage from '../../pages/TournamentRankingsPage';
-import TournamentPage from '../../pages/TournamentPage';
 import UploadBotPage from '../../pages/UploadBotPage';
 import ProfilePage from '../../pages/ProfilePage';
 import SetupTournament from '../../containers/tournament';
@@ -9,7 +8,7 @@ import TournamentMatchPage from '../../pages/TournamentMatchPage';
 import Energium2020Page from '../../pages/Competitions/Energium2020Page';
 export const EnergiumRoutes = () => {
   const Setupfall2020Tourney = (component: JSX.Element) => {
-    return <SetupTournament component={component} dimensionID='acmdim' tournamentID='tourney' />
+    return <SetupTournament type="general" component={component} dimensionID='acmdim' tournamentID='tourney' />
   }
   return <>
   <Route 
@@ -33,6 +32,6 @@ export const EnergiumRoutes = () => {
               render={() => Setupfall2020Tourney(<TournamentMatchPage />)}
             />
             <Route path="/competitions/energium/upload" exact 
-              render={() => Setupfall2020Tourney(<UploadBotPage />)}
+              render={() => Setupfall2020Tourney(<UploadBotPage competitionKey='energium' />)}
             /></>
 }
