@@ -66,6 +66,9 @@ function App() {
       ReactGA.pageview(location.pathname);
     }
   }, [initializedGA, location]);
+  const Setupfall2020Tourney = (component: JSX.Element) => {
+    return <SetupTournament component={component} dimensionID='acmdim' tournamentID='tourney' />
+  }
   return (
     <div>
       <Switch>
@@ -84,29 +87,29 @@ function App() {
             return <TournamentRankingsPageHistorical dataDir="2020summer" description={HideAndSeek2020}/>
           }} />
           <TournamentProvider value={{tournament: tournament, setTournament: setTournament}}>
-            {/* <Route 
-              path="/tournaments/:tournamentID" 
+            <Route 
+              path="/competitions/energium" 
               exact 
-              render={() => <SetupTournament component={<TournamentPage />} />}
-            /> */}
-            {/* <Route 
-              path="/tournaments/:tournamentID/ranks" 
-              exact 
-              render={() => <SetupTournament component={<TournamentRankingsPage />} />}
+              render={() => Setupfall2020Tourney(<TournamentPage />)}
             />
             <Route 
-              path="/tournaments/:tournamentID/user/:userID" 
+              path="/competitions/energium/ranks" 
               exact 
-              render={() => <SetupTournament component={<ProfilePage />} />}
+              render={() => Setupfall2020Tourney(<TournamentRankingsPage />)}
             />
             <Route 
-              path="/tournaments/:tournamentID/match/:matchID" 
+              path="/competitions/energium/user/:userID" 
               exact 
-              render={() => <SetupTournament component={<TournamentMatchPage />} />}
+              render={() => Setupfall2020Tourney(<ProfilePage />)}
             />
-            <Route path="/tournaments/:tournamentID/upload" exact 
-              render={() => <SetupTournament component={<UploadBotPage />} />}
-            /> */}
+            <Route 
+              path="/competitions/energium/match/:matchID" 
+              exact 
+              render={() => Setupfall2020Tourney(<TournamentMatchPage />)}
+            />
+            <Route path="/competitions/energium/upload" exact 
+              render={() => Setupfall2020Tourney(<UploadBotPage />)}
+            />
           </TournamentProvider>
         </UserProvider> :
         <div className='Loading' style={{

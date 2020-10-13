@@ -22,4 +22,7 @@ export const defaultTournament: TournamentMeta = {
   name: '',
   status: null,
   competitors: new Map(),
+  dimID: '',
 }
+
+export const competitionAPI = 'https://ai.acmucsd.com/fall2020/compete';

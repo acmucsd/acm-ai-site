@@ -7,7 +7,8 @@ export interface TournamentMeta {
   competitors: Map<string, any>
   log: any,
   name: string,
-  status: Tournament.Status | null
+  status: Tournament.Status | null,
+  dimID: nanoid
 }
 //return pick(t, 'competitors', 'configs', 'id', 'log', 'name', 'status');
 

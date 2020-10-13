@@ -9,36 +9,42 @@ import { getTournamentFromDimension } from '../actions/dimensions';
 import { message } from "antd";
 import { DIMENSION_ID } from "../configs";
 
+
+export type SetupTournamentProps = {
+  dimensionID: string,
+  tournamentID: string,
+  component: JSX.Element,
+}
 /**
  * Auto stores tournament into context 
  */
-function SetupTournament(props: any) {
-  const params: any = useParams();
+function SetupTournament({dimensionID, tournamentID, component}: SetupTournamentProps) {
   const history = useHistory();
   const { tournament, setTournament } = useContext(TournamentContext);
   useEffect(() => {
-    if (!DIMENSION_ID) {
+    if (!dimensionID) {
       message.error('dimension ID not given');
       history.push('/');
       return;
     }
-    else if (!params.tournamentID) {
+    else if (!tournamentID) {
       message.error('tournament ID not given');
       history.push('/');
       return;
     }
     if (tournament.id === '') {
-      getTournamentFromDimension(DIMENSION_ID, params.tournamentID).then((res) => {
-        setTournament(res);
-      }).catch(() => {
-        message.error('No tournament found with id ' + params.tournamentID);
+      getTournamentFromDimension(dimensionID, tournamentID).then((res) => {
+        setTournament({...res, dimID: dimensionID });
+      }).catch((err) => {
+        console.log(err)
+        message.error('No tournament found with id ' + tournamentID);
         history.push('../../');
       });
     }
   }, []);
   return (
     <div>
-      { props.component }
+      { component }
     </div>
   )
 }

@@ -10,7 +10,6 @@ import UserContext from '../../UserContext';
 import TournamentContext from '../../contexts/tournament';
 import BackLink from '../../components/BackLink';
 import path from 'path';
-import { DIMENSION_ID, OPEN_TO_PUBLIC } from '../../configs';
 
 const trueskillCols = [
   {
@@ -112,7 +111,7 @@ function TournamentPage() {
     let rankSystem = tournament.configs.rankSystem;
     setRankSystem(rankSystem!);
 
-    getRanks(DIMENSION_ID, params.tournamentID).then((res) => {
+    getRanks(tournament.dimID, tournament.id).then((res) => {
       let newData = [];
       newData = res.map((info: any, ind: number) => {
         return {
@@ -129,8 +128,10 @@ function TournamentPage() {
     });
   }
   useEffect(() => {
-    update();
-  }, [tournament, DIMENSION_ID, params.tournamentID]);
+    if (tournament.id) {
+      update();
+    }
+  }, [tournament]);
   return (
     <DefaultLayout>
       <div className='TournamentRankingsPage'>
@@ -147,7 +148,7 @@ function TournamentPage() {
         <br />
         {
           tournament && user.admin && 
-          <TournamentActionButton dimensionID={DIMENSION_ID} tournament={tournament} update={update}/>
+          <TournamentActionButton dimensionID={tournament.id} tournament={tournament} update={update}/>
         }
         
         { ranksystem === 'trueskill' && 

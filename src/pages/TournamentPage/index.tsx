@@ -22,20 +22,21 @@ function TournamentPage() {
   // const [tournament, setTournament] = useState<Tournament>();
   //@ts-ignore
   const update = () => {
-    // let rankSystem = tournament.configs.rankSystem;
-
-    getMatches(DIMENSION_ID, params.tournamentID).then((res) => {
-      let sorted = Object.values(res).sort((a, b) => {
-        return (new Date(a.creationDate)).getTime() - (new Date(b.creationDate).getTime());
+    if (tournament.dimID) {
+      getMatches(tournament.dimID, tournament.id).then((res) => {
+        let sorted = Object.values(res).sort((a, b) => {
+          return (new Date(a.creationDate)).getTime() - (new Date(b.creationDate).getTime());
+        })
+        setMatches(sorted);
+      }).finally(() => {
+        setLoading(false);
       })
-      setMatches(sorted);
-    }).finally(() => {
-      setLoading(false);
-    })
+    }
   }
   useEffect(() => {
     update();
-  }, [tournament, DIMENSION_ID, params.tournamentID]);
+    console.log(tournament);
+  }, [tournament]);
   return (
     <DefaultLayout>
       <div className='TournamentPage'>
