@@ -12,8 +12,7 @@ import TournamentContext from '../../../contexts/tournament';
 import { registerUser, loginUser } from '../../../actions/dimensions/auth';
 
 export const Energium2020Page = (props: any) => {
-  const _user = useContext(UserContext);
-  const user=  _user.user;
+  const {user, setUser} = useContext(UserContext);
   const { tournament } = useContext(TournamentContext);
   const registerForCompetition = () => {
     registerUser(tournament.dimID, {
@@ -28,6 +27,9 @@ export const Energium2020Page = (props: any) => {
       username: user.username,
       password: process.env.REACT_APP_BOT_PASSWORDS as string
     }).then(() => {
+      const newuser = {...user}
+      newuser.competitionRegistrations.energium = true;
+      setUser(newuser);
       message.success("Registered into competition! Good luck!")
     });
   }
