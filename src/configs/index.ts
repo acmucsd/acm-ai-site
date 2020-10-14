@@ -37,4 +37,4 @@ export const defaultTournament: TournamentMeta = {
   dimID: '',
 }
 
-export const competitionAPI = 'https://ai.acmucsd.com/fall2020/compete';
+export const competitionAPI = 'https://compete.ai.acmucsd.com/api';

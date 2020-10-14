@@ -51,9 +51,9 @@ export const Energium2020Page = (props: any) => {
       <div className='Energium2020Page'>
       <div className='main-section'>
           <h1 className='statement'>Welcome to the Fall 2020 AI competition - <Energium /></h1>
-          <p><Link to='/competitions/energium/ranks'><Button className="tourney-btn" type="primary">View Leaderboard</Button></Link>
+          <div><Link to='/competitions/energium/ranks'><Button className="tourney-btn" type="primary">View Leaderboard</Button></Link>
             {renderRegisterUploadButton()}
-            </p>
+          </div>
           <br />
           <p>Welcome to the 2nd ACM AI Competition, completely unique and different from any other competition. You must use your wits and strategies, along with knowledge of programming, to create an intelligent bot that beats all of the other competitors. Here's a quick back story</p>
           
