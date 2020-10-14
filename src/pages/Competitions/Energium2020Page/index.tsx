@@ -33,6 +33,18 @@ export const Energium2020Page = (props: any) => {
       message.success("Registered into competition! Good luck!")
     });
   }
+  const renderRegisterUploadButton = () => {
+    if (user.loggedIn) {
+      if (user.competitionRegistrations.energium === undefined) {
+        return <span className='Loading'>Loading <Spin indicator={antIcon} /></span>
+      } else {
+        return user.competitionRegistrations.energium ? <Link to='/competitions/energium/upload'><Button className="tourney-btn" type="primary">Upload Bot</Button></Link> : <Button onClick={registerForCompetition} className="tourney-btn" type="primary">Register in Competition</Button>
+      }
+    } else {
+      return <Link to="/login"><Button className="tourney-btn" type="primary">Login to register</Button></Link>
+    }
+  }
+
   const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
   return (
     <DefaultLayout>
@@ -40,7 +52,7 @@ export const Energium2020Page = (props: any) => {
       <div className='main-section'>
           <h1 className='statement'>Welcome to the Fall 2020 AI competition - <Energium /></h1>
           <p><Link to='/competitions/energium/ranks'><Button className="tourney-btn" type="primary">View Leaderboard</Button></Link>
-            {user.competitionRegistrations.energium === undefined ? <span className='Loading'>Loading <Spin indicator={antIcon} /></span>: user.competitionRegistrations.energium ? <Link to='/competitions/energium/upload'><Button className="tourney-btn" type="primary">Upload Bot</Button></Link> : <Button onClick={registerForCompetition} className="tourney-btn" type="primary">Register</Button>}
+            {renderRegisterUploadButton()}
             </p>
           <br />
           <p>Welcome to the 2nd ACM AI Competition, completely unique and different from any other competition. You must use your wits and strategies, along with knowledge of programming, to create an intelligent bot that beats all of the other competitors. Here's a quick back story</p>

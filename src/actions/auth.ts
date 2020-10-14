@@ -3,8 +3,7 @@ import { message } from 'antd';
 import { setCookie, deleteCookie } from '../utils/cookie';
 import { nanoid } from 'dimensions-ai';
 import { User } from '../UserContext';
-import { COOKIE_NAME } from '../configs';
-import { isNullOrUndefined } from 'util';
+import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
 export const registerUser = async (dimensionID: nanoid, data: { username: string, password: string, email: string}) => {
   let body = {
@@ -26,6 +25,9 @@ export const registerUser = async (dimensionID: nanoid, data: { username: string
 
 export const logoutUser = () => {
   deleteCookie(COOKIE_NAME);
+  for (const cookie_name of Object.values(COMPETITIONS_COOKIE_NAME)) {
+    deleteCookie(cookie_name);
+  }
 }
 export const getUserFromToken = (token: string): User => {
   let res = tokenGetClaims(token);

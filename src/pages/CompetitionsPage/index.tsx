@@ -15,9 +15,9 @@ function CompetitionsPage(props: any) {
       <div className='CompetitionsPage'>
         <div className='hero'>
           <h1 id='title'>Welcome to ACM AI Competitions <span role="img" aria-label="trophy-emoji">🏆</span></h1>
-          <p className='subtext'>Fall Competition starting on October 14th, stay tuned!</p>   
+          <p className='subtext'>Click here to enter our Fall 2020 AI Competition - Energium AI!</p>   
           <div className='button-wrapper'>
-            <Link to='register'><Button className='registerbtn'>Register</Button></Link>
+            <Link to='/competitions/energium'><Button className='registerbtn'>Take me there!</Button></Link>
           </div>
         </div>
         <div>

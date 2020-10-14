@@ -53,11 +53,6 @@ function Header() {
         }}>
           Logout
         </Menu.Item>,
-        <Menu.Item key='profile'>
-          <Link to={`/tournaments/${TOURNAMENT_ID}/user/${user.id}`} rel="noopener noreferrer">
-            Profile
-          </Link>
-        </Menu.Item>
         ]
       )
     }

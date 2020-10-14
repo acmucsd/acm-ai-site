@@ -31,6 +31,7 @@ function SetupTournament({dimensionID, tournamentID, component, type}: SetupTour
   const { user, setUser } = useContext(UserContext);
   let cookie = getCookie(COMPETITIONS_COOKIE_NAME.energium);
   useEffect(() => {
+    
     if (type === 'general') {
       if (!dimensionID) {
         message.error('dimension ID not given');
@@ -45,25 +46,28 @@ function SetupTournament({dimensionID, tournamentID, component, type}: SetupTour
       if (tournament.id === '') {
         getTournamentFromDimension(dimensionID, tournamentID).then((res) => {
           setTournament({...res, dimID: dimensionID });
-          user.competitionRegistrations.energium = false;
-          getUser(dimensionID, user.username).then((dim_user) => {
-            if (dim_user) {
-              user.competitionRegistrations.energium = true;
-              const newuser = {...user}
-              newuser.competitionRegistrations.energium = true;
-              console.log(dim_user.username);
-              newuser.competitionData.energium = {
-                username: dim_user.username,
-                id: dim_user.playerID as string,
-                statistics: dim_user.statistics,
-                admin: false,
-              };
-              setUser(newuser);
-            } else {
-              const newuser = {...user}
-              newuser.competitionRegistrations.energium = false;
-              setUser(newuser)
-            }
+        }).catch((err) => {
+          console.log(err)
+          message.error('No tournament found with id ' + tournamentID);
+          history.push('../../');
+        });
+      }
+    }
+  }, [tournamentID]);
+  useEffect(() => {
+    if (user.loggedIn) {
+        getUser(dimensionID, user.username).then((dim_user) => {
+          if (dim_user) {
+            user.competitionRegistrations.energium = true;
+            const newuser = {...user}
+            newuser.competitionRegistrations.energium = true;
+            newuser.competitionData.energium = {
+              username: dim_user.username,
+              id: dim_user.playerID as string,
+              statistics: dim_user.statistics,
+              admin: false,
+            };
+            setUser(newuser);
             // verify and store cookie
             if (cookie) {
               verifyToken(dimensionID, cookie).then(() => {
@@ -84,16 +88,15 @@ function SetupTournament({dimensionID, tournamentID, component, type}: SetupTour
               }).then(() => {
               });
             }
-          });
+          } else {
+            const newuser = {...user}
+            newuser.competitionRegistrations.energium = false;
+            setUser(newuser)
+          }
           
-        }).catch((err) => {
-          console.log(err)
-          message.error('No tournament found with id ' + tournamentID);
-          history.push('../../');
         });
-      }
     }
-  }, []);
+  }, [user.competitionRegistrations.energium]);
   return (
     <div>
       { component }
