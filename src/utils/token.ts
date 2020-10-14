@@ -5,4 +5,4 @@ import { COOKIE_NAME } from '../configs';
  */
 export const getToken = (cookie = COOKIE_NAME) => {
   return getCookie(cookie);
-}
+};

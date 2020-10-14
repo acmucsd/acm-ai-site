@@ -5,30 +5,42 @@ import { nanoid } from 'dimensions-ai';
 import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
-export const registerUser = async (dimensionID: nanoid, data: { username: string, password: string, email: string}) => {
+export const registerUser = async (
+  dimensionID: nanoid,
+  data: { username: string; password: string; email: string }
+) => {
   let body = {
     username: data.username,
     password: data.password,
     userData: {
-      email: data.email
-    }
-  }
+      email: data.email,
+    },
+  };
   return new Promise((resolve, reject) => {
-    axios.post(process.env.REACT_APP_API + '/api/dimensions/' + dimensionID + '/auth/register', body).then((res: AxiosResponse) => {
-      resolve(res);
-    }).catch((error) => {
-      message.error(error.response.data.error.message);
-      reject(error);
-    });
+    axios
+      .post(
+        process.env.REACT_APP_API +
+          '/api/dimensions/' +
+          dimensionID +
+          '/auth/register',
+        body
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error(error.response.data.error.message);
+        reject(error);
+      });
   });
-}
+};
 
 export const logoutUser = () => {
   deleteCookie(COOKIE_NAME);
   for (const cookie_name of Object.values(COMPETITIONS_COOKIE_NAME)) {
     deleteCookie(cookie_name);
   }
-}
+};
 export const getUserFromToken = (token: string): User => {
   let res = tokenGetClaims(token);
   return {
@@ -43,9 +55,9 @@ export const getUserFromToken = (token: string): User => {
     competitionData: {
       energium: undefined,
       openai: undefined,
-    }
+    },
   };
-}
+};
 
 export const tokenGetClaims = (token: string): any => {
   if (!token) {
@@ -55,30 +67,54 @@ export const tokenGetClaims = (token: string): any => {
   if (tokenArray.length !== 3) {
     return {};
   }
-  return JSON.parse(window.atob(tokenArray[1].replace('-', '+').replace('_', '/')));
+  return JSON.parse(
+    window.atob(tokenArray[1].replace('-', '+').replace('_', '/'))
+  );
 };
 
-export const loginUser = async (dimensionID: nanoid, data: { username: string, password: string}) => {
+export const loginUser = async (
+  dimensionID: nanoid,
+  data: { username: string; password: string }
+) => {
   return new Promise((resolve, reject) => {
-    axios.post(process.env.REACT_APP_API + '/api/dimensions/' + dimensionID + '/auth/login', data).then((res: AxiosResponse) => {
-      setCookie(COOKIE_NAME, res.data.token, 7);
-      resolve(res.data.token);
-    }).catch((error) => {
-      message.error(error.response.data.error.message);
-      reject(error);
-    });
+    axios
+      .post(
+        process.env.REACT_APP_API +
+          '/api/dimensions/' +
+          dimensionID +
+          '/auth/login',
+        data
+      )
+      .then((res: AxiosResponse) => {
+        setCookie(COOKIE_NAME, res.data.token, 7);
+        resolve(res.data.token);
+      })
+      .catch((error) => {
+        message.error(error.response.data.error.message);
+        reject(error);
+      });
   });
-}
+};
 
 export const verifyToken = async (dimensionID: nanoid, token: string) => {
   return new Promise((resolve, reject) => {
-    axios.post(process.env.REACT_APP_API + '/api/dimensions/' + dimensionID + '/auth/verify', {}, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then((res: AxiosResponse) => {
-      resolve(res);
-    }).catch((error) => {
-      // message.error(error.response.data.error.message);
-      reject(error);
-    });
+    axios
+      .post(
+        process.env.REACT_APP_API +
+          '/api/dimensions/' +
+          dimensionID +
+          '/auth/verify',
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        // message.error(error.response.data.error.message);
+        reject(error);
+      });
   });
-}
+};
