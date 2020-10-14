@@ -78,10 +78,10 @@ But time is of the essence, and these robots need an AI to help them run effecti
           <br />
           <br />
           <h1 className='statement'>Prizes 🏆</h1>
-          <p>A total of $100 will be distributed amongst the top 3 competitors</p>
+          <p>A total of $100 will be distributed amongst the top 3 competitors (in the form of gift cards)</p>
           <p>1st: $50</p>
           <p>2nd: $35</p>
-          <p>3rd: $20</p>
+          <p>3rd: $15</p>
           <br />
           <br />
           <h1 className='statement'>Rules / Code of Conduct</h1>
