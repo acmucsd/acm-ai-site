@@ -135,7 +135,7 @@ function TournamentRankingsPage() {
       <div className='TournamentRankingsPage'>
         <br />
         <BackLink to='../'/>
-        <h2>{tournament.name}</h2>
+        <h2>{tournament.configs.name}</h2>
         <Button onClick={() => {
           history.push(path.join(history.location.pathname, '../upload'));
         }}>Upload Bot</Button>

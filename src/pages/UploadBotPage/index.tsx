@@ -47,7 +47,7 @@ function UploadBotPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
 
     }
     if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
+      message.success(`${info.file.name} file added successfully`);
       let file: any = info.file;
       setFile(file.originFileObj);
     }
@@ -82,7 +82,7 @@ function UploadBotPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
                   customRequest={dummyRequest}
                 >
                   <Button className="upload-bot">
-                    <UploadOutlined /> Click to upload bot
+                    <UploadOutlined /> Click to add bot zip file
                   </Button>
                 </Upload>
               </div>
@@ -100,7 +100,7 @@ function UploadBotPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
                 rules={{ required: true }}
                 name='path'
               />
-              <Button htmlType="submit" className='submit-button'>Submit</Button>
+              <Button htmlType="submit" className='submit-button'>Submit Bot</Button>
             </form>
           </Form>
         </Card>

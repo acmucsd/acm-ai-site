@@ -101,20 +101,26 @@ const MatchList = (props:
       dataIndex: 'result',
       render: (match: Match) => {
         let matchResult: JSX.Element = <span>Tie</span>
-        const ranks = match.results.ranks;
-        const agentRanks: Record<number, any> = {};
-        agentRanks[ranks[0].agentID] = ranks[0].rank;
-        agentRanks[ranks[1].agentID] = ranks[1].rank;
-        if (agentRanks[0] < agentRanks[1]) {
-          matchResult = <span>1st: {match.results.stats["" + 0].name}, 2nd: {match.results.stats["" + 1].name}</span>
-        } else if (agentRanks[0] > agentRanks[1]) {
-          matchResult = <span>1st: {match.results.stats["" + 1].name}, 2nd: {match.results.stats["" + 0].name}</span>
+        if (match.results) {
+          const ranks = match.results.ranks;
+          const agentRanks: Record<number, any> = {};
+          agentRanks[ranks[0].agentID] = ranks[0].rank;
+          agentRanks[ranks[1].agentID] = ranks[1].rank;
+          if (agentRanks[0] < agentRanks[1]) {
+            matchResult = <span>1st: {match.results.stats["" + 0].name}, 2nd: {match.results.stats["" + 1].name}</span>
+          } else if (agentRanks[0] > agentRanks[1]) {
+            matchResult = <span>1st: {match.results.stats["" + 1].name}, 2nd: {match.results.stats["" + 0].name}</span>
+          }
+          return (
+            <>
+            {match.results ? <a target='_blank' rel="noopener noreferrer" href={competitionAPI + `/dimensions/${props.dimID}/match/${match.id}/results`}><div>{matchResult}</div></a> : 'No results yet'}
+            </>
+          )
+        } else {
+          return (
+            <><a target='_blank' rel="noopener noreferrer" href={competitionAPI + `/dimensions/${props.dimID}/match/${match.id}/results`}><div>Error</div></a></>
+          )
         }
-        return (
-          <>
-           {match.results ? <a target='_blank' rel="noopener noreferrer" href={competitionAPI + `/dimensions/${props.dimID}/match/${match.id}/results`}><div>{matchResult}</div></a> : 'No results yet'}
-          </>
-        )
       }
     },
     {
@@ -147,12 +153,10 @@ const MatchList = (props:
   }];
   const fetchLogs = (match: Match) => {
     let promises: Array<Promise<{url: string, agent: Agent}>> = [];
-    if (match.results) {
-      match.agents.forEach((agent) => {
-        let geturlpromise = getUrlForAgentLog(props.dimID, match.id, agent.id).then((res) => {return {url: res.url, agent: agent}});
-        promises.push(geturlpromise);
-      });
-    }
+    match.agents.forEach((agent) => {
+      let geturlpromise = getUrlForAgentLog(props.dimID, match.id, agent.id).then((res) => {return {url: res.url, agent: agent}});
+      promises.push(geturlpromise);
+    });
     Promise.all(promises).then((info) => {
       let newmatchlogs = matchlogs.set(match.id, info);
       setMatchLogs(newmatchlogs);

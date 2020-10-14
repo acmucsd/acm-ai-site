@@ -64,7 +64,7 @@ function ProfilePage({competitionKey}: {competitionKey: string}) {
           }
         </div>
         <div className="statistics">
-          <h3>Statistics for Tournament: {tournament.name}</h3>
+          <h3>Statistics for Tournament: {tournament.configs.name}</h3>
           <Skeleton loading={!stats && !stats.player}>
             <p>Matches Played with Current Bot: {stats.matchesPlayed}</p>
             { ranksystem === 'trueskill' && 
