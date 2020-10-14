@@ -5,13 +5,12 @@ import Card from '../../../components/Card';
 import { Form, Input, message, Button } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { loginUser, getUserFromToken } from '../../../actions/auth';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserContext from '../../../UserContext';
 import { DIMENSION_ID } from '../../../configs';
 
 function LoginPage() {
   let { setUser } = useContext(UserContext);
-  const history = useHistory();
   const { handleSubmit, errors, control } = useForm();
   const onSubmit = (values: any) => {
     // update step
@@ -20,7 +19,7 @@ function LoginPage() {
     loginUser(DIMENSION_ID, values).then((res: any) => {
       setUser(getUserFromToken(res));
       message.success('Logged in!');
-      history.push('/');
+      window.location.href = "/";
     });
   }
 

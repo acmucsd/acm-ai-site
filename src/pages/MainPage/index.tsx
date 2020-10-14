@@ -11,7 +11,6 @@ function MainPage() {
   useEffect(() => {
     fetchFutureEvents().then((data) => {
       setEventData(data);
-      console.log(data);
     });
   }, []);
   return (

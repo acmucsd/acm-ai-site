@@ -8,6 +8,7 @@
     "cors": "^2.8.5",
     "dimensions-ai": "^2.4.0",
     "express": "^4.17.1",
+    "prettier": "^2.1.2",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.6",
     "react-dom": "^16.13.1",
@@ -20,7 +21,8 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write 'src/**/*.ts'"
   },
   "eslintConfig": {
     "extends": "react-app"

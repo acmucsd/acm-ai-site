@@ -4,21 +4,14 @@ import { UserProvider } from './UserContext'
 import { TournamentProvider } from './contexts/tournament';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import SetupTournament from './containers/tournament';
 
 import './styles/index.less';
 import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
 
-import MatchPage from './pages/MatchPage';
-import TournamentRankingsPage from './pages/TournamentRankingsPage';
-import TournamentPage from './pages/TournamentPage';
-import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
-import TournamentMatchPage from './pages/TournamentMatchPage';
+import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical'
 import RegisterPage from './pages/Auth/RegisterPage';
 import LoginPage from './pages/Auth/LoginPage';
-import UploadBotPage from './pages/UploadBotPage';
-import ProfilePage from './pages/ProfilePage';
 
 import { getCookie } from './utils/cookie';
 import { verifyToken, getUserFromToken } from './actions/auth';
@@ -29,6 +22,7 @@ import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
 import AboutPage from './pages/AboutPage';
 import EventHasNotStartedPage from './pages/EventHasNotStarted';
+import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
 
 
 let cookie = getCookie(COOKIE_NAME);
@@ -62,10 +56,10 @@ function App() {
   }, []);
   useEffect(() => {
     if (initializedGA) {
-      console.log(location.pathname);
       ReactGA.pageview(location.pathname);
     }
   }, [initializedGA, location]);
+  
   return (
     <div>
       <Switch>
@@ -84,29 +78,7 @@ function App() {
             return <TournamentRankingsPageHistorical dataDir="2020summer" description={HideAndSeek2020}/>
           }} />
           <TournamentProvider value={{tournament: tournament, setTournament: setTournament}}>
-            {/* <Route 
-              path="/tournaments/:tournamentID" 
-              exact 
-              render={() => <SetupTournament component={<TournamentPage />} />}
-            /> */}
-            {/* <Route 
-              path="/tournaments/:tournamentID/ranks" 
-              exact 
-              render={() => <SetupTournament component={<TournamentRankingsPage />} />}
-            />
-            <Route 
-              path="/tournaments/:tournamentID/user/:userID" 
-              exact 
-              render={() => <SetupTournament component={<ProfilePage />} />}
-            />
-            <Route 
-              path="/tournaments/:tournamentID/match/:matchID" 
-              exact 
-              render={() => <SetupTournament component={<TournamentMatchPage />} />}
-            />
-            <Route path="/tournaments/:tournamentID/upload" exact 
-              render={() => <SetupTournament component={<UploadBotPage />} />}
-            /> */}
+            <EnergiumRoutes />
           </TournamentProvider>
         </UserProvider> :
         <div className='Loading' style={{

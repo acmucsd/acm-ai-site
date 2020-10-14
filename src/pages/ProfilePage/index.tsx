@@ -2,17 +2,16 @@ import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
 import DefaultLayout from "../../components/layouts/default";
 import { useParams, useHistory } from 'react-router-dom';
-import { downloadBot, getPlayerMatches } from '../../actions/tournament';
-import { Player, Match } from 'dimensions-ai';
-import { getUser } from '../../actions/dimensions';
+import { downloadBot, getPlayerMatches } from '../../actions/dimensions/tournament';
+import { Match } from 'dimensions-ai';
+import { getUser } from '../../actions/dimensions/dimensions';
 import { Database } from 'dimensions-ai/lib/Plugin/Database';
 import TournamentContext from '../../contexts/tournament';
 import { Skeleton, Divider, Button, message } from 'antd';
 import UserContext from '../../UserContext';
-import MatchList from '../../components/MatchList';
-import { DIMENSION_ID, OPEN_TO_PUBLIC } from '../../configs';
+import MatchList from '../../components/Energium2020/MatchList';
 
-function ProfilePage() {
+function ProfilePage({competitionKey}: {competitionKey: string}) {
   const params: any = useParams();
   const history = useHistory();
   const [dbuser, setUser] = useState<Database.User>();
@@ -25,14 +24,13 @@ function ProfilePage() {
     if (tournament.id) {
       setRankSystem(tournament.configs.rankSystem);
       let tourneyKey = tournament.name.replace(/ /g, "_") + "_" + tournament.id;
-      getUser(DIMENSION_ID, params.userID).then((res) => {
+      getUser(tournament.dimID, params.userID).then((res) => {
         setUser(res);
         if (res.statistics) {
           let s = res.statistics![tourneyKey];
           if (s) {
             setStats(s);
           }
-          // setPlayer(s.player);
         }
       }).catch((err) => {
         if (!user.loggedIn) {
@@ -43,7 +41,7 @@ function ProfilePage() {
         }
         history.push('../');
       });
-      getPlayerMatches(DIMENSION_ID, tournament.id, params.userID, 0, 20).then((matches) => {
+      getPlayerMatches(tournament.dimID, tournament.id, params.userID, 0, 20).then((matches) => {
         matches = matches.map((m) => {
           // @ts-ignore
           m.matchStatus = "finished";
@@ -66,7 +64,7 @@ function ProfilePage() {
           }
         </div>
         <div className="statistics">
-          <h3>Statistics for Tournament: {tournament.name}</h3>
+          <h3>Statistics for Tournament: {tournament.configs.name}</h3>
           <Skeleton loading={!stats && !stats.player}>
             <p>Matches Played with Current Bot: {stats.matchesPlayed}</p>
             { ranksystem === 'trueskill' && 
@@ -104,7 +102,7 @@ function ProfilePage() {
             }} disabled>Upload</Button>
             <h4>Download Bot</h4>
             <Button onClick={() => {
-              downloadBot(DIMENSION_ID, tournament.id, params.userID).then((url) => {
+              downloadBot(tournament.dimID, tournament.id, params.userID).then((url) => {
                 window.open(url);
               }).catch((err) => {
                 console.error(err.message);
@@ -117,6 +115,9 @@ function ProfilePage() {
         <h3>Last 20 Matches</h3>
         <MatchList 
           matches={matches}
+          competitionKey={competitionKey}
+          dimID={tournament.dimID}
+          tournamentID={tournament.id}
         />
       </div>
     </DefaultLayout>

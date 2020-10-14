@@ -3,14 +3,13 @@ import './index.less';
 import { Tournament } from 'dimensions-ai';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
-import { getRanks } from '../../actions/tournament';
+import { getRanks } from '../../actions/dimensions/tournament';
 import TournamentActionButton from '../../components/TournamentActionButton';
 import { Table, Button } from 'antd';
 import UserContext from '../../UserContext';
 import TournamentContext from '../../contexts/tournament';
 import BackLink from '../../components/BackLink';
 import path from 'path';
-import { DIMENSION_ID, OPEN_TO_PUBLIC } from '../../configs';
 
 const trueskillCols = [
   {
@@ -97,14 +96,12 @@ const eloCols = [
 ]
 
 
-function TournamentPage() {
+function TournamentRankingsPage() {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [ updateTime, setUpdateTime ] = useState<Date>();
   const { user } = useContext(UserContext);
   const { tournament } = useContext(TournamentContext);
-  const params: any = useParams();
-  // const [tournament, setTournament] = useState<Tournament>();
   //@ts-ignore
   const [ranksystem, setRankSystem] = useState<Tournament.RankSystem>('trueskill');
   const [data, setData] = useState<any>([]);
@@ -112,7 +109,7 @@ function TournamentPage() {
     let rankSystem = tournament.configs.rankSystem;
     setRankSystem(rankSystem!);
 
-    getRanks(DIMENSION_ID, params.tournamentID).then((res) => {
+    getRanks(tournament.dimID, tournament.id).then((res) => {
       let newData = [];
       newData = res.map((info: any, ind: number) => {
         return {
@@ -129,17 +126,19 @@ function TournamentPage() {
     });
   }
   useEffect(() => {
-    update();
-  }, [tournament, DIMENSION_ID, params.tournamentID]);
+    if (tournament.id) {
+      update();
+    }
+  }, [tournament]);
   return (
     <DefaultLayout>
       <div className='TournamentRankingsPage'>
         <br />
-        {/* <BackLink to='../'/> */}
-        <h2>{tournament.name}</h2>
+        <BackLink to='../'/>
+        <h2>{tournament.configs.name}</h2>
         <Button onClick={() => {
           history.push(path.join(history.location.pathname, '../upload'));
-        }} disabled>Upload Bot</Button>
+        }}>Upload Bot</Button>
         <Button className='refresh-btn' onClick={() => {
           update();
         }}>Refresh Leaderboard</Button>
@@ -147,7 +146,7 @@ function TournamentPage() {
         <br />
         {
           tournament && user.admin && 
-          <TournamentActionButton dimensionID={DIMENSION_ID} tournament={tournament} update={update}/>
+          <TournamentActionButton dimensionID={tournament.id} tournament={tournament} update={update}/>
         }
         
         { ranksystem === 'trueskill' && 
@@ -179,4 +178,4 @@ function TournamentPage() {
   );
 }
 
-export default TournamentPage
+export default TournamentRankingsPage

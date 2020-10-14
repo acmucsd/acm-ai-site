@@ -5,7 +5,7 @@ import { Table} from 'antd';
 import DefaultLayout from '../../components/layouts/default';
 import { useParams, Link } from 'react-router-dom';
 
-import { getDimension, getMatchesFromDimension, getTournamentsFromDimension } from '../../actions/dimensions';
+import { getDimension, getMatchesFromDimension, getTournamentsFromDimension } from '../../actions/dimensions/dimensions';
 
 // NOTE!! Can import outside src as long as we dont use instanceof dimension or actually use it, we can just it for typings
 import { DimensionType, Match, Tournament } from 'dimensions-ai';

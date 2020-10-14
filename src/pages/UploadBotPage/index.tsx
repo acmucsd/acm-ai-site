@@ -4,28 +4,32 @@ import DefaultLayout from "../../components/layouts/default";
 import { Form, Input, Button, Upload, message } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import Card from '../../components/Card';
-import { useParams, useHistory, Redirect } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import TournamentContext from '../../contexts/tournament';
-import { uploadBot } from '../../actions/tournament';
-import UserContext from '../../UserContext';
+import { uploadBot } from '../../actions/dimensions/tournament';
+import UserContext, { COMPETITION_NAMES } from '../../UserContext';
 import path from 'path';
-import { DIMENSION_ID, OPEN_TO_PUBLIC } from '../../configs';
 
 
-function UploadBotPage() {
+function UploadBotPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
   const { handleSubmit, control} = useForm();
   const [botFile, setFile] = useState<any>();
   const { tournament } = useContext(TournamentContext);
   const { user } = useContext(UserContext);
   const history = useHistory();
-  const params: any = useParams();
   useEffect(() => {
-    message.info("upload disabled") && history.replace("/");
-    // !user.loggedIn && message.info('You need to login to upload a bot') && history.replace(path.join(window.location.pathname, '../../../login'));
+    !user.loggedIn && message.info('You need to login to upload a bot') && history.replace(path.join(window.location.pathname, '../../../login'));
+    
   }, []);
+  useEffect(() => {
+    if (user.competitionRegistrations[competitionKey] !== undefined)  {
+      !user.competitionRegistrations[competitionKey] && message.info("You need to register into the competition to upload a bot") && history.replace(path.join(window.location.pathname, '../'));
+    }
+  }, [user]);
   const onSubmit = (values: any) => {
-    uploadBot(DIMENSION_ID, tournament.id, values.botname, botFile, user, values.path).then(() => {
+    // TODO: remove hardcoded competition specific names
+    uploadBot(tournament.dimID, tournament.id, values.botname, botFile, user.competitionData[competitionKey]?.id as string, values.path).then(() => {
       message.success('Succesfully uploaded bot');
     });
   }
@@ -43,14 +47,13 @@ function UploadBotPage() {
 
     }
     if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
+      message.success(`${info.file.name} file added successfully`);
       let file: any = info.file;
       setFile(file.originFileObj);
     }
   }
   return (
     <DefaultLayout>
-      {!OPEN_TO_PUBLIC && <Redirect to='/'/>}
       <div className='UploadBotPage'>
         <Card className='upload-form-card'>
           <h2>Submit Bot</h2>
@@ -79,7 +82,7 @@ function UploadBotPage() {
                   customRequest={dummyRequest}
                 >
                   <Button className="upload-bot">
-                    <UploadOutlined /> Click to upload bot
+                    <UploadOutlined /> Click to add bot zip file
                   </Button>
                 </Upload>
               </div>
@@ -97,7 +100,7 @@ function UploadBotPage() {
                 rules={{ required: true }}
                 name='path'
               />
-              <Button htmlType="submit" className='submit-button'>Submit</Button>
+              <Button htmlType="submit" className='submit-button'>Submit Bot</Button>
             </form>
           </Form>
         </Card>

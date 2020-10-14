@@ -15,9 +15,9 @@ function CompetitionsPage(props: any) {
       <div className='CompetitionsPage'>
         <div className='hero'>
           <h1 id='title'>Welcome to ACM AI Competitions <span role="img" aria-label="trophy-emoji">🏆</span></h1>
-          <p className='subtext'>Fall Competition starting on October 14th, stay tuned!</p>   
+          <p className='subtext'>Click here to enter our Fall 2020 AI Competition - Energium AI!</p>   
           <div className='button-wrapper'>
-            <Link to='register'><Button className='registerbtn'>Register</Button></Link>
+            <Link to='/competitions/energium'><Button className='registerbtn'>Take me there!</Button></Link>
           </div>
         </div>
         <div>
@@ -29,7 +29,8 @@ function CompetitionsPage(props: any) {
           </div>
           <div className='main-section'>
             <h1 className='statement'>Current Competitions</h1>
-            <p>The next competition will start on October 14th and run for about a week and a half. Stay tuned on our discord for events and follow our ACM at UCSD facebook page for events as well!</p>
+            <p>Check it out! <Link to='/competitions/energium/'>Energium AI</Link></p>
+            <p>This runs for about a week and a half. Stay tuned on our discord for events and follow our ACM at UCSD facebook page for events as well!</p>
             <h1 className='statement'>Past Competitions</h1>
             <p>A list of some of our past competitions!</p>
             <p><Link to={`/competitions/hide-and-seek2020`}>2020 - Hide and Seek</Link></p>

@@ -4,20 +4,19 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { getMatchFromDimension } from '../../actions/dimensions';
+import { getMatchFromDimension } from '../../actions/dimensions/dimensions';
 
 // NOTE!! Can import outside src as long as we dont use instanceof dimension or actually use it, we can just it for typings
 import Match from '../../components/Match';
 import { Match as DMatch } from 'dimensions-ai';
-import { DIMENSION_ID } from '../../configs';
 
-function MatchPage() {
+function MatchPage({dimID}: {dimID: string}) {
   const params: any = useParams();
   const history: any = useHistory();
   const [match, setMatch] = useState<DMatch>();
 
   const update = () => {
-    getMatchFromDimension(DIMENSION_ID, params.matchID).then((res) => {
+    getMatchFromDimension(dimID, params.matchID).then((res) => {
       if (!(res instanceof Array))  {
         setMatch(res);
       }
@@ -39,7 +38,7 @@ function MatchPage() {
         {match &&
           <Match
             match={match}
-            dimensionID={DIMENSION_ID}
+            dimensionID={dimID}
           />
         }
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './index.less';
 import DefaultLayout from "../../components/layouts/default";
 
@@ -9,7 +9,7 @@ const random_wait_message = [
   "Oops! We're still training our models 🤖, the event will start later",
   "Oops! It's not time yet for the event! Check back later ⏱"
 ]
-function EventHasNotStartedPage(props: any) {
+function EventHasNotStartedPage() {
 
   useEffect(() => {
 

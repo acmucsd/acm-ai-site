@@ -5,6 +5,7 @@ import { Table } from 'antd';
 import { Agent, Match as DMatch, nanoid } from 'dimensions-ai';
 import { Link } from 'react-router-dom';
 import UserContext from '../../UserContext';
+import { competitionAPI } from '../../configs';
 
 const Match = (props: {match: DMatch, dimensionID: nanoid}) => {
   const { user } = useContext(UserContext);
@@ -46,7 +47,7 @@ const Match = (props: {match: DMatch, dimensionID: nanoid}) => {
         <MatchActionButton match={match} dimensionID={id}/>
       }
       <h4>Match Results:</h4>
-      {match.results ? <a target='_blank' rel="noopener noreferrer" href={process.env.REACT_APP_API + `/api/dimensions/${id}/match/${match.id}/results`}>Results</a> : 'No results yet'}
+      {match.results ? <a target='_blank' rel="noopener noreferrer" href={competitionAPI + `/dimensions/${id}/match/${match.id}/results`}>Results</a> : 'No results yet'}
       <h4>Agents / Players</h4>
       <Table className='agentTable'
         columns={columns}
