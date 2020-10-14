@@ -51,6 +51,7 @@ export const Energium2020Page = (props: any) => {
       <div className='main-section'>
           <h1 className='statement'>Welcome to the Fall 2020 AI competition - <Energium /></h1>
           <div><Link to='/competitions/energium/ranks'><Button className="tourney-btn" type="primary">View Leaderboard</Button></Link>
+          <a href="https://github.com/acmucsd/energium-ai-2020/" target="_blank" rel="noopener noreferrer"><Button className="tourney-btn" type="primary">View Github</Button></a>
             {renderRegisterUploadButton()}
           </div>
           <br />
@@ -61,6 +62,10 @@ export const Energium2020Page = (props: any) => {
 
 But time is of the essence, and these robots need an AI to help them run effectively and mine as much energium possible before time runs out. What makes matters worse is, there's always a rival corporation on the same asteroid for some reason, trying to mine the resources too! Your goal is to build the best AI agent to control these collectors and get more energy than your competitors. Also, for some reason in 1000 years, Javascript, Python, and Java continue to be prevalent langauges for AI.</p>
           <br />
+          <div className="collectors-div">
+            <img src="/assets/competitions/energiumcollectors.png" className="collectors-img" alt="pair of collector bots"/>
+            <caption>A pair of collector bots</caption>
+          </div>
           <p>For details on <strong>specs</strong>, <strong>code</strong>, and how the game works, check out the <a href='https://github.com/acmucsd/energium-ai-2020' target='_blank' rel="noopener noreferrer">github!</a> We also love open source, so star the repository and feel free to contribute anything!</p>
           <br />
           <p>Be sure to join our competition discord at <CompetitionDiscordLink /> to talk strategy, ask questions, find teammates, or get help on bugs and more! Read below for details on how the competition rankings work and what the prizes are and the rules</p>
