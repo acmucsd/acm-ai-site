@@ -17,7 +17,7 @@ function TournamentMatchPage() {
         setMatch(res);
       });
     }
-  }, [tournament]);
+  }, [tournament, params.matchID]);
   return (
     <DefaultLayout>
       <div className='TournamentMatchPage'>

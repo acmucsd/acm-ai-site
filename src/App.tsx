@@ -9,13 +9,9 @@ import './styles/index.less';
 import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
 
-import TournamentRankingsPage from './pages/TournamentRankingsPage';
-import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
-import TournamentMatchPage from './pages/TournamentMatchPage';
+import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical'
 import RegisterPage from './pages/Auth/RegisterPage';
 import LoginPage from './pages/Auth/LoginPage';
-import UploadBotPage from './pages/UploadBotPage';
-import ProfilePage from './pages/ProfilePage';
 
 import { getCookie } from './utils/cookie';
 import { verifyToken, getUserFromToken } from './actions/auth';

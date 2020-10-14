@@ -4,19 +4,13 @@ import { Menu, message } from 'antd';
 import './index.less';
 import UserContext from '../../UserContext';
 import { logoutUser } from '../../actions/auth';
-import { defaultUser, DIMENSION_ID, TOURNAMENT_ID } from '../../configs';
+import { defaultUser } from '../../configs';
 
 function Header() {
   const { user, setUser } = useContext(UserContext);
   let path = window.location.pathname;
   let initKeys: Array<string> = [];
-  if (path.match(`/tournaments/${TOURNAMENT_ID}/ranks`)) {
-    initKeys=['leaderboard'];
-  }
-  else if (path.match(`/tournaments`)) {
-    initKeys=['tournament'];
-  }
-  else if (path.match(`/home`)) {
+  if (path.match(`/home`)) {
     initKeys=['home'];
   }
   if (path.match(`user`)) {

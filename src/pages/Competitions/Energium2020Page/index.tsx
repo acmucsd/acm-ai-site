@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import './index.less';
 import { LoadingOutlined } from '@ant-design/icons';
 import DefaultLayout from "../../../components/layouts/default";
 import { Link } from 'react-router-dom';
 import { Energium } from '../../../components/Text/Energium';
 import { Button, message, Spin } from 'antd';
-import DiscordLink from '../../../components/DiscordLink';
 import CompetitionDiscordLink from '../../../components/CompetitionDiscordLink';
 import UserContext from '../../../UserContext';
 import TournamentContext from '../../../contexts/tournament';

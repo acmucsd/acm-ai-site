@@ -4,7 +4,7 @@ import DefaultLayout from "../../components/layouts/default";
 import { Form, Input, Button, Upload, message } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import Card from '../../components/Card';
-import { useParams, useHistory, Redirect } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import TournamentContext from '../../contexts/tournament';
 import { uploadBot } from '../../actions/dimensions/tournament';
@@ -18,7 +18,6 @@ function UploadBotPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
   const { tournament } = useContext(TournamentContext);
   const { user } = useContext(UserContext);
   const history = useHistory();
-  const params: any = useParams();
   useEffect(() => {
     !user.loggedIn && message.info('You need to login to upload a bot') && history.replace(path.join(window.location.pathname, '../../../login'));
     

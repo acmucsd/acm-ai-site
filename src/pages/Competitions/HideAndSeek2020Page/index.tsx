@@ -3,12 +3,12 @@ import './index.less';
 import DefaultLayout from "../../../components/layouts/default";
 import { Link } from 'react-router-dom';
 
-function HideAndSeek2020Page(props: any) {
+function HideAndSeek2020Page() {
   return (
     <DefaultLayout>
       <div className='HideAndSeek2020Page'>
       <div className='main-section'>
-          <h1 className='statement'>Welcome to Hide and Seek 🙈🏃</h1>
+          <h1 className='statement'>Welcome to Hide and Seek <span role="img" aria-label="monkey hiding and running">🙈🏃</span></h1>
           <p>Congratulations to Joe Cai for winning the Hide and Seek AI Competition <span role="img" aria-label="first-place-medal-emoji">🥇</span></p>
           <p>And congratulations to Matei Gardus for winning the hacker award <span role="img" aria-label="computer-emoji">💻</span></p>
           <br/>
@@ -16,7 +16,7 @@ function HideAndSeek2020Page(props: any) {
           <br />
           <p>The competition has concluded already, you can see final results <Link to={`/history/hide-and-seek2020`}>here</Link> and checkout the <a href='https://medium.com/acmucsd/how-to-hide-from-ai-the-winner-interview-82a59aed5b0b' target='_blank' rel="noopener noreferrer">winner interview</a> with Joe Cai! Be sure to register to receive more updates and participate in future competitions!</p>
           <div className='gif-div'>
-            <img src="/hideandseek.gif">
+            <img src="/hideandseek.gif" alt="replay of a match">
             </img>
             <div className='caption'>A game of Hide and Seek where the blue <span className='seeker'>Seekers</span> swiftly find the <span className='hider'>Hiders</span> and corner them</div>
           </div>
