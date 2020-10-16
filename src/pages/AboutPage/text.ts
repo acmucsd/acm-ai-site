@@ -35,4 +35,9 @@ export const text: cardText[] = [
     name: 'Jason Vega',
     major: 'Computer Science',
   },
+  {
+    role: 'Developer',
+    name: 'Tung Doan',
+    major: 'Math-Computer Science',
+  },
 ];
