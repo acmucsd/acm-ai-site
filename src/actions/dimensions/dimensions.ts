@@ -1,14 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
-import { DimensionType, Match, Tournament, nanoid } from 'dimensions-ai';
+import { DUser, Tournament } from '../../types/dimensions';
+import { Match } from '../../types/dimensions';
 import { TournamentMeta } from '../../contexts/tournament';
 import { getToken } from '../../utils/token';
-import { Database } from 'dimensions-ai/lib/Plugin/Database';
 import { competitionAPI, COMPETITIONS_COOKIE_NAME } from '../../configs';
 
 // Returns all dimensions if no input
 export const getDimension = async (
-  id: nanoid = '-1'
-): Promise<Array<DimensionType> | DimensionType> => {
+  id: string = '-1'
+): Promise<Array<any> | any> => {
   return new Promise((resolve, reject) => {
     axios
       .get(competitionAPI + '/dimensions/' + (id === '-1' ? '' : id))
@@ -26,9 +26,9 @@ export const getDimension = async (
 };
 
 export const getUser = async (
-  dimensionID: nanoid,
-  playerID: nanoid
-): Promise<Database.User> => {
+  dimensionID: string,
+  playerID: string
+): Promise<DUser> => {
   let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
   return axios
     .get(competitionAPI + `/dimensions/${dimensionID}/users/${playerID}`, {
@@ -38,7 +38,7 @@ export const getUser = async (
 };
 
 export const getMatchesFromDimension = async (
-  dimensionID: nanoid
+  dimensionID: string
 ): Promise<{ [k in string]: Match }> => {
   return new Promise((resolve, reject) => {
     axios
@@ -52,8 +52,8 @@ export const getMatchesFromDimension = async (
   });
 };
 export const getMatchFromDimension = async (
-  dimensionID: nanoid,
-  matchID: nanoid
+  dimensionID: string,
+  matchID: string
 ): Promise<Match> => {
   return new Promise((resolve, reject) => {
     axios
@@ -67,8 +67,8 @@ export const getMatchFromDimension = async (
   });
 };
 export const getTournamentFromDimension = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid
+  dimensionID: string,
+  tournamentID: string
 ): Promise<TournamentMeta> => {
   return new Promise((resolve, reject) => {
     axios
@@ -86,7 +86,7 @@ export const getTournamentFromDimension = async (
 };
 
 export const getTournamentsFromDimension = async (
-  dimensionID: nanoid
+  dimensionID: string
 ): Promise<Array<Tournament>> => {
   return new Promise((resolve, reject) => {
     axios

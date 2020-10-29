@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
-import { Tournament } from 'dimensions-ai';
+import { Tournament } from '../../types/dimensions';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
 import { getRanks } from '../../actions/dimensions/tournament';

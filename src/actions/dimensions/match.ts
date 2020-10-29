@@ -1,11 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
-import { DimensionType, nanoid } from 'dimensions-ai';
 import { competitionAPI } from '../../configs';
 
 // Returns all dimensions if no input
 export const getDimension = async (
-  id: nanoid = '-1'
-): Promise<Array<DimensionType> | DimensionType> => {
+  id: string = '-1'
+): Promise<Array<any> | any> => {
   return new Promise((resolve, reject) => {
     axios
       .get(competitionAPI + '/dimensions/' + (id === '-1' ? '' : id))
@@ -23,8 +22,8 @@ export const getDimension = async (
 };
 
 export const runMatch = async (
-  dimensionID: nanoid,
-  matchID: nanoid
+  dimensionID: string,
+  matchID: string
 ): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
@@ -39,8 +38,8 @@ export const runMatch = async (
 };
 
 export const stopMatch = async (
-  dimensionID: nanoid,
-  matchID: nanoid
+  dimensionID: string,
+  matchID: string
 ): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
@@ -55,8 +54,8 @@ export const stopMatch = async (
 };
 
 export const resumeMatch = async (
-  dimensionID: nanoid,
-  matchID: nanoid
+  dimensionID: string,
+  matchID: string
 ): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
@@ -71,8 +70,8 @@ export const resumeMatch = async (
 };
 
 export const removeMatch = async (
-  dimensionID: nanoid,
-  matchID: nanoid
+  dimensionID: string,
+  matchID: string
 ): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
@@ -87,8 +86,8 @@ export const removeMatch = async (
 };
 
 export const getUrlForAgentLog = async (
-  dimensionID: nanoid,
-  matchID: nanoid,
+  dimensionID: string,
+  matchID: string,
   agentID: number
 ): Promise<any> => {
   return new Promise((resolve, reject) => {

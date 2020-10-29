@@ -1,9 +1,9 @@
 import React from 'react';
 import { runMatch, stopMatch, removeMatch, resumeMatch } from '../../actions/dimensions/match';
 import { Button } from 'antd';
-import { Match, nanoid } from 'dimensions-ai';
+import { Match } from '../../types/dimensions';
 import './index.less';
-const MatchActionButton = (props:{match: Match, dimensionID: nanoid, update?: Function}) => {
+const MatchActionButton = (props:{match: Match, dimensionID: string, update?: Function}) => {
 
   let btns;
   let update = props.update ? props.update : () => {};

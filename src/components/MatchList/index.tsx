@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 
 import './index.less';
-import { Match, Agent } from 'dimensions-ai';
+import { Agent, Match } from '../../types/dimensions';
 import { Link, useParams } from 'react-router-dom';
 import { Table, Button } from 'antd';
 import MatchActionButton from '../MatchActionButton';

@@ -1,14 +1,13 @@
 import React from 'react';
-import { Tournament, nanoid } from 'dimensions-ai';
 
 export interface TournamentMeta {
-  configs: Partial<Tournament.TournamentConfigsBase>;
-  id: nanoid;
+  configs: any;
+  id: string;
   competitors: Map<string, any>;
   log: any;
   name: string;
-  status: Tournament.Status | null;
-  dimID: nanoid;
+  status: string| null;
+  dimID: string;
 }
 //return pick(t, 'competitors', 'configs', 'id', 'log', 'name', 'status');
 

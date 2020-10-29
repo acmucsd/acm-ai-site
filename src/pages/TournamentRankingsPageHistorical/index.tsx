@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
-import { Tournament } from 'dimensions-ai';
+import { Tournament } from '../../types/dimensions';
 import DefaultLayout from "../../components/layouts/default";
-import TournamentActionButton from '../../components/TournamentActionButton';
 import { Table } from 'antd';
 import UserContext from '../../UserContext';
-import { DIMENSION_ID } from '../../configs';
 import axios, { AxiosResponse } from 'axios';
 
 const trueskillCols = [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import TournamentRankingsPage from '../../pages/TournamentRankingsPage';
 import UploadBotPage from '../../pages/UploadBotPage';
 import ProfilePage from '../../pages/ProfilePage';

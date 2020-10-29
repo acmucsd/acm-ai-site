@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import MatchActionButton from '../MatchActionButton';
 import './index.less';
 import { Table } from 'antd';
-import { Agent, Match as DMatch, nanoid } from 'dimensions-ai';
+import { Agent, AgentStatus, Match as DMatch } from '../../types/dimensions';
 import { Link } from 'react-router-dom';
 import UserContext from '../../UserContext';
 import { competitionAPI } from '../../configs';
 
-const Match = (props: {match: DMatch, dimensionID: nanoid}) => {
+const Match = (props: {match: DMatch, dimensionID: string}) => {
   const { user } = useContext(UserContext);
   const columns = [
     {
@@ -26,7 +26,7 @@ const Match = (props: {match: DMatch, dimensionID: nanoid}) => {
     {
       title: 'Status',
       dataIndex: 'status',
-      render: (status: Agent.Status) => <span>{status}</span>
+      render: (status: AgentStatus) => <span>{status}</span>
     },
   ];
   const match = props.match;

@@ -8,7 +8,7 @@ import { getMatchFromDimension } from '../../actions/dimensions/dimensions';
 
 // NOTE!! Can import outside src as long as we dont use instanceof dimension or actually use it, we can just it for typings
 import Match from '../../components/Match';
-import { Match as DMatch } from 'dimensions-ai';
+import { Match as DMatch } from '../../types/dimensions'
 
 function MatchPage({dimID}: {dimID: string}) {
   const params: any = useParams();
