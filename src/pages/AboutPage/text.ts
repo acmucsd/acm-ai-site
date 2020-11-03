@@ -40,4 +40,9 @@ export const text: cardText[] = [
     name: 'Tung Doan',
     major: 'Math-Computer Science',
   },
+  {
+    role: 'Developer',
+    name: 'Dhanvi Desu',
+    major: 'Computer Science',
+  }
 ];
