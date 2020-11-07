@@ -50,11 +50,13 @@ export const Energium2020Page = (props: any) => {
       <div className='Energium2020Page'>
       <div className='main-section'>
           <h1 className='statement'>Welcome to the Fall 2020 AI competition - <Energium /></h1>
-          <div><Link to='/competitions/energium/ranks'><Button className="tourney-btn" type="primary">View Leaderboard</Button></Link>
+          <div>
+            {/* <Link to='/competitions/energium/ranks'><Button className="tourney-btn" type="primary">View Leaderboard</Button></Link> */}
           <a href="https://github.com/acmucsd/energium-ai-2020/" target="_blank" rel="noopener noreferrer"><Button className="tourney-btn" type="primary">View Github</Button></a>
-            {renderRegisterUploadButton()}
+            {/* {renderRegisterUploadButton()} */}
           </div>
           <br />
+          <p>Submissions are now closed! Watch the finals on November 7th, 5-6PM PDT here: <a href="https://acmurl.com/ai-comp-fall2020">https://acmurl.com/ai-comp-fall2020</a></p>
           <p>Welcome to the 2nd ACM AI Competition, completely unique and different from any other competition. You must use your wits and strategies, along with knowledge of programming, to create an intelligent bot that beats all of the other competitors. Here's a quick back story</p>
           
           <br />

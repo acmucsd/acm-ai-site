@@ -16,12 +16,12 @@ export const EnergiumRoutes = () => {
     exact 
     render={() => Setupfall2020Tourney(<Energium2020Page />)}
   />
-  <Route 
+  {/* <Route 
     path="/competitions/energium/ranks" 
     exact 
     render={() => Setupfall2020Tourney(<TournamentRankingsPage />)}
-  />
-  <Route 
+  /> */}
+  {/* <Route 
     path="/competitions/energium/user/:userID" 
     exact 
     render={() => Setupfall2020Tourney(<ProfilePage competitionKey='energium' />)}
@@ -33,5 +33,6 @@ export const EnergiumRoutes = () => {
   />
   <Route path="/competitions/energium/upload" exact 
     render={() => Setupfall2020Tourney(<UploadBotPage competitionKey='energium' />)}
-  /></>
+  /> */}
+  </>
 }
