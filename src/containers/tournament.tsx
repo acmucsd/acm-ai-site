@@ -17,15 +17,19 @@ export type SetupTournamentProps = {
   dimensionID: string,
   tournamentID: string,
   component: JSX.Element,
-  type: 'general' | 'openai'
+  type: 'general' | 'openai',
+  tryAndLogin?: boolean,
 }
 /**
  * Auto stores tournament into context 
  */
-function SetupTournament({dimensionID, tournamentID, component, type}: SetupTournamentProps) {
+function SetupTournament({dimensionID, tournamentID, component, type, tryAndLogin}: SetupTournamentProps) {
   const history = useHistory();
   if (!type) {
     type = 'general';
+  }
+  if (tryAndLogin === undefined) {
+    tryAndLogin = true;
   }
   const { tournament, setTournament } = useContext(TournamentContext);
   const { user, setUser } = useContext(UserContext);
@@ -55,7 +59,7 @@ function SetupTournament({dimensionID, tournamentID, component, type}: SetupTour
     }
   }, [tournamentID]);
   useEffect(() => {
-    if (user.loggedIn) {
+    if (tryAndLogin && user.loggedIn) {
         getUser(dimensionID, user.username).then((dim_user) => {
           if (dim_user) {
             user.competitionRegistrations.energium = true;
@@ -96,7 +100,7 @@ function SetupTournament({dimensionID, tournamentID, component, type}: SetupTour
           
         });
     }
-  }, [user.competitionRegistrations.energium]);
+  }, [user.competitionRegistrations.energium, tryAndLogin]);
   return (
     <div>
       { component }
