@@ -6,6 +6,7 @@ import ProfilePage from '../../pages/ProfilePage';
 import SetupTournament from '../../containers/tournament';
 import TournamentMatchPage from '../../pages/TournamentMatchPage';
 import Energium2020Page from '../../pages/Competitions/Energium2020Page';
+import TournamentRankingsPageHistorical from '../../pages/TournamentRankingsPageHistorical';
 export const EnergiumRoutes = () => {
   const Setupfall2020Tourney = (component: JSX.Element) => {
     return <SetupTournament type="general" component={component} dimensionID='acmdim' tournamentID='tourney' tryAndLogin={false}/>
@@ -16,11 +17,11 @@ export const EnergiumRoutes = () => {
     exact 
     render={() => Setupfall2020Tourney(<Energium2020Page />)}
   />
-  {/* <Route 
+  <Route 
     path="/competitions/energium/ranks" 
     exact 
-    render={() => Setupfall2020Tourney(<TournamentRankingsPage />)}
-  /> */}
+    render={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
+  />
   {/* <Route 
     path="/competitions/energium/user/:userID" 
     exact 
