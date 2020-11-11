@@ -15,7 +15,6 @@ function RegisterPage() {
     if (errors.confirmPassword) {
       handlePasswordErrors(errors)
     }
-    console.log(values)
     registerUser(DIMENSION_ID, values).then((res) => {
       message.success('Registered! Redirecting to login page');
       history.push('/login');
