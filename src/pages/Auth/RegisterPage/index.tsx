@@ -2,7 +2,7 @@ import React from 'react';
 import './index.less';
 import DefaultLayout from "../../../components/layouts/default";
 import Card from '../../../components/Card';
-import { Form, Input, message, Button } from 'antd';
+import { Form, Input, message, Button, Checkbox } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { registerUser } from '../../../actions/auth';
 import { useHistory, Link } from 'react-router-dom';
@@ -15,7 +15,6 @@ function RegisterPage() {
     if (errors.confirmPassword) {
       handlePasswordErrors(errors)
     }
-  
     registerUser(DIMENSION_ID, values).then((res) => {
       message.success('Registered! Redirecting to login page');
       history.push('/login');
@@ -90,6 +89,20 @@ function RegisterPage() {
                   name='confirmPassword'
                   control={control}
                   rules={{ required: true, validate: (value) => watch('password') === value }}
+                />
+                <Controller 
+                  as={
+                    <Form.Item>
+                      <Checkbox
+                        defaultChecked={false}
+                      > 
+                        From UCSD
+                       </Checkbox>
+                    </Form.Item>
+                  }
+                  name='isUCSD'
+                  control={control}
+                  rules={{ required: true }}
                 />
               
                 {errors.username && <p className='danger'>Missing username</p>}
