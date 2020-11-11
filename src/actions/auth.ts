@@ -1,12 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 import { message } from 'antd';
 import { setCookie, deleteCookie } from '../utils/cookie';
-import { nanoid } from 'dimensions-ai';
 import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
 export const registerUser = async (
-  dimensionID: nanoid,
+  dimensionID: string,
   data: { username: string; password: string; email: string }
 ) => {
   let body = {
@@ -73,7 +72,7 @@ export const tokenGetClaims = (token: string): any => {
 };
 
 export const loginUser = async (
-  dimensionID: nanoid,
+  dimensionID: string,
   data: { username: string; password: string }
 ) => {
   return new Promise((resolve, reject) => {
@@ -96,7 +95,7 @@ export const loginUser = async (
   });
 };
 
-export const verifyToken = async (dimensionID: nanoid, token: string) => {
+export const verifyToken = async (dimensionID: string, token: string) => {
   return new Promise((resolve, reject) => {
     axios
       .post(

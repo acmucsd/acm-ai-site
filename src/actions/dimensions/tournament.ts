@@ -1,17 +1,16 @@
 import axios, { AxiosResponse } from 'axios';
-import { Match, nanoid, Player } from 'dimensions-ai';
+import { Match, Player } from '../../types/dimensions';
 import { message } from 'antd';
-import { User } from '../../UserContext';
 import { getToken } from '../../utils/token';
 import { competitionAPI, COMPETITIONS_COOKIE_NAME } from '../../configs';
 
 export const getConfigs = async (
-  dimensionID: number,
-  tournamentID: number
+  dimensionID: string,
+  tournamentID: string
 ): Promise<any> => {};
 export const getRanks = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid
+  dimensionID: string,
+  tournamentID: string
 ): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
@@ -30,9 +29,9 @@ export const getRanks = async (
 };
 
 export const getMatch = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid,
-  matchID: nanoid
+  dimensionID: string,
+  tournamentID: string,
+  matchID: string
 ): Promise<Match> => {
   return axios
     .get(
@@ -43,8 +42,8 @@ export const getMatch = async (
 };
 
 export const getMatches = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid
+  dimensionID: string,
+  tournamentID: string
 ): Promise<{ [x in string]: Match }> => {
   return new Promise((resolve, reject) => {
     axios
@@ -62,29 +61,9 @@ export const getMatches = async (
   });
 };
 
-export const getMatchQueue = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid
-): Promise<Array<Array<Player>>> => {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(
-        competitionAPI +
-          `/dimensions/${dimensionID}/tournaments/${tournamentID}/matchQueue`
-      )
-      .then((res: AxiosResponse) => {
-        resolve(res.data.matchQueue);
-      })
-      .catch((error) => {
-        // message.error(error.response.data.error.message);
-        reject(error);
-      });
-  });
-};
-
 export const runTournament = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid
+  dimensionID: string,
+  tournamentID: string
 ): Promise<any> => {
   let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
   return new Promise((resolve, reject) => {
@@ -107,8 +86,8 @@ export const runTournament = async (
 };
 
 export const stopTournament = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid
+  dimensionID: string,
+  tournamentID: string
 ): Promise<any> => {
   let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
   return new Promise((resolve, reject) => {
@@ -131,8 +110,8 @@ export const stopTournament = async (
 };
 
 export const removeTournament = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid
+  dimensionID: string,
+  tournamentID: string
 ): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
@@ -151,9 +130,9 @@ export const removeTournament = async (
 };
 
 export const getPlayer = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid,
-  playerID: nanoid
+  dimensionID: string,
+  tournamentID: string,
+  playerID: string
 ): Promise<Player> => {
   let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
   return axios
@@ -166,9 +145,9 @@ export const getPlayer = async (
 };
 
 export const getPlayerMatches = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid,
-  playerID: nanoid,
+  dimensionID: string,
+  tournamentID: string,
+  playerID: string,
   offset: number = 0,
   limit: number = 10
 ): Promise<Array<Match>> => {
@@ -183,9 +162,9 @@ export const getPlayerMatches = async (
 };
 
 export const downloadBot = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid,
-  playerID: nanoid
+  dimensionID: string,
+  tournamentID: string,
+  playerID: string
 ): Promise<any> => {
   let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
   return axios
@@ -198,9 +177,9 @@ export const downloadBot = async (
 };
 
 export const downloadReplay = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid,
-  matchID: nanoid
+  dimensionID: string,
+  tournamentID: string,
+  matchID: string
 ): Promise<any> => {
   let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
   return axios
@@ -219,8 +198,8 @@ export const downloadReplay = async (
 };
 
 export const uploadBot = async (
-  dimensionID: nanoid,
-  tournamentID: nanoid,
+  dimensionID: string,
+  tournamentID: string,
   name: string,
   file: File | undefined,
   userid: string,

@@ -5,7 +5,7 @@ import Match from "../../components/Match";
 import { getMatch } from '../../actions/dimensions/tournament';
 import TournamentContext from '../../contexts/tournament';
 import { useParams } from 'react-router-dom';
-import { Match as DMatch } from 'dimensions-ai';
+import { Match as DMatch } from '../../types/dimensions';
 import BackLink from '../../components/BackLink';
 function TournamentMatchPage() {
   const { tournament } = useContext(TournamentContext);

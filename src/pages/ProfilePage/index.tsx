@@ -3,9 +3,9 @@ import './index.less';
 import DefaultLayout from "../../components/layouts/default";
 import { useParams, useHistory } from 'react-router-dom';
 import { downloadBot, getPlayerMatches } from '../../actions/dimensions/tournament';
-import { Match } from 'dimensions-ai';
+import { Match } from '../../types/dimensions';
 import { getUser } from '../../actions/dimensions/dimensions';
-import { Database } from 'dimensions-ai/lib/Plugin/Database';
+// import { Database } from 'dimensions-ai/lib/es6/Plugin/Database';
 import TournamentContext from '../../contexts/tournament';
 import { Skeleton, Divider, Button, message } from 'antd';
 import UserContext from '../../UserContext';
@@ -14,7 +14,7 @@ import MatchList from '../../components/Energium2020/MatchList';
 function ProfilePage({competitionKey}: {competitionKey: string}) {
   const params: any = useParams();
   const history = useHistory();
-  const [dbuser, setUser] = useState<Database.User>();
+  const [dbuser, setUser] = useState<any>();
   const { user } = useContext(UserContext);
   const [stats, setStats] = useState<any>({});
   const { tournament } = useContext(TournamentContext);
@@ -22,7 +22,7 @@ function ProfilePage({competitionKey}: {competitionKey: string}) {
   const [ranksystem, setRankSystem] = useState<string>();
   useEffect(() => {
     if (tournament.id) {
-      setRankSystem(tournament.configs.rankSystem);
+      setRankSystem(tournament.configs.rankSystem as string);
       let tourneyKey = tournament.name.replace(/ /g, "_") + "_" + tournament.id;
       getUser(tournament.dimID, params.userID).then((res) => {
         setUser(res);

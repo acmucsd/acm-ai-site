@@ -4,7 +4,7 @@ import DefaultLayout from "../../components/layouts/default";
 import { Form, Input, Button, Upload, message } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import Card from '../../components/Card';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import TournamentContext from '../../contexts/tournament';
 import { uploadBot } from '../../actions/dimensions/tournament';
@@ -12,7 +12,10 @@ import UserContext, { COMPETITION_NAMES } from '../../UserContext';
 import path from 'path';
 
 
-function UploadBotPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
+type UploadBotPageProps = {
+  competitionKey: COMPETITION_NAMES;
+}
+export const UploadBotPage = ({competitionKey}: UploadBotPageProps) => {
   const { handleSubmit, control} = useForm();
   const [botFile, setFile] = useState<any>();
   const { tournament } = useContext(TournamentContext);

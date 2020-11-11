@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 
 import './index.less';
-import { Match, Agent } from 'dimensions-ai';
+import { Agent, Match } from '../../../types/dimensions';
 import { Link, useParams } from 'react-router-dom';
 import { Table, Button } from 'antd';
 import MatchActionButton from '../../MatchActionButton';
@@ -154,8 +154,10 @@ const MatchList = (props:
   const fetchLogs = (match: Match) => {
     let promises: Array<Promise<{url: string, agent: Agent}>> = [];
     match.agents.forEach((agent) => {
-      let geturlpromise = getUrlForAgentLog(props.dimID, match.id, agent.id).then((res) => {return {url: res.url, agent: agent}});
-      promises.push(geturlpromise);
+      if (agent.logkey !== null) {
+        let geturlpromise = getUrlForAgentLog(props.dimID, match.id, agent.id).then((res) => {return {url: res.url, agent: agent}});
+        promises.push(geturlpromise);
+      }
     });
     Promise.all(promises).then((info) => {
       let newmatchlogs = matchlogs.set(match.id, info);

@@ -1,18 +1,17 @@
 import React from 'react'
-import { nanoid } from 'dimensions-ai';
 
 export type COMPETITION_NAMES = 'energium' | 'openai'
 export interface User {
   loggedIn: boolean,
   username: string,
-  id: nanoid,
+  id: string,
   admin: boolean,
   competitionRegistrations: {
     [x in COMPETITION_NAMES]: boolean | undefined
   }
   competitionData: {
     [x in COMPETITION_NAMES]: {
-      id: nanoid,
+      id: string,
       admin: boolean
       username: string,
       statistics: any,
