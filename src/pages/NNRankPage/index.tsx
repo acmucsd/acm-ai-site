@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import './index.less';
-import { Tournament } from 'dimensions-ai';
+// import { Tournament } from 'dimensions-ai';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
 import { getRanks } from '../../actions/dimensions/tournament';
@@ -74,7 +74,7 @@ function TournamentRankingsPage() {
       render: (info: any) => {
 
         return(
-          
+
             <Button onClick={() => {
               history.push({
                 pathname: 'nnranks/scorehist',
@@ -106,7 +106,7 @@ function TournamentRankingsPage() {
           x: "03/11/2020",
           y: 6
         }
-      ] 
+      ]
     },
     {
       'username': "Jack",
@@ -128,7 +128,7 @@ function TournamentRankingsPage() {
           x: "04/11/2020",
           y: 10
         }
-      ] 
+      ]
     }
   ];
 
@@ -153,18 +153,18 @@ function TournamentRankingsPage() {
         <br />
         <br />
         {/* {
-          tournament && user.admin && 
+          tournament && user.admin &&
           <TournamentActionButton dimensionID={tournament.id} tournament={tournament} update={update}/>
         } */}
-        
-        { ranksystem === 'trueskill' && 
-          <Table 
+
+        { ranksystem === 'trueskill' &&
+          <Table
             loading={loading}
             columns={trueskillCols}
             dataSource={sampleData}
           />
         }
-        { updateTime && 
+        { updateTime &&
           <p>Last updated: {updateTime?.toLocaleString()}</p>
         }
       </div>
