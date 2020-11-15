@@ -1,16 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './index.less';
-import { LoadingOutlined } from '@ant-design/icons';
 import DefaultLayout from "../../../components/layouts/default";
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 import { Energium } from '../../../components/Text/Energium';
-import { Button, message, Spin } from 'antd';
 import CompetitionDiscordLink from '../../../components/CompetitionDiscordLink';
-import UserContext from '../../../UserContext';
-import TournamentContext from '../../../contexts/tournament';
-import { registerUser, loginUser } from '../../../actions/dimensions/auth';
 
-export const Energium2020Page = (props: any) => {
+export const Energium2020Page = () => {
+  // no longer used as competition is over
+  /*
   const {user, setUser} = useContext(UserContext);
   const { tournament } = useContext(TournamentContext);
   const registerForCompetition = () => {
@@ -43,8 +41,8 @@ export const Energium2020Page = (props: any) => {
       return <Link to="/login"><Button className="tourney-btn" type="primary">Login to register</Button></Link>
     }
   }
-
   const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
+  */
   return (
     <DefaultLayout>
       <div className='Energium2020Page'>
@@ -74,7 +72,7 @@ But time is of the essence, and these robots need an AI to help them run effecti
         </div>
         <div className='main-section'>
           <h1 style={{color: "white"}}>Competition Info</h1>
-          <h1 className='statement'>Ranking 📈</h1>
+          <h1 className='statement'>Ranking <span role="img" aria-label="ranks">📈</span></h1>
           <p>So you submitted your bot. What now? Check out the leaderboard to see how well your bot is doing! After submitting, you will need to give our servers some time to get around to scheduling matches for your bot.</p>
           <p>The way we rank players is through the Trueskill ranking system developed by Microsoft. You have 3 values associated with your ranking, a score, a mu (µ), and a sigma (σ)</p>
           <p>Mu represents our absolute measure of your bot's skill. Sigma represents our confidence in that measure, with lower meaning higher confidence. Your score is then calculated as µ - 3 * σ and all players are ranked according to that</p>
@@ -83,7 +81,7 @@ But time is of the essence, and these robots need an AI to help them run effecti
           </p>
           <br />
           <br />
-          <h1 className='statement'>Prizes 🏆</h1>
+          <h1 className='statement'>Prizes <span role="img" aria-label="prizes">🏆</span></h1>
           <p>A total of $100 will be distributed amongst the top 3 competitors (in the form of gift cards)</p>
           <p>1st: $50</p>
           <p>2nd: $35</p>

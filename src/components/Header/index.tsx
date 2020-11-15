@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Menu, message } from 'antd';
 import './index.less';
 import UserContext from '../../UserContext';
@@ -29,14 +29,13 @@ function Header() {
     initKeys=['about'];
   }
   const [key, setKey] = useState<Array<string>>(initKeys);
-  const params: any = useParams();
   const handleClick = (e: any) => {
     setKey(e.key);
   };
 
   const [loginItems, setLoginItems] = useState<any>();
   const history = useHistory();
-  const renderLoginItems = () => {
+  useEffect(() => {
     if (user.loggedIn) {
       setLoginItems(
         [<Menu.Item key="logout" onClick={() => {
@@ -64,10 +63,7 @@ function Header() {
         </Menu.Item>]
       );
     }
-  }
-  useEffect(() => {
-    renderLoginItems();
-  }, [user]);
+  }, [history, setUser, user]);
 
   return (
     <Menu onClick={handleClick} selectedKeys={key} mode="horizontal" className="Header">
@@ -89,16 +85,6 @@ function Header() {
           About
         </Link>
       </Menu.Item>
-      {/* <Menu.Item key="tournament">
-        <Link to={`/tournaments/${TOURNAMENT_ID}`} rel="noopener noreferrer">
-          Tournament
-        </Link>
-      </Menu.Item> */}
-      {/* <Menu.Item key="leaderboard">
-        <Link to={`/tournaments/${TOURNAMENT_ID}/ranks`} rel="noopener noreferrer">
-          Leaderboard
-        </Link>
-      </Menu.Item> */}
       { 
         loginItems
       }

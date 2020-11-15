@@ -1,16 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import TournamentRankingsPage from '../../pages/TournamentRankingsPage';
-import UploadBotPage from '../../pages/UploadBotPage';
-import ProfilePage from '../../pages/ProfilePage';
-import SetupTournament from '../../containers/tournament';
-import TournamentMatchPage from '../../pages/TournamentMatchPage';
 import Energium2020Page from '../../pages/Competitions/Energium2020Page';
 import TournamentRankingsPageHistorical from '../../pages/TournamentRankingsPageHistorical';
 export const EnergiumRoutes = () => {
-  const Setupfall2020Tourney = (component: JSX.Element) => {
-    return <SetupTournament type="general" component={component} dimensionID='acmdim' tournamentID='tourney' tryAndLogin={false}/>
-  }
+  // const Setupfall2020Tourney = (component: JSX.Element) => {
+  //   return <SetupTournament type="general" component={component} dimensionID='acmdim' tournamentID='tourney' tryAndLogin={false}/>
+  // }
   return <>
   <Route 
     path="/competitions/energium" 
@@ -22,7 +17,9 @@ export const EnergiumRoutes = () => {
     exact 
     render={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
   />
-  {/* <Route 
+  {/* 
+  no longer running competition so we turn this off
+  <Route 
     path="/competitions/energium/user/:userID" 
     exact 
     render={() => Setupfall2020Tourney(<ProfilePage competitionKey='energium' />)}

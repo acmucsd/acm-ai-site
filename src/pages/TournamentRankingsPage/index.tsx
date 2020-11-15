@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
-import { Tournament } from '../../types/dimensions';
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
 import { getRanks } from '../../actions/dimensions/tournament';
-import TournamentActionButton from '../../components/TournamentActionButton';
 import { Table, Button } from 'antd';
 import UserContext from '../../UserContext';
 import TournamentContext from '../../contexts/tournament';
@@ -100,7 +98,6 @@ function TournamentRankingsPage() {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [ updateTime, setUpdateTime ] = useState<Date>();
-  const { user } = useContext(UserContext);
   const { tournament } = useContext(TournamentContext);
   //@ts-ignore
   const [ranksystem, setRankSystem] = useState<Tournament.RankSystem>('trueskill');
@@ -144,11 +141,6 @@ function TournamentRankingsPage() {
         }}>Refresh Leaderboard</Button>
         <br />
         <br />
-        {
-          tournament && user.admin && 
-          <TournamentActionButton dimensionID={tournament.id} tournament={tournament} update={update}/>
-        }
-        
         { ranksystem === 'trueskill' && 
           <Table 
             loading={loading}
