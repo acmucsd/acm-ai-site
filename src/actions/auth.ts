@@ -17,7 +17,7 @@ export const resetPassword = async (
     axios
       .post(
         process.env.REACT_APP_API +
-          'v1/users/' +
+          '/v1/users/' +
           data.username +
           '/resetpassword',
         body
