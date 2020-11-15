@@ -5,7 +5,6 @@ import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
 export const resetPassword = async (
-  dimensionID : string,
   data : {username: string; code: string; password: string} 
 ) => {
   let body = {
@@ -18,9 +17,7 @@ export const resetPassword = async (
     axios
       .post(
         process.env.REACT_APP_API +
-          '/api/dimensions/' +
-          dimensionID +
-          '/users/' +
+          'v1/users/' +
           data.username +
           '/resetpassword',
         body
@@ -29,9 +26,6 @@ export const resetPassword = async (
         resolve(res);
       })
       .catch((error) => {
-        //error message doesn't work
-        // message.error(error.response.data);
-
         message.error("Reset Failed")
         reject(error);
       });
@@ -39,7 +33,6 @@ export const resetPassword = async (
 };
 
 export const registerUser = async (
-  dimensionID: string,
   data: { username: string; password: string; email: string }
 ) => {
   let body = {
@@ -53,9 +46,7 @@ export const registerUser = async (
     axios
       .post(
         process.env.REACT_APP_API +
-          '/api/dimensions/' +
-          dimensionID +
-          '/auth/register',
+          '/v1/users',
         body
       )
       .then((res: AxiosResponse) => {

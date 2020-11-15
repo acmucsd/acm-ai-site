@@ -27,8 +27,6 @@ import ForgotPasswordPage from './pages/Auth/ForgotPassword'
 import nnRanksPage from './pages/NNRankPage'
 import nnScoreHistory from './components/ScoreHistoryChart'
 import nnUpload from './pages/UploadNNPage'
-
-// test
 import nnsubmit from './pages/UploadNNPage'
 
 let cookie = getCookie(COOKIE_NAME);
@@ -71,9 +69,6 @@ function App() {
       <Switch>
       {!verifying ?
         <UserProvider value={{user: user, setUser: setUser}}>
-
-          {/* Test */}
-          <Route path='/test' component={nnsubmit} />
 
           <Route path="/" exact component={MainPage} />
           <Route path="/about" exact component={AboutPage} />
