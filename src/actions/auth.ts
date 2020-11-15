@@ -4,6 +4,34 @@ import { setCookie, deleteCookie } from '../utils/cookie';
 import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
+export const resetPassword = async (
+  data : {username: string; code: string; password: string} 
+) => {
+  let body = {
+    password: data.password,
+    resetPasswordKey: data.code
+  }
+  console.log(data)
+  console.log(body)
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        process.env.REACT_APP_API +
+          'v1/users/' +
+          data.username +
+          '/resetpassword',
+        body
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error("Reset Failed")
+        reject(error);
+      });
+  });
+};
+
 export const registerUser = async (
   data: { username: string; password: string; email: string, isUCSD: boolean }
 ) => {
@@ -17,7 +45,7 @@ export const registerUser = async (
     axios
       .post(
         process.env.REACT_APP_API +
-          '/v1/users',
+          'v1/users',
         body
       )
       .then((res: AxiosResponse) => {
@@ -84,7 +112,7 @@ export const loginUser = async (
         resolve(res.data.token);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
+        // message.error(error.response.data.error.message);
         reject(error);
       });
   });

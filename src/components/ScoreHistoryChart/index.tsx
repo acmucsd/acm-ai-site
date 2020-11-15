@@ -5,7 +5,7 @@ import ChartJS from 'chart.js'
 const chartConfig = {
   type: 'line',
   data: {
-    datasets: [{
+    datasets : [{
         label: 'Score',
         data: [],
         fill: false,
@@ -18,24 +18,6 @@ const chartConfig = {
       display:true,
       text: "Score History"
     },
-    scales: {
-      xAxes: [{
-          type: 'time',
-          time: {
-              stepSize: 12,
-              format:'DD/MM/YYYY',
-              tooltipFormat: 'll',
-              displayFormats: {
-                day: 'MMM D',
-                hour: 'MMM D hA'
-              }
-          },
-          scaleLabel: {
-            display:     true,
-            labelString: 'Date'
-        }
-      }]
-    } 
   }
 }
 
@@ -45,10 +27,12 @@ const ScoreHistoryChart = (props : {location: {state: {data: any}}}) => {
 
   useEffect(() => {
     chartConfig.data.datasets[0].data = props.location.state.data;
+    
   }, [])
 
   useEffect(() => {
     if(chartContainer && chartContainer.current){
+        console.log(chartConfig.data)
         const newChartInstance = new ChartJS(chartContainer.current, chartConfig);
         setChartInstance(newChartInstance);
     }

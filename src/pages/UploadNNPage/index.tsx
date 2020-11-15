@@ -7,17 +7,14 @@ import Card from '../../components/Card';
 import { useParams, useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import TournamentContext from '../../contexts/tournament';
-
-// TODO: Create and Import uploadNN function
-// import { uploadBot } from '../../actions/dimensions/tournament';
-
+import { uploadNN } from '../../actions/dimensions/tournament';
 import UserContext, { COMPETITION_NAMES } from '../../UserContext';
 import path from 'path';
 
 
 function UploadNNPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
   const { handleSubmit, control} = useForm();
-  const [botFile, setFile] = useState<any>();
+  const [nnFile, setFile] = useState<any>();
   const { tournament } = useContext(TournamentContext);
   const { user } = useContext(UserContext);
   const history = useHistory();
@@ -32,11 +29,15 @@ function UploadNNPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
     }
   }, [user]);
   const onSubmit = (values: any) => {
+    console.log(values)
     // TODO: remove hardcoded competition specific names
+    //tournament.dimID/id "cannot read property dimID of undefined"
     // TODO: create neural network upload function
-    // uploadBot(tournament.dimID, tournament.id, values.botname, botFile, user.competitionData[competitionKey]?.id as string, values.path).then(() => {
-    //   message.success('Succesfully uploaded bot');
-    // });
+    const tempdimID = "neural-network-v1";
+    const tempID = "neural-network";
+    uploadNN(tempdimID, tempID, nnFile, user.competitionData[competitionKey]?.id as string).then(() => {
+      message.success('Succesfully uploaded bot');
+    });
   }
   const dummyRequest = ({ file, onSuccess }: any) => {
     setTimeout(() => {
@@ -53,6 +54,7 @@ function UploadNNPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
     }
     if (info.file.status === 'done') {
       message.success(`${info.file.name} file added successfully`);
+      
       let file: any = info.file;
       setFile(file.originFileObj);
     }

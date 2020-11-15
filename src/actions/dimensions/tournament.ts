@@ -236,3 +236,48 @@ export const uploadBot = async (
       });
   });
 };
+
+export const uploadNN = async (
+  dimensionID: string,
+  tournamentID: string,
+  file: File | undefined,
+  userid: string,
+) => {
+  if (!file) {
+    throw new Error('no file!');
+  }
+  // let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
+  return new Promise((resolve, reject) => {
+
+    axios
+      .post(
+        process.env.REACT_APP_API +
+          `/v1/nncompetition/${userid}`        
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+
+        message.error("Upload Failed")
+        reject(error);
+      });
+  });
+};
+
+export const getNNRanks = async () : Promise<AxiosResponse> => {  
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        process.env.REACT_APP_API +
+          'v1/nncompetition/'        
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error("Ranks Failed")
+        reject(error);
+      });
+  });
+}; 
