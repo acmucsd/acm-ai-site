@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
-import { Tournament } from '../../types/dimensions';
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
 import { getRanks } from '../../actions/dimensions/tournament';
 import { Table, Button } from 'antd';
@@ -99,7 +98,6 @@ function TournamentRankingsPage() {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [ updateTime, setUpdateTime ] = useState<Date>();
-  const { user } = useContext(UserContext);
   const { tournament } = useContext(TournamentContext);
   //@ts-ignore
   const [ranksystem, setRankSystem] = useState<Tournament.RankSystem>('trueskill');
