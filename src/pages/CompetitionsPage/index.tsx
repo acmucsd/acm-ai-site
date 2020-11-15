@@ -29,11 +29,11 @@ function CompetitionsPage(props: any) {
           </div>
           <div className='main-section'>
             <h1 className='statement'>Current Competitions</h1>
-            <p>Check it out! <Link to='/competitions/energium/'>Energium AI</Link></p>
-            <p>This runs for about a week and a half. Stay tuned on our discord for events and follow our ACM at UCSD facebook page for events as well!</p>
+            <p>Check it out! <Link to='/competitions/nn/'>Neural Networks</Link></p>
             <h1 className='statement'>Past Competitions</h1>
             <p>A list of some of our past competitions!</p>
             <p><Link to={`/competitions/hide-and-seek2020`}>2020 - Hide and Seek</Link></p>
+            <p><Link to='/competitions/energium/'>2020 - Energium AI</Link></p>
           </div>
         </div>
       </div>

@@ -4,6 +4,40 @@ import { setCookie, deleteCookie } from '../utils/cookie';
 import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
+export const resetPassword = async (
+  dimensionID : string,
+  data : {username: string; code: string; password: string} 
+) => {
+  let body = {
+    password: data.password,
+    resetPasswordKey: data.code
+  }
+  console.log(data)
+  console.log(body)
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        process.env.REACT_APP_API +
+          '/api/dimensions/' +
+          dimensionID +
+          '/users/' +
+          data.username +
+          '/resetpassword',
+        body
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        //error message doesn't work
+        // message.error(error.response.data);
+
+        message.error("Reset Failed")
+        reject(error);
+      });
+  });
+};
+
 export const registerUser = async (
   dimensionID: string,
   data: { username: string; password: string; email: string }

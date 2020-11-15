@@ -23,7 +23,12 @@ import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
 import AboutPage from './pages/AboutPage';
 import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
+import ForgotPasswordPage from './pages/Auth/ForgotPassword'
+import nnRanksPage from './pages/NNRankPage'
+import nnScoreHistory from './components/ScoreHistoryChart'
 
+// test
+import nnsubmit from './pages/UploadNNPage'
 
 let cookie = getCookie(COOKIE_NAME);
 function App() {
@@ -65,7 +70,10 @@ function App() {
       <Switch>
       {!verifying ?
         <UserProvider value={{user: user, setUser: setUser}}>
-          
+
+          {/* Test */}
+          <Route path='/test' component={nnsubmit} />
+
           <Route path="/" exact component={MainPage} />
           <Route path="/about" exact component={AboutPage} />
           <Route path="/competitions" exact component={CompetitionsPage} />
@@ -73,6 +81,8 @@ function App() {
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/eventhasnotstarted" exact component={EventHasNotStartedPage} />
           <Route path="/login" exact component={LoginPage} />
+          <Route path="/competitions/nn" exact component={nnRanksPage} />
+          <Route path="/competitions/nn/scorehist" exact component={nnScoreHistory} />
           {/* <Route path="/dimensions/:id/matches/:matchID" exact component={MatchPage} / */}
           <Route exact path="/history/hide-and-seek2020" component={() => {
             return <TournamentRankingsPageHistorical dataDir="2020summer" description={HideAndSeek2020}/>
@@ -80,6 +90,7 @@ function App() {
           <TournamentProvider value={{tournament: tournament, setTournament: setTournament}}>
             <EnergiumRoutes />
           </TournamentProvider>
+          <Route path="/resetpassword" component={ForgotPasswordPage}/>
         </UserProvider> :
         <div className='Loading' style={{
           textAlign: 'center',
