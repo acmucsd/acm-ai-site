@@ -270,7 +270,7 @@ export const getNNRanks = async () : Promise<AxiosResponse> => {
     axios
       .get(
         process.env.REACT_APP_API +
-          'v1/nncompetition/'        
+          '/v1/nncompetition/'        
       )
       .then((res: AxiosResponse) => {
         resolve(res);
