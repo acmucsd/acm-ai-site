@@ -6,7 +6,7 @@ export interface TournamentMeta {
   competitors: Map<string, any>;
   log: any;
   name: string;
-  status: string| null;
+  status: string | null;
   dimID: string;
 }
 //return pick(t, 'competitors', 'configs', 'id', 'log', 'name', 'status');
