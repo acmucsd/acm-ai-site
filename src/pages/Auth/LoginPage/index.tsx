@@ -30,8 +30,7 @@ function LoginPage() {
           <div className="cardContent">
             <h2>Login</h2>
             <br />
-            <Form>
-              <form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmitCapture={handleSubmit(onSubmit)}>
                 <Controller 
                   as={
                     <Form.Item>
@@ -68,7 +67,6 @@ function LoginPage() {
                 (errors.password.type === 'required' && <p className='danger'>Password is required</p>)
               )}
               <Button htmlType="submit" className='loginButton'>Login</Button>
-              </form>
             </Form>
             <div className='register-info'>
               <Link to='./register'>Or Register an Account here</Link>

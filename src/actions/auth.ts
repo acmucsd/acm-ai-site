@@ -5,23 +5,19 @@ import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
 export const registerUser = async (
-  dimensionID: string,
-  data: { username: string; password: string; email: string }
+  data: { username: string; password: string; email: string, isUCSD: boolean }
 ) => {
   let body = {
     username: data.username,
     password: data.password,
-    userData: {
-      email: data.email,
-    },
+    email: data.email,
+    isUCSD: data.isUCSD,
   };
   return new Promise((resolve, reject) => {
     axios
       .post(
         process.env.REACT_APP_API +
-          '/api/dimensions/' +
-          dimensionID +
-          '/auth/register',
+          '/v1/users',
         body
       )
       .then((res: AxiosResponse) => {
@@ -29,6 +25,7 @@ export const registerUser = async (
       })
       .catch((error) => {
         message.error(error.response.data.error.message);
+        console.error(error);
         reject(error);
       });
   });
@@ -79,9 +76,7 @@ export const loginUser = async (
     axios
       .post(
         process.env.REACT_APP_API +
-          '/api/dimensions/' +
-          dimensionID +
-          '/auth/login',
+          '/v1/auth/login',
         data
       )
       .then((res: AxiosResponse) => {
@@ -100,9 +95,7 @@ export const verifyToken = async (dimensionID: string, token: string) => {
     axios
       .post(
         process.env.REACT_APP_API +
-          '/api/dimensions/' +
-          dimensionID +
-          '/auth/verify',
+          '/v1/auth/verify',
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
