@@ -2,43 +2,6 @@ import React, {useRef, useState, useEffect} from 'react';
 import './index.less';
 import ChartJS from 'chart.js'
 
-// const chartConfig = {
-//   type: 'line',
-//   data: {
-//     datasets: [{
-//         label: 'Score',
-//         data: [],
-//         fill: false,
-//         borderColor: 'blue'
-//     }]
-//   },
-//   options: {
-//     responsive: true,
-//     title: {
-//       display:true,
-//       text: "Score History"
-//     },
-//     scales: {
-//       xAxes: [{
-//           type: 'time',
-//           time: {
-//               stepSize: 12,
-//               format:'DD/MM/YYYY',
-//               tooltipFormat: 'll',
-//               displayFormats: {
-//                 day: 'MMM D',
-//                 hour: 'MMM D hA'
-//               }
-//           },
-//           scaleLabel: {
-//             display:     true,
-//             labelString: 'Date'
-//         }
-//       }]
-//     } 
-//   }
-// }
-
 const chartConfig = {
   type: 'line',
   data: {
