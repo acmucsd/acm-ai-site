@@ -13,17 +13,10 @@ function TournamentRankingsPage() {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [ updateTime, setUpdateTime ] = useState<Date>();
-  const { user } = useContext(UserContext);
-  const { tournament } = useContext(TournamentContext);
-  //@ts-ignore
-  const [ranksystem, setRankSystem] = useState<Tournament.RankSystem>('trueskill');
   const [data, setData] = useState<any>([]);
 
   // TODO: Define New Update function for NN Ranks
   const update = () => {
-    // let rankSystem = tournament.configs.rankSystem;
-    // setRankSystem(rankSystem!);
-    console.log("getting ranks")
     getNNRanks().then((res) => {
       let newData = [];
       newData = res.data.map((info: any, ind: number) => {
@@ -43,7 +36,6 @@ function TournamentRankingsPage() {
       setData(newData);
       setLoading(false);
       setUpdateTime(new Date());
-      console.log('sadge')
     });
     
   }
@@ -52,7 +44,7 @@ function TournamentRankingsPage() {
       update();
   }, []);
 
-  const trueskillCols = [
+  const cols = [
     {
       title: 'User',
       dataIndex: 'username',
@@ -95,8 +87,7 @@ function TournamentRankingsPage() {
       <div className='TournamentRankingsPage'>
         <br />
         <BackLink to='../'/>
-        {/* <h2>{tournament.configs.name}</h2> */}
-        <h2>Neural Network</h2>
+        <h2>Neural Network Competition</h2>
         <Button onClick={() => {
           history.push(path.join(history.location.pathname, 'upload'));
         }}>Upload Neural Network</Button>
@@ -106,13 +97,11 @@ function TournamentRankingsPage() {
         <br />
         <br />
         
-        { ranksystem === 'trueskill' && 
-          <Table 
-            loading={loading}
-            columns={trueskillCols}
-            dataSource={data}
-          />
-        }
+        <Table 
+          loading={loading}
+          columns={cols}
+          dataSource={data}
+        />
         { updateTime && 
           <p>Last updated: {updateTime?.toLocaleString()}</p>
         }
