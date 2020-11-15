@@ -33,11 +33,7 @@ export const resetPassword = async (
 };
 
 export const registerUser = async (
-<<<<<<< HEAD
-  data: { username: string; password: string; email: string }
-=======
   data: { username: string; password: string; email: string, isUCSD: boolean }
->>>>>>> fdd028e8ed4dadcd154dcd2cf567b4eb21f98634
 ) => {
   let body = {
     username: data.username,
@@ -49,7 +45,7 @@ export const registerUser = async (
     axios
       .post(
         process.env.REACT_APP_API +
-          '/v1/users',
+          'v1/users',
         body
       )
       .then((res: AxiosResponse) => {
@@ -116,7 +112,7 @@ export const loginUser = async (
         resolve(res.data.token);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
+        // message.error(error.response.data.error.message);
         reject(error);
       });
   });
