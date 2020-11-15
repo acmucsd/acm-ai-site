@@ -26,6 +26,7 @@ import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword'
 import nnRanksPage from './pages/NNRankPage'
 import nnScoreHistory from './components/ScoreHistoryChart'
+import nnUpload from './pages/UploadNNPage'
 
 // test
 import nnsubmit from './pages/UploadNNPage'
@@ -83,6 +84,7 @@ function App() {
           <Route path="/login" exact component={LoginPage} />
           <Route path="/competitions/nn" exact component={nnRanksPage} />
           <Route path="/competitions/nn/scorehist" exact component={nnScoreHistory} />
+          <Route path="/competitions/nn/upload" exact component={nnUpload} />
           {/* <Route path="/dimensions/:id/matches/:matchID" exact component={MatchPage} / */}
           <Route exact path="/history/hide-and-seek2020" component={() => {
             return <TournamentRankingsPageHistorical dataDir="2020summer" description={HideAndSeek2020}/>

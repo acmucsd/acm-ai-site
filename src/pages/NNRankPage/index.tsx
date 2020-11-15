@@ -11,9 +11,6 @@ import TournamentContext from '../../contexts/tournament';
 import BackLink from '../../components/BackLink';
 import path from 'path';
 
-import Chart from 'chart.js';
-import ScoreHistoryChart from '../../components/ScoreHistoryChart'
-
 function TournamentRankingsPage() {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
@@ -66,7 +63,6 @@ function TournamentRankingsPage() {
       title: 'Latest Top Score',
       dataIndex: 'score',
       render: (info: any) => {
-        // let score = info.rankState.rating.score
         return (
           <span>{info}</span>
         )
@@ -78,7 +74,6 @@ function TournamentRankingsPage() {
       render: (info: any) => {
 
         return(
-          
             <Button onClick={() => {
               history.push({
                 pathname: 'scorehist',
@@ -93,7 +88,6 @@ function TournamentRankingsPage() {
     }
   ];
 
-  // testing
   useEffect(() => {
     setLoading(false);
   },[])
@@ -106,17 +100,13 @@ function TournamentRankingsPage() {
         {/* <h2>{tournament.configs.name}</h2> */}
         <h2>Neural Network</h2>
         <Button onClick={() => {
-          history.push(path.join(history.location.pathname, '../upload'));
+          history.push(path.join(history.location.pathname, 'upload'));
         }}>Upload Neural Network</Button>
         <Button className='refresh-btn' onClick={() => {
-          // update();
+           update();
         }}>Refresh Leaderboard</Button>
         <br />
         <br />
-        {/* {
-          tournament && user.admin && 
-          <TournamentActionButton dimensionID={tournament.id} tournament={tournament} update={update}/>
-        } */}
         
         { ranksystem === 'trueskill' && 
           <Table 
