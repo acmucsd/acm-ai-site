@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.less';
 import { Tournament } from '../../types/dimensions';
 import DefaultLayout from "../../components/layouts/default";
 import { Table } from 'antd';
-import UserContext from '../../UserContext';
 import axios, { AxiosResponse } from 'axios';
 
 const trueskillCols = [
@@ -97,12 +96,11 @@ interface TournamentRankingsPageHistoricalProps {
 const TournamentRankingsPageHistorical = ({ dataDir, description }: TournamentRankingsPageHistoricalProps) => {
   const [loading, setLoading] = useState(true);
   const [ updateTime, setUpdateTime ] = useState<Date>();
-  const { user } = useContext(UserContext);
   const [tournament, setTournament] = useState<Tournament>();
-  //@ts-ignore
-  const [ranksystem, setRankSystem] = useState<Tournament.RankSystem>('trueskill');
+  const [ranksystem, setRankSystem] = useState('trueskill');
   const [data, setData] = useState<any>([]);
-  const update = () => {
+  
+  useEffect(() => {
     axios.get(`/data/${dataDir}/tournament.json`).then((res) => {
       setTournament(res.data.tournament);
       return res.data.tournament;
@@ -126,10 +124,7 @@ const TournamentRankingsPageHistorical = ({ dataDir, description }: TournamentRa
         setUpdateTime(new Date());
       });
     });
-  }
-  useEffect(() => {
-    update();
-  }, []);
+  }, [dataDir]);
   return (
     <DefaultLayout>
       <div className='TournamentRankingsPage'>

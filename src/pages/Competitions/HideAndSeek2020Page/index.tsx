@@ -24,7 +24,7 @@ function HideAndSeek2020Page() {
         </div>
         <div className='main-section'>
           <h1 style={{color: "white"}}>Competition Info</h1>
-          <h1 className='statement'>Ranking 📈</h1>
+          <h1 className='statement'>Ranking <span role="img" aria-label="ranks">📈</span></h1>
           <p>So you submitted your bot. What now? Check out the leaderboard to see how well your bot is doing! After submitting, you will need to give our servers some time to get around to scheduling matches for your bot.</p>
           <p>The way we rank players is through the Trueskill ranking system developed by Microsoft. You have 3 values associated with your ranking, a score, a mu (µ), and a sigma (σ)</p>
           <p>Mu represents our absolute measure of your bot's skill. Sigma represents our confidence in that measure, with lower meaning higher confidence. Your score is then calculated as µ - 3 * σ and all players are ranked according to that</p>
@@ -33,7 +33,7 @@ function HideAndSeek2020Page() {
           </p>
           <br />
           <br />
-          <h1 className='statement'>Prizes 🏆</h1>
+          <h1 className='statement'>Prizes <span role="img" aria-label="prizes">🏆</span></h1>
           <p>At the moment, we have two prizes of $30 Amazon Gift cards for two categories</p>
           <h3 className='prize-title'>Overall Winner</h3>
           <p>$30 Amazon Gift card given to the highest ranking player. An email with the code will be sent to the player and will be recorded in ACM AI's history books! The highest ranking is explained above in the ranking section</p>

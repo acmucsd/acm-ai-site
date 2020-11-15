@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import './index.less';
-import { Tournament } from '../../types/dimensions';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
 import { getNNRanks } from '../../actions/dimensions/tournament';
-import TournamentActionButton from '../../components/TournamentActionButton';
 import { Table, Button } from 'antd';
 import UserContext from '../../UserContext';
 import TournamentContext from '../../contexts/tournament';

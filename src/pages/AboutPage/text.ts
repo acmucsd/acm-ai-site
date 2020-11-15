@@ -44,5 +44,5 @@ export const text: cardText[] = [
     role: 'Developer',
     name: 'Dhanvi Desu',
     major: 'Computer Science',
-  }
+  },
 ];

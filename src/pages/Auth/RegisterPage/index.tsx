@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.less';
 import DefaultLayout from "../../../components/layouts/default";
 import Card from '../../../components/Card';
@@ -6,20 +6,22 @@ import { Form, Input, message, Button, Checkbox } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { registerUser } from '../../../actions/auth';
 import { useHistory, Link } from 'react-router-dom';
-import { DIMENSION_ID } from '../../../configs';
 
 function RegisterPage() {
   const history = useHistory();
   const { handleSubmit, watch, errors, control } = useForm();
+  const [checked, setChecked] = useState(true);
   const onSubmit = (values: any) => {
     if (errors.confirmPassword) {
       handlePasswordErrors(errors)
     }
-    console.log("hello?")
-    registerUser(values).then((res) => {
+    registerUser({...values, isUCSD: checked}).then((res) => {
       message.success('Registered! Redirecting to login page');
       history.push('/login');
     });
+  }
+  const onCheckChange = (e: any) => {
+    setChecked(e.target.checked)
   }
   return (
     <DefaultLayout>
@@ -29,7 +31,7 @@ function RegisterPage() {
             <h2 style={{margin: 0}}>Register</h2>
             <p>An ACM AI account will help you get the most out of our events and opportunities whether it be for awesome competitions or cool networking events!</p>
             <br />
-              <form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmitCapture={handleSubmit(onSubmit)}>
                 <Controller 
                   as={
                     <Form.Item hasFeedback>
@@ -95,7 +97,8 @@ function RegisterPage() {
                   as={
                     <Form.Item>
                       <Checkbox
-                        defaultChecked={false}
+                        value={checked}
+                        onChange={onCheckChange}
                       > 
                         From UCSD
                        </Checkbox>
@@ -103,7 +106,6 @@ function RegisterPage() {
                   }
                   name='isUCSD'
                   control={control}
-                  rules={{ required: true }}
                 />
               
                 {errors.username && <p className='danger'>Missing username</p>}
@@ -118,7 +120,7 @@ function RegisterPage() {
                 {errors.confirmPassword?.type === 'required' && <p className='danger'>Need to confirm password</p>}
                 {errors.confirmPassword?.type === 'validate' && <p className='danger'>Passwords need to match</p>}
                 <Button htmlType="submit" className='registerButton'>Register</Button>
-              </form>
+            </Form>
             <div className='login-info'>
               <Link to='./login'>Login here</Link>
             </div>
