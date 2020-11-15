@@ -4,7 +4,6 @@ import './index.less';
 import { Agent, Match } from '../../../types/dimensions';
 import { Link, useParams } from 'react-router-dom';
 import { Table, Button } from 'antd';
-import MatchActionButton from '../../MatchActionButton';
 import UserContext from '../../../UserContext';
 import { downloadReplay } from '../../../actions/dimensions/tournament';
 import { getUrlForAgentLog } from '../../../actions/dimensions/match';
@@ -143,14 +142,6 @@ const MatchList = (props:
       dataIndex: 'status',
     }
   ];
-  const adminColumns = [...columns, {
-    title: 'Action',
-    dataIndex: 'action',
-    render: (match: Match) => {
-      //@ts-ignore
-      return (<MatchActionButton match={match} update={update} dimensionID={props.dimID}/>)
-    }
-  }];
   const fetchLogs = (match: Match) => {
     let promises: Array<Promise<{url: string, agent: Agent}>> = [];
     match.agents.forEach((agent) => {
@@ -212,12 +203,6 @@ const MatchList = (props:
   return (
     <div className={"MatchList " + props.className}>
       {
-        user.admin ?
-        <Table className='matchTable'
-          columns={adminColumns}
-          dataSource={data}
-          loading={props.loading}
-        /> :
         <Table className='matchTable'
           columns={columns}
           dataSource={data}

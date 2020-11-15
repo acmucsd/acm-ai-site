@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import SetupTournament from '../../containers/tournament';
 import Energium2020Page from '../../pages/Competitions/Energium2020Page';
 import TournamentRankingsPageHistorical from '../../pages/TournamentRankingsPageHistorical';
 export const EnergiumRoutes = () => {

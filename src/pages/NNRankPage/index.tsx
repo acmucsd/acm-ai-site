@@ -3,7 +3,6 @@ import './index.less';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
 import { getRanks } from '../../actions/dimensions/tournament';
-import TournamentActionButton from '../../components/TournamentActionButton';
 import { Table, Button } from 'antd';
 import UserContext from '../../UserContext';
 import TournamentContext from '../../contexts/tournament';

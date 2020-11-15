@@ -4,7 +4,6 @@ import { Tournament } from '../../types/dimensions';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import DefaultLayout from "../../components/layouts/default";
 import { getRanks } from '../../actions/dimensions/tournament';
-import TournamentActionButton from '../../components/TournamentActionButton';
 import { Table, Button } from 'antd';
 import UserContext from '../../UserContext';
 import TournamentContext from '../../contexts/tournament';
@@ -144,11 +143,6 @@ function TournamentRankingsPage() {
         }}>Refresh Leaderboard</Button>
         <br />
         <br />
-        {
-          tournament && user.admin && 
-          <TournamentActionButton dimensionID={tournament.id} tournament={tournament} update={update}/>
-        }
-        
         { ranksystem === 'trueskill' && 
           <Table 
             loading={loading}
