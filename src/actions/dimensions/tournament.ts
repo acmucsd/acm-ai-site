@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { Match, Player } from '../../types/dimensions';
 import { message } from 'antd';
 import { getToken } from '../../utils/token';
-import { competitionAPI, COMPETITIONS_COOKIE_NAME } from '../../configs';
+import { competitionAPI, COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../../configs';
 
 export const getConfigs = async (
   dimensionID: string,
@@ -238,21 +238,29 @@ export const uploadBot = async (
 };
 
 export const uploadNN = async (
-  dimensionID: string,
-  tournamentID: string,
   file: File | undefined,
   userid: string,
-) => {
+) : Promise<AxiosResponse> => {
   if (!file) {
     throw new Error('no file!');
   }
-  // let token = getToken(COMPETITIONS_COOKIE_NAME.energium);
+  
+  let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
+    let bodyFormData = new FormData();
+    bodyFormData.set('predictions', file);
 
     axios
       .post(
         process.env.REACT_APP_API +
-          `/v1/nncompetition/${userid}`        
+          `/v1/nncompetition/${userid}/newScore`,
+        bodyFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       )
       .then((res: AxiosResponse) => {
         resolve(res);
