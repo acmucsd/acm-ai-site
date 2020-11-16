@@ -27,7 +27,7 @@ import ForgotPasswordPage from './pages/Auth/ForgotPassword'
 import nnRanksPage from './pages/NNRankPage'
 import nnScoreHistory from './components/ScoreHistoryChart'
 import nnUpload from './pages/UploadNNPage'
-import nnsubmit from './pages/UploadNNPage'
+import requestreset from './pages/Auth/RequestReset'
 
 let cookie = getCookie(COOKIE_NAME);
 function App() {
@@ -88,6 +88,7 @@ function App() {
             <EnergiumRoutes />
           </TournamentProvider>
           <Route path="/resetpassword" component={ForgotPasswordPage}/>
+          <Route path="/requestreset" component={requestreset}/>
         </UserProvider> :
         <div className='Loading' style={{
           textAlign: 'center',
