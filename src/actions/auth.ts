@@ -32,6 +32,28 @@ export const resetPassword = async (
   });
 };
 
+export const requestReset = async (
+  username: string 
+) => {
+  console.log(username)
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        process.env.REACT_APP_API +
+          '/v1/users/' +
+          username +
+          '/resetpassword'
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error("Request Failed")
+        reject(error);
+      });
+  });
+};
+
 export const registerUser = async (
   data: { username: string; password: string; email: string, isUCSD: boolean }
 ) => {

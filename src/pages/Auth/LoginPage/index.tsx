@@ -71,6 +71,9 @@ function LoginPage() {
             <div className='register-info'>
               <Link to='./register'>Or Register an Account here</Link>
             </div>
+            <div className='register-info'>
+              <Link to='./requestreset'>Forgot your password?</Link>
+            </div>
           </div>
         </Card>
       </div>
