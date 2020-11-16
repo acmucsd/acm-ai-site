@@ -6,9 +6,10 @@ import { useForm } from 'react-hook-form';
 import Card from '../../components/Card';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-import { uploadNN } from '../../actions/dimensions/tournament';
+import { uploadNN } from '../../actions/nn';
 import UserContext from '../../UserContext';
 import path from 'path';
+import BackLink from '../../components/BackLink';
 
 const UploadNNPage = () => {
   const { handleSubmit } = useForm();
@@ -43,6 +44,8 @@ const UploadNNPage = () => {
   return (
     <DefaultLayout>
       <div className="UploadNNPage">
+        <br />
+        <BackLink to="../" />
         <Card className="upload-form-card">
           <h2>Submit NN</h2>
           <p>You must submit a csv file that contains your results</p>

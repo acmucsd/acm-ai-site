@@ -1,33 +1,70 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
 import { useHistory } from 'react-router-dom';
 import DefaultLayout from '../../components/layouts/default';
-import { getNNRanks } from '../../actions/dimensions/tournament';
-import { Table, Button } from 'antd';
+import { getNNRanks } from '../../actions/nn';
+import { Table, Button, Modal } from 'antd';
 import BackLink from '../../components/BackLink';
 import path from 'path';
-
+import ChartJS from 'chart.js';
+const chartConfig = {
+  type: 'line',
+  data: {
+  labels: [0],
+  datasets: [
+      {
+          label: "MSE Score",
+          data: [],
+          backgroundColor: "#ff6f6f80",
+          borderColor: "#ff6f6f"
+      }
+  ]
+  },
+  options: {
+    responsive: true,
+    title: {
+      display: true,
+      text: 'Score History',
+    },
+  },
+};
 const NNRankPage = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [updateTime, setUpdateTime] = useState<Date>();
   const [data, setData] = useState<any>([]);
+  const [visible, setVisible] = useState(false);
+  const [chart, setChart] = useState<ChartJS | null>(null);
+  const chartContainer = useRef<HTMLCanvasElement>(null);
+  const [scoreHistTitle, setScoreHistTitle] = useState("");
 
-  // TODO: Define New Update function for NN Ranks
+  const [chartTrigger, setTrigger] = useState(false);
+  useEffect(() => {
+    if (chartContainer && chartContainer.current) {
+      const myChartRef = chartContainer!.current!.getContext("2d");
+      const newchart = new ChartJS(myChartRef!, chartConfig)
+      setChart(newchart);
+    }
+  }, [chartContainer, chartTrigger]);
+
+  // uses a second hook to address bug where chartContainer ref does not update in time nor triggers callback
+  useEffect(() => {
+    setTrigger(visible);
+  }, [visible]);
+
   const update = () => {
     getNNRanks().then((res) => {
       let newData = [];
       newData = res.data.map((info: any, ind: number) => {
-        console.log(info, info.bestScore);
         return {
           username: info.username,
           score: info.bestScore,
-          scorehist: info.scoreHistory.map((score: any, ind: number) => {
-            return {
-              x: ind,
-              y: score,
-            };
-          }),
+          scorehist: {
+            data: info.scoreHistory.map((score: any, ind: number) => {
+              return score.toFixed(6)
+            }),
+            username: info.username
+          }
         };
       });
       setData(newData);
@@ -49,7 +86,7 @@ const NNRankPage = () => {
       title: 'Latest Top Score',
       dataIndex: 'score',
       render: (info: any) => {
-        return <span>{info}</span>;
+        return <span>{info.toFixed(6)}</span>;
       },
     },
     {
@@ -59,12 +96,17 @@ const NNRankPage = () => {
         return (
           <Button
             onClick={() => {
-              history.push({
-                pathname: 'scorehist',
-                state: {
-                  data: info,
-                },
-              });
+              const data = info.data;
+              setVisible(true);
+              chartConfig.data.datasets[0].data = data;
+              chartConfig.data.labels = [];
+              for (let i = 0; i < data.length; i++) {
+                chartConfig.data.labels.push(i);
+              }
+              const title = 'Score history for ' + info.username;
+              chartConfig.options.title.text = title;
+              chart?.update();
+              setScoreHistTitle(title)
             }}
           >
             View Score History
@@ -95,6 +137,16 @@ const NNRankPage = () => {
           concludes, final results will be computed on 100% of the test data
         </p>
         <br />
+        <Modal
+          title={scoreHistTitle}
+          visible={visible}
+          footer={null}
+          onCancel={() => {setVisible(false)}}
+        >
+          <div>
+            <canvas ref={chartContainer} />
+          </div>
+        </Modal>
         <Button
           onClick={() => {
             history.push(path.join(history.location.pathname, 'upload'));
