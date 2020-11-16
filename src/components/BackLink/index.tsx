@@ -11,7 +11,7 @@ const BackLink = (props: { to?: string }) => {
         <Button>Back</Button>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default BackLink
+export default BackLink;

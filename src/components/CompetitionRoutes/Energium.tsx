@@ -6,18 +6,19 @@ export const EnergiumRoutes = () => {
   // const Setupfall2020Tourney = (component: JSX.Element) => {
   //   return <SetupTournament type="general" component={component} dimensionID='acmdim' tournamentID='tourney' tryAndLogin={false}/>
   // }
-  return <>
-  <Route 
-    path="/competitions/energium" 
-    exact 
-    render={() => <Energium2020Page />}
-  />
-  <Route 
-    path="/competitions/energium/ranks" 
-    exact 
-    render={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
-  />
-  {/* 
+  return (
+    <>
+      <Route
+        path="/competitions/energium"
+        exact
+        render={() => <Energium2020Page />}
+      />
+      <Route
+        path="/competitions/energium/ranks"
+        exact
+        render={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
+      />
+      {/* 
   no longer running competition so we turn this off
   <Route 
     path="/competitions/energium/user/:userID" 
@@ -32,5 +33,6 @@ export const EnergiumRoutes = () => {
   <Route path="/competitions/energium/upload" exact 
     render={() => Setupfall2020Tourney(<UploadBotPage competitionKey='energium' />)}
   /> */}
-  </>
-}
+    </>
+  );
+};

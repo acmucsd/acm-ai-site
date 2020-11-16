@@ -1,16 +1,14 @@
 import React from 'react';
 import Header from '../Header';
-import Container from "./container";
+import Container from './container';
 
 /* Span full width of screen */
-function WideLayout(props:any) {
+function WideLayout(props: any) {
   return (
-      <div>
+    <div>
       <Header></Header>
-      <Container>
-          {props.children}
-      </Container>
-      </div>
+      <Container>{props.children}</Container>
+    </div>
   );
 }
 

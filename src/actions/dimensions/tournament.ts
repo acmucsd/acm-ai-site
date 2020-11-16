@@ -2,7 +2,11 @@ import axios, { AxiosResponse } from 'axios';
 import { Match, Player } from '../../types/dimensions';
 import { message } from 'antd';
 import { getToken } from '../../utils/token';
-import { competitionAPI, COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../../configs';
+import {
+  competitionAPI,
+  COMPETITIONS_COOKIE_NAME,
+  COOKIE_NAME,
+} from '../../configs';
 
 export const getConfigs = async (
   dimensionID: string,
@@ -239,12 +243,12 @@ export const uploadBot = async (
 
 export const uploadNN = async (
   file: File | undefined,
-  userid: string,
-) : Promise<AxiosResponse> => {
+  userid: string
+): Promise<AxiosResponse> => {
   if (!file) {
     throw new Error('no file!');
   }
-  
+
   let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     let bodyFormData = new FormData();
@@ -252,8 +256,7 @@ export const uploadNN = async (
 
     axios
       .post(
-        process.env.REACT_APP_API +
-          `/v1/nncompetition/${userid}/newScore`,
+        process.env.REACT_APP_API + `/v1/nncompetition/${userid}/newScore`,
         bodyFormData,
         {
           headers: {
@@ -266,26 +269,22 @@ export const uploadNN = async (
         resolve(res);
       })
       .catch((error) => {
-
-        message.error("Upload Failed")
+        message.error('Upload Failed');
         reject(error);
       });
   });
 };
 
-export const getNNRanks = async () : Promise<AxiosResponse> => {  
+export const getNNRanks = async (): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
     axios
-      .get(
-        process.env.REACT_APP_API +
-          '/v1/nncompetition/'        
-      )
+      .get(process.env.REACT_APP_API + '/v1/nncompetition/')
       .then((res: AxiosResponse) => {
         resolve(res);
       })
       .catch((error) => {
-        message.error("Ranks Failed")
+        message.error('Ranks Failed');
         reject(error);
       });
   });
-}; 
+};
