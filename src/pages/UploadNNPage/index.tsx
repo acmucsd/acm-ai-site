@@ -20,7 +20,7 @@ function UploadNNPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
   const history = useHistory();
   useEffect(() => {
     // TODO: Uncomment following line
-    // !user.loggedIn && message.info('You need to login to upload a bot') && history.replace(path.join(window.location.pathname, '../../../login'));
+    !user.loggedIn && message.info('You need to login to upload a bot') && history.replace(path.join(window.location.pathname, '../../../login'));
     
   }, []);
   useEffect(() => {
@@ -28,15 +28,12 @@ function UploadNNPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
       !user.competitionRegistrations[competitionKey] && message.info("You need to register into the competition to submit a neural network") && history.replace(path.join(window.location.pathname, '../'));
     }
   }, [user]);
+
   const onSubmit = (values: any) => {
-    console.log(values)
-    // TODO: remove hardcoded competition specific names
-    //tournament.dimID/id "cannot read property dimID of undefined"
-    // TODO: create neural network upload function
     const tempdimID = "neural-network-v1";
     const tempID = "neural-network";
-    uploadNN(tempdimID, tempID, nnFile, user.competitionData[competitionKey]?.id as string).then(() => {
-      message.success('Succesfully uploaded bot');
+    uploadNN(nnFile, user.username as string).then((res) => {
+      message.success("Score: " + res.data.score)
     });
   }
   const dummyRequest = ({ file, onSuccess }: any) => {
@@ -64,7 +61,7 @@ function UploadNNPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
       <div className='UploadNNPage'>
         <Card className='upload-form-card'>
           <h2>Submit NN</h2>
-          <p>You must submit a zip file that contains all your neural network code and the main file in the root folder</p>
+          <p>You must submit a csv file that contains your results</p>
           <br />
           <Form>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -75,7 +72,7 @@ function UploadNNPage({competitionKey}: {competitionKey: COMPETITION_NAMES}) {
                   customRequest={dummyRequest}
                 >
                   <Button className="upload-nn">
-                    <UploadOutlined /> Click to add neural network zip file
+                    <UploadOutlined /> Click to add neural network .csv file
                   </Button>
                 </Upload>
               </div>
