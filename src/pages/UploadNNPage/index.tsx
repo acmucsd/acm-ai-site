@@ -47,8 +47,8 @@ const UploadNNPage = () => {
         <br />
         <BackLink to="../" />
         <Card className="upload-form-card">
-          <h2>Submit NN</h2>
-          <p>You must submit a csv file that contains your results</p>
+          <h2>Submit Predictions</h2>
+          <p>You must submit a csv file that contains your predictions. There should be 1000 rows and there is no header</p>
           <br />
           <Form>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -58,12 +58,12 @@ const UploadNNPage = () => {
                   customRequest={dummyRequest}
                 >
                   <Button className="upload-nn">
-                    <UploadOutlined /> Click to add neural network .csv file
+                    <UploadOutlined /> Click to add .csv file
                   </Button>
                 </Upload>
               </div>
               <Button htmlType="submit" className="submit-button">
-                Submit Neural Network
+                Submit Predictions
               </Button>
             </form>
           </Form>
