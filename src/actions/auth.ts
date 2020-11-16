@@ -45,7 +45,7 @@ export const registerUser = async (
     axios
       .post(
         process.env.REACT_APP_API +
-          'v1/users',
+          '/v1/users',
         body
       )
       .then((res: AxiosResponse) => {
