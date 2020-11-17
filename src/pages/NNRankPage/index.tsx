@@ -61,7 +61,8 @@ const NNRankPage = () => {
             username: info.username,
             score: info.bestScore,
             scorehist: {
-              data: info.scoreHistory.map((score: any, ind: number) => {
+              startIndex: Math.max(info.scoreHistory.length - 10, 0),
+              data: info.scoreHistory.slice(-10).map((score: any, ind: number) => {
                 return score.toFixed(6);
               }),
               username: info.username,
@@ -102,7 +103,7 @@ const NNRankPage = () => {
               setVisible(true);
               chartConfig.data.datasets[0].data = data;
               chartConfig.data.labels = [];
-              for (let i = 0; i < data.length; i++) {
+              for (let i = info.startIndex; i < data.length; i++) {
                 chartConfig.data.labels.push(i);
               }
               const title = 'Score history for ' + info.username;
