@@ -103,8 +103,8 @@ const NNRankPage = () => {
               setVisible(true);
               chartConfig.data.datasets[0].data = data;
               chartConfig.data.labels = [];
-              for (let i = info.startIndex; i < data.length; i++) {
-                chartConfig.data.labels.push(i);
+              for (let i = 0; i < data.length; i++) {
+                chartConfig.data.labels.push(i + info.startIndex);
               }
               const title = 'Score history for ' + info.username;
               chartConfig.options.title.text = title;
