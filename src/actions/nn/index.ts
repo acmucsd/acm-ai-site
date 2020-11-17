@@ -31,7 +31,7 @@ export const uploadNN = async (
         resolve(res);
       })
       .catch((error) => {
-        message.error('Upload Failed');
+        message.error(error.response.data.error.message);
         reject(error);
       });
   });
