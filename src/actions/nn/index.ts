@@ -1,7 +1,7 @@
-import { message } from "antd";
-import axios, { AxiosResponse } from "axios";
-import { COOKIE_NAME } from "../../configs";
-import { getToken } from "../../utils/token";
+import { message } from 'antd';
+import axios, { AxiosResponse } from 'axios';
+import { COOKIE_NAME } from '../../configs';
+import { getToken } from '../../utils/token';
 
 export const uploadNN = async (
   file: File | undefined,

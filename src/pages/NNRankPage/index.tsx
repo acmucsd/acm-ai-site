@@ -10,15 +10,15 @@ import ChartJS from 'chart.js';
 const chartConfig = {
   type: 'line',
   data: {
-  labels: [0],
-  datasets: [
+    labels: [0],
+    datasets: [
       {
-          label: "MSE Score",
-          data: [],
-          backgroundColor: "#ff6f6f80",
-          borderColor: "#ff6f6f"
-      }
-  ]
+        label: 'MSE Score',
+        data: [],
+        backgroundColor: '#ff6f6f80',
+        borderColor: '#ff6f6f',
+      },
+    ],
   },
   options: {
     responsive: true,
@@ -36,13 +36,13 @@ const NNRankPage = () => {
   const [visible, setVisible] = useState(false);
   const [chart, setChart] = useState<ChartJS | null>(null);
   const chartContainer = useRef<HTMLCanvasElement>(null);
-  const [scoreHistTitle, setScoreHistTitle] = useState("");
+  const [scoreHistTitle, setScoreHistTitle] = useState('');
 
   const [chartTrigger, setTrigger] = useState(false);
   useEffect(() => {
     if (chartContainer && chartContainer.current) {
-      const myChartRef = chartContainer!.current!.getContext("2d");
-      const newchart = new ChartJS(myChartRef!, chartConfig)
+      const myChartRef = chartContainer!.current!.getContext('2d');
+      const newchart = new ChartJS(myChartRef!, chartConfig);
       setChart(newchart);
     }
   }, [chartContainer, chartTrigger]);
@@ -55,18 +55,20 @@ const NNRankPage = () => {
   const update = () => {
     getNNRanks().then((res) => {
       let newData = [];
-      newData = res.data.map((info: any, ind: number) => {
-        return {
-          username: info.username,
-          score: info.bestScore,
-          scorehist: {
-            data: info.scoreHistory.map((score: any, ind: number) => {
-              return score.toFixed(6)
-            }),
-            username: info.username
-          }
-        };
-      });
+      newData = res.data
+        .map((info: any, ind: number) => {
+          return {
+            username: info.username,
+            score: info.bestScore,
+            scorehist: {
+              data: info.scoreHistory.map((score: any, ind: number) => {
+                return score.toFixed(6);
+              }),
+              username: info.username,
+            },
+          };
+        })
+        .reverse();
       setData(newData);
       setLoading(false);
       setUpdateTime(new Date());
@@ -83,7 +85,7 @@ const NNRankPage = () => {
       dataIndex: 'username',
     },
     {
-      title: 'Latest Top Score',
+      title: 'Best Score so Far',
       dataIndex: 'score',
       render: (info: any) => {
         return <span>{info.toFixed(6)}</span>;
@@ -106,7 +108,7 @@ const NNRankPage = () => {
               const title = 'Score history for ' + info.username;
               chartConfig.options.title.text = title;
               chart?.update();
-              setScoreHistTitle(title)
+              setScoreHistTitle(title);
             }}
           >
             View Score History
@@ -136,12 +138,18 @@ const NNRankPage = () => {
           scores, testing on 20% of the test data. Once the competition
           concludes, final results will be computed on 100% of the test data
         </p>
+        <p>
+          Once you submit your predictions, you will be placed onto the
+          leaderboard!
+        </p>
         <br />
         <Modal
           title={scoreHistTitle}
           visible={visible}
           footer={null}
-          onCancel={() => {setVisible(false)}}
+          onCancel={() => {
+            setVisible(false);
+          }}
         >
           <div>
             <canvas ref={chartContainer} />
