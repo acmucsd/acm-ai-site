@@ -59,7 +59,7 @@ const NNRankPage = () => {
         .map((info: any, ind: number) => {
           return {
             username: info.username,
-            score: info.bestScore,
+            score: info.scoreHistory[info.scoreHistory.length - 1],
             scorehist: {
               startIndex: Math.max(info.scoreHistory.length - 10, 0),
               data: info.scoreHistory.slice(-10).map((score: any, ind: number) => {
@@ -86,7 +86,7 @@ const NNRankPage = () => {
       dataIndex: 'username',
     },
     {
-      title: 'Best Score so Far',
+      title: 'Latest Submission Score',
       dataIndex: 'score',
       render: (info: any) => {
         return <span>{info.toFixed(6)}</span>;
