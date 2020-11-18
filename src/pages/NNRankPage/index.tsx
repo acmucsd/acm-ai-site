@@ -55,21 +55,28 @@ const NNRankPage = () => {
   const update = () => {
     getNNRanks().then((res) => {
       let newData = [];
-      newData = res.data
-        .map((info: any, ind: number) => {
-          return {
-            username: info.username,
-            score: info.scoreHistory[info.scoreHistory.length - 1],
-            scorehist: {
-              startIndex: Math.max(info.scoreHistory.length - 10, 0),
-              data: info.scoreHistory.slice(-10).map((score: any, ind: number) => {
+      newData = res.data.map((info: any) => {
+        return {
+          username: info.username,
+          score: info.scoreHistory[info.scoreHistory.length - 1],
+          scorehist: {
+            startIndex: Math.max(info.scoreHistory.length - 10, 0),
+            data: info.scoreHistory
+              .slice(-10)
+              .map((score: any, ind: number) => {
                 return score.toFixed(6);
               }),
-              username: info.username,
-            },
-          };
+            username: info.username,
+          },
+        };
+      });
+      newData = newData
+        .sort((a: any, b: any) => {
+          return a.score - b.score;
         })
-        .reverse();
+        .map((a: any, ind: number) => {
+          return { ...a, username: `${ind + 1}. ${a.username}` };
+        });
       setData(newData);
       setLoading(false);
       setUpdateTime(new Date());
