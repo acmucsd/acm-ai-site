@@ -109,7 +109,7 @@ export const external: cardText[] =[
 
 export const ex: cardText[] =[
   {
-    role: 'Ex Director of Marketing',
+    role: 'Ex- Director of Marketing',
     name: 'Thang Phan',
     major: 'Computer Science',
     year: 'Second year',
