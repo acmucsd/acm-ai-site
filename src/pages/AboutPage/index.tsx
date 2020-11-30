@@ -10,15 +10,12 @@ const ColoredLine = () => (
         style={{
             color: "gray",
             backgroundColor: "gray",
-            height: 4
+            height: '10%'
         }}
     />
 );
 
 function AboutPage() {
-
-
-
   return (
     <DefaultLayout>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +26,7 @@ function AboutPage() {
         </div >
         <h2 >And these are the people running the show!</h2>
         <br />
-        <Row gutter={[24, 24]} justify="center" >
+        <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify="center" >
           {directors.map((cardText) => {
             return (
               <Col >
@@ -37,7 +34,7 @@ function AboutPage() {
                   <img src="https://i.stack.imgur.com/l60Hf.png" alt="Nope" width="40%" height="40%"></img>
                   <h3>{cardText.role}</h3>
                   <p className="name">{cardText.name}</p>
-                  <p className="name">{cardText.year + " "}{cardText.major + " major"}</p>
+                  <p className="position">{cardText.year + " "}{cardText.major + " major"}</p>
                 </Card>
               </Col>
             );
@@ -48,7 +45,7 @@ function AboutPage() {
           <h2> Our team of event leads who design and host all the events </h2>
         </div>
         <br />
-        <Row gutter={[24, 24]} justify="center">
+        <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify="center">
           {operations.map((cardText) => {
             return (
               <Col>
@@ -56,7 +53,7 @@ function AboutPage() {
                   <img src="https://i.stack.imgur.com/l60Hf.png" alt="Nope" width="40%" height="40%"></img>
                   <h3>{cardText.role}</h3>
                   <p className="name">{cardText.name}</p>
-                  <p className="name">{cardText.year + " "}{cardText.major + " major"}</p>
+                  <p className="position">{cardText.year + " "}{cardText.major + " major"}</p>
                 </Card>
               </Col>
             );
@@ -67,7 +64,7 @@ function AboutPage() {
           <h2> Our team of developers working tirelessly to keep everything running smoothly </h2>
         </div>
         <br />
-        <Row gutter={[24, 24]} justify="center">
+        <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify="center">
           {dev.map((cardText) => {
             return (
               <Col>
@@ -75,7 +72,7 @@ function AboutPage() {
                   <img src="https://i.stack.imgur.com/l60Hf.png" alt="Nope" width="40%" height="40%"></img>
                   <h3>{cardText.role}</h3>
                   <p className="name">{cardText.name}</p>
-                  <p className="name">{cardText.year + " "}{cardText.major + " major"}</p>
+                  <p className="position">{cardText.year + " "}{cardText.major + " major"}</p>
                 </Card>
               </Col>
             );
@@ -86,7 +83,7 @@ function AboutPage() {
           <h2> Our wonderful marketing and sponsorship team </h2>
         </div>
         <br />
-        <Row gutter={[24, 24]} justify="center">
+        <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify="center">
           {external.map((cardText) => {
             return (
               <Col>
@@ -94,7 +91,7 @@ function AboutPage() {
                   <img src="https://i.stack.imgur.com/l60Hf.png" alt="Nope" width="40%" height="40%"></img>
                   <h3>{cardText.role}</h3>
                   <p className="name">{cardText.name}</p>
-                  <p className="name">{cardText.year + " "}{cardText.major + " major"}</p>
+                  <p className="position">{cardText.year + " "}{cardText.major + " major"}</p>
                 </Card>
               </Col>
             );
@@ -105,7 +102,7 @@ function AboutPage() {
           <h2> Your hardwork will not be forgotten </h2>
         </div>
         <br />
-        <Row gutter={[24, 24]} justify="center">
+        <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify="center">
           {ex.map((cardText) => {
             return (
               <Col>
@@ -113,7 +110,7 @@ function AboutPage() {
                   <img src="https://i.stack.imgur.com/l60Hf.png" alt="Nope" width="40%" height="40%"></img>
                   <h3>{cardText.role}</h3>
                   <p className="name">{cardText.name}</p>
-                  <p className="name">{cardText.year + " "}{cardText.major + " major"}</p>
+                  <p className="position">{cardText.year + " "}{cardText.major + " major"}</p>
                 </Card>
               </Col>
             );
