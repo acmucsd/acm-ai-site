@@ -33,7 +33,7 @@ const AboutPage = () => {
         >
           {directors.map((cardText) => {
             return (
-              <Col xs={12}>
+              <Col xs={12} md={8}>
                 <Card>
                   <img
                     src="https://i.stack.imgur.com/l60Hf.png"
@@ -66,7 +66,7 @@ const AboutPage = () => {
         >
           {operations.map((cardText) => {
             return (
-              <Col xs={12}>
+              <Col xs={12} md={8}>
                 <Card>
                   <img
                     src="https://i.stack.imgur.com/l60Hf.png"
@@ -103,7 +103,7 @@ const AboutPage = () => {
         >
           {dev.map((cardText) => {
             return (
-              <Col xs={12}>
+              <Col xs={12} md={8}>
                 <Card>
                   <img
                     src="https://i.stack.imgur.com/l60Hf.png"
@@ -136,7 +136,7 @@ const AboutPage = () => {
         >
           {external.map((cardText) => {
             return (
-              <Col xs={12}>
+              <Col xs={12} md={8}>
                 <Card>
                   <img
                     src="https://i.stack.imgur.com/l60Hf.png"
@@ -169,7 +169,7 @@ const AboutPage = () => {
         >
           {ex.map((cardText) => {
             return (
-              <Col>
+              <Col xs={12} md={8}>
                 <Card>
                   <img
                     src="https://i.stack.imgur.com/l60Hf.png"

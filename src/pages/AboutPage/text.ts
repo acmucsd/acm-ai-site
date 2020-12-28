@@ -22,7 +22,7 @@ export const directors: cardText[] = [
     role: 'Director of Marketing',
     name: 'Jonathan Zamora',
     major: 'Computer Science',
-    year: 'Second year',
+    year: 'Third year',
   },
 ];
 
@@ -43,7 +43,7 @@ export const operations: cardText[] = [
     role: 'Event Lead',
     name: 'Jason Vega',
     major: 'Computer Science',
-    year: 'Second year',
+    year: 'Third year',
   },
   {
     role: 'Event Lead',
