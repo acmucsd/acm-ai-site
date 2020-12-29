@@ -4,31 +4,73 @@ import { setCookie, deleteCookie } from '../utils/cookie';
 import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
-export const registerUser = async (
-  dimensionID: string,
-  data: { username: string; password: string; email: string }
-) => {
+export const resetPassword = async (data: {
+  username: string;
+  code: string;
+  password: string;
+}) => {
   let body = {
-    username: data.username,
     password: data.password,
-    userData: {
-      email: data.email,
-    },
+    resetPasswordKey: data.code,
   };
+  console.log(data);
+  console.log(body);
   return new Promise((resolve, reject) => {
     axios
       .post(
         process.env.REACT_APP_API +
-          '/api/dimensions/' +
-          dimensionID +
-          '/auth/register',
+          '/v1/users/' +
+          data.username +
+          '/resetpassword',
         body
       )
       .then((res: AxiosResponse) => {
         resolve(res);
       })
       .catch((error) => {
+        message.error('Reset Failed');
+        reject(error);
+      });
+  });
+};
+
+export const requestReset = async (username: string) => {
+  console.log(username);
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        process.env.REACT_APP_API + '/v1/users/' + username + '/resetpassword'
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error('Request Failed');
+        reject(error);
+      });
+  });
+};
+export const registerUser = async (data: {
+  username: string;
+  password: string;
+  email: string;
+  isUCSD: boolean;
+}) => {
+  let body = {
+    username: data.username,
+    password: data.password,
+    email: data.email,
+    isUCSD: data.isUCSD,
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .post(process.env.REACT_APP_API + '/v1/users', body)
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
         message.error(error.response.data.error.message);
+        console.error(error);
         reject(error);
       });
   });
@@ -77,19 +119,13 @@ export const loginUser = async (
 ) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(
-        process.env.REACT_APP_API +
-          '/api/dimensions/' +
-          dimensionID +
-          '/auth/login',
-        data
-      )
+      .post(process.env.REACT_APP_API + '/v1/auth/login', data)
       .then((res: AxiosResponse) => {
         setCookie(COOKIE_NAME, res.data.token, 7);
         resolve(res.data.token);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
+        // message.error(error.response.data.error.message);
         reject(error);
       });
   });
@@ -99,10 +135,7 @@ export const verifyToken = async (dimensionID: string, token: string) => {
   return new Promise((resolve, reject) => {
     axios
       .post(
-        process.env.REACT_APP_API +
-          '/api/dimensions/' +
-          dimensionID +
-          '/auth/verify',
+        process.env.REACT_APP_API + '/v1/auth/verify',
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

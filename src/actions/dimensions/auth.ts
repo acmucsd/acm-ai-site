@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { message } from 'antd';
-import { setCookie, deleteCookie } from '../../utils/cookie';
+import { setCookie } from '../../utils/cookie';
 
 import { User } from '../../UserContext';
 import { competitionAPI, COMPETITIONS_COOKIE_NAME } from '../../configs';

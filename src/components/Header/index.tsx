@@ -1,5 +1,5 @@
-import React, {useState, useContext, useEffect} from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Menu, message } from 'antd';
 import './index.less';
 import UserContext from '../../UserContext';
@@ -11,48 +11,48 @@ function Header() {
   let path = window.location.pathname;
   let initKeys: Array<string> = [];
   if (path.match(`/home`)) {
-    initKeys=['home'];
+    initKeys = ['home'];
   }
   if (path.match(`user`)) {
-    initKeys=['profile'];
+    initKeys = ['profile'];
   }
   if (path.match(`login`)) {
-    initKeys=['login'];
+    initKeys = ['login'];
   }
   if (path.match(`register`)) {
-    initKeys=['register'];
+    initKeys = ['register'];
   }
   if (path.match(`/competitions`)) {
-    initKeys=['competitions'];
+    initKeys = ['competitions'];
   }
   if (path.match(`/about`)) {
-    initKeys=['about'];
+    initKeys = ['about'];
   }
   const [key, setKey] = useState<Array<string>>(initKeys);
-  const params: any = useParams();
   const handleClick = (e: any) => {
     setKey(e.key);
   };
 
   const [loginItems, setLoginItems] = useState<any>();
   const history = useHistory();
-  const renderLoginItems = () => {
+  useEffect(() => {
     if (user.loggedIn) {
-      setLoginItems(
-        [<Menu.Item key="logout" onClick={() => {
-          logoutUser();
-          setUser(defaultUser);
-          message.success("Logged out");
-          history.push("/");
-        }}>
+      setLoginItems([
+        <Menu.Item
+          key="logout"
+          onClick={() => {
+            logoutUser();
+            setUser(defaultUser);
+            message.success('Logged out');
+            history.push('/');
+          }}
+        >
           Logout
         </Menu.Item>,
-        ]
-      )
-    }
-    else {
-      setLoginItems(
-        [<Menu.Item key="login">
+      ]);
+    } else {
+      setLoginItems([
+        <Menu.Item key="login">
           <Link to={`/login`} rel="noopener noreferrer">
             Login
           </Link>
@@ -61,16 +61,18 @@ function Header() {
           <Link to={`/register`} rel="noopener noreferrer">
             Register
           </Link>
-        </Menu.Item>]
-      );
+        </Menu.Item>,
+      ]);
     }
-  }
-  useEffect(() => {
-    renderLoginItems();
-  }, [user]);
+  }, [history, setUser, user]);
 
   return (
-    <Menu onClick={handleClick} selectedKeys={key} mode="horizontal" className="Header">
+    <Menu
+      onClick={handleClick}
+      selectedKeys={key}
+      mode="horizontal"
+      className="Header"
+    >
       <Menu.Item className="logo">
         {/* <Link to="/"><img src={logo} /></Link> */}
       </Menu.Item>
@@ -89,21 +91,8 @@ function Header() {
           About
         </Link>
       </Menu.Item>
-      {/* <Menu.Item key="tournament">
-        <Link to={`/tournaments/${TOURNAMENT_ID}`} rel="noopener noreferrer">
-          Tournament
-        </Link>
-      </Menu.Item> */}
-      {/* <Menu.Item key="leaderboard">
-        <Link to={`/tournaments/${TOURNAMENT_ID}/ranks`} rel="noopener noreferrer">
-          Leaderboard
-        </Link>
-      </Menu.Item> */}
-      { 
-        loginItems
-      }
-      <Menu.Item className="empty">
-      </Menu.Item>
+      {loginItems}
+      <Menu.Item className="empty"></Menu.Item>
     </Menu>
   );
 }

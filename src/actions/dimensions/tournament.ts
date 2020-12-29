@@ -2,7 +2,11 @@ import axios, { AxiosResponse } from 'axios';
 import { Match, Player } from '../../types/dimensions';
 import { message } from 'antd';
 import { getToken } from '../../utils/token';
-import { competitionAPI, COMPETITIONS_COOKIE_NAME } from '../../configs';
+import {
+  competitionAPI,
+  COMPETITIONS_COOKIE_NAME,
+  COOKIE_NAME,
+} from '../../configs';
 
 export const getConfigs = async (
   dimensionID: string,
