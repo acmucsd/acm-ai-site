@@ -18,7 +18,6 @@ function MainPage() {
       <div className="Main">
         <div className="hero">
           <h1 id="title">ACM AI at UCSD</h1>
-
           <p className="subtext">
             We aspire to inspire the next generation of AI advocates, engineers,
             and scientists.
