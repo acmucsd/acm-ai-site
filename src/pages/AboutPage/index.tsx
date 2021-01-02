@@ -17,6 +17,7 @@ const ColoredLine = () => (
 
 const AboutPage = () => {
   return (
+
     <DefaultLayout>
       <div className="AboutPage">
         <div>
@@ -34,18 +35,22 @@ const AboutPage = () => {
           {directors.map((cardText) => {
             return (
               <Col xs={12} md={8}>
-                <Card>
-                  <img
-                    src="https://i.stack.imgur.com/l60Hf.png"
-                    alt="Nope"
-                    width="40%"
-                    height="40%"
-                  ></img>
-                  <h3>{cardText.role}</h3>
-                  <p className="name">{cardText.name}</p>
+                <Card hoverable='True'
+                      cover={<img
+                        src={cardText.picture}
+                        alt="Nope"
+                        width="40%"
+                        height="40%"
+                      ></img>}
+                >
+                  <h3>{cardText.role +'- '}{cardText.name}</h3>
                   <p className="position">
                     {cardText.year + ' '}
                     {cardText.major + ' major'}
+                  </p>
+                  <ColoredLine />
+                  <p className="quote">
+                    {cardText.bio}
                   </p>
                 </Card>
               </Col>
@@ -67,18 +72,22 @@ const AboutPage = () => {
           {operations.map((cardText) => {
             return (
               <Col xs={12} md={8}>
-                <Card>
-                  <img
-                    src="https://i.stack.imgur.com/l60Hf.png"
-                    alt="Nope"
-                    width="40%"
-                    height="40%"
-                  ></img>
-                  <h3>{cardText.role}</h3>
-                  <p className="name">{cardText.name}</p>
+                <Card hoverable='True'
+                      cover={<img
+                        src={cardText.picture}
+                        alt="Nope"
+                        width="40%"
+                        height="40%"
+                      ></img>}
+                >
+                <h3>{cardText.role +'- '}{cardText.name}</h3>
                   <p className="position">
                     {cardText.year + ' '}
                     {cardText.major + ' major'}
+                  </p>
+                  <ColoredLine />
+                  <p className="quote">
+                    {cardText.bio}
                   </p>
                 </Card>
               </Col>
@@ -104,18 +113,22 @@ const AboutPage = () => {
           {dev.map((cardText) => {
             return (
               <Col xs={12} md={8}>
-                <Card>
-                  <img
-                    src="https://i.stack.imgur.com/l60Hf.png"
-                    alt="Nope"
-                    width="40%"
-                    height="40%"
-                  ></img>
-                  <h3>{cardText.role}</h3>
-                  <p className="name">{cardText.name}</p>
+                <Card hoverable='True'
+                      cover={<img
+                        src={cardText.picture}
+                        alt="Nope"
+                        width="40%"
+                        height="40%"
+                      ></img>}
+                >
+                  <h3>{cardText.role +'- '}{cardText.name}</h3>
                   <p className="position">
                     {cardText.year + ' '}
                     {cardText.major + ' major'}
+                  </p>
+                  <ColoredLine />
+                  <p className="quote">
+                    {cardText.bio}
                   </p>
                 </Card>
               </Col>
@@ -137,18 +150,22 @@ const AboutPage = () => {
           {external.map((cardText) => {
             return (
               <Col xs={12} md={8}>
-                <Card>
-                  <img
-                    src="https://i.stack.imgur.com/l60Hf.png"
-                    alt="Nope"
-                    width="40%"
-                    height="40%"
-                  ></img>
-                  <h3>{cardText.role}</h3>
-                  <p className="name">{cardText.name}</p>
+                <Card hoverable='True'
+                      cover={<img
+                        src={cardText.picture}
+                        alt="Nope"
+                        width="40%"
+                        height="40%"
+                      ></img>}
+                >
+                  <h3>{cardText.role +'- '}{cardText.name}</h3>
                   <p className="position">
                     {cardText.year + ' '}
                     {cardText.major + ' major'}
+                  </p>
+                  <ColoredLine />
+                  <p className="quote">
+                    {cardText.bio}
                   </p>
                 </Card>
               </Col>
@@ -170,15 +187,8 @@ const AboutPage = () => {
           {ex.map((cardText) => {
             return (
               <Col xs={12} md={8}>
-                <Card>
-                  <img
-                    src="https://i.stack.imgur.com/l60Hf.png"
-                    alt="Nope"
-                    width="40%"
-                    height="40%"
-                  ></img>
-                  <h3>{cardText.role}</h3>
-                  <p className="name">{cardText.name}</p>
+                <Card hoverable='True'>
+                  <h3>{cardText.role +'- '}{cardText.name}</h3>
                   <p className="position">
                     {cardText.year + ' '}
                     {cardText.major + ' major'}
