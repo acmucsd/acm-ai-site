@@ -30,7 +30,7 @@ export const directors: cardText[] = [
     major: 'Computer Science',
     year: 'Third year',
     bio: "Hi everyone! My name is Jon and it's a pleasure to be a part of ACM AI's board this year. I am currently a researcher in two labs where I work on applying ML to Cancer Genomics and Optical Character Recognition. Aside from AI, I enjoy cooking and making films. Here's my site: https://jonzamora.dev/",
-    picture: 'https://i.imgur.com/S887Txe.jpg'
+    picture: 'https://i.imgur.com/IOFYNuM.jpg'
   },
 ];
 
@@ -134,8 +134,8 @@ export const external: cardText[] =[
     name: 'Himanshi Gupta',
     major: 'Cognitive Science',
     year: 'First year',
-    bio: 'cool guy',
-    picture: ''
+    bio: '',
+    picture: "https://i.stack.imgur.com/l60Hf.png"
   },
 ];
 
@@ -145,7 +145,7 @@ export const ex: cardText[] =[
     name: 'Thang Phan',
     major: 'Computer Science',
     year: 'Second year',
-    bio: 'cool guy',
-    picture: ''
+    bio: '',
+    picture: "https://i.stack.imgur.com/l60Hf.png"
   },
 ];
