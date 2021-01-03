@@ -56,7 +56,7 @@ export const operations: cardText[] = [
     name: 'Jason Vega',
     major: 'Computer Science',
     year: 'Third year',
-    bio: "Howdy y’all I’m Jason, one of ACM AI’s event leads! I’m a third year CS major from the Bay Area interested in AI research. As a research assistant, I currently work on 1. adapting computer vision techniques for historical artifacts and 2. leveraging model interpretations to improve training! Outside of AI, I also enjoy playing the violin in chamber ensemble settings. Feel free to hit me up to chat about any of these interests :-)!",
+    bio: "Howdy y’all! I’m a third year CS major from the Bay Area interested in AI research. As a research assistant, I currently work on 1. adapting computer vision techniques for historical artifacts and 2. leveraging model interpretations to improve training! Outside of AI, I also enjoy playing the violin in chamber ensemble settings. Feel free to hit me up to chat about any of these interests :-)!",
     picture: 'https://i.imgur.com/wlN6Hso.jpg'
   },
   {
@@ -91,7 +91,7 @@ export const dev: cardText[]=[
     name: 'Tung Doan',
     major: 'Computer Science',
     year: 'Second year',
-    bio: 'Default Biography',
+    bio: '*Insert Default Biography',
     picture: 'https://i.imgur.com/nx9q20J.jpg'
   },
   {

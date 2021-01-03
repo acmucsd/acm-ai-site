@@ -20,10 +20,12 @@ const AboutPage = () => {
 
     <DefaultLayout>
       <div className="AboutPage">
-        <div>
-          <h1>Hello, we are ACM AI at UCSD</h1>
+        <div className="hero">
+          <h1 id="title">Hello, we are ACM AI at UCSD</h1>
         </div>
-        <h2>And these are the people running the show!</h2>
+        <div>
+        <div className="main-section">
+        <h2 className="statement">And these are the people running the show!</h2>
         <br />
         <Row
           gutter={[
@@ -56,10 +58,9 @@ const AboutPage = () => {
             );
           })}
         </Row>
-        <ColoredLine />
-        <div>
-          <h2> Our team of event leads who design and host all the events </h2>
         </div>
+        <div className="main-section">
+          <h2 className="statement"> Our team of event leads who design and host all the events </h2>
         <br />
         <Row
           gutter={[
@@ -92,14 +93,9 @@ const AboutPage = () => {
             );
           })}
         </Row>
-        <ColoredLine />
-        <div>
-          <h2>
-            {' '}
-            Our team of developers working tirelessly to keep everything running
-            smoothly{' '}
-          </h2>
         </div>
+        <div className="main-section">
+           <h2 className="statement"> Our team of developers working tirelessly to keep everything running smoothly</h2>
         <br />
         <Row
           gutter={[
@@ -132,10 +128,9 @@ const AboutPage = () => {
             );
           })}
         </Row>
-        <ColoredLine />
-        <div>
-          <h2> Our wonderful marketing and sponsorship team </h2>
         </div>
+        <div className="main-section">
+          <h2 className="statement"> Our wonderful marketing and sponsorship team </h2>
         <br />
         <Row
           gutter={[
@@ -168,10 +163,9 @@ const AboutPage = () => {
             );
           })}
         </Row>
-        <ColoredLine />
-        <div>
-          <h2> Your hardwork will not be forgotten </h2>
         </div>
+        <div className="main-section">
+          <h2 className="statement"> Your hardwork will not be forgotten </h2>
         <br />
         <Row
           gutter={[
@@ -204,6 +198,8 @@ const AboutPage = () => {
             );
           })}
         </Row>
+      </div>
+      </div>
       </div>
     </DefaultLayout>
   );
