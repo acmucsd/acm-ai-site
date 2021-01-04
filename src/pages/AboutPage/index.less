@@ -1,5 +1,7 @@
 @import '../../styles/base.less';
 .AboutPage {
+  .noContainer();
+  @import '../../styles/impactful.less';
   p {
     font-size: @font2;
   }
@@ -8,6 +10,10 @@
     h3 {
       margin: 0;
       font-size: @font3;
+      color: inherit;
+    }
+    p{
+      font-size: @font2;
     }
   }
 }
