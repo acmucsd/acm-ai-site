@@ -30,6 +30,8 @@ import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword';
 import nnRanksPage from './pages/NNRankPage';
+import RLCPage from './pages/RLCPage';
+import RLCUploadPage from './pages/UploadRLCPage';
 import nnUpload from './pages/UploadNNPage';
 import requestreset from './pages/Auth/RequestReset';
 
@@ -101,6 +103,10 @@ function App() {
                 );
               }}
             />
+
+            <Route path="/competitions/rlc" exact component={RLCPage} />
+            <Route path="/competitions/rlc/upload" exact component={RLCUploadPage} />
+
             <TournamentProvider
               value={{ tournament: tournament, setTournament: setTournament }}
             >

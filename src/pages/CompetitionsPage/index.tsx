@@ -17,15 +17,6 @@ function CompetitionsPage(props: any) {
               🏆
             </span>
           </h1>
-          <p className="subtext">
-            Click here to enter our Fall 2020 Neural Network Modelling
-            Competition
-          </p>
-          <div className="button-wrapper">
-            <Link to="/competitions/nn">
-              <Button className="registerbtn">Take me there!</Button>
-            </Link>
-          </div>
         </div>
         <div>
           <div className="main-section">
@@ -60,12 +51,14 @@ function CompetitionsPage(props: any) {
             <h1 className="statement">Current Competitions</h1>
             <p>
               Check it out! Our{' '}
-              <Link to="/competitions/nn/">Neural Network Modelling</Link>{' '}
-              competition tasks you to build a network and accurately model a
-              hidden function given training data
+              <Link to="/competitions/rlc/">Reinforcement Learning</Link>{' '}
+              Descritption: TBA
             </p>
             <h1 className="statement">Past Competitions</h1>
             <p>A list of some of our past competitions!</p>
+            <p>
+              <Link to="/competitions/nn/">2020 - Neural Network Modelling</Link>
+            </p>
             <p>
               <Link to={`/competitions/hide-and-seek2020`}>
                 2020 - Hide and Seek
