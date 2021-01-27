@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const MEMBERSHIP_PORTAL_API =
-  'https://acmucsd-membership-portal-api.herokuapp.com/api/v2';
+  'https://api.acmucsd.com/api/v2';
 
 export type ACMEvent = {
   committee: string;
