@@ -27,6 +27,7 @@ const UploadNNPage = () => {
       message.success('Score: ' + res.data.score);
     });
   };
+
   const dummyRequest = ({ file, onSuccess }: any) => {
     setTimeout(() => {
       onSuccess('ok');
