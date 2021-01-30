@@ -30,9 +30,10 @@ export const uploadRLC = async (
             )
             .then((res: AxiosResponse) => {
                 resolve(res);
+                message.success("Submitted!");
             })
             .catch((error) => {
-                message.error(error.response.data.error.message);
+                message.error("Submission Error");
                 reject(error);
             });
     });
