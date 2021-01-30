@@ -6,24 +6,25 @@ import { useForm } from 'react-hook-form';
 import Card from '../../components/Card';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-import { uploadNN } from '../../actions/nn';
+import { uploadRLC } from '../../actions/rlc';
 import UserContext from '../../UserContext';
 import path from 'path';
 import BackLink from '../../components/BackLink';
 
-const UploadNNPage = () => {
+const UploadRLCPage = () => {
   const { handleSubmit } = useForm();
   const [nnFile, setFile] = useState<any>();
   const { user } = useContext(UserContext);
   const history = useHistory();
-  // useEffect(() => {
-  //   !user.loggedIn &&
-  //     message.info('You need to login to upload predictions and participate') &&
-  //     history.replace(path.join(window.location.pathname, '../../../login'));
-  // }, []);
+
+  useEffect(() => {
+    !user.loggedIn &&
+      message.info('You need to login to upload predictions and participate') &&
+      history.replace(path.join(window.location.pathname, '../../../login'));
+  }, []);
 
   const onSubmit = () => {
-    uploadNN(nnFile, user.username as string).then((res) => {
+    uploadRLC(nnFile, user.username as string).then((res) => {
       message.success('Score: ' + res.data.score);
     });
   };
@@ -77,4 +78,4 @@ const UploadNNPage = () => {
   );
 };
 
-export default UploadNNPage;
+export default UploadRLCPage;

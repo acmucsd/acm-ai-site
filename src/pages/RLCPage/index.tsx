@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
 import { useHistory } from 'react-router-dom';
 import DefaultLayout from '../../components/layouts/default';
-import { getNNRanks } from '../../actions/nn';
+import { getRLCRanks } from '../../actions/rlc';
 import { Table, Button, Modal } from 'antd';
 import BackLink from '../../components/BackLink';
 import path from 'path';
@@ -53,7 +53,7 @@ const RLCPage = () => {
   }, [visible]);
 
   const update = () => {
-    getNNRanks().then((res) => { //change to get RLC ranks
+    getRLCRanks().then((res) => { //change to get RLC ranks
       let newData = [];
       newData = res.data.map((info: any) => {
         return {
@@ -132,7 +132,7 @@ const RLCPage = () => {
 
   return (
     <DefaultLayout>
-      <div className="NNRankPage">
+      <div className="RLCPage">
         <br />
         <BackLink to="../" />
         <h2>Reinforcement Learning Competition Winter 2021</h2>
