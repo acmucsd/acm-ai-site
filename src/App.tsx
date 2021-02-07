@@ -25,6 +25,7 @@ import { message } from 'antd';
 import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/HideAndSeek2020';
 import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
+import WorkshopsPage from './pages/WorkshopsPage';
 import AboutPage from './pages/AboutPage';
 import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
@@ -74,6 +75,7 @@ function App() {
           <UserProvider value={{ user: user, setUser: setUser }}>
             <Route path="/" exact component={MainPage} />
             <Route path="/about" exact component={AboutPage} />
+            <Route path="/workshops" exact component={WorkshopsPage} />
             <Route path="/competitions" exact component={CompetitionsPage} />
             <Route
               path="/competitions/hide-and-seek2020"
