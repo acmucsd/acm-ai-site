@@ -18,11 +18,11 @@ export const directors: cardText[] = [
   },
   {
     role: 'Director of Operations',
-    name: 'Catherine Lee',
+    name: 'Edward Yang',
     major: 'Computer Science',
-    year: 'Fourth year',
-    bio: "Hey! I'm a 2nd year transfer student who is passionate about computer vision. I'm going to be on the perception team at Snap and am currently doing domain adaptation research with Gary Cottrell. In my free time, I enjoy gardening, listening to podcasts, and playing video games with friends!",
-    picture: 'https://i.imgur.com/PqdOsVu.jpg'
+    year: 'Second year',
+    bio: "Hi y'all, I'm Edward! I'm a second year CS major from the Bay Area interested in AI/ML and web dev (I made this page). I am currently a research intern in SU lab and worked in other labs in the past. In my free time, I enjoy cooking, going to the gym, and playing video games with friends!",
+    picture: 'https://i.imgur.com/gbSkO88.jpg'
   },
   {
     role: 'Director of Marketing',
@@ -37,11 +37,11 @@ export const directors: cardText[] = [
 export const operations: cardText[] = [
   {
     role: 'Event Lead',
-    name: 'Edward Yang',
+    name: 'Christopher Cha',
     major: 'Computer Science',
     year: 'Second year',
-    bio: "Hi y'all, I'm Edward! I'm a second year CS major from the Bay Area interested in AI/ML and web dev (I made this page). I am currently a research intern in SU lab and worked in other labs in the past. In my free time, I enjoy cooking, going to the gym, and playing video games with friends!",
-    picture: 'https://i.imgur.com/gbSkO88.jpg'
+    bio: '',
+    picture: 'https://i.stack.imgur.com/l60Hf.png'
   },
   {
     role: 'Event Lead',
@@ -129,14 +129,7 @@ export const external: cardText[] =[
     bio: 'Swimming, running, playing league, eating fast food, and writing code',
     picture: 'https://i.imgur.com/E0n5ndW.jpg'
   },
-  {
-    role: 'Marketing Coordinator',
-    name: 'Himanshi Gupta',
-    major: 'Cognitive Science',
-    year: 'First year',
-    bio: '',
-    picture: "https://i.stack.imgur.com/l60Hf.png"
-  },
+
 ];
 
 export const ex: cardText[] =[
@@ -147,5 +140,13 @@ export const ex: cardText[] =[
     year: 'Second year',
     bio: '',
     picture: "https://i.stack.imgur.com/l60Hf.png"
+  },
+  {
+    role: 'Ex- Director of Operations',
+    name: 'Catherine Lee',
+    major: 'Computer Science',
+    year: 'Fourth year',
+    bio: "Hey! I'm a 2nd year transfer student who is passionate about computer vision. I'm going to be on the perception team at Snap and am currently doing domain adaptation research with Gary Cottrell. In my free time, I enjoy gardening, listening to podcasts, and playing video games with friends!",
+    picture: 'https://i.imgur.com/PqdOsVu.jpg'
   },
 ];
