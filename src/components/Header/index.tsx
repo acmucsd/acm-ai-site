@@ -86,6 +86,11 @@ function Header() {
           Competitions
         </Link>
       </Menu.Item>
+      <Menu.Item key="workshops">
+        <Link to="/workshops" rel="noopener noreferrer">
+          Workshops
+        </Link>
+      </Menu.Item>
       <Menu.Item key="about">
         <Link to="/about" rel="noopener noreferrer">
           About

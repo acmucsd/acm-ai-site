@@ -26,6 +26,7 @@ import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/Hide
 import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
 import AboutPage from './pages/AboutPage';
+import WorkshopsPage from './pages/WorkshopsPage';
 import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword';
@@ -80,6 +81,7 @@ function App() {
               exact
               component={HideAndSeek2020Page}
             />
+            <Route path="/workshops" exact component={WorkshopsPage} />
             <Route path="/register" exact component={RegisterPage} />
             <Route
               path="/eventhasnotstarted"
