@@ -1,9 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
+import { ACMEvent, fetchFutureEvents } from '../../actions/events';
 
 function WorkshopsPage(props: any) {
-  useEffect(() => {}, []);
+  const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
+
+  useEffect(() => {
+    fetchFutureEvents().then((data) => {
+      setEventData(data);
+    });
+  }, []);
+
   return (
     <DefaultLayout>
       <div className = "WorkshopsPage">
@@ -11,6 +19,11 @@ function WorkshopsPage(props: any) {
           <h1 id = "title">Workshops</h1>
           <p className = "subtext">
             Welcome to the workshops page!
+            <div className = "Card">
+              {
+                eventData.length > 0 ? eventData[0]  : "There are no upcoming events at this time."
+              }
+            </div>
           </p>
         </div>
         <div>
