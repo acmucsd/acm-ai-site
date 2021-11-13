@@ -177,13 +177,7 @@ const AboutPage = () => {
           {ex.map((cardText) => {
             return (
               <Col xs={12} md={8}>
-                <Card cover={<img
-                        src={cardText.picture}
-                        alt="Nope"
-                        width="40%"
-                        height="40%"
-                      ></img>}
-                >
+                <Card>
                   <h3>{cardText.role +': '}{cardText.name}</h3>
                   <p className="position">
                     {cardText.year + ' '}
