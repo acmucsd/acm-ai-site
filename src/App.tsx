@@ -8,6 +8,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import './styles/index.less';
 import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
+import ProjectsPage from './pages/ProjectsPage';
 
 import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
 import RegisterPage from './pages/Auth/RegisterPage';
@@ -32,6 +33,7 @@ import ForgotPasswordPage from './pages/Auth/ForgotPassword';
 import nnRanksPage from './pages/NNRankPage';
 import nnUpload from './pages/UploadNNPage';
 import requestreset from './pages/Auth/RequestReset';
+
 
 let cookie = getCookie(COOKIE_NAME);
 function App() {
@@ -75,6 +77,7 @@ function App() {
             <Route path="/" exact component={MainPage} />
             <Route path="/about" exact component={AboutPage} />
             <Route path="/competitions" exact component={CompetitionsPage} />
+            <Route path="/projects" exact component={ProjectsPage} />
             <Route
               path="/competitions/hide-and-seek2020"
               exact

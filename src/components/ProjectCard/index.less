@@ -1,0 +1,41 @@
+@import '../../styles/base.less';
+
+.ProjectCard {
+  color: @b2;
+  box-shadow: @bx1;
+  border-radius: 20px;
+  padding: 0.5rem;
+  .Card {
+    .ant-card {
+      border: 0px;
+    }
+    .title {
+      font-size: @font3;
+      color: @b2;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      margin-bottom: 0;
+    }
+    .tags {
+      display: flex;
+      text-align: center;
+      justify-content:initial;
+    }
+    .each-tag{
+      border-radius: 14px;
+      background-color: cadetblue;
+      padding: 5px;
+      color: white;
+    }
+    .description {
+      font-size: @font1;
+    }
+    img {
+      object-fit: cover;
+      height: 200px;
+    }
+    overflow-y: scroll;
+    height: 420px;
+    border-radius: 15px;
+  }
+}
