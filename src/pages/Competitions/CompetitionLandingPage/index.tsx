@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
-import { useHistory } from 'react-router-dom';
-import DefaultLayout from '../../components/layouts/default';
-import { getNNRanks } from '../../actions/nn';
+import { useHistory, useParams } from 'react-router-dom';
+import DefaultLayout from '../../../components/layouts/default';
+import { getMetaData, getRanks } from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
-import BackLink from '../../components/BackLink';
+import BackLink from '../../../components/BackLink';
 import path from 'path';
 import ChartJS from 'chart.js';
 const chartConfig = {
@@ -28,7 +28,7 @@ const chartConfig = {
     },
   },
 };
-const NNRankPage = () => {
+const CompetitionLandingPage = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [updateTime, setUpdateTime] = useState<Date>();
@@ -37,6 +37,10 @@ const NNRankPage = () => {
   const [chart, setChart] = useState<ChartJS | null>(null);
   const chartContainer = useRef<HTMLCanvasElement>(null);
   const [scoreHistTitle, setScoreHistTitle] = useState('');
+  const [meta, setMeta] = useState<{competitionName?: string}>({});
+  const params = useParams() as {id: string};
+  const competitionID = params.id;
+  
 
   const [chartTrigger, setTrigger] = useState(false);
   useEffect(() => {
@@ -53,7 +57,11 @@ const NNRankPage = () => {
   }, [visible]);
 
   const update = () => {
-    getNNRanks().then((res) => {
+    getMetaData(competitionID).then((res) => {
+      console.log("METADATA", res.data);
+      setMeta(res.data);
+    });
+    getRanks(competitionID).then((res) => {
       let newData = [];
       newData = res.data.map((info: any) => {
         return {
@@ -132,14 +140,15 @@ const NNRankPage = () => {
 
   return (
     <DefaultLayout>
-      <div className="NNRankPage">
+      <div className="CompetitionLandingPage">
         <br />
         <BackLink to="../" />
-        <h2>Neural Network Modelling Competition Fall 2020</h2>
+        <h2>{meta.competitionName}</h2>
         <p>
           The objective of this competition is to model a unknown function as
-          accurately as possible! All data, starter code can be found on{' '}
-          <a href="https://github.com/acmucsd/NN-competition">the github</a>.
+          accurately as possible! 
+          {/* All data, starter code can be found on{' '}
+          <a href="https://github.com/acmucsd/NN-competition">the github</a>. */}
         </p>
         <p>
           This public leaderboard is ranked based on lowest Mean Squared Error
@@ -188,4 +197,4 @@ const NNRankPage = () => {
   );
 };
 
-export default NNRankPage;
+export default CompetitionLandingPage;
