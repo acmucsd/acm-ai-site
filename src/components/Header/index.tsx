@@ -28,6 +28,9 @@ function Header() {
   if (path.match(`/about`)) {
     initKeys = ['about'];
   }
+  if (path.match(`/events`)) {
+    initKeys = ['events'];
+  }
   // if (path.match(`/projects`)) {
   //   initKeys = ['projects'];
   // }
@@ -87,6 +90,11 @@ function Header() {
       <Menu.Item key="competitions">
         <Link to="/competitions" rel="noopener noreferrer">
           Competitions
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="events">
+        <Link to="/events" rel="noopener noreferrer">
+          Events
         </Link>
       </Menu.Item>
       {/* <Menu.Item key="projects">

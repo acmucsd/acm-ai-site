@@ -26,11 +26,11 @@ import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/Hide
 import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
 import AboutPage from './pages/AboutPage';
+import EventsPage from './pages/EventsPage';
 import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword';
 import nnRanksPage from './pages/Competitions/NNRankPage';
-// import nnUpload from './pages/UploadNNPage';
 import requestreset from './pages/Auth/RequestReset';
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
@@ -82,6 +82,7 @@ function App() {
               exact
               component={HideAndSeek2020Page}
             />
+            <Route path="/events" exact component={EventsPage} />
             <Route path="/register" exact component={RegisterPage} />
             <Route
               path="/eventhasnotstarted"
