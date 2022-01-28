@@ -9,12 +9,12 @@ export const EnergiumRoutes = () => {
   return (
     <>
       <Route
-        path="/competitions/energium"
+        path="/old-competitions/energium"
         exact
         render={() => <Energium2020Page />}
       />
       <Route
-        path="/competitions/energium/ranks"
+        path="/old-competitions/energium/ranks"
         exact
         render={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
       />

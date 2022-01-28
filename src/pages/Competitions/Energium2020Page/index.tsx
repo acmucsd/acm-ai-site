@@ -51,7 +51,7 @@ export const Energium2020Page = () => {
             Welcome to the Fall 2020 AI competition - <Energium />
           </h1>
           <div>
-            <Link to="/competitions/energium/ranks">
+            <Link to="/old-competitions/energium/ranks">
               <Button className="tourney-btn" type="primary">
                 Final Rankings
               </Button>
