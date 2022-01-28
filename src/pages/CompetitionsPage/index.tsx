@@ -18,14 +18,13 @@ function CompetitionsPage(props: any) {
             </span>
           </h1>
           <p className="subtext">
-            Click here to enter our Fall 2020 Neural Network Modelling
-            Competition
+            Stay tuned for the next competition!
           </p>
-          <div className="button-wrapper">
+          {/* <div className="button-wrapper">
             <Link to="/competitions/nn">
               <Button className="registerbtn">Take me there!</Button>
             </Link>
-          </div>
+          </div> */}
         </div>
         <div>
           <div className="main-section">
@@ -33,8 +32,8 @@ function CompetitionsPage(props: any) {
             <p>
               These are fun competitions (with prizes) where you employ some
               aspect (or none at all) of AI to compete. We run standard AI
-              programming competitions as well as a new Reinforcement Learning
-              (RL) centric competition using the{' '}
+              programming competitions as well as Reinforcement Learning
+              (RL) centric competitions using the{' '}
               <a
                 href="https://gym.openai.com/"
                 target="_blank"
@@ -44,12 +43,7 @@ function CompetitionsPage(props: any) {
               </a>
             </p>
             <p>
-              All skill levels are welcome! Our standard AI programming
-              competitions require no machine learning, deep learning, computer
-              vision etc. knowledge to win (our last winner didn't use any of
-              those!). If the RL competition sounds intimidating, fear not! We
-              offer introductory to advanced workshops on RL throughout the
-              competition
+              All skill levels are welcome!
             </p>
             <p>
               Join our discord to be up to date on updates and events related to
@@ -57,22 +51,27 @@ function CompetitionsPage(props: any) {
             </p>
           </div>
           <div className="main-section">
-            <h1 className="statement">Current Competitions</h1>
+            {/* <h1 className="statement">Current Competitions</h1>
             <p>
               Check it out! Our{' '}
               <Link to="/competitions/nn/">Neural Network Modelling</Link>{' '}
               competition tasks you to build a network and accurately model a
               hidden function given training data
-            </p>
+            </p> */}
             <h1 className="statement">Past Competitions</h1>
             <p>A list of some of our past competitions!</p>
             <p>
-              <Link to={`/competitions/hide-and-seek2020`}>
+              <Link to={`/old-competitions/nn`}>
+                2021 - NN Modelling
+              </Link>
+            </p>
+            <p>
+              <Link to={`/old-competitions/hide-and-seek2020`}>
                 2020 - Hide and Seek
               </Link>
             </p>
             <p>
-              <Link to="/competitions/energium/">2020 - Energium AI</Link>
+              <Link to="/old-competitions/energium/">2020 - Energium AI</Link>
             </p>
           </div>
         </div>
