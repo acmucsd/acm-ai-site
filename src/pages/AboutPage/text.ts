@@ -12,15 +12,15 @@ export const directors: cardText[] = [
     role: 'President',
     name: 'Stone Tao',
     major: 'Computer Science and Cognitive Science (ML)',
-    year: 'Second year',
-    bio: "I'm an International Student hailing from Chicago and Beijing. While not thinking about AI, I also love to play the violin, ukelele, and am an active fencer. In relation to AI, I currently perform research in AI x HCI as well as 3D computer vision, and also love competing in and making AI competitions. My Site: https://stoneztao.com/",
+    year: 'Third year',
+    bio: "I'm an International Student hailing from Chicago and Beijing. While not thinking about AI, I also love to play the violin, ukelele, and am an active fencer. In relation to AI, I currently perform research in AI x HCI as well as RL and Robotics, and also love competing in and making AI competitions. My Site: https://stoneztao.com/",
     picture: 'https://i.imgur.com/6dzQjMC.jpg'
   },
   {
     role: 'Director of Operations',
     name: 'Edward Yang',
     major: 'Computer Science',
-    year: 'Second year',
+    year: 'Third year',
     bio: "Hi y'all, I'm Edward! I'm a second year CS major from the Bay Area interested in AI/ML and web dev (I made this page). I am currently a research intern in SU lab and worked in other labs in the past. In my free time, I enjoy cooking, going to the gym, and playing video games with friends!",
     picture: 'https://i.imgur.com/gbSkO88.jpg'
   },
