@@ -22,6 +22,7 @@ export const directors: cardText[] = [
     major: 'Computer Science',
     year: 'Third year',
     bio: "Hi y'all, I'm Edward! I'm a third year CS major from the Bay Area interested in AI/ML and web dev (I made this page). I am currently a researcher in SU lab and worked in other labs in the past. In my free time, I enjoy cooking, going to the gym, and playing video games with friends! My site: https://edwardyang.web.app/",
+
     picture: 'https://i.imgur.com/OzqYdev.jpg'
   },
   {

@@ -27,12 +27,14 @@ import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
 import AboutPage from './pages/AboutPage';
 import AlumniPage from './pages/AlumniPage';
+import EventsPage from './pages/EventsPage';
 import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword';
-import nnRanksPage from './pages/NNRankPage';
-import nnUpload from './pages/UploadNNPage';
+import nnRanksPage from './pages/Competitions/NNRankPage';
 import requestreset from './pages/Auth/RequestReset';
+import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
+import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
 
 let cookie = getCookie(COOKIE_NAME);
 function App() {
@@ -78,10 +80,11 @@ function App() {
             <Route path="/competitions" exact component={CompetitionsPage} />
             <Route path="/alumni" exact component={AlumniPage} />
             <Route
-              path="/competitions/hide-and-seek2020"
+              path="/old-competitions/hide-and-seek2020"
               exact
               component={HideAndSeek2020Page}
             />
+            <Route path="/events" exact component={EventsPage} />
             <Route path="/register" exact component={RegisterPage} />
             <Route
               path="/eventhasnotstarted"
@@ -89,8 +92,10 @@ function App() {
               component={EventHasNotStartedPage}
             />
             <Route path="/login" exact component={LoginPage} />
-            <Route path="/competitions/nn" exact component={nnRanksPage} />
-            <Route path="/competitions/nn/upload" exact component={nnUpload} />
+            <Route path="/old-competitions/nn" exact component={nnRanksPage} />
+            <Route path="/competitions/:id" exact component={CompetitionLandingPage} />
+            <Route path="/competitions/:id/upload" exact component={CompetitionUploadPage} />
+            {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
             <Route
               exact
               path="/history/hide-and-seek2020"
