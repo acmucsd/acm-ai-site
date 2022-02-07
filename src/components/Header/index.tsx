@@ -28,6 +28,9 @@ function Header() {
   if (path.match(`/about`)) {
     initKeys = ['about'];
   }
+  if (path.match(`/alumni`)) {
+    initKeys = ['alumni'];
+  }
   const [key, setKey] = useState<Array<string>>(initKeys);
   const handleClick = (e: any) => {
     setKey(e.key);
@@ -89,6 +92,11 @@ function Header() {
       <Menu.Item key="about">
         <Link to="/about" rel="noopener noreferrer">
           About
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="alumni">
+        <Link to="/alumni" rel="noopener noreferrer">
+          Alumni
         </Link>
       </Menu.Item>
       {loginItems}
