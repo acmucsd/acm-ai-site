@@ -7,7 +7,7 @@ import { Tag, Divider } from 'antd';
 import './index.less';
 
 const ProjectCard = ({ project }: {project: PastProjects}) => {
-  const colors = ['magenta','red', 'volcano', 'orange', 'gold','lime','green','cyan','blue','geekblue','purple']
+  const color_tag : { [key: string]: string } = {"Machine Learning": 'magenta', "Deep Learning": 'cyan', "Boosted Trees": 'blue', "Natural Language Processing": 'purple'};
   return (
     <div className="ProjectCard">
       <Card
@@ -22,9 +22,9 @@ const ProjectCard = ({ project }: {project: PastProjects}) => {
         ]}
       >
         <div className="tags">
-          {project.tags.map((tag) => {
+          {project.tags.map((tag)  => {
             return (
-              <Tag color={colors[Math.floor(Math.random()*colors.length)]}>{tag}</Tag>
+              <Tag color={color_tag[tag]}>{tag}</Tag>
             );
           })}
         </div>
