@@ -81,7 +81,7 @@ function App() {
             <Route path="/about" exact component={AboutPage} />
             <Route path="/competitions" exact component={CompetitionsPage} />
             <Route path="/alumni" exact component={AlumniPage} />
-            <Route path="/project" exact component={ProjectPage} />
+            <Route path="/projects" exact component={ProjectPage} />
             <Route
               path="/old-competitions/hide-and-seek2020"
               exact
