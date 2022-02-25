@@ -98,11 +98,11 @@ function Header() {
           Events
         </Link>
       </Menu.Item>
-      {/* <Menu.Item key="projects">
+      <Menu.Item key="projects">
         <Link to="/projects" rel="noopener noreferrer">
           Projects
         </Link>
-      </Menu.Item> */}
+      </Menu.Item>
       <Menu.Item key="about">
         <Link to="/about" rel="noopener noreferrer">
           About

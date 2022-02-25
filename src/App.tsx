@@ -36,6 +36,8 @@ import requestreset from './pages/Auth/RequestReset';
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
 
+import ProjectPage from './pages/ProjectsPage/index'
+
 let cookie = getCookie(COOKIE_NAME);
 function App() {
   const [user, setUser] = useState(defaultUser);
@@ -79,6 +81,7 @@ function App() {
             <Route path="/about" exact component={AboutPage} />
             <Route path="/competitions" exact component={CompetitionsPage} />
             <Route path="/alumni" exact component={AlumniPage} />
+            <Route path="/projects" exact component={ProjectPage} />
             <Route
               path="/old-competitions/hide-and-seek2020"
               exact
