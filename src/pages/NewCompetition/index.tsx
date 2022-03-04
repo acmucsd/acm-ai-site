@@ -63,7 +63,7 @@ const NNRankPage = () => {
         },
         {
           username: "huaning",
-          scoreHistory: [0.10, 3.45,8.32,4.5],
+          scoreHistory: [0.40, 3.45,8.32,4.5],
           latestScore: 4.50,
           trueScoreHistory: [0.10, 3.45,8.32,9.10],
         },
@@ -75,7 +75,7 @@ const NNRankPage = () => {
         },
         {
           username: "emma",
-          scoreHistory: [0.10, 3.45,8.32,6.10],
+          scoreHistory: [8.80, 3.45,8.32,6.10],
           latestScore: 6.10,
           trueScoreHistory: [0.10, 3.45,8.32,9.10],
         }
@@ -117,6 +117,13 @@ const NNRankPage = () => {
     {
       title: 'User',
       dataIndex: 'username',
+    },
+    {
+      title: 'Best Submission Score',
+      dataIndex: 'scorehist',
+      render: (info: any) => {
+        return <span>{info.data.sort()[0]}</span>;
+      },
     },
     {
       title: 'Latest Submission Score',

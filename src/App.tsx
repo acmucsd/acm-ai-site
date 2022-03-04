@@ -35,6 +35,7 @@ import nnRanksPage from './pages/Competitions/NNRankPage';
 import requestreset from './pages/Auth/RequestReset';
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
+import NewCompetitionPage from './pages/NewCompetition'
 
 import ProjectPage from './pages/ProjectsPage/index'
 
@@ -82,6 +83,7 @@ function App() {
             <Route path="/competitions" exact component={CompetitionsPage} />
             <Route path="/alumni" exact component={AlumniPage} />
             <Route path="/projects" exact component={ProjectPage} />
+            <Route path="/newcomp" exact component={NewCompetitionPage} />
             <Route
               path="/old-competitions/hide-and-seek2020"
               exact
