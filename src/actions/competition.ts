@@ -5,11 +5,16 @@ import { getToken } from '../utils/token';
 
 export const uploadSubmission = async (
   file: File | undefined,
+  tagsSelected: string[] | undefined,
+  desc: string | undefined,
   competitionid: string,
   userid: string
 ): Promise<AxiosResponse> => {
   if (!file) {
     throw new Error('no file!');
+  }
+  if (!desc) {
+    throw new Error('no desc!');
   }
 
   let token = getToken(COOKIE_NAME);
