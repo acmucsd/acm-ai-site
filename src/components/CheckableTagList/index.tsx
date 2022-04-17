@@ -8,8 +8,6 @@ const { CheckableTag } = Tag;
 
 const CheckableTagList = ({ tags, tagsChecked, setTagsChecked }: { tags: string[], tagsChecked: boolean[], setTagsChecked: Function }) => {
 
-    // const [tagsChecked, setTagsChecked] = useState<any>(Array(tags.length).fill(false))
-
     const handleCheck = (i: number) => {
 
         let temp = []
@@ -19,7 +17,7 @@ const CheckableTagList = ({ tags, tagsChecked, setTagsChecked }: { tags: string[
     }
 
     return (
-        <div className="CheckedTagList">
+        <div className="CheckableTagList">
             {tags.map((tag, i) => {
                 return (
                     <CheckableTag
