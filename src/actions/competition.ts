@@ -5,6 +5,8 @@ import { getToken } from '../utils/token';
 
 export const uploadSubmission = async (
   file: File | undefined,
+  tagsSelected: string[],
+  desc: string,
   competitionid: string,
   userid: string
 ): Promise<AxiosResponse> => {
@@ -16,6 +18,8 @@ export const uploadSubmission = async (
   return new Promise((resolve, reject) => {
     let bodyFormData = new FormData();
     bodyFormData.set('predictions', file);
+    bodyFormData.set('description', desc)
+    bodyFormData.set('tags', new Blob(tagsSelected))
 
     axios
       .post(
