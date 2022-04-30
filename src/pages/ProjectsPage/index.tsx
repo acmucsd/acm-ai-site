@@ -16,6 +16,7 @@ function ProjectsPage() {
   const[selectedTags, setSelectedTags] = useState<string[]>([]);
   const projectData = 
     [
+    // SP22
     // FA21
       {
         name: 'Controlling the Latent Space Is All You Need',
@@ -28,7 +29,7 @@ function ProjectsPage() {
       {
           name: 'Predicting Steph Curry\'s Shots in the NBA',
           cover: FA21BobaCurry,
-          tags: ['Boosted Trees', 'Machine Learning', 'Basketball', 'Deep Learning'],
+          tags: ['Boosted Trees', 'Machine Learning', 'Basketball', 'Data Science'],
           description:'This project uses data from https://www.kaggle.com/dansbecker/nba-shot-logs, which contains NBA shot logs from the 2014-15 season, in order to predict whether each shot Stephen Curry takes will go through the hoop based on his distance to the basket, how many shots he previously took that game, the current time on the shot clock, and how long he touched the ball. In order to accomplish this, we built the following models: logistic regression, random forest, boosted decision tree, deep neural network, multilayer perceptron, and lightGBM.',
           github: 'https://github.com/ycyao216/Curry_shot_prediction',
           link: 'https://docs.google.com/presentation/d/1DK8AyNNzo32qf_SuNC0m564sox_m1bZR/edit?usp=sharing&ouid=116504273965682689518&rtpof=true&sd=true',
@@ -36,7 +37,7 @@ function ProjectsPage() {
       {
         name: 'Cloud Image Segmentation',
         cover: FA21SoupDumplingClouds,
-        tags: ['Image Processing', 'Image', 'Deep Learning', 'Image Classification'],
+        tags: ['Image Processing', 'Image', 'Deep Learning', 'Image Classification', 'Computer Vision'],
         description:`Our team built a Cloud Video Segmentation model that assigns pixel-level labels to each pixel in a live video feed of clouds. The pixel-level labels include “cloud” and “sky”, and we also have an “undefined” class for handling edges of the image input.  We worked with image classification backbones to encode our input image and convolutional neural network segmentation models to decode our image into its segmented representation.`,
         github: 'https://github.com/Sean1572/CloudSeg',
         link: 'https://docs.google.com/presentation/d/1wIQNBxuOFC9mY4biQ4CUo3cKqzcWiXMlkB_hw1EWNXw/edit?usp=sharing',
