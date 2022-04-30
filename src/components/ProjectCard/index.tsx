@@ -17,12 +17,12 @@ const ProjectCard = ({ project }: {project: PastProjects}) => {
           />
         }
         actions={[
-          <a href={project.github}><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
-          <a href={project.link}><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
+          <a href={project.github} target="_blank"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
+          <a href={project.link} target="_blank"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
         ]}
       >
         <div className="tags">
-          {project.tags.map((tag)  => {
+          {project.tags.sort().map((tag)  => {
             return (
               <Tag color={color_tag[tag]}>{tag}</Tag>
             );
