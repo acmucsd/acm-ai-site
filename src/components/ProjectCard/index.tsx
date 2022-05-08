@@ -2,12 +2,20 @@ import React from 'react';
 import { PastProjects } from '../../actions/projects';
 import { Card } from '../Card';
 import { GithubOutlined, LinkOutlined} from '@ant-design/icons';
-import { Tag, Divider } from 'antd';
+import { Tag } from 'antd';
 
 import './index.less';
 
+var ASCIISum = (str : string) => {
+  let sum = 0;
+  for (let i = 0; i < str.length; ++i) {
+    sum += str.charCodeAt(i)
+  }
+  return sum
+}
+
 const ProjectCard = ({ project }: {project: PastProjects}) => {
-  const color_tag : { [key: string]: string } = {"Machine Learning": 'magenta', "Deep Learning": 'cyan', "Boosted Trees": 'blue', "Natural Language Processing": 'purple'};
+  const color_tag : string[] = ['magenta', 'cyan', 'gold', 'blue', 'purple', 'green']
   return (
     <div className="ProjectCard">
       <Card
@@ -17,14 +25,14 @@ const ProjectCard = ({ project }: {project: PastProjects}) => {
           />
         }
         actions={[
-          <a href={project.github}><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
-          <a href={project.link}><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
+          <a href={project.github} target="_blank"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
+          <a href={project.link} target="_blank"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
         ]}
       >
         <div className="tags">
-          {project.tags.map((tag)  => {
+          {project.tags.sort().map((tag)  => {
             return (
-              <Tag color={color_tag[tag]}>{tag}</Tag>
+              <Tag color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
             );
           })}
         </div>
