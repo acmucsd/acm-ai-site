@@ -3,7 +3,15 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Col, Row } from 'antd';
 import { Card } from '../../components/Card';
-import { directors, operations, dev, external, Person} from './people';
+import {
+  directors,
+  operations,
+  dev,
+  external,
+  Person,
+  Socials,
+} from './people';
+import { Collapse } from 'antd';
 
 const ColoredLine = () => (
   <hr
@@ -25,40 +33,72 @@ const CardsRow = ({ children }: { children?: ReactNode }) => (
   >
     {children}
   </Row>
-)
+);
+
+const SocialSection = ({ socials }: { socials?: Socials }) => {
+  if (!socials) return <></>;
+
+  return (
+    <>
+      <ColoredLine />
+      {socials.email && <p>Email: {socials.email}</p>}
+      {socials.github && <p>GitHub: {socials.github}</p>}
+      {socials.twitter && <p>Twitter: {socials.twitter}</p>}
+      {socials.website && <p>Website: {socials.website}</p>}
+      {socials.instagram && <p>Instagram: {socials.instagram}</p>}
+      {socials.facebook && <p>Facebook: {socials.facebook}</p>}
+      {socials.linkedin && <p>LinkedIn: {socials.linkedin}</p>}
+    </>
+  );
+};
+
+const { Panel } = Collapse;
 
 const AboutCard = ({ card }: { card: Person }) => (
-  <Col xs={12} md={8}>
-    <Card cover={!card.picture ? null : (
-      <img
-        src={card.picture}
-        alt={undefined}
-      />
-    )}
+  <Col xs={24} sm={12} xl={8} xxl={6}>
+    <Card
+      cover={!card.picture ? null : <img src={card.picture} alt={undefined} />}
     >
-      <h3>{`${card.role}: ${card.name}`}</h3>
-      <p className="position">
-        {`${card.year} ${card.major} major`}
-      </p>
-      <ColoredLine />
-      <p className="quote">{card.bio}</p>
+      <Collapse className="small-content">
+        <Panel header={`${card.role}: ${card.name}`} key={1}>
+          <p className="position">{`${card.year} ${card.major} major`}</p>
+          <ColoredLine />
+          <p className="quote">{card.bio}</p>
+          <SocialSection socials={card.socials} />
+        </Panel>
+      </Collapse>
+      <div className="normal-content">
+        <h3>{`${card.role}: ${card.name}`}</h3>
+        <p className="position">{`${card.year} ${card.major} major`}</p>
+        <ColoredLine />
+        <p className="quote">{card.bio}</p>
+        <SocialSection socials={card.socials} />
+      </div>
     </Card>
   </Col>
 );
 
 const renderCards = (people: Person[]) => (
-  <>{people.map((card) => <AboutCard card={card} key={card.name} />)}</>
+  <>
+    {people.map((card) => (
+      <AboutCard card={card} key={card.name} />
+    ))}
+  </>
 );
 
-const Section = ({ statement, people }: { statement: string, people: Person[] }) => (
+const Section = ({
+  statement,
+  people,
+}: {
+  statement: string;
+  people: Person[];
+}) => (
   <div className="main-section">
     <h2 className="statement">{statement}</h2>
     <br />
-    <CardsRow>
-      {renderCards(people)}
-    </CardsRow>
+    <CardsRow>{renderCards(people)}</CardsRow>
   </div>
-)
+);
 
 const AboutPage = () => {
   return (

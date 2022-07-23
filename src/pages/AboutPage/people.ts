@@ -16,6 +16,16 @@ import Stone from "./pictures/Stone.jpg";
 import Vincent from "./pictures/Vincent.png";
 import Yuru from "./pictures/Yuru.png";
 
+export interface Socials {
+  readonly email?: string;
+  readonly website?: string;
+  readonly twitter?: string;
+  readonly github?: string;
+  readonly instagram?: string;
+  readonly facebook?: string;
+  readonly linkedin?: string;
+}
+
 export interface Person {
   readonly role: string;
   readonly name: string;
@@ -23,6 +33,7 @@ export interface Person {
   readonly year: string;
   readonly bio: string;
   readonly picture?: string;
+  readonly socials?: Socials;
 }
 
 export const directors: Person[] = [
@@ -135,6 +146,22 @@ export const dev: Person[]=[
     year:'Third year',
     bio: "Hi! I’m Yuru and I’m currently a third year majoring in Mathematics & Computer Science.  I really enjoy watching movies, going to karaoke, and cooking during free time. And I love Boba!!!",
     picture: Yuru,
+  },
+  {
+    role:'Developer',
+    name:'Grant Cheng',
+    major:'Computer Science',
+    year:'Second year',
+    bio: "Hello! I'm Grant, a second year computer science major at Muir. Outside of coding and AI, I like a variety of things from rock climbing to video games to Japanese language and culture.",
+    socials: {
+      website: "https://www.google.com",
+      github: "https://github.com/CatFish47",
+      facebook: "https://www.facebook.com/Grant.Cheng.4/",
+      email: "gxcheng@ucsd.edu",
+      twitter: "https://www.google.com",
+      linkedin: "https://www.google.com",
+      instagram: "https://www.google.com"
+    }
   }
 ]
 
