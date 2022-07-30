@@ -35,19 +35,38 @@ const CardsRow = ({ children }: { children?: ReactNode }) => (
   </Row>
 );
 
+const SocialLink = ({ title, href }: { title: string; href: string }) => (
+  <p>
+    {title}:{' '}
+    <a href={href} target="_blank">
+      {href}
+    </a>
+  </p>
+);
+
 const SocialSection = ({ socials }: { socials?: Socials }) => {
   if (!socials) return <></>;
 
   return (
     <>
       <ColoredLine />
-      {socials.email && <p>Email: {socials.email}</p>}
-      {socials.github && <p>GitHub: {socials.github}</p>}
-      {socials.twitter && <p>Twitter: {socials.twitter}</p>}
-      {socials.website && <p>Website: {socials.website}</p>}
-      {socials.instagram && <p>Instagram: {socials.instagram}</p>}
-      {socials.facebook && <p>Facebook: {socials.facebook}</p>}
-      {socials.linkedin && <p>LinkedIn: {socials.linkedin}</p>}
+      {socials.email && (
+        <p>
+          Email: <a href={`mailto:${socials.email}`}>{socials.email}</a>
+        </p>
+      )}
+      {socials.github && <SocialLink title="GitHub" href={socials.github} />}
+      {socials.twitter && <SocialLink title="Twitter" href={socials.twitter} />}
+      {socials.website && <SocialLink title="Website" href={socials.website} />}
+      {socials.instagram && (
+        <SocialLink title="Instagram" href={socials.instagram} />
+      )}
+      {socials.facebook && (
+        <SocialLink title="Facebook" href={socials.facebook} />
+      )}
+      {socials.linkedin && (
+        <SocialLink title="LinkedIn" href={socials.linkedin} />
+      )}
     </>
   );
 };
