@@ -15,5 +15,25 @@
     p{
       font-size: @font2;
     }
+    @media only screen and (min-width: 576px) {
+      .small-content {
+        display: none;
+      }
+    }
+    @media only screen and (max-width: 576px) {
+      .normal-content {
+        display: none;
+      }
+      .small-content {
+        border: 0px;
+        background-color: #fff;
+      }
+      .ant-collapse-header {
+        margin: 0;
+        font-size: @font3;
+        color: inherit;
+        font-weight: bold;
+      }
+    }
   }
 }
