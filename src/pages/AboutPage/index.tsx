@@ -10,6 +10,7 @@ import {
   external,
   Person,
   Socials,
+  socials,
 } from './people';
 import { Collapse } from 'antd';
 
@@ -80,7 +81,9 @@ const AboutCard = ({ card }: { card: Person }) => (
     >
       <Collapse className="small-content">
         <Panel header={`${card.role}: ${card.name}`} key={1}>
+          {card.minor ? <p className="position">{`${card.year} ${card.major} major, ${card.minor}`}</p> :
           <p className="position">{`${card.year} ${card.major} major`}</p>
+          }
           <ColoredLine />
           <p className="quote">{card.bio}</p>
           <SocialSection socials={card.socials} />
@@ -142,6 +145,10 @@ const AboutPage = () => {
           <Section
             people={external}
             statement="Our wonderful marketing and sponsorship team"
+          />
+          <Section
+            people={socials}
+            statement="Our socials team that keeps the community fun, lively, and connected"
           />
         </div>
       </div>
