@@ -90,8 +90,12 @@ export const directors: Person[] = [
     major: 'Computer Science',
     year: 'Second year',
     bio:
-      "Hi everyone! My name is Jackie, and I am a computer science major interested in AI, particularly neural networks and natural language processing. My favorite part about ACM AI is our goal of making AI education more accessible to students. When I'm not coding, I enjoy live music, learning languages, hiking, and volleyball.",
+      "Hi everyone! I'm Jackie and I am a computer science student interested in software and AI, particularly in Backend Development, Cloud Computing, Natural Language Processing, and Neural Networks. My favorite part about ACM AI is our goal of making AI education more accessible to students. When I'm not coding, I enjoy learning languages, hiking, and volleyball.",
     picture: Jackie,
+    socials: {
+      linkedin: "https://linkedin.com/in/jackie-piepkorn",
+      github: "https://github.com/jackiepiepkorn"
+    }
   },
   {
     role: 'Co-Director of Marketing',
@@ -280,10 +284,9 @@ export const dev: Person[] = [
     major: 'Computer Science',
     year: 'Second year',
     bio:
-      ``,
+      `I'm a second-year CS major in Warren interested in AI, software engineering, and computer networks. One of my favorite text editors is vim. I often watch anime in my free time. `,
     socials: {
-      // linkedin: "www.linkedin.com/in/movaswani",
-      // github: "https://github.com/mohakvni",
+      linkedin: "https://linkedin.com/in/d6tran",
     }
   }
 ];
@@ -324,7 +327,7 @@ export const socials: Person[] = [
     major: 'Cognitive Science',
     year: 'Second year',
     bio: "I am from the Bay Area. My interests include exploring new music and writing! I look forward meeting everyone this year.",
-    picture: NabhanSazzad,
+    picture: FatimaDong,
   },
   {
     role: 'Social Lead',
@@ -333,7 +336,7 @@ export const socials: Person[] = [
     minor: 'Buisness Economics',
     year: 'Third year',
     bio: "Hi! My name is Nabhan, I am a thid year in Warren studying Computer Science and am excited to be a part of ACM AI this year. Some fun things I like to do is watch a bunch of sports, go to the gym and play guitar. My favorite show on HBO is Silicon Valley.",
-    picture: FatimaDong,
+    picture: NabhanSazzad,
     socials: {
       website: "https://nabhan02.github.io/",
       linkedin: "https://www.linkedin.com/in/nabhansazzad/",
