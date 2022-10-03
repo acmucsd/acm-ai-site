@@ -85,7 +85,7 @@ export const directors: Person[] = [
     }
   },
   {
-    role: 'Directory of DEI',
+    role: 'Director of DEI',
     name: 'Jackie Piepkorn',
     major: 'Computer Science',
     year: 'Second year',
