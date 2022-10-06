@@ -19,6 +19,7 @@ import MilanGanai from './pictures/MilanGanai.png';
 import FatimaDong from './pictures/FatimaDong.jpg';
 import MohakVaswani from './pictures/MohakVaswani.jpg';
 import NabhanSazzad from "./pictures/NabhanSazzad.jpg";
+import PhilipChen from "./pictures/PhilipChen.jpg";
 export interface Socials {
   readonly email?: string;
   readonly website?: string;
@@ -352,6 +353,7 @@ export const socials: Person[] = [
     name: 'Philip Chen',
     major: 'Electrical Computer Engineering',
     year: 'Second year',
+    picture: PhilipChen,
     bio: "Hello, I'm Philip and I am a third year ECE major with a focus in ML. I am interested in anything related to technology and I strive to improve my coding skills. I enjoy wasting time, spending time with friends, and cooking.",
     socials: {
       linkedin: "www.linkedin.com/in/philip-chen-hi-ca",
