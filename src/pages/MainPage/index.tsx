@@ -25,13 +25,13 @@ function MainPage() {
               and scientists.
             </p>
           </div>
-          <div className="nextEventBannerWrapper">
+          <a className="nextEventBannerWrapper" href="#events">
             {eventData.slice(0, 1).map((event) => {
               return (
                 <img className="nextEventBanner" src={event.cover} alt="Event cover" />
               );
             })}
-          </div>
+          </a>
         </div>
         <div>
           <div className="main-section">
