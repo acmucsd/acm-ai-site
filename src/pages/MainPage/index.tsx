@@ -5,40 +5,33 @@ import { Link } from 'react-router-dom';
 import DiscordLink from '../../components/DiscordLink';
 import { ACMEvent, fetchFutureEvents } from '../../actions/events';
 import EventCard from '../../components/EventCard';
-import MiniEventCard from '../../components/MiniEventCard';
 import { Col, Row } from 'antd';
 function MainPage() {
   const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
-  const [nextEvent, setNextEvent] = useState<ACMEvent>();
   useEffect(() => {
     fetchFutureEvents().then((data) => {
       setEventData(data);
     });
   }, []);
-  useEffect(() => {
-    if (eventData.length > 0) {
-      setNextEvent(eventData[0]);
-    }
-  }, [eventData])
-
-  console.log(nextEvent?.title);
 
   return (
     <DefaultLayout>
       <div className="Main">
         <div className="hero">
-          <div className="titleSection">
+          <div className="heading">
             <h1 id="title">ACM AI at UCSD</h1>
+            <p className="subtext">
+              We aspire to inspire the next generation of AI advocates, engineers,
+              and scientists.
+            </p>
+          </div>
+          <div className="nextEventBannerWrapper">
             {eventData.slice(0, 1).map((event) => {
               return (
-                <MiniEventCard event={event} />
+                <img className="nextEventBanner" src={event.cover} alt="Event cover" />
               );
             })}
           </div>
-          <p className="subtext">
-            We aspire to inspire the next generation of AI advocates, engineers,
-            and scientists.
-          </p>
         </div>
         <div>
           <div className="main-section">

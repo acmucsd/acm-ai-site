@@ -1,33 +1,33 @@
 @import './base.less';
 #title {
   color: @white;
-  display: inline-block;
-  .leftPaddedText();
+  // display: inline-block;
 }
 .hero {
   background: linear-gradient(135deg, #D64550, #EB8B90);
   // background: @b2;
   padding-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  
+  .heading {
+    .section-container-padding();
+    padding-right: 0;
+    width: 50rem;
+  }
   .subtext {
-    .leftPaddedText();
     font-size: @font4;
     color: @white;
   }
   padding-bottom: 90px;
   line-height: 2;
   .button-wrapper {
-    .leftPaddedText();
+    margin: auto 2rem;
     .text {
       font-size: @font3;
       color: @white;
       margin-top: 1.5rem;
     }
-  }
-
-  .titleSection {
-    // background-color: pink;
-    display: flex;
-    flex-wrap: wrap;
   }
   
   .registerbtn {
@@ -43,6 +43,19 @@
     width: 180px;
     border-radius: 0.5rem;
     margin-top: 1rem;
+  }
+  .nextEventBannerWrapper {
+    .section-container-padding();
+  }
+
+  .nextEventBanner {
+    width: 28rem;
+    // height: 5rem;
+    margin: 1rem auto;
+    border-radius: @radius-base2;
+    background-color: @white;
+    box-shadow: 1px 2px 5px darken(@p1, 1%);
+    color: red;
   }
 }
 .dimensions-list {
