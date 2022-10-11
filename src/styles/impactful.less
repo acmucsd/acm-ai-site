@@ -1,7 +1,8 @@
 @import './base.less';
 #title {
   color: @white;
-  // display: inline-block;
+  display: inline-block;
+  .leftPaddedText();
 }
 .hero {
   background: linear-gradient(135deg, #D64550, #EB8B90);
@@ -16,10 +17,13 @@
     margin-right: 0;
     width: 45rem;
   }
+
   .subtext {
     font-size: @font4;
     color: @white;
+    .leftPaddedText();
   }
+
   padding-bottom: 90px;
   line-height: 2;
   .button-wrapper {
@@ -44,27 +48,6 @@
     width: 180px;
     border-radius: 0.5rem;
     margin-top: 1rem;
-  }
-
-  .nextEventBannerWrapper {
-    .section-container-padding();
-  }
-
-  .nextEventBanner {
-    width: 34rem;
-    // height: 5rem;
-    margin: 1rem auto;
-    border-radius: @radius-base2;
-    background-color: @white;
-    box-shadow: 1px 2px 5px darken(@p1, 1%);
-    color: red;
-    transition: transform .2s;
-    @media (max-width: 1350px) {
-      width: 30rem;
-    }
-  }
-  .nextEventBanner:hover {
-    transform: scale(1.05);
   }
 }
 .dimensions-list {
