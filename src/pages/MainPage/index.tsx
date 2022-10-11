@@ -18,7 +18,7 @@ function MainPage() {
     <DefaultLayout>
       <div className="Main">
         <div className="hero">
-          <div className="heading homepage">
+          <div className="heading">
             <h1 className="homepageTitle">ACM AI at UCSD</h1>
             <p className="homepageSubtext">
               We aspire to inspire the next generation of AI advocates, engineers,
