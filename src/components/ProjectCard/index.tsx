@@ -45,6 +45,29 @@ const ProjectCard = ({ project }: {project: PastProjects}) => {
             />
           }
         >
+          <h3 className="title">{project.name}</h3>
+          <div className="tags">
+            {project.tags.sort().map((tag)  => {
+              return (
+                <Tag color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+              );
+            })}
+          </div>        
+        </Card>
+      </div>
+      <Modal
+        visible={isModalOpen}
+        onCancel={handleCancel}
+        footer={[<a href={project.github} target="_blank"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
+        <a href={project.link} target="_blank"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>]}      >
+          <div className='project-img' 
+            style= {{
+              background: `url(${project.cover})`, 
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center'
+            }}
+          ></div>
+          <h3 className="title">{project.name}</h3>
           <div className="tags">
             {project.tags.sort().map((tag)  => {
               return (
@@ -52,17 +75,7 @@ const ProjectCard = ({ project }: {project: PastProjects}) => {
               );
             })}
           </div>
-
-          <h3 className="title">{project.name}</h3>        
-        </Card>
-      </div>
-      <Modal
-        visible={isModalOpen}
-        onCancel={handleCancel}
-        footer={[<a href={project.github} target="_blank"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
-        <a href={project.link} target="_blank"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>]}
-      >
-        <p className="description">{project.description}</p>        
+          <p className="description">{project.description}</p>                      
       </Modal>
     </>
   );
