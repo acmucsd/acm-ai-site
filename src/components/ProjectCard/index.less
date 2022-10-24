@@ -14,7 +14,6 @@
       color: @b2;
       margin-top: 0;
       margin-bottom: 1rem;
-      margin-bottom: 0;
     }
     .tags {
       display: flex;
@@ -36,9 +35,36 @@
       object-fit: cover;
       height: 200px;
     }
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
     height: 420px;
     border-radius: 15px;
+  }
+}
+.ant-modal-content {
+  border-radius: 20px;
+
+  .project-img {
+    width: 100%;
+    height: 200px;
+    margin-top: 1.5rem;
+    border-radius: 20px 20px 0 0;
+  }
+  .title {
+    margin-bottom: 1rem;
+  }
+  .ant-modal-footer {
+    display: flex;
+    justify-content: right;
+    
+    a {
+      margin: 0 15px;
+    }
+  }
+  
+}
+.ant-modal-body {
+  .description {
+    margin-top: 1rem;
   }
 }

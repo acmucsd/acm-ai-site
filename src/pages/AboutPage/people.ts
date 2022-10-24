@@ -19,6 +19,7 @@ import MilanGanai from './pictures/MilanGanai.png';
 import FatimaDong from './pictures/FatimaDong.jpg';
 import MohakVaswani from './pictures/MohakVaswani.jpg';
 import NabhanSazzad from "./pictures/NabhanSazzad.jpg";
+import PhilipChen from "./pictures/PhilipChen.jpg";
 export interface Socials {
   readonly email?: string;
   readonly website?: string;
@@ -113,7 +114,7 @@ export const directors: Person[] = [
   },
   {
     role: 'Co-Director of Marketing',
-    name: 'Jonah Song',
+    name: 'Jonah Soong',
     major: 'Computer Engineering',
     year: 'Third year',
     bio:
@@ -205,8 +206,12 @@ export const operations: Person[] = [
     major: 'Computer Science',
     year: 'Second year',
     bio:
-      "Hi everyone! My name is Jackie, and I am a computer science major interested in AI, particularly neural networks and natural language processing. My favorite part about ACM AI is our goal of making AI education more accessible to students. When I'm not coding, I enjoy live music, learning languages, hiking, and volleyball.",
+      "Hi everyone! I'm Jackie and I am a computer science student interested in software and AI, particularly in Backend Development, Cloud Computing, Natural Language Processing, and Neural Networks. My favorite part about ACM AI is our goal of making AI education more accessible to students. When I'm not coding, I enjoy learning languages, hiking, and volleyball.",
     picture: Jackie,
+    socials: {
+      linkedin: "https://linkedin.com/in/jackie-piepkorn",
+      github: "https://github.com/jackiepiepkorn"
+    }
   },
 ];
 
@@ -348,9 +353,11 @@ export const socials: Person[] = [
     name: 'Philip Chen',
     major: 'Electrical Computer Engineering',
     year: 'Second year',
-    bio: "",
+    picture: PhilipChen,
+    bio: "Hello, I'm Philip and I am a third year ECE major with a focus in ML. I am interested in anything related to technology and I strive to improve my coding skills. I enjoy wasting time, spending time with friends, and cooking.",
     socials: {
-      linkedin: "www.linkedin.com/in/philip-chen-HI-CA"
+      linkedin: "www.linkedin.com/in/philip-chen-hi-ca",
+      github: "https://github.com/PPlip"
     }
   }
 ]

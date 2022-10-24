@@ -3,7 +3,7 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Col, Row } from 'antd';
 import ProjectCard from '../../components/ProjectCard';
-import { Tag} from 'antd';
+import { Tag } from 'antd';
 
 // image imports
 import FA21LionHumanCat from './data/FA21/FA21_Lion_HumanCat.jpg'
