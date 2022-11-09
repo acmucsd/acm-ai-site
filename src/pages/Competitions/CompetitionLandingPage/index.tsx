@@ -15,7 +15,7 @@ const CompetitionLandingPage = () => {
 
   // const [meta, setMeta] = useState<{competitionName?: string}>({});
   const params = useParams() as {id: string};
-  // const competitionID = params.id;
+  const competitionID = params.id;
   
   // const update = () => {
   //   getMetaData(competitionID).then((res) => {
@@ -36,9 +36,17 @@ const CompetitionLandingPage = () => {
           <h1 id="title">
             Placeholder Name
           </h1>
+          <p className="subsubtext">Start: DD/MM/YY HH:MM PM</p>
+          <p className="subsubtext">End: DD/MM/YY HH:MM PM</p>
           <div className="button-wrapper">
-            <Link to="/competitions/nn/leaderboard">
-              <Button className="registerbtn">Leaderboard</Button>
+            <Link to={`${competitionID}/leaderboard`}>
+              <Button className="headerbtn">Leaderboard</Button>
+            </Link>
+            <Link to={`${competitionID}/teams`}>
+              <Button className="headerbtn">Teams</Button>
+            </Link>
+            <Link to={`${competitionID}/upload`}>
+              <Button className="headerbtn">Submit</Button>
             </Link>
           </div>
         </div>
