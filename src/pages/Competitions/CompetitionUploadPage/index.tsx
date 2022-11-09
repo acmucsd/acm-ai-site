@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
 import { Form, Button, Upload, message, Input } from 'antd';
@@ -69,11 +69,11 @@ const CompetitionUploadPage = () => {
     setInputValue('');
   };
 
-  // useEffect(() => {
-  //   !user.loggedIn &&
-  //     message.info('You need to login to upload predictions and participate') &&
-  //     history.replace(path.join(window.location.pathname, '../../../login'));
-  // }, []);
+  useEffect(() => {
+    !user.loggedIn &&
+      message.info('You need to login to upload predictions and participate') &&
+      history.replace(path.join(window.location.pathname, '../../../login'));
+  }, []);
 
   const onSubmit = () => {
     // let tagsSelected: string[] = []
