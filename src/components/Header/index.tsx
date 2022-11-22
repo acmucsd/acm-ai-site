@@ -59,14 +59,14 @@ function Header() {
       ]);
     } else {
       setLoginItems([
-        <Menu.Item key="login">
-          <Link to={`/login`} rel="noopener noreferrer">
-            Login
-          </Link>
-        </Menu.Item>,
         <Menu.Item key="register">
           <Link to={`/register`} rel="noopener noreferrer">
             Register
+          </Link>
+        </Menu.Item>,
+        <Menu.Item key="login">
+          <Link to={`/login`} rel="noopener noreferrer">
+            Login
           </Link>
         </Menu.Item>,
       ]);
@@ -88,9 +88,9 @@ function Header() {
           Home
         </Link>
       </Menu.Item>
-      <Menu.Item key="competitions">
-        <Link to="/competitions" rel="noopener noreferrer">
-          Competitions
+      <Menu.Item key="about">
+        <Link to="/about" rel="noopener noreferrer">
+          About
         </Link>
       </Menu.Item>
       <Menu.Item key="events">
@@ -98,21 +98,21 @@ function Header() {
           Events
         </Link>
       </Menu.Item>
+      <Menu.Item key="competitions">
+        <Link to="/competitions" rel="noopener noreferrer">
+          Competitions
+        </Link>
+      </Menu.Item>
       <Menu.Item key="projects">
         <Link to="/projects" rel="noopener noreferrer">
           Projects
         </Link>
       </Menu.Item>
-      <Menu.Item key="about">
-        <Link to="/about" rel="noopener noreferrer">
-          About
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="alumni">
+      {/* <Menu.Item key="alumni">
         <Link to="/alumni" rel="noopener noreferrer">
           Alumni
         </Link>
-      </Menu.Item>
+      </Menu.Item> */}
       {loginItems}
       <Menu.Item className="empty"></Menu.Item>
     </Menu>

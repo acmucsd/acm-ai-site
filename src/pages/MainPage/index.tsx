@@ -13,15 +13,25 @@ function MainPage() {
       setEventData(data);
     });
   }, []);
+
   return (
     <DefaultLayout>
       <div className="Main">
         <div className="hero">
-          <h1 id="title">ACM AI at UCSD</h1>
-          <p className="subtext">
-            We aspire to inspire the next generation of AI advocates, engineers,
-            and scientists.
-          </p>
+          <div className="heading">
+            <h1 className="homepageTitle">ACM AI at UCSD</h1>
+            <p className="homepageSubtext">
+              We aspire to inspire the next generation of AI advocates, engineers,
+              and scientists.
+            </p>
+          </div>
+          <a className="nextEventBannerWrapper" href="#events">
+            {eventData.slice(0, 1).map((event) => {
+              return (
+                <img className="nextEventBanner" src={event.cover} alt="Event cover" />
+              );
+            })}
+          </a>
         </div>
         <div>
           <div className="main-section">
