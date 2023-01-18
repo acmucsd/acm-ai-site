@@ -7,6 +7,7 @@ import { Table, Modal } from 'antd';
 import axios, { AxiosResponse } from 'axios';
 import { COOKIE_NAME } from '../../../configs';
 import { getToken } from '../../../utils/token';
+import { useParams } from 'react-router-dom';
 
 export const getTeams = async (
   competitionName: string
@@ -25,8 +26,7 @@ export const getTeams = async (
         }
       )
       .then((res: AxiosResponse) => {
-        console.log(res)
-        // resolve(res);
+        resolve(res);
       })
       .catch((error) => {
         message.error(error.response.data.error.message);
@@ -37,12 +37,20 @@ export const getTeams = async (
 
 const CompetitionAllTeamsPage = () => {
 
-  getTeams('TestCompetition1');
+  const [teams, setTeams] = useState<any>([]);
+
+  let { competitionName } = useParams<{ competitionName: string }>();
+  getTeams(competitionName).then((res) => {
+    setTeams(res.data);
+  });
 
   return (
     <DefaultLayout>
       <div className="CompetitionTeamPage">
-        <p>hi</p>
+        <h1>{competitionName}'s Teams</h1>
+        <p>{teams.map((team: any) => {
+          return <li>{team.teamName}</li>
+        })}</p>
       </div>
     </DefaultLayout>
   )

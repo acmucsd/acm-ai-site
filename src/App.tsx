@@ -100,7 +100,7 @@ function App() {
             <Route path="/old-competitions/nn" exact component={nnRanksPage} />
             <Route path="/competitions/:id" exact component={CompetitionLandingPage} />
             <Route path="/competitions/:id/upload" exact component={CompetitionUploadPage} />
-            <Route path="/competitions/:id/teams" exact component={CompetitionAllTeamsPage} />
+            <Route path="/competitions/:competitionName/teams" exact component={CompetitionAllTeamsPage} />
             {/* <Route path="/competitions/:id/teams" exact component={CompetitionUserTeamPage} /> */}
             {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
             <Route
