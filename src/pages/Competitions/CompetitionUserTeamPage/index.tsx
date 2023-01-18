@@ -5,7 +5,7 @@ import { Form, Input, message, Button } from 'antd';
 import './index.less';
 import { Table, Modal } from 'antd';
 
-const CompetitionTeamPage = () => {
+const CompetitionUserTeamPage = () => {
   const [isInTeam, setIsInTeam] = useState(true);
 
   const teamMemberCols = [
@@ -62,4 +62,4 @@ const CompetitionTeamPage = () => {
     </DefaultLayout>
   )
 }
-export default CompetitionTeamPage;
+export default CompetitionUserTeamPage;
