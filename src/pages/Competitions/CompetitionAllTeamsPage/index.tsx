@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DefaultLayout from '../../../components/layouts/default';
-import Card from '../../../components/Card';
-import { Form, Input, message, Button } from 'antd';
+import { message } from 'antd';
 import './index.less';
-import { Table, Modal } from 'antd';
 import axios, { AxiosResponse } from 'axios';
 import { COOKIE_NAME } from '../../../configs';
 import { getToken } from '../../../utils/token';
@@ -49,7 +47,7 @@ const CompetitionAllTeamsPage = () => {
       <div className="CompetitionTeamPage">
         <h1>{competitionName}'s Teams</h1>
         <p>{teams.map((team: any) => {
-          return <li>{team.teamName}</li>
+          return <li key={team.teamID}>{team.teamName}</li>
         })}</p>
       </div>
     </DefaultLayout>

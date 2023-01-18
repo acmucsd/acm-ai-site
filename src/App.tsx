@@ -35,7 +35,7 @@ import nnRanksPage from './pages/Competitions/NNRankPage';
 import requestreset from './pages/Auth/RequestReset';
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
-// import CompetitionUserTeamPage from './pages/Competitions/CompetitionUserTeamPage';
+import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionSpecificTeamPage';
 import CompetitionAllTeamsPage from './pages/Competitions/CompetitionAllTeamsPage';
 
 import ProjectPage from './pages/ProjectsPage/index'
@@ -101,7 +101,7 @@ function App() {
             <Route path="/competitions/:id" exact component={CompetitionLandingPage} />
             <Route path="/competitions/:id/upload" exact component={CompetitionUploadPage} />
             <Route path="/competitions/:competitionName/teams" exact component={CompetitionAllTeamsPage} />
-            {/* <Route path="/competitions/:id/teams" exact component={CompetitionUserTeamPage} /> */}
+            <Route path="/competitions/:competitionName/teams/:teamName" exact component={CompetitionSpecificTeamPage} />
             {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
             <Route
               exact
