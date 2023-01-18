@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DefaultLayout from '../../../components/layouts/default';
 import { message } from 'antd';
 import './index.less';
