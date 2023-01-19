@@ -119,8 +119,7 @@ export const loginUser = async (
 ) => {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://localhost:9000" + '/v1/auth/login', data)
-      //.post(process.env.REACT_APP_API + '/v1/auth/login', data)
+      .post(process.env.REACT_APP_API + '/v1/auth/login', data)
       .then((res: AxiosResponse) => {
         setCookie(COOKIE_NAME, res.data.token, 7);
         resolve(res.data.token);
@@ -136,8 +135,7 @@ export const verifyToken = async (dimensionID: string, token: string) => {
   return new Promise((resolve, reject) => {
     axios
       .post(
-        "http://localhost:9000" + '/v1/auth/verify',
-        // process.env.REACT_APP_API + '/v1/auth/verify',
+        process.env.REACT_APP_API + '/v1/auth/verify',
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
