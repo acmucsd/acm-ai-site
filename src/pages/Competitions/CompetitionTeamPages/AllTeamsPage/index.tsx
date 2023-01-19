@@ -39,20 +39,23 @@ const CompetitionAllTeamsPage = () => {
 
   return (
     <DefaultLayout>
-      <div className="CompetitionAllTeamsPage">
+      <div className='AllTeamsPage'>
+        <div className="hero">
+          <h1 id="title">{competitionName}</h1>
+        </div>
         {isRegistered ? (
           <div>
-            <h1>{competitionName}</h1>
-            <h2>Teams</h2>
-            <p>{teams.map((team: any) => {
-              return (
-                Team(team)
-            )})}
-            </p>
+            <div className='main-section'>
+              <h2 className='statement'>Teams</h2>
+              {teams.map((team: any) => {
+                return (Team(team));
+              })}
+            </div>
           </div>
         ):(
-          <p className="errorMessage">You need to be logged in and registered in this competition to view this page.</p>
-        )}
+          <p className='errorMessage'>You must be logged in and registered in this competition to view this page.</p>
+        )
+        }
       </div>
     </DefaultLayout>
   )

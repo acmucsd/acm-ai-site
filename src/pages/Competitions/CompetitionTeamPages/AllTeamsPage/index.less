@@ -1,17 +1,25 @@
 @import '../../../../styles/base.less';
-.CompetitionAllTeamsPage {
+
+.AllTeamsPage {
+  .noContainer();
+  @import '../../../../styles/impactful.less';
+  
   h3, h4 {
     margin: 0;
     padding: 0;
+  } 
+
+  .AllTeamsContent {
+    padding: 0 2rem;
   }
-  
+
   .teamBlock {
-    margin: 1.5rem 0;
+    margin: 2rem 0;
     padding: 1rem;
     border: 1px solid rgb(231, 225, 225);
     border-radius: 0.6rem;
   }
-
+  
   .teamBlockSection {
     margin: 0.4rem 0;
   }
@@ -22,7 +30,7 @@
     background-color: rgb(239, 239, 239);
     border-radius: 0.3rem;
   }
-
+  
   .errorMessage {
     margin: 2rem;
   }
