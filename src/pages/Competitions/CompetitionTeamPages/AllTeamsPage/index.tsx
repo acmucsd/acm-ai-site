@@ -8,11 +8,14 @@ import UserContext from '../../../../UserContext';
 // Block for each team
 const Team = (team: any) => {
   return (
-    <div className="teamBlock">
-      <h3><Link to={"teams/"+team.teamName}>{team.teamName}</Link></h3>
-      <p className="teamBlockSection"><span className="teamBlockHeader">Members</span> <span className="teamMembers">{team.teamMembers.join(", ")}</span></p>
-      <p className="teamBlockSection"><span className="teamBlockHeader">Best Score</span> <span>{team.bestScore}</span></p>
-      <p className="teamBlockSection"><span className="teamBlockHeader">About</span><span>{team.teamDescription}</span></p>
+    <div className='teamBlock'>
+      {/* Note: change to Link to={team.teamName} if the routing doesn't work; idk why this happens*/}
+      <Link to={'teams/' + team.teamName}>
+        <h3><span className='subheader'>{team.teamName}</span></h3>
+        <p className="teamBlockSection"><span className="teamBlockHeader">Best Score</span> <span>{team.bestScore}</span></p>
+        <p className="teamBlockSection"><span className="teamBlockHeader">Members</span> <span className="teamMembers">{team.teamMembers.join(", ")}</span></p>
+        <p className="teamBlockSection"><span className="teamBlockHeader">About</span><span>{team.teamDescription}</span></p>
+      </Link>
     </div>
   )
 }
@@ -54,8 +57,7 @@ const CompetitionAllTeamsPage = () => {
           </div>
         ):(
           <p className='errorMessage'>You must be logged in and registered in this competition to view this page.</p>
-        )
-        }
+        )}
       </div>
     </DefaultLayout>
   )

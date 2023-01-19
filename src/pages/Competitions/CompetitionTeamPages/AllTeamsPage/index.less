@@ -9,6 +9,10 @@
     padding: 0;
   } 
 
+  p, .subheader  {
+    color: @b2;
+  }
+
   .AllTeamsContent {
     padding: 0 2rem;
   }
@@ -16,8 +20,16 @@
   .teamBlock {
     margin: 2rem 0;
     padding: 1rem;
-    border: 1px solid rgb(231, 225, 225);
+    border: 1.2px solid @gray;
     border-radius: 0.6rem;
+    // background-color: @gray;
+  }
+
+  .teamBlock:hover {
+    background-color: @gray;
+    .teamBlockHeader {
+      background-color: @white;
+    }
   }
   
   .teamBlockSection {
@@ -27,7 +39,7 @@
   .teamBlockHeader {
     margin-right: 0.5rem;
     padding: 0.2rem 0.5rem;
-    background-color: rgb(239, 239, 239);
+    background-color: @gray;
     border-radius: 0.3rem;
   }
   
