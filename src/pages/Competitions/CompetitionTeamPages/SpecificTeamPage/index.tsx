@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import DefaultLayout from '../../../../components/layouts/default';
 import './index.less';
 import { useParams } from 'react-router-dom';
 import { getRegisteredState, getTeamInfo } from '../utils';
+import UserContext from '../../../../UserContext';
 
 const CompetitionSpecificTeamPage = () => {
 
-  const [registeredState, setRegisteredState] = useState<any>(false);
+  const { user } = useContext(UserContext);
+  const [isRegistered, setIsRegistered] = useState<any>(false);
   const [teamInfo, setTeamInfo] = useState<any>({});
   const [teamMembers, setTeamMembers] = useState<any>([]);
 
   let { competitionName, teamName } = useParams<{ competitionName: string, teamName: string }>();
 
   useEffect(() => {
-    getRegisteredState(competitionName, "testinguser1").then((res) => {
-      setRegisteredState(res.data.registered);
-    })
+    if (user.loggedIn) {
+      // TODO: it's hardcoded to "testinguser1"; change it to user.username
+      getRegisteredState(competitionName, "testinguser1").then((res) => {
+        setIsRegistered(res.data.registered);
+      })
+    }
 
     getTeamInfo(competitionName, teamName).then((res) => {
       setTeamInfo(res.data);
@@ -26,7 +31,7 @@ const CompetitionSpecificTeamPage = () => {
   return (
     <DefaultLayout>
       <div className="CompetitionSpecificTeamPage">
-        {registeredState ? (
+        {isRegistered ? (
           <div>
             <h1>Team: {teamName}</h1>
             <h2>Team Members</h2>
@@ -38,7 +43,7 @@ const CompetitionSpecificTeamPage = () => {
           </div>
         ):(
           <div>
-            You need to be registered in this competition to view this page.
+            You need to be logged in and registered in this competition to view this page.
           </div>
         )}
       </div>
