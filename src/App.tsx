@@ -35,8 +35,8 @@ import nnRanksPage from './pages/Competitions/NNRankPage';
 import requestreset from './pages/Auth/RequestReset';
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
-import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionSpecificTeamPage';
-import CompetitionAllTeamsPage from './pages/Competitions/CompetitionAllTeamsPage';
+import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionTeamPages/SpecificTeamPage';
+import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/AllTeamsPage';
 
 import ProjectPage from './pages/ProjectsPage/index'
 
