@@ -2,7 +2,6 @@ import { message } from 'antd';
 import axios, { AxiosResponse } from 'axios';
 import { COOKIE_NAME } from '../../../configs';
 import { getToken } from '../../../utils/token';
-import { useParams, Link } from 'react-router-dom';
 
 // Checks if user is registered in competition
 export const getRegisteredState = (
@@ -13,8 +12,8 @@ export const getRegisteredState = (
     axios
       .get(
         // TODO: remove this hardcoded thing
-        `http://localhost:9000/v1/competitions/${competitionName}/${username}`
-        // process.env.REACT_APP_API + `/v1/competitions/${competitionName}/${username}`
+        // `http://localhost:9000/v1/competitions/${competitionName}/${username}`
+        process.env.REACT_APP_API + `/v1/competitions/${competitionName}/${username}`
       )
       .then((res: AxiosResponse) => {
         resolve(res);
@@ -35,8 +34,8 @@ export const getTeams = async (
     axios
       .get(
         // TODO: remove hardcoded thing
-        `http://localhost:9000/v1/competitions/teams/${competitionName}`,
-        // process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}`,
+        // `http://localhost:9000/v1/competitions/teams/${competitionName}`,
+        process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,8 +63,8 @@ export const getTeamInfo = async (
     axios
       .get(
         // TODO: remove hardcoded thing
-        `http://localhost:9000/v1/competitions/teams/${competitionName}/${teamName}`,
-        // process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/${teamName}`,
+        // `http://localhost:9000/v1/competitions/teams/${competitionName}/${teamName}`,
+        process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/${teamName}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

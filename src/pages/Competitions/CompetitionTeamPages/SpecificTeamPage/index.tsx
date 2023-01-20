@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import DefaultLayout from '../../../../components/layouts/default';
 import './index.less';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getRegisteredState, getTeamInfo } from '../utils';
 import UserContext from '../../../../UserContext';
 
