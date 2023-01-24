@@ -1,6 +1,6 @@
 import { message } from 'antd';
 import axios, { AxiosResponse } from 'axios';
-import { COOKIE_NAME } from '../configs';
+import { competitionAPI, COOKIE_NAME } from '../configs';
 import { getToken } from '../utils/token';
 
 export const uploadSubmission = async (
@@ -55,6 +55,7 @@ export const getMetaData = async (competitionid: string): Promise<AxiosResponse>
       });
   });
 };
+
 export const getRanks = async (competitionid: string): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
     axios
@@ -68,3 +69,17 @@ export const getRanks = async (competitionid: string): Promise<AxiosResponse> =>
       });
   });
 };
+
+export const getLeaderboard = async (competitionid: string): Promise<AxiosResponse> => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(process.env.REACT_APP_API + `/v1/competitions/${competitionid}/leaderboard`)
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error("Could not get leaderboard");
+        reject(error);
+      });
+  })
+}
