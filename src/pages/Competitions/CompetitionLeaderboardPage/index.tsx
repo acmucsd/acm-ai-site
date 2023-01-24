@@ -3,7 +3,7 @@ import './index.less';
 import { useHistory, useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import { Link } from 'react-router-dom';
-import { getMetaData, getRanks } from '../../../actions/competition';
+import { getMetaData, getRanks, getLeaderboard } from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
 import BackLink from '../../../components/BackLink';
 import path from 'path';
@@ -40,10 +40,10 @@ const fakeCompetitionData = {
 interface CompetitionData {
   rank: number;
   team: string;
-  users: string[];
+  // users: string[];
   score: number;
   entries: number;
-  last: Date;
+  // last: Date;
 }
 
 const columns: ColumnsType<CompetitionData> = [
@@ -73,40 +73,40 @@ const columns: ColumnsType<CompetitionData> = [
   },
 ];
 
-const fakeData = [
-  {
-    rank: 1,
-    team: 'A Team',
-    users: ['Alex', 'Andy', 'Amy'],
-    score: 0.999972,
-    entries: 220,
-    last: new Date('2022-10-16T03:24:00'),
-  },
-  {
-    rank: 3,
-    team: 'B List',
-    users: ['Boron', 'Baux'],
-    score: 0.2314,
-    entries: 100,
-    last: new Date('2022-10-13T15:52:00'),
-  },
-  {
-    rank: 2,
-    team: 'Team Solo Scoring',
-    users: ['Gordon'],
-    score: 0.42124,
-    entries: 2,
-    last: new Date('2022-10-16T13:10:00'),
-  },
-  {
-    rank: 4,
-    team: 'Kachow',
-    users: ['Lightning McQueen'],
-    score: 0.1293,
-    entries: 1,
-    last: new Date('2022-10-15T07:32:00'),
-  },
-];
+// const fakeData = [
+//   {
+//     rank: 1,
+//     team: 'A Team',
+//     users: ['Alex', 'Andy', 'Amy'],
+//     score: 0.999972,
+//     entries: 220,
+//     last: new Date('2022-10-16T03:24:00'),
+//   },
+//   {
+//     rank: 3,
+//     team: 'B List',
+//     users: ['Boron', 'Baux'],
+//     score: 0.2314,
+//     entries: 100,
+//     last: new Date('2022-10-13T15:52:00'),
+//   },
+//   {
+//     rank: 2,
+//     team: 'Team Solo Scoring',
+//     users: ['Gordon'],
+//     score: 0.42124,
+//     entries: 2,
+//     last: new Date('2022-10-16T13:10:00'),
+//   },
+//   {
+//     rank: 4,
+//     team: 'Kachow',
+//     users: ['Lightning McQueen'],
+//     score: 0.1293,
+//     entries: 1,
+//     last: new Date('2022-10-15T07:32:00'),
+//   },
+// ];
 
 const CompetitionLeaderboardPage = () => {
   const history = useHistory();
@@ -121,7 +121,26 @@ const CompetitionLeaderboardPage = () => {
   const params = useParams() as { id: string };
   const competitionID = params.id;
 
-  const [data, setData] = useState<CompetitionData[]>(fakeData);
+  const [data, setData] = useState<CompetitionData[]>([]);
+
+  const update = () => {
+    // Get team listing in order of scores
+    getLeaderboard(competitionID).then(res => {
+      let newData = res.data.map((d: any, index: number) => {
+        return {
+          rank: index + 1,
+          team: d.teamName,
+          score: d.bestScore,
+          entries: d.scoreHistory.length
+        }
+      })
+      setData(newData)
+    })
+  }
+
+  useEffect(() => {
+    update();
+  }, []);
 
   // const [chartTrigger, setTrigger] = useState(false);
   // useEffect(() => {
@@ -251,7 +270,7 @@ const CompetitionLeaderboardPage = () => {
         <Button
           className="refresh-btn"
           onClick={() => {
-            // update();
+            update();
           }}
         >
           Refresh Leaderboard
