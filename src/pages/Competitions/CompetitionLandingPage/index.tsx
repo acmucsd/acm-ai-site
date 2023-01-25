@@ -43,7 +43,7 @@ const CompetitionLandingPage = () => {
           <p className="subsubtext">Start: {(new Date(meta.startDate!).toLocaleString())}</p>
           <p className="subsubtext">End: {(new Date(meta.startDate!).toLocaleString())}</p>
           <div className="button-wrapper">
-            <Link to={`${competitionID}/leaderboard`}>
+            {/* <Link to={`${competitionID}/leaderboard`}>
               <Button className="headerbtn">Leaderboard</Button>
             </Link>
             <Link to={`${competitionID}/teams`}>
@@ -51,7 +51,7 @@ const CompetitionLandingPage = () => {
             </Link>
             <Link to={`${competitionID}/upload`}>
               <Button className="headerbtn">Submit</Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
         {/* Markdown renderer */}
