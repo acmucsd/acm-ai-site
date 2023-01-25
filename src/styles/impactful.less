@@ -8,15 +8,26 @@
   background: linear-gradient(135deg, #D64550, #EB8B90);
   // background: @b2;
   padding-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  
+  .heading {
+    .section-container-padding();
+    padding-right: 0;
+    margin-right: 0;
+    width: 45rem;
+  }
+
   .subtext {
-    .leftPaddedText();
     font-size: @font4;
     color: @white;
+    .leftPaddedText();
   }
+
   padding-bottom: 90px;
   line-height: 2;
   .button-wrapper {
-    .leftPaddedText();
+    margin: auto 2rem;
     .text {
       font-size: @font3;
       color: @white;
