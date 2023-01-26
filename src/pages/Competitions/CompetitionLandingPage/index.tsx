@@ -15,7 +15,7 @@ const CompetitionLandingPage = () => {
     as deemed necessary
   */
 
-  const [meta, setMeta] = useState<{competitionName: string, description: string, startDate: string} | null>(null);
+  const [meta, setMeta] = useState<{competitionName: string, description: string, startDate: string, endDate: string} | null>(null);
   const [reactContent, setMarkdownSource] = useRemark();
   const params = useParams() as { id: string };
 
@@ -40,8 +40,8 @@ const CompetitionLandingPage = () => {
         <div className="hero">
           
           <h1 id="title">{meta.competitionName}</h1>
-          <p className="subsubtext">Start: {(new Date(meta.startDate!).toLocaleString())}</p>
-          <p className="subsubtext">End: {(new Date(meta.startDate!).toLocaleString())}</p>
+          <p className="subtext">Start: {(new Date(meta.startDate!).toLocaleString())}</p>
+          <p className="subtext">End: {(new Date(meta.endDate!).toLocaleString())}</p>
           <div className="button-wrapper">
             {/* <Link to={`${competitionID}/leaderboard`}>
               <Button className="headerbtn">Leaderboard</Button>
