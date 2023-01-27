@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import axios, { AxiosResponse } from 'axios';
-import { COOKIE_NAME } from '../../../configs';
-import { getToken } from '../../../utils/token';
+import { COOKIE_NAME } from '../../configs';
+import { getToken } from '../../utils/token';
 
 // Checks if user is registered in competition
 export const getRegisteredState = (

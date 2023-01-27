@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import DefaultLayout from '../../../../components/layouts/default';
 import './index.less';
 import { useParams, Link } from 'react-router-dom';
-import { getRegisteredState, getTeams } from '../utils';
+import { getRegisteredState, getTeams } from '../../../../actions/teams/utils';
 import UserContext from '../../../../UserContext';
 
 // Block for each team
@@ -30,7 +30,7 @@ const CompetitionAllTeamsPage = () => {
   useEffect(() => {
     if (user.loggedIn) {
       // TODO: it's hardcoded to "testinguser1"; change it to user.username
-      getRegisteredState(competitionName, "testinguser1").then((res) => {
+      getRegisteredState(competitionName, "testinguser5").then((res) => {
         setIsRegistered(res.data.registered);
       })
     }

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import DefaultLayout from '../../../../components/layouts/default';
 import './index.less';
 import { useParams } from 'react-router-dom';
-import { getRegisteredState, getTeamInfo } from '../utils';
+import { getRegisteredState, getTeamInfo } from '../../../../actions/teams/utils';
 import UserContext from '../../../../UserContext';
 
 const CompetitionSpecificTeamPage = () => {
@@ -13,11 +13,11 @@ const CompetitionSpecificTeamPage = () => {
   const [teamMembers, setTeamMembers] = useState<any>([]);
 
   let { competitionName, teamName } = useParams<{ competitionName: string, teamName: string }>();
-
+  const username = "testinguser5"; // replace with user.username
   useEffect(() => {
     if (user.loggedIn) {
       // TODO: it's hardcoded to "testinguser1"; change it to user.username
-      getRegisteredState(competitionName, "testinguser1").then((res) => {
+      getRegisteredState(competitionName, username).then((res) => {
         setIsRegistered(res.data.registered);
       })
     }
@@ -40,7 +40,7 @@ const CompetitionSpecificTeamPage = () => {
             
             <h2 className='statement'>Team {team.teamName}</h2>
             {/* TODO: Change testinguser1 to user.username */}
-            {teamMembers.includes("testinguser1") &&
+            {teamMembers.includes(username) &&
               <div className='block'>
                 <p>Invite your friends to join this team!</p>
                 <h4>Team Join Code: {team.joinCode}</h4>
