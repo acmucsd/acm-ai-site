@@ -18,13 +18,18 @@ function CompetitionsPage(props: any) {
             </span>
           </h1>
           <p className="subtext">
-            Stay tuned for the next competition!
+            <span>Element.AI competitions starts February 18th</span>
+            <br />
+            <div className="button-wrapper">
+              <Link to={{pathname: "https://acmurl.com/ai-competition-rsvp"}} target="_blank">
+                <Button className="registerbtn">RSVP Now</Button>
+              </Link>
+              <Link to="/competitions/Element.AI">
+                <Button className="registerbtn">More Details</Button>
+              </Link>
+            </div>
           </p>
-          {/* <div className="button-wrapper">
-            <Link to="/competitions/nn">
-              <Button className="registerbtn">Take me there!</Button>
-            </Link>
-          </div> */}
+          
         </div>
         <div>
           <div className="main-section">
