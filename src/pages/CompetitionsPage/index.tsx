@@ -18,7 +18,7 @@ function CompetitionsPage(props: any) {
             </span>
           </h1>
           <p className="subtext">
-            <span>Element.AI competitions starts February 18th</span>
+            <span>Element.AI competition starts February 18th</span>
             <br />
             <div className="button-wrapper">
               <Link to={{pathname: "https://acmurl.com/ai-competition-rsvp"}} target="_blank">
