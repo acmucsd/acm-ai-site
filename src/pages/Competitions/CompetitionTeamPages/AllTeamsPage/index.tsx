@@ -43,13 +43,10 @@ const CompetitionAllTeamsPage = () => {
   return (
     <DefaultLayout>
       <div className='AllTeamsPage'>
-        <div className="hero">
-          <h1 id="title">{competitionName}</h1>
-        </div>
         {isRegistered ? (
           <div>
             <div className='main-section'>
-              <h2 className='statement'>Teams</h2>
+              <h2>Teams</h2>
               {teams.map((team: any) => {
                 return (Team(team));
               })}

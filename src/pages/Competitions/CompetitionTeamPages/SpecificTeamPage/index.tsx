@@ -31,14 +31,9 @@ const CompetitionSpecificTeamPage = () => {
   return (
     <DefaultLayout>
       <div className="CompetitionSpecificTeamPage">
-        <div className="hero">
-          <h1 id="title">{competitionName}</h1>
-        </div>
-        <div></div>
         {isRegistered ? (
           <div className='main-section'>
-            
-            <h2 className='statement'>Team {team.teamName}</h2>
+            <h2>Team {team.teamName}</h2>
             {/* TODO: Change testinguser1 to user.username */}
             {teamMembers.includes(username) &&
               <div className='block'>
