@@ -14,7 +14,7 @@ const CompetitionSpecificTeamPage = () => {
   const [teamMembers, setTeamMembers] = useState<any>([]);
 
   let { competitionName, teamName } = useParams<{ competitionName: string, teamName: string }>();
-  const username = "testinguser5"; // replace with user.username
+  const username = "testinguser1"; // replace with user.username
   useEffect(() => {
     if (user.loggedIn) {
       // TODO: it's hardcoded to "testinguser1"; change it to user.username
@@ -41,7 +41,7 @@ const CompetitionSpecificTeamPage = () => {
             {teamMembers.includes(username) &&
               <div className='block'>
                 <p>Invite your friends to join this team!</p>
-                <h4>Team Join Code: {team.joinCode}</h4>
+                <h4>Join Code: {team.joinCode}</h4>
               </div>
             }
             <h3><span className="subheader">Best Score: {team.bestScore}</span></h3>
