@@ -75,3 +75,23 @@ export const getTeamInfo = async (
       });
   });
 };
+
+// Get submission details given competition name and submission ID 
+export const getSubmissionDetails = async (
+  competitionName: string,
+  submissionId: string
+): Promise<AxiosResponse> => {
+  // let token = getToken(COOKIE_NAME);
+  return new Promise((resolve, reject) => {
+    axios.get(
+      process.env.REACT_APP_API + `/v1/competitions/${competitionName}/entry/${submissionId}`
+    )
+    .then((res: AxiosResponse) => {
+      resolve(res);
+    })
+    .catch((error) => {
+      message.error(error.response.data.error.message);
+      reject(error)
+    })
+  })
+}
