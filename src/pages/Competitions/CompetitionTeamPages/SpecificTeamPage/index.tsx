@@ -4,6 +4,7 @@ import './index.less';
 import { useParams } from 'react-router-dom';
 import { getRegisteredState, getTeamInfo } from '../../../../actions/teams/utils';
 import UserContext from '../../../../UserContext';
+import BackLink from '../../../../components/BackLink';
 
 const CompetitionSpecificTeamPage = () => {
 
@@ -31,6 +32,8 @@ const CompetitionSpecificTeamPage = () => {
   return (
     <DefaultLayout>
       <div className="CompetitionSpecificTeamPage">
+        <br />
+        <BackLink to="../" />
         {isRegistered ? (
           <div className='main-section'>
             <h2>Team {team.teamName}</h2>
