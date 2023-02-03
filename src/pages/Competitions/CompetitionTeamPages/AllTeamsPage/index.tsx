@@ -54,6 +54,7 @@ const CompetitionAllTeamsPage = () => {
         <div className="hero">
           <h1 id="title">{competitionName}</h1>
         </div>
+        {isRegistered ? (
           <div>
             <div className='main-section'>
               <h2 className='statement'>Teams</h2>
@@ -79,6 +80,9 @@ const CompetitionAllTeamsPage = () => {
               </div>
             </div>
           </div>
+        ):(
+          <p className='errorMessage'>You must be logged in and registered in this competition to view this page.</p>
+        )}
       </div>
     </DefaultLayout>
   )
