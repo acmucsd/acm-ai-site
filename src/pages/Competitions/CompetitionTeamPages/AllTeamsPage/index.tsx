@@ -38,6 +38,7 @@ const CompetitionAllTeamsPage = () => {
     }
   }, []);
 
+  // Get all teams if user is registered in comp
   useEffect(() => {
     if (isRegistered) {
       getTeams(competitionName).then((res) => {
@@ -62,7 +63,7 @@ const CompetitionAllTeamsPage = () => {
             </div>
           </div>
         ):(
-          <p className='errorMessage'>You must be logged in and registered in this competition to view this page.</p>
+          <p className='errorMessage'>You must be registered in this competition AND logged in to this site to view this page.</p>
         )}
       </div>
     </DefaultLayout>

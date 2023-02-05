@@ -11,16 +11,18 @@ import { ColumnsType } from 'antd/lib/table';
 interface SubmissionData {
   description: string;
   score: number;
-  tags: string[];
-  submissionDate: string;
+  tags: string;
+  date: Date;
+  dateString: string;
+  key: string;
 }
 
 const columns: ColumnsType<SubmissionData> = [
   {
     title: 'Submission Date',
-    dataIndex: 'submissionDate',
+    dataIndex: 'dateString',
     defaultSortOrder: 'descend',
-    // sorter: (a, b) => a.score - b.score,
+    sorter: (a, b) => a.date.getTime() - b.date.getTime()
   },
   {
     title: 'Description',
@@ -74,14 +76,14 @@ const CompetitionSpecificTeamPage = () => {
     if (teamMembers.length > 0 && teamMembers.includes(username)) {
       setIsMyTeam(true);
 
-      // For real thing, use this code instead:
-      // setSubmissionIds(teamInfo.submitHistory);
-      // These are just random submission IDs to show that the table works
+      // These are just random submission IDs to show that the table works because the fake seeding data doesn't have any submit history
       setSubmissionIds([
         "63c396f9671b14068b17f681",
         "63c396f9671b14068b17f682",
         "63c396f9671b14068b17f683"
       ]);
+      // For the real thing, use this code instead:
+      // setSubmissionIds(teamInfo.submitHistory);
     }
   }, [teamMembers])
 
@@ -90,11 +92,14 @@ const CompetitionSpecificTeamPage = () => {
     submissionIds.map((id: any) => {
       getSubmissionDetails(competitionName, id).then((res) => {
         let submission = res.data[0];
+        let date = new Date(submission.submissionDate);
         let submissionDetails = {
-          submissionDate: submission.submissionDate,
+          date: date,
+          dateString: date.toLocaleDateString() + " at " + date.toLocaleTimeString(),
           description: submission.description,
-          tags: submission.tags,
-          score: submission.score
+          tags: submission.tags.join(", "),
+          score: submission.score,
+          key: id
         }
         setSubmissionData(submissionData => [...submissionData, submissionDetails]);
       })
@@ -136,7 +141,7 @@ const CompetitionSpecificTeamPage = () => {
           </div>
         ):(
           <p className='errorMessage'>
-            You need to be logged in and registered in this competition to view this page.
+            You must be registered in this competition AND logged in to this site to view this page.
           </p>
         )}
       </div>
