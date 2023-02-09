@@ -1,49 +1,19 @@
 @import '../../../../styles/base.less';
 
 .SubmissionDetailsPage {
-  .noContainer();
   @import '../../../../styles/impactful.less';
-  
-  h3, h4 {
-    margin: 0;
-    padding: 0;
-  } 
 
-  p, .subheader  {
-    color: @b2;
+  .meta-data {
+    font-size: @font2;
+    margin-bottom: @margin-base;
   }
-
-  .AllTeamsContent {
-    padding: 0 2rem;
+  .meta-data-title {
+    margin-bottom: 0px;
   }
-
-  .teamBlock {
-    margin: 2rem 0;
-    padding: 1rem;
-    border: 1.2px solid @gray;
-    border-radius: 0.6rem;
-    // background-color: @gray;
+  .refresh-btn {
+    margin-left: 1rem;
   }
-
-  .teamBlock:hover {
-    background-color: @gray;
-    .teamBlockHeader {
-      background-color: @white;
-    }
-  }
-  
-  .teamBlockSection {
-    margin: 0.4rem 0;
-  }
-  
-  .teamBlockHeader {
-    margin-right: 0.5rem;
-    padding: 0.2rem 0.5rem;
-    background-color: @gray;
-    border-radius: 0.3rem;
-  }
-  
-  .errorMessage {
-    margin: 2rem;
+  p {
+    font-size: @font2;
   }
 }

@@ -4,6 +4,7 @@ import './index.less';
 import { Link, useParams } from 'react-router-dom';
 import { getSubmissionDetails } from '../../../../actions/teams/utils';
 import { Button } from 'antd';
+import BackLink from '../../../../components/BackLink';
 
 const CompetitionSubmissionDetailsPage = () => {
   let { competitionName, submissionId, teamName } = useParams<{
@@ -23,17 +24,12 @@ const CompetitionSubmissionDetailsPage = () => {
   return (
     <DefaultLayout>
       <div className="SubmissionDetailsPage">
-        <div className="hero">
-          <h1 id="title">Submission {submissionId}</h1>
-          <Link to={`../`}>
-            <Button className="headerbtn">Back to Team</Button>
-          </Link>
-        </div>
-        <div>
-          <div className="main-section">
-            {JSON.stringify(submissionDetails)}
-          </div>
-        </div>
+        <br />
+        <Link to={`../`}>
+          <Button className="headerbtn">Back to Team</Button>
+        </Link>
+        <h2>Submission {submissionId}</h2>
+        <div>{JSON.stringify(submissionDetails)}</div>
       </div>
     </DefaultLayout>
   );
