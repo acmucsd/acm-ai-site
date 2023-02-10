@@ -90,13 +90,10 @@ export const registerCompetitionUser = async (competitionid: string, userid: str
     axios
       .post(
         process.env.REACT_APP_API + `/v1/competitions/${competitionid}/${userid}/register`,
-        {
-          'username': userid
-        },
+        {},
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           },
         }
       ).then((res: AxiosResponse) => {
