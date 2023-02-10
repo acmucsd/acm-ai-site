@@ -82,6 +82,34 @@ export const getTeamInfo = async (
   });
 };
 
+// Create new team
+export const createTeam = async (competitionid: string, userid: string, teamName: string): Promise<AxiosResponse> => {
+  let token = getToken(COOKIE_NAME);
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        process.env.REACT_APP_API + `/v1/teams/${competitionid}/new-team`,
+        {
+          'username': userid,
+          'teamName': teamName
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error("Could not make new team");
+        reject(error);
+      });
+  });
+}
+
 export const getSubmissionDetails = async (
   competitionName: string,
   submissionId: string
