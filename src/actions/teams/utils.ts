@@ -133,7 +133,8 @@ export const addToTeam = async (
         body,
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       )
