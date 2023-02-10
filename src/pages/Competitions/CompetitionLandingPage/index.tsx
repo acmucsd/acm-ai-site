@@ -57,7 +57,7 @@ const CompetitionLandingPage = () => {
       })
     }
     else {
-      message.info('You need to login to see teams, join a team, and participate')
+      message.info('You need to login to register for the competition')
     }
   }, [user])
 
@@ -87,20 +87,21 @@ const CompetitionLandingPage = () => {
                 <Link to={`/competitions/${competitionID}/upload`}>
                   <Button className="headerbtn">Submit</Button>
                 </Link>
-              </>): (
-              <>
-                <Button className="headerbtn" onClick={() => setIsRegisterOpen(true)}>Register</Button>
-                <Modal 
-                  visible={isRegisterOpen}
-                  onCancel={() => setIsRegisterOpen(false)}
-                  onOk={onRegister}
-                  confirmLoading={registerLoading}
-                >
-                  <h3>Register for {meta.competitionName}</h3>
-                  <br></br>
-                  <p>By registering and joining this competition, you agree to abide by all competition rules. Note that once registered, you must make a team first (even if it's just you) on the teams page for this competition in order to make submissions</p>               
-                </Modal>
-              </>
+              </>) : ( user.loggedIn? (
+                <>
+                  <Button className="headerbtn" onClick={() => setIsRegisterOpen(true)}>Register</Button>
+                  <Modal 
+                    visible={isRegisterOpen}
+                    onCancel={() => setIsRegisterOpen(false)}
+                    onOk={onRegister}
+                    confirmLoading={registerLoading}
+                  >
+                    <h3>Register for {meta.competitionName}</h3>
+                    <br></br>
+                    <p>By registering and joining this competition, you agree to abide by all competition rules. Note that once registered, you must make a team first (even if it's just you) on the teams page for this competition in order to make submissions</p>               
+                  </Modal>
+                </>
+              ) : (<></>)              
             )}
           </div>
         </div>
