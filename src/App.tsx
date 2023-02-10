@@ -40,6 +40,7 @@ import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/A
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
 
 import ProjectPage from './pages/ProjectsPage/index'
+import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
 
 let cookie = getCookie(COOKIE_NAME);
 function App() {
@@ -104,6 +105,7 @@ function App() {
             <Route path="/competitions/:id/upload" exact component={CompetitionUploadPage} />
             <Route path="/competitions/:competitionName/teams" exact component={CompetitionAllTeamsPage} />
             <Route path="/competitions/:competitionName/teams/:teamName" exact component={CompetitionSpecificTeamPage} />
+            <Route path="/competitions/:competitionName/add-to-team" exact component={JoinTeamsPage} />
             {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
             <Route
               exact
