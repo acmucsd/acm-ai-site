@@ -11,10 +11,7 @@ export const getRegisteredState = (
   return new Promise((resolve, reject) => {
     axios
       .get(
-        // TODO: remove this hardcoded thing
-        // `http://localhost:9000/v1/competitions/${competitionName}/${username}`
-        process.env.REACT_APP_API +
-          `/v1/competitions/${competitionName}/${username}`
+        process.env.REACT_APP_API + `/v1/competitions/${competitionName}/${username}`
       )
       .then((res: AxiosResponse) => {
         resolve(res);
@@ -34,8 +31,6 @@ export const getTeams = async (
   return new Promise((resolve, reject) => {
     axios
       .get(
-        // TODO: remove hardcoded thing
-        // `http://localhost:9000/v1/competitions/teams/${competitionName}`,
         process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}`,
         {
           headers: {
