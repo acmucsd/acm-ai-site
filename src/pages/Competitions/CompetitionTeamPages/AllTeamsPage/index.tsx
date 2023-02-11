@@ -2,7 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import DefaultLayout from '../../../../components/layouts/default';
 import './index.less';
 import { useParams, Link } from 'react-router-dom';
-import { getRegisteredState, getTeams, getTeamInfo } from '../../../../actions/teams/utils';
+import { useForm } from 'react-hook-form' 
+import { Form, Input, Button, message } from 'antd'
+import { getRegisteredState, getTeams, createTeam } from '../../../../actions/teams/utils';
 import UserContext from '../../../../UserContext';
 import BackLink from '../../../../components/BackLink';
 
@@ -37,6 +39,25 @@ const CompetitionAllTeamsPage = () => {
       })
     }
   }, []);
+  const { handleSubmit } = useForm();
+  const [teamName, setTeamName] = useState<string>('')
+  
+  const onSubmit = () => {
+    createTeam(competitionName, user.username as string, teamName)
+      .then((res) => message.success(`Created team ${teamName}`))
+  }
+  
+  useEffect(() => {
+    if (user.loggedIn) {
+      getRegisteredState(competitionName, user.username).then((res) => {
+        setIsRegistered(res.data.registered);
+      })
+    }
+    
+    getTeams(competitionName).then((res) => {
+      setTeams(res.data);
+    });
+  }, [user, competitionName]);
 
   // Get all teams if user is registered in comp
   useEffect(() => {
@@ -60,6 +81,23 @@ const CompetitionAllTeamsPage = () => {
               {teams.map((team: any) => {
                 return (Team(team));
               })}
+              <br></br>
+              <h2 className='statement'>Create a team</h2>
+              <div className='teamBlock teamCreateForm'>
+              <Form>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <Input
+                    size='large'
+                    value={teamName}
+                    onChange={e => setTeamName(e.target.value)}
+                    style={{margin: '2rem 0'}} placeholder="Team Name"
+                  />
+                  <Button htmlType="submit" className="submit-btn">
+                    Submit
+                  </Button>
+                </form>
+              </Form>
+              </div>
             </div>
           </div>
         ):(

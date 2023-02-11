@@ -58,7 +58,10 @@ export const getTeamInfo = async (
   return new Promise((resolve, reject) => {
     axios
       .get(
-        process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/${teamName}`,
+        // TODO: remove hardcoded thing
+        // `http://localhost:9000/v1/competitions/teams/${competitionName}/${teamName}`,
+        process.env.REACT_APP_API +
+          `/v1/competitions/teams/${competitionName}/${teamName}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -76,7 +79,34 @@ export const getTeamInfo = async (
   });
 };
 
-// Get submission details given competition name and submission ID 
+// Create new team
+export const createTeam = async (competitionid: string, userid: string, teamName: string): Promise<AxiosResponse> => {
+  let token = getToken(COOKIE_NAME);
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        process.env.REACT_APP_API + `/v1/teams/${competitionid}/new-team`,
+        {
+          'username': userid,
+          'teamName': teamName
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error("Could not make new team");
+        reject(error);
+      });
+  });
+}
+
 export const getSubmissionDetails = async (
   competitionName: string,
   submissionId: string
@@ -95,3 +125,39 @@ export const getSubmissionDetails = async (
     })
   })
 }
+export const addToTeam = async (
+  competitionName: string,
+  username: string,
+  teamName: string,
+  code: string
+): Promise<AxiosResponse> => {
+  let token = getToken(COOKIE_NAME);
+  let body = {
+    username,
+    teamName,
+    code,
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        process.env.REACT_APP_API +
+          `/v1/competitions/teams/${competitionName}/add-to-team`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error(error.response.data.error.message);
+        console.error(error);
+        reject(error);
+      });
+  });
+};
