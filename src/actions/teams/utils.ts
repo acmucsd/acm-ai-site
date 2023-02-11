@@ -112,6 +112,24 @@ export const createTeam = async (competitionid: string, userid: string, teamName
   });
 }
 
+export const getSubmissionDetails = async (
+  competitionName: string,
+  submissionId: string
+): Promise<AxiosResponse> => {
+  // let token = getToken(COOKIE_NAME);
+  return new Promise((resolve, reject) => {
+    axios.get(
+      process.env.REACT_APP_API + `/v1/competitions/${competitionName}/entry/${submissionId}`
+    )
+    .then((res: AxiosResponse) => {
+      resolve(res);
+    })
+    .catch((error) => {
+      message.error(error.response.data.error.message);
+      reject(error)
+    })
+  })
+}
 export const addToTeam = async (
   competitionName: string,
   username: string,
