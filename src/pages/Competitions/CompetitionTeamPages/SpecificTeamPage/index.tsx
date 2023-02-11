@@ -77,13 +77,13 @@ const CompetitionSpecificTeamPage = () => {
       setIsMyTeam(true);
 
       // These are just random submission IDs to show that the table works because the fake seeding data doesn't have any submit history
-      setSubmissionIds([
-        "63c396f9671b14068b17f681",
-        "63c396f9671b14068b17f682",
-        "63c396f9671b14068b17f683"
-      ]);
+      // setSubmissionIds([
+      //   "63c396f9671b14068b17f681",
+      //   "63c396f9671b14068b17f682",
+      //   "63c396f9671b14068b17f683"
+      // ]);
       // For the real thing, use this code instead:
-      // setSubmissionIds(teamInfo.submitHistory);
+      setSubmissionIds(teamInfo.submitHistory);
     }
   }, [teamMembers])
 
