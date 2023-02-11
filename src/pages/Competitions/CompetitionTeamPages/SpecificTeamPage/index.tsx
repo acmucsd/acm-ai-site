@@ -49,7 +49,7 @@ const CompetitionSpecificTeamPage = () => {
   const [submissionData, setSubmissionData] = useState<SubmissionData[]>([]);
   const [submissionIds, setSubmissionIds] = useState<any>([]);
   let { competitionName, teamName } = useParams<{ competitionName: string, teamName: string }>();
-  const username = "testinguser4"; // replace with user.username
+  const username = user.username; // replace with user.username
 
   // Check if user is logged in
   useEffect(() => {

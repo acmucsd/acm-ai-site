@@ -82,7 +82,9 @@ const CompetitionUploadPage = () => {
     // })
 
     uploadSubmission(submissionFile, tags, desc, competitionID, user.username as string).then((res) => {
-      message.success('Score: ' + res.data.score);
+      message.success('Submission Uploaded Succesfully');
+    }).catch((err) => {
+      message.error(`${err}`);
     });
   };
   const dummyRequest = ({ file, onSuccess }: any) => {
