@@ -106,30 +106,33 @@ const CompetitionLandingPage = () => {
                   </>
                 )}
               </>
-            ) : user.loggedIn && meta.submissionsEnabled ? (
-              <>
-                <Button
-                  className="headerbtn"
-                  onClick={() => setIsRegisterOpen(true)}
-                >
-                  Register
-                </Button>
-                <Modal
-                  visible={isRegisterOpen}
-                  onCancel={() => setIsRegisterOpen(false)}
-                  onOk={onRegister}
-                  confirmLoading={registerLoading}
-                >
-                  <h3>Register for {meta.competitionName}</h3>
-                  <br></br>
-                  <p>
-                    By registering and joining this competition, you agree to
-                    abide by all competition rules. Note that once registered,
-                    you must make a team first (even if it's just you) on the
-                    teams page for this competition in order to make submissions
-                  </p>
-                </Modal>
-              </>
+            ) : user.loggedIn ? (
+              meta.submissionsEnabled && (
+                <>
+                  <Button
+                    className="headerbtn"
+                    onClick={() => setIsRegisterOpen(true)}
+                  >
+                    Register
+                  </Button>
+                  <Modal
+                    visible={isRegisterOpen}
+                    onCancel={() => setIsRegisterOpen(false)}
+                    onOk={onRegister}
+                    confirmLoading={registerLoading}
+                  >
+                    <h3>Register for {meta.competitionName}</h3>
+                    <br></br>
+                    <p>
+                      By registering and joining this competition, you agree to
+                      abide by all competition rules. Note that once registered,
+                      you must make a team first (even if it's just you) on the
+                      teams page for this competition in order to make
+                      submissions
+                    </p>
+                  </Modal>
+                </>
+              )
             ) : (
               <></>
             )}
