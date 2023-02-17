@@ -7,13 +7,13 @@ import { Form, Input, Button, message } from 'antd'
 import { getRegisteredState, getTeams, createTeam } from '../../../../actions/teams/utils';
 import UserContext from '../../../../UserContext';
 import BackLink from '../../../../components/BackLink';
-
+import path from 'path';
 // Block for each team
 const Team = (team: any) => {
   return (
     <div className='teamBlock'>
       {/* Note: change to Link to={team.teamName} if the routing doesn't work; idk why this happens*/}
-      <Link to={'teams/' + team.teamName}>
+      <Link to={path.join('teams/', team.teamName)}>
         <h3><span className='subheader'>{team.teamName}</span></h3>
         <p className="teamBlockSection"><span className="teamBlockHeader">Best Score</span> <span>{team.bestScore}</span></p>
         <p className="teamBlockSection"><span className="teamBlockHeader">Members</span> <span className="teamMembers">{team.teamMembers.join(", ")}</span></p>
@@ -77,11 +77,6 @@ const CompetitionAllTeamsPage = () => {
         {isRegistered ? (
           <div>
             <div className='main-section'>
-              <h2>Teams</h2>
-              {teams.map((team: any) => {
-                return (Team(team));
-              })}
-              <br></br>
               <h2 className='statement'>Create a team</h2>
               <div className='teamBlock teamCreateForm'>
               <Form>
@@ -99,6 +94,10 @@ const CompetitionAllTeamsPage = () => {
               </Form>
               </div>
             </div>
+            <h2>Teams</h2>
+            {teams.map((team: any) => {
+                return (Team(team));
+              })}
           </div>
         ):(
           <p className='errorMessage'>You must be registered in this competition AND logged in to this site to view this page.</p>
