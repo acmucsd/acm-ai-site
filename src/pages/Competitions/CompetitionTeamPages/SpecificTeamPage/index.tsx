@@ -7,7 +7,8 @@ import UserContext from '../../../../UserContext';
 import BackLink from '../../../../components/BackLink';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
-
+import {useHistory} from "react-router-dom";
+import path from 'path';
 interface SubmissionData {
   description: string;
   score: number;
@@ -50,7 +51,7 @@ const CompetitionSpecificTeamPage = () => {
   const [submissionIds, setSubmissionIds] = useState<any>([]);
   let { competitionName, teamName } = useParams<{ competitionName: string, teamName: string }>();
   const username = user.username; // replace with user.username
-
+  const history = useHistory();
   // Check if user is logged in
   useEffect(() => {
     if (user.loggedIn) {
@@ -90,7 +91,7 @@ const CompetitionSpecificTeamPage = () => {
           dateString: date.toLocaleDateString() + " at " + date.toLocaleTimeString(),
           description: submission.description,
           tags: submission.tags.join(", "),
-          score: submission.score,
+          score: submission.rank.score,
           key: id
         }
         setSubmissionData(submissionData => [...submissionData, submissionDetails]);
@@ -127,7 +128,16 @@ const CompetitionSpecificTeamPage = () => {
             {isMyTeam &&
               <>
                 <h3>Submissions</h3>
-                <Table columns={columns} dataSource={submissionData} />
+                <Table columns={columns} dataSource={submissionData} onRow={(record, rowIndex) => {
+                  return {
+                    onClick: (event) => {
+                      // history.pushState()
+                      
+                      history.push(path.join(window.location.pathname, "submissions", record.key));
+                      console.log({event, record})
+                    }
+                  }
+                }} />
               </>
             }
           </div>
