@@ -79,11 +79,11 @@ const CompetitionLeaderboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [updateTime, setUpdateTime] = useState<Date>();
   // const [data, setData] = useState<any>([]);
+  const [meta, setMeta] = useState<{competitionName: string, description: string, startDate: string, endDate: string} | null>(null);
   const [visible, setVisible] = useState(false);
   const [chart, setChart] = useState<ChartJS | null>(null);
   const chartContainer = useRef<HTMLCanvasElement>(null);
   const [scoreHistTitle, setScoreHistTitle] = useState('');
-  const [meta, setMeta] = useState<{ competitionName?: string }>({});
   const params = useParams() as { id: string };
   const competitionID = params.id;
 
@@ -102,6 +102,10 @@ const CompetitionLeaderboardPage = () => {
       })
       setData(newData)
     })
+    getMetaData(competitionID).then((res) => {
+      // console.log("METADATA", res.data);
+      setMeta(res.data);
+    });
   }
 
   useEffect(() => {
@@ -118,8 +122,9 @@ const CompetitionLeaderboardPage = () => {
       <div className="CompetitionLeaderboardPage">
         <br />
         <BackLink to="../" />
-        <h2>{fakeCompetitionData.name}</h2>
-        <p>{fakeCompetitionData.description}</p>
+        <h2>{meta?.competitionName}</h2>
+        {/* TODO: make this configurable */}
+        <p>Upload submissions below and view the current leaderboard. This leaderboard will decide the initial seeds for the knockout bracket.</p>
         <br />
         <Modal
           title={scoreHistTitle}
