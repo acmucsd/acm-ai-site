@@ -17,10 +17,16 @@ const CompetitionLandingPage = () => {
     as deemed necessary
   */
 
-  const [meta, setMeta] = useState<{competitionName: string, description: string, startDate: string, endDate: string} | null>(null);
-  const [isRegistered, setIsRegistered] = useState<boolean>(false)
-  const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false)
-  const [registerLoading, setRegisterLoading] = useState<boolean>(false)
+  const [meta, setMeta] = useState<{
+    competitionName: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    submissionsEnabled: boolean;
+  } | null>(null);
+  const [isRegistered, setIsRegistered] = useState<boolean>(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
+  const [registerLoading, setRegisterLoading] = useState<boolean>(false);
   const [reactContent, setMarkdownSource] = useRemark();
   const params = useParams() as { id: string };
   const { user } = useContext(UserContext);
@@ -35,82 +41,104 @@ const CompetitionLandingPage = () => {
   };
 
   const onRegister = () => {
-    setRegisterLoading(true)
-    registerCompetitionUser(competitionID, user.username)
-      .then(res => {
-        setRegisterLoading(false)
-        message.success(`Successfully registered ${user.username} for ${competitionID}`)
-        setIsRegisterOpen(false)
-        getRegisteredState(competitionID, user.username).then((res) => {
-          setIsRegistered(res.data.registered)
-        })
-      })
-  }
+    setRegisterLoading(true);
+    registerCompetitionUser(competitionID, user.username).then((res) => {
+      setRegisterLoading(false);
+      message.success(
+        `Successfully registered ${user.username} for ${competitionID}`
+      );
+      setIsRegisterOpen(false);
+      getRegisteredState(competitionID, user.username).then((res) => {
+        setIsRegistered(res.data.registered);
+      });
+    });
+  };
 
   useEffect(() => {
     if (user.loggedIn) {
       getRegisteredState(competitionID, user.username).then((res) => {
         setIsRegistered(res.data.registered);
         if (!res.data.registered) {
-          message.info('You need to register to see teams, join a team, and participate')
+          message.info(
+            'You need to register to see teams, join a team, and participate'
+          );
         }
-      })
+      });
+    } else {
+      message.info('You need to login to register for the competition');
     }
-    else {
-      message.info('You need to login to register for the competition')
-    }
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
     update();
   }, []);
-  if (!meta) return (<DefaultLayout></DefaultLayout>)  
+  if (!meta) return <DefaultLayout></DefaultLayout>;
 
   return (
     <DefaultLayout>
       <div className="CompetitionLandingPage">
         {/* Some banner here with title and button */}
-        <div className="hero">          
+        <div className="hero">
           <h1 id="title">{meta.competitionName}</h1>
-          <p className="subtext">Start: {(new Date(meta.startDate!).toLocaleString())}</p>
-          <p className="subtext">End: {(new Date(meta.endDate!).toLocaleString())}</p>
-          <div className="button-wrapper">            
-            <Link to={`/competitions/${competitionID}/leaderboard`}>
-              <Button className="headerbtn">Leaderboard</Button>
-            </Link>
+          <p className="subtext">
+            Start: {new Date(meta.startDate!).toLocaleString()}
+          </p>
+          <p className="subtext">
+            End: {new Date(meta.endDate!).toLocaleString()}
+          </p>
+          <div className="button-wrapper">
+            {meta.submissionsEnabled && (
+              <Link to={`/competitions/${competitionID}/leaderboard`}>
+                <Button className="headerbtn">Leaderboard</Button>
+              </Link>
+            )}
             {/* Teams and upload only when logged in & registered */}
             {user.loggedIn && isRegistered ? (
               <>
-                <Link to={`/competitions/${competitionID}/teams`}>
-                  <Button className="headerbtn">Teams</Button>
-                </Link>
-                <Link to={`/competitions/${competitionID}/upload`}>
-                  <Button className="headerbtn">Submit</Button>
-                </Link>
-              </>) : ( user.loggedIn? (
-                <>
-                  <Button className="headerbtn" onClick={() => setIsRegisterOpen(true)}>Register</Button>
-                  <Modal 
-                    visible={isRegisterOpen}
-                    onCancel={() => setIsRegisterOpen(false)}
-                    onOk={onRegister}
-                    confirmLoading={registerLoading}
-                  >
-                    <h3>Register for {meta.competitionName}</h3>
-                    <br></br>
-                    <p>By registering and joining this competition, you agree to abide by all competition rules. Note that once registered, you must make a team first (even if it's just you) on the teams page for this competition in order to make submissions</p>               
-                  </Modal>
-                </>
-              ) : (<></>)              
+                {meta.submissionsEnabled && (
+                  <>
+                    <Link to={`/competitions/${competitionID}/teams`}>
+                      <Button className="headerbtn">Teams</Button>
+                    </Link>
+                    <Link to={`/competitions/${competitionID}/upload`}>
+                      <Button className="headerbtn">Submit</Button>
+                    </Link>
+                  </>
+                )}
+              </>
+            ) : user.loggedIn && meta.submissionsEnabled ? (
+              <>
+                <Button
+                  className="headerbtn"
+                  onClick={() => setIsRegisterOpen(true)}
+                >
+                  Register
+                </Button>
+                <Modal
+                  visible={isRegisterOpen}
+                  onCancel={() => setIsRegisterOpen(false)}
+                  onOk={onRegister}
+                  confirmLoading={registerLoading}
+                >
+                  <h3>Register for {meta.competitionName}</h3>
+                  <br></br>
+                  <p>
+                    By registering and joining this competition, you agree to
+                    abide by all competition rules. Note that once registered,
+                    you must make a team first (even if it's just you) on the
+                    teams page for this competition in order to make submissions
+                  </p>
+                </Modal>
+              </>
+            ) : (
+              <></>
             )}
           </div>
         </div>
         {/* Markdown renderer */}
         <div className="markdown">
           {/* Hardcoded for now, figure out where this md is coming from later */}
-          <Remark>
-            {meta.description}
-          </Remark>
+          <Remark>{meta.description}</Remark>
         </div>
 
         {/* Description of competition */}

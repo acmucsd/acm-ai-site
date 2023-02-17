@@ -79,7 +79,7 @@ const CompetitionLeaderboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [updateTime, setUpdateTime] = useState<Date>();
   // const [data, setData] = useState<any>([]);
-  const [meta, setMeta] = useState<{competitionName: string, description: string, startDate: string, endDate: string} | null>(null);
+  const [meta, setMeta] = useState<{competitionName: string, description: string, startDate: string, endDate: string, submissionsEnabled: boolean} | null>(null);
   const [visible, setVisible] = useState(false);
   const [chart, setChart] = useState<ChartJS | null>(null);
   const chartContainer = useRef<HTMLCanvasElement>(null);
