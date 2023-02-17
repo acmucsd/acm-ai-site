@@ -76,13 +76,10 @@ const CompetitionUploadPage = () => {
   }, []);
 
   const onSubmit = () => {
-    // let tagsSelected: string[] = []
-    // tagsChecked.map((checked: boolean, i: number) => {
-    //   if (checked) tagsSelected.push(tags[i]) 
-    // })
-
     uploadSubmission(submissionFile, tags, desc, competitionID, user.username as string).then((res) => {
-      message.success('Score: ' + res.data.score);
+      message.success('Submission Uploaded Succesfully');
+    }).catch((err) => {
+      message.error(`${err}`);
     });
   };
   const dummyRequest = ({ file, onSuccess }: any) => {
@@ -108,7 +105,7 @@ const CompetitionUploadPage = () => {
         {/* <Card className="upload-form-card"> */}
           <h2>Submit Predictions</h2>
           <p>
-            You must submit a csv file that contains your predictions
+            You must submit a .tar.gz file that contains your submission. You can add an optional description below as well as tags.
           </p>
           <br />
           <Form>
@@ -125,7 +122,7 @@ const CompetitionUploadPage = () => {
                   customRequest={dummyRequest}
                 >
                   <Button className="upload-btn">
-                    <UploadOutlined /> Click to add .csv file
+                    <UploadOutlined /> Click to add file
                   </Button>
                 </Upload>
                 <div className='tags-list'>

@@ -83,3 +83,25 @@ export const getLeaderboard = async (competitionid: string): Promise<AxiosRespon
       });
   })
 }
+
+export const registerCompetitionUser = async (competitionid: string, userid: string): Promise<AxiosResponse> => {
+  return new Promise((resolve, reject) => {
+    let token = getToken(COOKIE_NAME);
+    axios
+      .post(
+        process.env.REACT_APP_API + `/v1/competitions/${competitionid}/${userid}/register`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        }
+      ).then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error(`Could not register ${userid} for ${competitionid}`);
+        reject(error);
+      });
+  })
+}
