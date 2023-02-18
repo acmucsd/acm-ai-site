@@ -20,13 +20,19 @@ const columns: ColumnsType<MatchData> = [
   },
   {
     title: 'Date',
-    dataIndex: 'date'
+    dataIndex: 'date',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => (new Date(a.date).getTime()) - (new Date(b.date).getTime()),
+    render(value, record, index) {
+        return new Date(value).toLocaleString();
+    },
   },
 ];
 interface MatchData {
   competitionTeams: string[];
   competitionEntries: string[];
   _id: string;
+  date: Date;
 }
 
 const CompetitionSubmissionDetailsPage = () => {
@@ -42,7 +48,7 @@ const CompetitionSubmissionDetailsPage = () => {
   const [teams, setTeams] = useState<Record<string, string>>({});
   useEffect(() => {
     getSubmissionDetails(competitionName, submissionId).then((res) => {
-      setSubmissionDetails(res.data);
+      setSubmissionDetails(res.data[0]);
     });
     getSubmissionMatches(competitionName, submissionId).then((res) => {
       console.log("Retrieved Match Data");
@@ -55,7 +61,7 @@ const CompetitionSubmissionDetailsPage = () => {
   if (!submissionMatches || !submissionDetails) {
     return <DefaultLayout></DefaultLayout>
   }
-
+  console.log({submissionDetails})
   return (
     <DefaultLayout>
       <div className="SubmissionDetailsPage">
@@ -64,7 +70,9 @@ const CompetitionSubmissionDetailsPage = () => {
           <Button className="headerbtn">Back to Team</Button>
         </Link>
         <h2>Submission {submissionId}</h2>
-        <div>{JSON.stringify(submissionDetails)}</div>
+        <p>Ranking Score = µ - 3 * σ = {submissionDetails.rank.score}</p>
+        <p>µ = {submissionDetails.rank.mu}</p>
+        <p>σ = {submissionDetails.rank.sigma}</p>
         <div>
         <Table columns={columns} dataSource={submissionMatches} />
         </div>

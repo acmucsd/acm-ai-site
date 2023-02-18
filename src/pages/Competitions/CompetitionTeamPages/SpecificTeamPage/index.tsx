@@ -26,6 +26,19 @@ const columns: ColumnsType<SubmissionData> = [
     sorter: (a, b) => a.date.getTime() - b.date.getTime()
   },
   {
+    title: 'Status',
+    dataIndex: 'status',
+    render(value, record, index) {
+        if (value === 1) {
+          return "verifying"
+        } else if (value === 2) {
+          return "verified"
+        } else if (value === 3) {
+          return "failed"
+        }
+    },
+  },
+  {
     title: 'Description',
     dataIndex: 'description',
   },
@@ -89,6 +102,7 @@ const CompetitionSpecificTeamPage = () => {
         let date = new Date(submission.submissionDate);
         let submissionDetails = {
           date: date,
+          status: submission.status,
           dateString: date.toLocaleDateString() + " at " + date.toLocaleTimeString(),
           description: submission.description,
           tags: submission.tags.join(", "),

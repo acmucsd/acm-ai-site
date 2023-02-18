@@ -55,6 +55,7 @@
     "customize-cra": "^0.9.1",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "serve": "^14.2.0",
     "typescript": "^3.7.5"
   }
 }
