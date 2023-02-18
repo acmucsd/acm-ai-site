@@ -63,7 +63,7 @@ const columns: ColumnsType<CompetitionData> = [
               marginRight: '0.75rem',
             }}
           ></div>
-          <span>{value}</span>
+          {value.length > 28 ? <span>{value.substring(0, 28)}...</span> : <span>{value.substring(0, 28)}</span>}
         </span>
       );
     },
