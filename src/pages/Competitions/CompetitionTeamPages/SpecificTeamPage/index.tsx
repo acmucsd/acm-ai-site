@@ -85,6 +85,7 @@ const CompetitionSpecificTeamPage = () => {
     submissionIds.map((id: any) => {
       getSubmissionDetails(competitionName, id).then((res) => {
         let submission = res.data[0];
+        if (!submission) return;
         let date = new Date(submission.submissionDate);
         let submissionDetails = {
           date: date,

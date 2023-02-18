@@ -105,3 +105,57 @@ export const registerCompetitionUser = async (competitionid: string, userid: str
       });
   })
 }
+
+export const getSubmissionMatches = async (competitionid: string, submissionid: string): Promise<AxiosResponse> => {
+  let token = getToken(COOKIE_NAME);
+  return new Promise((resolve, reject) => {
+    axios
+      .get(process.env.REACT_APP_API + `/v1/competitions/matches/${competitionid}/match/entry/${submissionid}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      })
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error("Could not get submission matches");
+        reject(error);
+      });
+  })
+}
+
+export const getSubmissionReplay = async (competitionid: string, matchId: string): Promise<AxiosResponse> => {
+  let token = getToken(COOKIE_NAME);
+  return new Promise((resolve, reject) => {
+    axios
+      .get(process.env.REACT_APP_API + `/v1/competitions/matches/${competitionid}/match/${matchId}/replay`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        responseType: 'blob',
+      })
+      .then((res: AxiosResponse) => {
+        // create file link in browser's memory
+        const href = URL.createObjectURL(res.data);
+
+        // create "a" HTML element with href to file & click
+        const link = document.createElement('a');
+        link.href = href;
+        link.setAttribute('download', 'replay.zip'); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+
+        // clean up "a" element & remove ObjectURL
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error("Could not get match replay");
+        reject(error);
+      });
+  })
+}
