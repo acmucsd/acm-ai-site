@@ -107,7 +107,7 @@ const CompetitionUploadPage = () => {
         <br />
         <BackLink to="../" />
         {/* <Card className="upload-form-card"> */}
-          <h2>Submit Predictions</h2>
+          <h2>Submission to {competitionID}</h2>
           <p>
             You must submit a .tar.gz file that contains your submission. You can add an optional description below as well as tags.
           </p>

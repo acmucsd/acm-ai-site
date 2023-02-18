@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import DefaultLayout from '../../../../components/layouts/default';
 import './index.less';
 import { useParams } from 'react-router-dom';
-import { getRegisteredState, getTeamInfo, getSubmissionDetails } from '../../../../actions/teams/utils';
+import { getCompetitionUser, getTeamInfo, getSubmissionDetails } from '../../../../actions/teams/utils';
 import UserContext from '../../../../UserContext';
 import BackLink from '../../../../components/BackLink';
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import {useHistory} from "react-router-dom";
 import path from 'path';
@@ -69,8 +69,8 @@ const CompetitionSpecificTeamPage = () => {
   useEffect(() => {
     if (user.loggedIn) {
       // TODO: it's hardcoded to "testinguser1"; change it to user.username
-      getRegisteredState(competitionName, username).then((res) => {
-        setIsRegistered(res.data.registered);
+      getCompetitionUser(competitionName, username).then((res) => {
+        setIsRegistered(true);
       })
     }
   }, []);
@@ -141,6 +141,12 @@ const CompetitionSpecificTeamPage = () => {
             {isMyTeam &&
               <>
                 <h3>Submissions</h3>
+                <Button onClick={() => {
+                  history.push(path.join("/competitions", competitionName, "upload"))
+                }}>Create Submission</Button>
+                <br />
+                <br />
+                <p>Click a row to see details about the submission and watch replays.</p>
                 <Table columns={columns} dataSource={submissionData} onRow={(record, rowIndex) => {
                   return {
                     onClick: (event) => {

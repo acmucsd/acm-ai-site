@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import { TournamentProvider } from './contexts/tournament';
 import { Spin } from 'antd';

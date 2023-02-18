@@ -3,15 +3,15 @@ import axios, { AxiosResponse } from 'axios';
 import { COOKIE_NAME } from '../../configs';
 import { getToken } from '../../utils/token';
 
-// Checks if user is registered in competition
-export const getRegisteredState = (
+// Get comp user
+export const getCompetitionUser = (
   competitionName: string,
   username: string
 ): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        process.env.REACT_APP_API + `/v1/competitions/${competitionName}/${username}`
+        process.env.REACT_APP_API + `/v1/competitions/${competitionName}/users/${username}`
       )
       .then((res: AxiosResponse) => {
         resolve(res);

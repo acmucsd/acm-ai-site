@@ -6,7 +6,7 @@ import DefaultLayout from '../../../components/layouts/default';
 import { Link } from 'react-router-dom';
 import { Button, Modal, message } from 'antd';
 import { getMetaData } from '../../../actions/competition';
-import { getRegisteredState } from '../../../actions/teams/utils';
+import { getCompetitionUser } from '../../../actions/teams/utils';
 import { registerCompetitionUser } from '../../../actions/competition';
 import UserContext from '../../../UserContext';
 // import BackLink from '../../../components/BackLink';
@@ -48,7 +48,7 @@ const CompetitionLandingPage = () => {
         `Successfully registered ${user.username} for ${competitionID}`
       );
       setIsRegisterOpen(false);
-      getRegisteredState(competitionID, user.username).then((res) => {
+      getCompetitionUser(competitionID, user.username).then((res) => {
         setIsRegistered(res.data.registered);
       });
     });
@@ -56,13 +56,14 @@ const CompetitionLandingPage = () => {
 
   useEffect(() => {
     if (user.loggedIn) {
-      getRegisteredState(competitionID, user.username).then((res) => {
+      getCompetitionUser(competitionID, user.username).then((res) => {
+        console.log(res);
         setIsRegistered(res.data.registered);
-        if (!res.data.registered) {
-          message.info(
-            'You need to register to see teams, join a team, and participate'
-          );
-        }
+        
+      }).catch(() => {
+        message.info(
+          'You need to register to see teams, join a team, and participate'
+        );
       });
     } else {
       message.info('You need to login to register for the competition');
