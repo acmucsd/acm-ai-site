@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DefaultLayout from '../../../../components/layouts/default';
 import './index.less';
 import { useParams } from 'react-router-dom';
-import {
-  getSubmissionDetails,
-} from '../../../../actions/teams/utils';
+import { getSubmissionDetails } from '../../../../actions/teams/utils';
 import { Button, Table } from 'antd';
 import BackLink from '../../../../components/BackLink';
 import {
@@ -135,16 +133,16 @@ const CompetitionSubmissionDetailsPage = () => {
   if (!submissionMatches || !submissionDetails) {
     return <DefaultLayout></DefaultLayout>;
   }
-  let status = "?";
-  switch(submissionDetails.status) {
+  let status = '?';
+  switch (submissionDetails.status) {
     case 1:
-      status = "unverified";
+      status = 'unverified';
       break;
     case 2:
-      status = "verified";
+      status = 'verified';
       break;
     case 3:
-      status = "failed";
+      status = 'failed';
       break;
   }
   return (
@@ -154,15 +152,29 @@ const CompetitionSubmissionDetailsPage = () => {
         <BackLink to="../../" />
         <h2>Submission {submissionId}</h2>
         <div>
-          <p>All submission matches and submission information is below. Click the download button next to a match to get the replay and watch it locally.</p>
+          <p>
+            All submission matches and submission information is below. Click
+            the download button next to a match to get the replay and watch it
+            locally.
+          </p>
         </div>
         <br />
         <div>
           <p>Status: {status} </p>
-          <p>Ranking Score = µ - 3 * σ = {submissionDetails.rank.score}</p>
-          <p>µ = {submissionDetails.rank.mu}</p>
-          <p>σ = {submissionDetails.rank.sigma}</p>
-          <p>Episodes Run = {submissionDetails.rank.episodes}</p>
+          {status === 'failed' && (
+            <>
+              <p>Error logs from validation match</p>
+              <p>{submissionDetails.error}</p>
+            </>
+          )}
+          {submissionDetails.rank.score && (
+            <>
+              <p>Ranking Score = µ - 3 * σ = {submissionDetails.rank.score}</p>
+              <p>µ = {submissionDetails.rank.mu}</p>
+              <p>σ = {submissionDetails.rank.sigma}</p>
+              <p>Episodes Run = {submissionDetails.rank.episodes}</p>
+            </>
+          )}
         </div>
         <br />
         <div>

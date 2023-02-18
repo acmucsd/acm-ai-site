@@ -102,8 +102,9 @@ const CompetitionLeaderboardPage = () => {
   const params = useParams() as { id: string };
   const competitionID = params.id;
 
+  const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
   const [data, setData] = useState<CompetitionData[]>([]);
-
+  const [intervalObj, setIntervalObj] = useState<any>(null);
   const update = () => {
     // Get team listing in order of scores
     getLeaderboard(competitionID).then((res) => {
@@ -115,6 +116,7 @@ const CompetitionLeaderboardPage = () => {
           submitHistory: d.submitHistory,
         };
       });
+      setLastRefresh(new Date());
       setData(newData);
     });
     getMetaData(competitionID).then((res) => {
@@ -122,6 +124,17 @@ const CompetitionLeaderboardPage = () => {
       setMeta(res.data);
     });
   };
+
+  const scheduleUpdate = () => {
+    const interval = setInterval(() => {
+      update();
+    }, 1000 * 60)
+    setIntervalObj(interval);
+  }
+  const clearAutoRefresh = () => {
+    clearInterval(intervalObj);
+    setIntervalObj(null);
+  }
 
   useEffect(() => {
     update();
@@ -169,7 +182,19 @@ const CompetitionLeaderboardPage = () => {
             update();
           }}
         >
-          Refresh Leaderboard
+          Refresh Leaderboard (Last refreshed {lastRefresh ? (lastRefresh.toLocaleString()): "never"})
+        </Button>
+        <Button
+          className="refresh-btn"
+          onClick={() => {
+            if (intervalObj) {
+              clearAutoRefresh();
+            } else {
+              scheduleUpdate();
+            }
+          }}
+        >
+         {intervalObj ? "Stop Auto Refresh" : "Auto Refresh"}
         </Button>
         <br />
         <br />
