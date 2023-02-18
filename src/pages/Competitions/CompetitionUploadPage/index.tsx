@@ -32,7 +32,7 @@ const CompetitionUploadPage = () => {
   const [tags, setTags] = useState<Array<string>>([])
   const [inputVisible, setInputVisible] = useState<Boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
-
+  const [uploading, setUploading] = useState<boolean>(false);
   // Remove tags from list
   const handleClose = (removedTag: any) => {
     const newTags: any = tags.filter(tag => tag !== removedTag);
@@ -76,10 +76,14 @@ const CompetitionUploadPage = () => {
   }, []);
 
   const onSubmit = () => {
+    setUploading(true);
     uploadSubmission(submissionFile, tags, desc, competitionID, user.username as string).then((res) => {
       message.success('Submission Uploaded Succesfully');
+      history.replace(path.join("/competitions", competitionID))
     }).catch((err) => {
       message.error(`${err}`);
+    }).finally(() => {
+      setUploading(false);
     });
   };
   const dummyRequest = ({ file, onSuccess }: any) => {
@@ -160,7 +164,7 @@ const CompetitionUploadPage = () => {
                   )}
                 </div>
               </div>
-              <Button htmlType="submit" className="submit-button">
+              <Button htmlType="submit" className="submit-button" disabled={uploading}>
                 Submit Predictions
               </Button>
             </form>

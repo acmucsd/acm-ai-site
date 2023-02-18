@@ -30,11 +30,11 @@ const columns: ColumnsType<SubmissionData> = [
     dataIndex: 'status',
     render(value, record, index) {
         if (value === 1) {
-          return "verifying"
+          return <span style={{color: "#A9927D"}}>unverified</span>
         } else if (value === 2) {
-          return "verified"
+          return <span style={{color: "#71E25D"}}>verified</span>
         } else if (value === 3) {
-          return "failed"
+          return <span style={{color: "#DD4555"}}>failed</span>
         }
     },
   },
@@ -128,8 +128,6 @@ const CompetitionSpecificTeamPage = () => {
                 <h4>Join Code: {teamInfo.joinCode}</h4>
               </div>
             }
-            <h3><span className="subheader">Best Score: {teamInfo.bestScore}</span></h3>
-
             <h3><span className="subheader">Members</span></h3>
             <div>
               {teamMembers.map((member: string) => {
