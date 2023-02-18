@@ -165,7 +165,7 @@ const CompetitionUploadPage = () => {
                 </div>
               </div>
               <Button htmlType="submit" className="submit-button" disabled={uploading}>
-                Submit Predictions
+                Submit
               </Button>
             </form>
           </Form>
