@@ -101,7 +101,7 @@ export const createTeam = async (competitionid: string, userid: string, teamName
         resolve(res);
       })
       .catch((error) => {
-        message.error("Could not make new team");
+        message.error(error.response.data.error.message);
         reject(error);
       });
   });
