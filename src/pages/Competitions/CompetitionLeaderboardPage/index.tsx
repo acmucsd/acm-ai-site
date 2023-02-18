@@ -3,39 +3,17 @@ import './index.less';
 import { useHistory, useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import { Link } from 'react-router-dom';
-import { getMetaData, getRanks, getLeaderboard } from '../../../actions/competition';
+import {
+  getMetaData,
+  getRanks,
+  getLeaderboard,
+} from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
 import BackLink from '../../../components/BackLink';
 import path from 'path';
 import ChartJS from 'chart.js';
 import { ColumnsType } from 'antd/lib/table';
-const chartConfig = {
-  type: 'line',
-  data: {
-    labels: [0],
-    datasets: [
-      {
-        label: 'MSE Score',
-        data: [],
-        backgroundColor: '#ff6f6f80',
-        borderColor: '#ff6f6f',
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    title: {
-      display: true,
-      text: 'Score History',
-    },
-  },
-};
-
-const fakeCompetitionData = {
-  name: 'Big Data Competition 2022',
-  description:
-    'Some filler description or explanation for how the scoring works.',
-};
+import { genColor } from '../../../utils/colors';
 
 interface CompetitionData {
   rank: number;
@@ -44,6 +22,18 @@ interface CompetitionData {
   score: number;
   submitHistory: Array<string>;
   // last: Date;
+}
+
+const stringHash = (str: string) => {
+  let hash = 0,
+    i, chr;
+  if (str.length === 0) return hash;
+  for (i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i)*2;
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
 }
 
 const columns: ColumnsType<CompetitionData> = [
@@ -57,7 +47,26 @@ const columns: ColumnsType<CompetitionData> = [
     title: 'Team',
     dataIndex: 'team',
     sorter: (a, b) => a.team.length - b.team.length,
-    // sortDirections: ['descend'],
+    render(value, record, index) {
+      const color1 = genColor(value);
+      const color2 = genColor(`${value}_abcs`);
+      return (
+        <span>
+          <div
+            style={{
+              display: 'inline-block',
+              verticalAlign: 'middle',
+              borderRadius: '50%',
+              width: '2rem',
+              height: '2rem',
+              background: `linear-gradient(30deg, ${color1}, ${color2})`,
+              marginRight: '0.75rem',
+            }}
+          ></div>
+          <span>{value}</span>
+        </span>
+      );
+    },
   },
   {
     title: 'Score',
@@ -79,7 +88,13 @@ const CompetitionLeaderboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [updateTime, setUpdateTime] = useState<Date>();
   // const [data, setData] = useState<any>([]);
-  const [meta, setMeta] = useState<{competitionName: string, description: string, startDate: string, endDate: string, submissionsEnabled: boolean} | null>(null);
+  const [meta, setMeta] = useState<{
+    competitionName: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    submissionsEnabled: boolean;
+  } | null>(null);
   const [visible, setVisible] = useState(false);
   const [chart, setChart] = useState<ChartJS | null>(null);
   const chartContainer = useRef<HTMLCanvasElement>(null);
@@ -91,22 +106,22 @@ const CompetitionLeaderboardPage = () => {
 
   const update = () => {
     // Get team listing in order of scores
-    getLeaderboard(competitionID).then(res => {
+    getLeaderboard(competitionID).then((res) => {
       let newData = res.data.map((d: any, index: number) => {
         return {
           rank: index + 1,
           team: d.teamName,
           score: d.bestScore,
-          submitHistory: d.submitHistory
-        }
-      })
-      setData(newData)
-    })
+          submitHistory: d.submitHistory,
+        };
+      });
+      setData(newData);
+    });
     getMetaData(competitionID).then((res) => {
       // console.log("METADATA", res.data);
       setMeta(res.data);
     });
-  }
+  };
 
   useEffect(() => {
     update();
@@ -124,7 +139,10 @@ const CompetitionLeaderboardPage = () => {
         <BackLink to="../" />
         <h2>{meta?.competitionName}</h2>
         {/* TODO: make this configurable */}
-        <p>Upload submissions below and view the current leaderboard. This leaderboard will decide the initial seeds for the knockout bracket.</p>
+        <p>
+          Upload submissions below and view the current leaderboard. This
+          leaderboard will decide the initial seeds for the knockout bracket.
+        </p>
         <br />
         <Modal
           title={scoreHistTitle}

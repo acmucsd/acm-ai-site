@@ -9,6 +9,7 @@ import { Button, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import {useHistory} from "react-router-dom";
 import path from 'path';
+import { genColor } from '../../../../utils/colors';
 interface SubmissionData {
   description: string;
   score: number;
@@ -73,7 +74,7 @@ const CompetitionSpecificTeamPage = () => {
         setIsRegistered(true);
       })
     }
-  }, []);
+  }, [competitionName, user.loggedIn, username]);
 
   // Get info on team if user is registered in competition
   useEffect(() => {
@@ -83,7 +84,7 @@ const CompetitionSpecificTeamPage = () => {
         setTeamMembers(res.data.teamMembers);
       });
     }
-  }, [isRegistered])
+  }, [competitionName, isRegistered, teamName])
 
   // Retrieve submission IDs if user is in their team's page
   useEffect(() => {
@@ -91,7 +92,7 @@ const CompetitionSpecificTeamPage = () => {
       setIsMyTeam(true);
       setSubmissionIds(teamInfo.submitHistory);
     }
-  }, [teamMembers])
+  }, [teamInfo.submitHistory, teamMembers, username])
 
   // Get submission data from submission IDs
   useEffect(() => {
@@ -112,7 +113,7 @@ const CompetitionSpecificTeamPage = () => {
         setSubmissionData(submissionData => [...submissionData, submissionDetails]);
       })
     })
-  }, [submissionIds])
+  }, [competitionName, submissionIds])
 
   return (
     <DefaultLayout>
@@ -121,23 +122,31 @@ const CompetitionSpecificTeamPage = () => {
         <BackLink to="../" />
         {isRegistered ? (
           <div className='main-section'>
-            <h2>Team {teamInfo.teamName}</h2>
-            {isMyTeam &&
+            
+            
+            <h2>{teamInfo.teamName && <div
+            style={{
+              display: 'inline-block',
+              
+              borderRadius: '50%',
+              width: '2.85rem',
+              height: '2.85rem',
+              background: `linear-gradient(30deg, ${ genColor(teamInfo.teamName)}, ${genColor(`${teamInfo.teamName}_abcs`)})`,
+              marginRight: '0.75rem',
+            }}
+          ></div>}<span style={{verticalAlign: 'text-bottom'}}>Team {teamInfo.teamName}</span></h2>
+            {/* {isMyTeam &&
               <div className='block'>
                 <p>Invite your friends to join this team!</p>
                 <h4>Join Code: {teamInfo.joinCode}</h4>
               </div>
-            }
+            } */}
             <h3><span className="subheader">Members</span></h3>
             <div>
               {teamMembers.map((member: string) => {
                 return <li key={member}>{member}</li>
               })}
             </div>
-
-            <h3><span className="subheader">About</span></h3>
-            <p>{teamInfo.teamDescription}</p>
-
             {isMyTeam &&
               <>
                 <h3>Submissions</h3>
@@ -146,12 +155,10 @@ const CompetitionSpecificTeamPage = () => {
                 }}>Create Submission</Button>
                 <br />
                 <br />
-                <p>Click a row to see details about the submission and watch replays.</p>
+                <p>Click a row to see details about the submission and watch replays. The latest verified submission is the one in the active matchmaking pool.</p>
                 <Table columns={columns} dataSource={submissionData} onRow={(record, rowIndex) => {
                   return {
                     onClick: (event) => {
-                      // history.pushState()
-                      
                       history.push(path.join(window.location.pathname, "submissions", record.key));
                       console.log({event, record})
                     }

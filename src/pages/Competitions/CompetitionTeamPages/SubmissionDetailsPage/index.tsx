@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import DefaultLayout from '../../../../components/layouts/default';
 import './index.less';
-import { Link, useParams } from 'react-router-dom';
-import { getSubmissionDetails, getTeamInfo } from '../../../../actions/teams/utils';
+import { useParams } from 'react-router-dom';
+import {
+  getSubmissionDetails,
+} from '../../../../actions/teams/utils';
 import { Button, Table } from 'antd';
 import BackLink from '../../../../components/BackLink';
-import { getSubmissionMatches, getSubmissionReplay } from '../../../../actions/competition';
+import {
+  getSubmissionMatches,
+  getSubmissionReplay,
+} from '../../../../actions/competition';
 import { ColumnsType } from 'antd/lib/table';
-
+import { DownloadOutlined } from '@ant-design/icons';
 interface MatchData {
   competitionTeams: string[];
   competitionEntries: string[];
@@ -27,25 +32,51 @@ const CompetitionSubmissionDetailsPage = () => {
       dataIndex: '_id',
     },
     {
-      title: "Teams",
+      title: 'Teams',
       render(value, record, index) {
-        const teamData = value.competitionTeams.map((v: any, i: number) => {return{data: `${v.teamName} (${value.scores[i]})`, teamName: v.teamName, score: value.scores[i]}});
+        const teamData = value.competitionTeams.map((v: any, i: number) => {
+          return {
+            data: `${v.teamName} (${value.scores[i]})`,
+            teamName: v.teamName,
+            score: value.scores[i],
+          };
+        });
         teamData.sort((a: any, b: any) => b.score - a.score);
-        return <>
-        {teamData.map((v: any, i: number) => {
-          if (v.teamName === teamName) {
-            return <span style={{color: "rgb(51,159,200)"}}>{v.data}{", "}</span>
-          } else {
-            return <span>{v.data}{", "}</span>
-          }
-        })}
-        </>
+        return (
+          <>
+            {teamData.map((v: any, i: number) => {
+              if (v.teamName === teamName) {
+                return (
+                  <span style={{ color: 'rgb(51,159,200)' }}>
+                    {v.data}
+                    {', '}
+                  </span>
+                );
+              } else {
+                return (
+                  <span>
+                    {v.data}
+                    {', '}
+                  </span>
+                );
+              }
+            })}
+          </>
+        );
       },
     },
     {
-      title: "Ranking",
+      title: 'Ranking',
       render(value, record, index) {
-        const teamScores = value.competitionTeams.sort((a: any, b: any) => b.score-a.score).map((v: any) => {return {teamName: v.teamName, score: v.score}});
+        const teams: any[] = value.competitionTeams;
+        for (let i = 0; i < value.scores.length; i++) {
+          teams[i].score = value.scores[i];
+        }
+        const teamScores = teams
+          .sort((a: any, b: any) => b.score - a.score)
+          .map((v: any) => {
+            return { teamName: v.teamName, score: v.score };
+          });
         let rank = 1;
         for (let i = 0; i < teamScores.length; i++) {
           const d = teamScores[i];
@@ -66,48 +97,76 @@ const CompetitionSubmissionDetailsPage = () => {
       },
     },
     {
+      title: 'Replay',
+      render(value, record, index) {
+        return (
+          <Button
+            onClick={() => {
+              getSubmissionReplay(competitionName, value._id);
+            }}
+          >
+            <DownloadOutlined />
+          </Button>
+        );
+      },
+    },
+    {
       title: 'Date',
       dataIndex: 'date',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => (new Date(a.date).getTime()) - (new Date(b.date).getTime()),
+      sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
       render(value, record, index) {
-          return new Date(value).toLocaleString();
+        return new Date(value).toLocaleString();
       },
     },
   ];
 
   const [submissionDetails, setSubmissionDetails] = useState<any>(null);
   const [submissionMatches, setSubmissionMatches] = useState<any>(null);
-  const [teams, setTeams] = useState<Record<string, string>>({});
   useEffect(() => {
     getSubmissionDetails(competitionName, submissionId).then((res) => {
       setSubmissionDetails(res.data[0]);
     });
     getSubmissionMatches(competitionName, submissionId).then((res) => {
-      console.log("Retrieved Match Data");
       setSubmissionMatches(res.data);
-      // getSubmissionReplay(competitionName, res.data[0]._id).then((res) => {
-      // });
     });
-  }, []);
+  }, [competitionName, submissionId]);
 
   if (!submissionMatches || !submissionDetails) {
-    return <DefaultLayout></DefaultLayout>
+    return <DefaultLayout></DefaultLayout>;
   }
-  console.log({submissionDetails})
+  let status = "?";
+  switch(submissionDetails.status) {
+    case 1:
+      status = "unverified";
+      break;
+    case 2:
+      status = "verified";
+      break;
+    case 3:
+      status = "failed";
+      break;
+  }
   return (
     <DefaultLayout>
       <div className="SubmissionDetailsPage">
         <br />
-        <Link to={`../`}>
-          <Button className="headerbtn">Back to Team</Button>
-        </Link>
+        <BackLink to="../../" />
         <h2>Submission {submissionId}</h2>
-        <p>Ranking Score = µ - 3 * σ = {submissionDetails.rank.score}</p>
-        <p>µ = {submissionDetails.rank.mu}</p>
-        <p>σ = {submissionDetails.rank.sigma}</p>
         <div>
-        <Table columns={columns} dataSource={submissionMatches} />
+          <p>All submission matches and submission information is below. Click the download button next to a match to get the replay and watch it locally.</p>
+        </div>
+        <br />
+        <div>
+          <p>Status: {status} </p>
+          <p>Ranking Score = µ - 3 * σ = {submissionDetails.rank.score}</p>
+          <p>µ = {submissionDetails.rank.mu}</p>
+          <p>σ = {submissionDetails.rank.sigma}</p>
+          <p>Episodes Run = {submissionDetails.rank.episodes}</p>
+        </div>
+        <br />
+        <div>
+          <Table columns={columns} dataSource={submissionMatches} />
         </div>
       </div>
     </DefaultLayout>
