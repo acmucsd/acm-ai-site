@@ -88,11 +88,9 @@ const CompetitionLandingPage = () => {
             End: {new Date(meta.endDate!).toLocaleString()}
           </p>
           <div className="button-wrapper">
-            {meta.submissionsEnabled && (
-              <Link to={`/competitions/${competitionID}/leaderboard`}>
-                <Button className="headerbtn">Leaderboard</Button>
-              </Link>
-            )}
+            <Link to={`/competitions/${competitionID}/leaderboard`}>
+              <Button className="headerbtn">Leaderboard</Button>
+            </Link>
             {/* Teams and upload only when logged in & registered */}
             {user.loggedIn && isRegistered ? (
               <>
