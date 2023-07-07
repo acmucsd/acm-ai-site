@@ -265,9 +265,7 @@ export const dev: Person[] = [
       "I'm Jenny, a 2nd year student interested in web development, AI, and bioinformatics. I'm currently doing research in the Moshiri lab at UCSD and the Stowers lab at Scripps Research. In my free time, I love making digital art!",
     picture: JennyLam,
     socials: {
-      github: 'https://github.com/jenetic',
       linkedin: 'https://www.linkedin.com/in/jwny/',
-      website: 'https://jenetic.github.io/',
     },
   },
   {
