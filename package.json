@@ -14,7 +14,7 @@
     "prettier": "^2.1.2",
     "query-string": "^4.3.4",
     "react": "^16.13.1",
-    "react-app-rewired": "^2.1.6",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
     "react-hook-form": "^5.7.2",
