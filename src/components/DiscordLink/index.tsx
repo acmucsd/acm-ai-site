@@ -2,11 +2,11 @@ import React from 'react';
 export default () => {
   return (
     <a
-      href="https://discord.com/invite/4zKpm7U"
+      href="https://acmurl.com/ai-disc"
       target="_blank"
       rel="noopener noreferrer"
     >
-      https://discord.com/invite/4zKpm7U
+      https://acmurl.com/ai-disc
     </a>
   );
 };
