@@ -26,3 +26,10 @@ export const fetchFutureEvents = async (): Promise<Array<ACMEvent>> => {
   );
   return res.data.events;
 };
+
+export const fetchPastEvents = async (): Promise<Array<ACMEvent>> => {
+  const res = await axios.get(
+    `${MEMBERSHIP_PORTAL_API}/event/past?committee=AI&limit=5`
+  );
+  return res.data.events;
+};
