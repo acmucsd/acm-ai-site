@@ -39,7 +39,7 @@ const CardsRow = ({ children }: { children?: ReactNode }) => (
 const SocialLink = ({ title, href }: { title: string; href: string }) => (
   <p>
     {title}:{' '}
-    <a href={href} target="_blank">
+    <a href={href} target="_blank" rel="noopener noreferrer">
       {href}
     </a>
   </p>
@@ -77,7 +77,7 @@ const { Panel } = Collapse;
 const AboutCard = ({ card }: { card: Person }) => (
   <Col xs={24} sm={12} xl={8} xxl={6}>
     <Card
-      cover={!card.picture ? null : <img src={card.picture} alt={undefined} />}
+      cover={!card.picture ? null : <img src={card.picture} alt="" />}
     >
       <Collapse className="small-content">
         <Panel header={`${card.role}: ${card.name}`} key={1}>

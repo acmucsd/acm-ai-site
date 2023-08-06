@@ -90,7 +90,7 @@ function ProjectsPage() {
             <h2 className="statement">Past Projects</h2>
             <div>
               <Row gutter={[24, 24]} justify="center">
-                {projectData.filter(project => selectedTags.length == 0 ? project : project.tags.some(v => selectedTags.includes(v))).map((project) => {
+                {projectData.filter(project => selectedTags.length === 0 ? project : project.tags.some(v => selectedTags.includes(v))).map((project) => {
                     return (
                       <Col>
                         <ProjectCard project={project} />
