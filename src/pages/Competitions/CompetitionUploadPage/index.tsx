@@ -71,7 +71,7 @@ const CompetitionUploadPage = () => {
 
   useEffect(() => {
     !user.loggedIn &&
-      message.info('You need to login to upload predictions and participate') &&
+       
       history.replace(path.join(window.location.pathname, '../../../login'));
   }, []);
 

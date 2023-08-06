@@ -21,11 +21,23 @@ export const UploadBotPage = ({ competitionKey }: UploadBotPageProps) => {
   const { user } = useContext(UserContext);
   const history = useHistory();
   useEffect(() => {
-    !user.loggedIn &&
-      message.info('You need to login to upload a bot') &&
+    if(!user.loggedIn) {
+      message.info('You need to login to upload a bot')
       history.replace(path.join(window.location.pathname, '../../../login'));
+    } 
+
   }, []);
-  useEffect(() => {
+
+
+   useEffect(() => {
+
+    if (user.competitionRegistrations[competitionKey] !== undefined) {
+     message.info('You need to register into the competition to upload a bot')
+    history.replace(path.join(window.location.pathname, '../'));
+    }
+  }, [user]); 
+/*   useEffect(() => {
+
     if (user.competitionRegistrations[competitionKey] !== undefined) {
       !user.competitionRegistrations[competitionKey] &&
         message.info(
@@ -33,7 +45,10 @@ export const UploadBotPage = ({ competitionKey }: UploadBotPageProps) => {
         ) &&
         history.replace(path.join(window.location.pathname, '../'));
     }
-  }, [user]);
+  }, [user]); */
+
+
+
   const onSubmit = (values: any) => {
     // TODO: remove hardcoded competition specific names
     uploadBot(
