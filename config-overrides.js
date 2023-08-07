@@ -1,17 +1,11 @@
 const {
   override,
-  fixBabelImports,
   addLessLoader,
   adjustStyleLoaders,
 } = require('customize-cra');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = override(
-  fixBabelImports('import', {
-    libraryName: 'antd',
-    libraryDirectory: 'es',
-    style: true,
-  }),
   // access webpack configuration
   addLessLoader((loaderOptions) => {
     const lessLoaderOptions = loaderOptions.lessOptions || {};
