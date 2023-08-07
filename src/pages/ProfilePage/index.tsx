@@ -132,8 +132,8 @@ function ProfilePage({ competitionKey }: { competitionKey: string }) {
                   })
                   .catch((err) => {
                     console.error(err.message);
-                    message.warn(
-                      "couldn't download your bot, you might no have one uploaded yet"
+                    message.warning(
+                      "couldn't download your bot, you might not have one uploaded yet"
                     );
                   });
               }}
