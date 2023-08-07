@@ -1,108 +1,24 @@
 @import '../../styles/base.less';
-@import '../../styles/newStyles/text.less';
-@import '../../styles/newStyles/components.less';
-@import '../../styles/impactful.less';
-
-
-
 .Main {
-
   .noContainer();
+  @import '../../styles/impactful.less';
 
-  // pargraph underneath acm ai title
-  .homeSubTitle {
-    .h2-black();
-    .alignCenter();
-    margin-top: 0;
-    width: 40rem;
-    font-weight: 500;
-    line-height: 2rem;
+  .homepageTitle {
+    color: @white;
+    display: inline-block;
   }
 
-
-  // paragraph underneath all other titles on home, such as the events title
-  .homeHeader2 {
-    .h2-black();
-    .alignCenter();
-    width: 60%;
-  }
-
-  // container to hold login and signup buttons
-  .authButtonWrapper {
-    margin-top: 5%;
-    .center-horizontal();
-    .even-spaced-row();
-
-    .authButton {
-      .button-square-black();
-     }
-     
-  }
-
-
-  .carouselContentWrapper {
-    height: 85%;
-    width: 100%; 
-    padding: 6rem;
-    @media screen and (max-width: @xs){
-      padding: 2%;
-    }
-    .center-both-ways();
-
-    .meetTeamButton {
-      margin-top: 4%;
-      .button-round();
-     }
-  
-   }
-
-   .homeEmptySection {
-    background-color: @gray;
-    border-radius: @radius-base4;
-    height: 32rem;
-    width: 100%;
-    margin: auto;
-    padding-top: 8rem;
-   }
-
-   .emptyDescription {
-    text-align: center;
-    .h2-black();
-   }
-
-   .projectsCompsContainer {
-      height: 32rem;
-      .center-horizontal();
-      .gradient-container();
-      .generic-section();
-   }
-
-
-   .mainFooter {
-    height: 45rem;
-    background-color: @black;
-    border-radius: @radius-base4;
-    .footer-section();
-   }
-
-
-
-}
-
-
-/*
   .heading {
-    justify-content: center;
+    .section-container-padding();
     padding-right: 0;
     margin-right: 0;
     width: 45rem;
   }
 
   .homepageSubtext {
-    font-size: @font3;
-    color: @black;
+    font-size: @font4;
+    color: @white;
   }
-
 
   .nextEventBannerWrapper {
     .section-container-padding();
@@ -123,5 +39,4 @@
   .nextEventBanner:hover {
     transform: scale(1.05);
   }
-
-*/
+}
