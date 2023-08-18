@@ -131,7 +131,7 @@ const NNRankPage = () => {
   }, []);
 
   return (
-    <DefaultLayout>
+    (<DefaultLayout>
       <div className="NNRankPage">
         <br />
         <BackLink to="../" />
@@ -153,7 +153,7 @@ const NNRankPage = () => {
         <br />
         <Modal
           title={scoreHistTitle}
-          visible={visible}
+          open={visible}
           footer={null}
           onCancel={() => {
             setVisible(false);
@@ -184,7 +184,7 @@ const NNRankPage = () => {
         <Table loading={loading} columns={cols} dataSource={data} />
         {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
       </div>
-    </DefaultLayout>
+    </DefaultLayout>)
   );
 };
 

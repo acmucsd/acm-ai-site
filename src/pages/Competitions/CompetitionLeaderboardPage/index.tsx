@@ -146,7 +146,7 @@ const CompetitionLeaderboardPage = () => {
   }, []);
 
   return (
-    <DefaultLayout>
+    (<DefaultLayout>
       <div className="CompetitionLeaderboardPage">
         <br />
         <BackLink to="../" />
@@ -159,7 +159,7 @@ const CompetitionLeaderboardPage = () => {
         <br />
         <Modal
           title={scoreHistTitle}
-          visible={visible}
+          open={visible}
           footer={null}
           onCancel={() => {
             setVisible(false);
@@ -202,7 +202,7 @@ const CompetitionLeaderboardPage = () => {
         <Table loading={loading} columns={columns} dataSource={data} />
         {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
       </div>
-    </DefaultLayout>
+    </DefaultLayout>)
   );
 };
 

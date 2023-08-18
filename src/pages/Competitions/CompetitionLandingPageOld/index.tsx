@@ -139,7 +139,7 @@ const CompetitionLandingPage = () => {
   }, []);
 
   return (
-    <DefaultLayout>
+    (<DefaultLayout>
       <div className="CompetitionLandingPage">
         <br />
         <BackLink to="../" />
@@ -162,7 +162,7 @@ const CompetitionLandingPage = () => {
         <br />
         <Modal
           title={scoreHistTitle}
-          visible={visible}
+          open={visible}
           footer={null}
           onCancel={() => {
             setVisible(false);
@@ -193,7 +193,7 @@ const CompetitionLandingPage = () => {
         <Table loading={loading} columns={cols} dataSource={data} />
         {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
       </div>
-    </DefaultLayout>
+    </DefaultLayout>)
   );
 };
 
