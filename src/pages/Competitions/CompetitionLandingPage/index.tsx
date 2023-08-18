@@ -37,8 +37,11 @@ const CompetitionLandingPage = () => {
     getMetaData(competitionID).then((res) => {
       // console.log("METADATA", res.data);
       setMeta(res.data);
-    });
-  };
+    }).catch((error) => {
+      message.info("No metadata")
+      })
+    };
+  
 
   const onRegister = () => {
     setRegisterLoading(true);
@@ -60,7 +63,7 @@ const CompetitionLandingPage = () => {
         console.log(res);
         setIsRegistered(res.data.registered);
         
-      }).catch(() => {
+      }).catch((error) => {
         message.info(
           'You need to register to see teams, join a team, and participate'
         );
@@ -73,10 +76,10 @@ const CompetitionLandingPage = () => {
   useEffect(() => {
     update();
   }, []);
-  if (!meta) return <DefaultLayout></DefaultLayout>;
+  if (!meta) return <DefaultLayout>Nothing</DefaultLayout>;
 
   return (
-    <DefaultLayout>
+    (<DefaultLayout>
       <div className="CompetitionLandingPage">
         {/* Some banner here with title and button */}
         <div className="hero">
@@ -115,7 +118,7 @@ const CompetitionLandingPage = () => {
                     Register
                   </Button>
                   <Modal
-                    visible={isRegisterOpen}
+                    open={isRegisterOpen}
                     onCancel={() => setIsRegisterOpen(false)}
                     onOk={onRegister}
                     confirmLoading={registerLoading}
@@ -157,7 +160,7 @@ const CompetitionLandingPage = () => {
           </div>
         </div> */}
       </div>
-    </DefaultLayout>
+    </DefaultLayout>)
   );
 };
 
