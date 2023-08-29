@@ -5,7 +5,7 @@ import { Form, Button, Upload, message, Input } from 'antd';
 import { useForm } from 'react-hook-form';
 // import Card from '../../../components/Card';
 import { useHistory, useParams } from 'react-router-dom';
-import { UploadOutlined, PlusOutlined } from '@ant-design/icons';
+import { UploadOutlined} from '@ant-design/icons';
 import { uploadSubmission } from '../../../actions/competition';
 import UserContext from '../../../UserContext';
 import path from 'path';
@@ -70,9 +70,10 @@ const CompetitionUploadPage = () => {
   };
 
   useEffect(() => {
-    !user.loggedIn &&
-       
+    if (!user.loggedIn) {
+      message.info('You need to login to upload predictions and participate');
       history.replace(path.join(window.location.pathname, '../../../login'));
+    }
   }, []);
 
   const onSubmit = () => {

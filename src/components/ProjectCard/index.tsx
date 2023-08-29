@@ -2,7 +2,7 @@ import React from 'react';
 import { PastProjects } from '../../actions/projects';
 import { Card } from '../Card';
 import { GithubOutlined, LinkOutlined} from '@ant-design/icons';
-import { Tag, Modal, Button } from 'antd';
+import { Tag, Modal} from 'antd';
 import { useState } from 'react';
 
 import './index.less';
@@ -24,61 +24,56 @@ const ProjectCard = ({ project }: {project: PastProjects}) => {
     setIsModalOpen(true);
     console.log(isModalOpen)
   };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const modalProps = {
-    open: isModalOpen,
-    onCancel: handleCancel
-  }
+  // const modalProps = {
+  //   open: isModalOpen,
+  //   onCancel: handleCancel
+  // }
 
-  return (
-    <>
-      <div className="ProjectCard" onClick={showModal}>
-        <Card
-          cover={
-            <img
-              src={project.cover} alt="Project cover" 
-            />
-          }
-        >
-          <h3 className="title">{project.name}</h3>
-          <div className="tags">
-            {project.tags.sort().map((tag)  => {
-              return (
-                <Tag color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
-              );
-            })}
-          </div>        
-        </Card>
-      </div>
-      <Modal
-        visible={isModalOpen}
-        onCancel={handleCancel}
-        footer={[<a href={project.github} target="_blank"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
-        <a href={project.link} target="_blank"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>]}      >
-          <div className='project-img' 
-            style= {{
-              background: `url(${project.cover})`, 
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center'
-            }}
-          ></div>
-          <h3 className="title">{project.name}</h3>
-          <div className="tags">
-            {project.tags.sort().map((tag)  => {
-              return (
-                <Tag color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
-              );
-            })}
-          </div>
-          <p className="description">{project.description}</p>                      
-      </Modal>
-    </>
-  );
+  return (<>
+    <div className="ProjectCard" onClick={showModal}>
+      <Card
+        cover={
+          <img
+            src={project.cover} alt="Project cover" 
+          />
+        }
+      >
+        <h3 className="title">{project.name}</h3>
+        <div className="tags">
+          {project.tags.sort().map((tag)  => {
+            return (
+              <Tag color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+            );
+          })}
+        </div>        
+      </Card>
+    </div>
+    <Modal
+      open={isModalOpen}
+      onCancel={handleCancel}
+      footer={[<a href={project.github} target="_blank" rel="noopener noreferrer"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
+      <a href={project.link} target="_blank" rel="noopener noreferrer"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>]}      >
+        <div className='project-img' 
+          style= {{
+            background: `url(${project.cover})`, 
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center'
+          }}
+        ></div>
+        <h3 className="title">{project.name}</h3>
+        <div className="tags">
+          {project.tags.sort().map((tag)  => {
+            return (
+              <Tag color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+            );
+          })}
+        </div>
+        <p className="description">{project.description}</p>                      
+    </Modal>
+  </>);
 };
 /**
  * Formats a date to be readable.

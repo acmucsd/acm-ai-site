@@ -43,7 +43,7 @@ function EventsPage(props: any) {
           <div className = "main-section">
             <h1 className = "statement">Where to find our workshops?</h1>
             <p className = "subtext">
-              We post all our workshop recordings on our youtube at <a href='https://acmurl.com/youtube' target='_blank'>https://acmurl.com/youtube</a>. Stay tuned in our Discord for when we upload them.
+              We post all our workshop recordings on our youtube at <a href='https://acmurl.com/youtube' target='_blank' rel="noopener noreferrer">https://acmurl.com/youtube</a>. Stay tuned in our Discord for when we upload them.
             </p>
           </div>
         </div>

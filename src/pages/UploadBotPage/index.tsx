@@ -21,28 +21,17 @@ export const UploadBotPage = ({ competitionKey }: UploadBotPageProps) => {
   const { user } = useContext(UserContext);
   const history = useHistory();
   useEffect(() => {
-    if(!user.loggedIn) {
-      message.info('You need to login to upload a bot')
+    if (!user.loggedIn) {
+      message.info('You need to login to upload a bot');
       history.replace(path.join(window.location.pathname, '../../../login'));
-    } 
-
-  }, []);
-
-
-   useEffect(() => {
-
-    if (user.competitionRegistrations[competitionKey] !== undefined) {
-     message.info('You need to register into the competition to upload a bot')
-    history.replace(path.join(window.location.pathname, '../'));
     }
-  }, [user]); 
-/*   useEffect(() => {
-
-    if (user.competitionRegistrations[competitionKey] !== undefined) {
-      !user.competitionRegistrations[competitionKey] &&
+  }, []);
+  useEffect(() => {
+    if (user.competitionRegistrations[competitionKey] !== undefined &&
+       !user.competitionRegistrations[competitionKey]) {
         message.info(
           'You need to register into the competition to upload a bot'
-        ) &&
+        );
         history.replace(path.join(window.location.pathname, '../'));
     }
   }, [user]); */
@@ -59,7 +48,7 @@ export const UploadBotPage = ({ competitionKey }: UploadBotPageProps) => {
       user.competitionData[competitionKey]?.id as string,
       values.path
     ).then(() => {
-      message.success('Succesfully uploaded bot');
+      message.success('Successfully uploaded bot');
     });
   };
   const dummyRequest = ({ file, onSuccess }: any) => {
