@@ -1,0 +1,150 @@
+// This file is to organize classNames for generic containers and layouts
+
+@import './text.less';
+@import './layout.less';
+@import './variables.less';
+
+
+
+// Carousel components
+.carousel-card {
+    .center-both-ways();
+    .alignCenter();
+}
+
+.ant-carousel {
+    width: 100%;
+}
+.ant-carousel .slick-dots li button {
+    margin-top: 2.5rem;
+    background: @gray;
+    opacity: 1;
+    height: 12px;
+    width: 12px;
+    border-radius: @radius-base3;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+    opacity: 1;
+    background: @black;
+    height: 12px;
+    width: 12px;
+    border-radius: @radius-base3;
+}
+
+.ant-carousel .slick-dots  {
+    margin-bottom: 1%;
+}
+
+
+
+
+
+
+// CONTAINERS AND SECTIONS  //
+
+
+// provides app theme linear gradient: red -> yellow
+.gradient {
+    background: linear-gradient(90deg, #F66161, #FFA659);
+}
+
+
+// Every page has a header so it's better to keep a single source of truth here
+.header-section {
+    .generic-section();
+}   
+
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+}
+
+
+// A generic container to hold new content centered nicely
+.generic-centered-section {
+    .center-both-ways();
+    .generic-section();
+}
+
+/* A constrained bounds has a width ratio of 70% and a
+ * max width of 1000px so it does not
+ * extend all the way to the screen's edges. This way we get 
+ * content with enough whitespace on the horizontal axis.
+ * Because all pages will be composed of the .noContainer()
+ * className, a section with no bounded width is achieved by
+ * omitting this class and/or .generic-section
+ */
+.constrained-bounds {
+    width: 70%;
+    max-width: 1000px;
+
+    // at smaller screen sizes, too much whitespace
+    // squeezes content so we increase the width ratio
+    @media screen and (max-width: @sm){
+        width: 85%;
+    }
+}
+
+
+// A wrapper for most sections with content 
+.generic-section {
+    padding: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+
+
+//  Buttons typically for auth or navigation
+.button-square-black {
+    background-color: @black;
+    border-radius: @radius-base3;
+
+    @media screen and (max-width: @sm){
+        border-radius: @radius-base2;
+    }
+
+    .button();
+    &:hover {
+        opacity: 0.8;
+    }
+    p {
+        color: @white
+    }
+}
+
+.button-round-black {
+    background-color: @black;
+
+    .button();
+    &:hover {
+        opacity: 0.8;
+    }
+    h4 {
+        color: @white;
+    }
+}
+
+
+// Another variation on the button
+.button-round-white{
+    background-color: @white;
+    .button();
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+
+.button {
+    height: 4rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 8px;
+    margin-right:8px;
+    border-style: none;
+}

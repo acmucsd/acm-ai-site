@@ -1,0 +1,87 @@
+@import './variables.less';
+
+/**
+ * This file offers lighweight custom text styling in case
+ *  you feel that some default styles are not sufficient
+ *  to meet your needs. Just make sure explain what each class 
+ *  is used for
+ */
+
+
+// Super Big Title (for the main page only)
+.title1 {
+    font-size: @font10;
+    line-height: @font9;
+    font-weight: @bold;
+    font-family: @font-family-base;
+    @media screen and (max-width: @xs){
+        font-size: @font8;
+        line-height: @font7;
+    }
+}
+
+
+// Title for other pages
+.title2 {
+    font-size: @font7;
+    font-weight: @bold;
+    font-family: @font-family-base;
+    line-height: @font7;
+    text-align: center;
+}
+
+// Used for smaller text underneath most titles
+// Usually this is used with a <h3> element
+.sub-title{
+    .alignCenter();
+    font-weight: @regular;
+    line-height: @font4;
+}
+
+
+
+
+
+
+// subTexts are for small paragraphs or buttons
+.sub-text-black {
+    color: @black;
+    font-weight: @regular;
+    .sub-text();
+}
+
+.sub-text-white {
+    color: @white;
+    font-weight: @regular;
+    .sub-text();
+}
+
+
+
+// text for buttons
+.button-text-black {
+    color: @black;
+    font-weight: @semi-bold;
+    .sub-text();
+}
+
+.button-text-white {
+    color: @white;
+    font-weight: @semi-bold;
+    .sub-text();
+}
+
+
+.sub-text {
+    font-size: @font3;
+    font-family: @font-family-base;
+}
+
+
+
+
+// text alignment stuff
+.alignCenter {
+    margin-top:0;
+    text-align: center;
+}

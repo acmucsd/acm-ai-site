@@ -1,0 +1,170 @@
+//@import 'antd/dist/reset.css';
+@import '~./reset.less';
+@import './variables.less';
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap&.css');
+
+
+// This less file uses the reset.less file to apply consistent text styling 
+// across all pages, so that means we write less code! 
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  font-family: @font-family-base, Arial, sans-serif;
+}
+html {
+  font-size: 14px;
+  padding: none;
+  font-family: @font-family-base, Arial, sans-serif;
+}
+body {
+  font-size: @font1;
+  font-weight:400;
+  line-height: 1.6;
+  margin:0px;
+  color:@b1;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  background-color:#FEFEFE;
+  overflow-wrap: break-word;
+}
+h1 {
+  font-size: @font8;
+  line-height: @font8;
+  font-weight: @semi-bold;
+  margin-bottom: @margin-base;
+  @media only screen and (max-width: @sm) {
+    font-size:@font5;
+    line-height: @font5;
+  }
+}
+h2 {
+  font-size: @font6;
+  line-height: @font6;
+  font-weight: @semi-bold;
+  margin-bottom: @margin-base;
+
+  @media only screen and (max-width: @xs) {
+    font-size:@font5;
+    line-height: @font5;
+  }
+}
+
+h3 {
+  font-size:@font4;
+  line-height: @font5;
+  font-weight: @regular;
+  
+  @media only screen and (max-width: @md) {
+    font-size:@font3;
+    line-height: @font4;
+  }
+  @media only screen and (max-width: @xs) {
+    font-size:@font3;
+    line-height: @font4;
+  }
+}
+
+h4 {
+  font-size:@font3;
+  line-height: @font4;
+  font-weight: @regular;
+  
+}
+h5 {
+  font-size: @font2;
+  line-height: @font2;
+  font-weight: @regular;
+}
+p {
+  font-weight: 400;
+  font-size: @font2;
+}
+a:hover {
+  text-decoration: none;
+}
+a[l] {
+  color:var(--b2);
+  padding-bottom: 2px;
+  position: relative;
+  font-style: normal;
+  cursor: pointer;
+}
+a[l]:hover,a[l]:focus {
+  text-decoration: none;
+}
+a[l]::before {
+  content: "";
+  left: 0;
+  background-color: var(--b2);
+  width: 0%;
+  height: 1px;
+  top:-webkit-calc(1em + 8px);
+  top:calc(1em + 8px);
+  position: absolute;
+  z-index: 2;
+  -webkit-transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
+  -o-transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
+  transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;;
+}
+a[l]:hover::before, a[l]:focus::before {
+  content: "";
+  left: 0;
+  background-color: var(--b2);
+  width: 100%;
+  height: 1px;
+  top:-webkit-calc(1em + 8px);
+  top:calc(1em + 8px);
+  position: absolute;
+  z-index: 2;
+  -webkit-transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
+  -o-transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
+  transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
+  text-decoration: none;
+}
+
+
+
+/* These media queries apply global resizing for the base font size for 
+ * each screen size. Typography is dyanmically scaled using
+ * relative units in the variables.less file (i.e @font1,2,3...)
+ */
+
+@media only screen and (max-width: @lg) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: @md) {
+  html {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: @sm) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: @xs) {
+  html {
+    font-size: 9px;
+  }
+}
+
+@media only screen and (max-width: @xxs) {
+  html {
+    font-size: 8px;
+  }
+}
