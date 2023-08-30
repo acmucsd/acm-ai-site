@@ -1,5 +1,5 @@
 import React from 'react';
-export default () => {
+function CompetitionDiscordLink () {
   return (
     <a
       href="https://discord.gg/XsG5etY"
@@ -9,4 +9,6 @@ export default () => {
       https://discord.gg/XsG5etY
     </a>
   );
-};
+}
+
+export default CompetitionDiscordLink;

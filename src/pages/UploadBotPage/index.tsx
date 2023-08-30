@@ -34,7 +34,7 @@ export const UploadBotPage = ({ competitionKey }: UploadBotPageProps) => {
         );
         history.replace(path.join(window.location.pathname, '../'));
     }
-  }, [user]); */
+  }, [user]);
 
 
 
