@@ -1,42 +1,340 @@
-@import '../../styles/base.less';
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
 .Main {
+
+  // removes any default white space margins
   .noContainer();
-  @import '../../styles/impactful.less';
 
-  .homepageTitle {
-    color: @white;
-    display: inline-block;
+
+  // horizontal gray bar just beneath the navigation bar
+  .homeTopBar {
+    background: @gray;
+    text-align: center;
+    padding: 2rem;
+
+    h4 {
+      color: @b1;
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+
+    margin-bottom: 4rem;
+
   }
 
-  .heading {
-    .section-container-padding();
-    padding-right: 0;
-    margin-right: 0;
-    width: 45rem;
+  // Gradient container that holds the main website title and subtitle
+  .homeHeader {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 32px;
+    min-width: 180px;
+  
+
+    .headerContent {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+      width: 100%;
+      .gradient();
+      .center-both-ways();
+      border-radius: @radius-base4;
+  
+      
+    // Main title "acm ai"
+    .homeTitle {
+      color: @white;
+      text-align: center;
+      .title1();
+    }
+
+    .homeSubTitle {
+      width: 70%;
+
+      @media screen and (max-width: @sm) {
+        width: 90%;
+      }
+
+      max-width: 700px;
+      color: @white;
+      text-align: center;
+    }
+
+    .joinUsButton {
+      margin-top: 6%;
+      background-color: @white;
+      .button-round-white();
+
+      // text inside the button
+      h4 {
+        @color: @b1;
+        font-weight: @semi-bold;
+      }
+    }
+    }
+
   }
 
-  .homepageSubtext {
-    font-size: @font4;
-    color: @white;
+
+  // For titles like Events and Sponsor Us
+  .homeSubTitle2 {
+    width: 85%;
+    text-align: center;
+    max-width: 700px;
+    min-width: 150px;
+    color: @b1;
   }
 
-  .nextEventBannerWrapper {
-    .section-container-padding();
-  }
+  // Custom carousel for the home screen
+  .homeCarousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .generic-section();
+    .constrained-bounds();
 
-  .nextEventBanner {
-    width: 34rem;
-    margin: 1rem auto;
-    border-radius: @radius-base2;
-    background-color: @white;
-    box-shadow: 1px 2px 5px darken(@p1, 1%);
-    color: red;
-    transition: transform .2s;
-    @media (max-width: 1350px) {
-      width: 30rem;
+    .homeCarouselCard {
+      .alignCenter();
+      margin-top: 3rem;
+
+      .carouselContentWrapper {
+        h2 {
+          font-weight: @bold;
+        }
+
+        @media screen and (max-width: @sm) {
+          width: 90%;
+        }
+
+        .center-both-ways();
+      }
+
+      .navButton {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        background-color: @b1;
+        .button-round-black();
+
+        h4 {
+          font-weight: @semi-bold;
+        }
+      }
+
     }
   }
-  .nextEventBanner:hover {
-    transform: scale(1.05);
+
+
+
+
+  .projectsCompsBox {
+   
+    .generic-section();
+    .constrained-bounds();
+
+    // parent box just above the cardsBox
+    .descriptionsBox {
+      background-color: #F9715F;
+      border-radius: @radius-base4;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+      h4 {
+        width: 80%;
+        margin: 2rem;
+        color: @white;
+      }
+    }
+
+    // row that holds the two cards that converts to a column
+    // at an xtra small device width for responsiveness
+    .cardsBox {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+
+      @media screen and (max-width: @xs) {
+        flex-direction: column;
+        width: 100%;
+        justify-content:center;
+      }
+    
+
+      // a card that holds basic info
+      .card {
+        background-color: @gray;
+        height: 250px;
+        width: calc(50% - 8px);
+        max-width: 460px;
+
+        font-size: @font3;
+        border-radius: @radius-base4;
+
+        @media screen and (max-width: @xs) {
+          width: 100%; /* Adjusted width for smaller screens */
+          margin-bottom: 16px;
+        }
+      }
+    }
+
   }
+
+
+
+
+
+  // Container to hold events
+  .eventsContainer {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 32px;
+    min-width: 180px;
+
+    // the box that appears when there are no events
+    .homeEmptySection {
+      .center-both-ways();
+      background-color: @b1;
+      height: 32rem;
+      width: 100%;
+      border-radius: @radius-base4;
+      margin-top: 28px;
+      margin-left: auto;
+      margin-right: auto;
+
+
+      // Text style for the homeEmptySection
+      .emptyDescription {
+        text-align: center;
+        width: 70%;
+        margin: auto;
+        color: @white;
+      }
+    }
+
+  }
+
+  // wrapper to hold the collapse component
+  .sponsorBox {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 32px;
+    min-width: 180px;
+
+    .sponsorCollapse {
+      .gradient();
+      width: 100%;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      border-radius: @radius-base4;
+      margin-top: 28px;
+  
+      .panel {
+        color: @white;
+  
+        :hover {
+          opacity: 0.8
+        }
+      }
+    }
+  }
+
+
+  // the gradient bar just above the main footer
+  .homeBottomBar {
+    .gradient();
+    text-align: center;
+    padding: 3rem;
+    margin-top: 8rem;
+  }
+
+  // Footer for main page
+  .mainFooter {
+    padding-left: 48px;
+    padding-right: 48px;
+
+    @media screen and (max-width: @xs) {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    width: 100%;
+    min-width: 180px;
+    background-color: @black;
+    color: @white;
+
+    // Splits paragraph content and other resource content into
+    // two sections along the same row
+    .splitRow {
+      padding: 12px;
+      margin-top: 12px;
+      margin-bottom: 4rem;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      // pargraph text on left side of split row
+      .infoText {
+        width: 50%;
+
+        @media screen and (max-width: @xs) {
+
+          width: 100%;
+        }
+      }
+
+      // container to hold social media icons
+      .socialMedia {
+        margin-top: 8px;
+        width: 42%;
+        min-width: 180px;
+        height: 100%;
+      }
+
+      // container to hold links for board apps
+      .boardPositions {
+        margin-top: 8px;
+        width: 42%;
+        min-width: 190px;
+        height: 100%;
+        justify-content: space-between;
+
+        .position {
+          margin-top: 8px;
+          margin-bottom: 8px;
+          align-items: center;
+          width: 100%;
+          flex-wrap: wrap;
+
+          .link {
+            size: 28px;
+            margin-left: 8px;
+
+            :hover {
+              cursor: pointer;
+            }
+          }
+        }
+
+      }
+    }
+
+    h2 {
+      color: @white;
+    }
+
+    h3 {
+      @color: @white;
+      text-align: center;
+    }
+
+    h4 {
+      color: @white;
+    }
+
+    p {
+      color: @white;
+    }
+  }
+
+
 }

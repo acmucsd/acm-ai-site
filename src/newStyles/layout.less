@@ -1,0 +1,32 @@
+// This file organizes classNames related to content alignment 
+
+@import './variables.less';
+
+// classNames to align innerContent //
+.center-both-ways {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+}
+
+.noContainer { 
+    margin-left: -48px;
+    margin-right: -48px;
+    @media screen and (max-width: @sm){
+        //margin-left: -24px;
+        //margin-right: -24px;
+    }
+}
+
+
+.center-horizontal {
+    display: flex;
+    justify-content: center;
+}
+
+.even-spaced-row {
+    justify-content: space-between;
+}
+
