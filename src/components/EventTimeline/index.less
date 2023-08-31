@@ -1,0 +1,82 @@
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
+.EventTimeline {
+  display: flex;
+
+  // translate timeline nodes down to match headings
+  .ant-timeline-item-head {
+    width: 1.5rem;
+    height: 1.5rem;
+    translate: -0.3rem 1rem;
+    border: 4px solid;
+  }
+  .ant-timeline-item-tail {
+    translate: 0rem 1rem;
+  }
+
+  // event in the timeline
+  .timeline-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  // calendar bubble attached to timeline-date
+  .timeline-icon{
+    border-radius: 50%;
+    font-size: 1.25em;
+    padding: 0.5em;
+  }
+
+  // space between bubble and event title
+  .timeline-badge {
+    margin-right: 2em;
+  }
+
+  .timeline-date {
+    .gradient();
+    text-align: center;
+    padding: 2.5rem;
+    flex: 1;
+    border-radius: @radius-base4;
+    min-width: 30px;
+    h2, h3 {
+      color: @white;
+      font-size: 2rem;
+      line-height: 1.2rem;
+    }
+  }
+
+  // description
+  .timeline-content {
+    flex: 2;
+    padding: 16px;
+    min-width: 200px;
+    h2 {
+      font-size: 2rem;
+      line-height: 2rem;
+    }
+  }
+  .emptySection {
+    .center-both-ways();
+    background-color: @b1;
+    height: 16rem;
+    width: 100%;
+    border-radius: @radius-base4;
+    margin-top: 28px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.5rem;
+    
+    .emptyDescription {
+      text-align: center;
+      width: 70%;
+      margin: auto;
+      color: @white;
+    }
+  }
+
+}

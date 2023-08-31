@@ -1,14 +1,79 @@
-@import '../../styles/base.less';
-.EventsPage {
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
+.Events {
+  // removes any default white space margins
   .noContainer();
-  @import '../../styles/impactful.less';
-  .upcomingEvents {
-    // width: ;
-    // text-align: center;
-    width: 100%;
-    .eventsBlock {
-      display: inline-block;
-      font-size: 2rem;
+
+  // horizontal gray bar just beneath the navigation bar
+  .homeTopBar {
+    background: @gray;
+    text-align: center;
+    padding: 2rem;
+
+    h4 {
+      color: @b1;
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+
+    margin-bottom: 4rem;
+
+  }
+
+  // Container for title
+  .eventsHeader {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 32px;
+    min-width: 180px;
+    
+    h1 {
+      white-space: nowrap;
     }
   }
+
+  .upcomingEvents {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 32px;
+    min-width: 180px;
+  }
+
+  // Footer for events page
+  .eventsFooter {
+    padding-left: 48px;
+    padding-right: 48px;
+
+    @media screen and (max-width: @xs) {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    width: 100%;
+    min-width: 180px;
+    background-color: @black;
+    color: @white;
+
+    h2 {
+      color: @white;
+      margin-top: 4rem;
+    }
+
+    h3 {
+      @color: @white;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    h4 {
+      color: @white;
+    }
+
+    p {
+      color: @white;
+    }
+  }
+
+
 }
