@@ -70,8 +70,13 @@ const CompetitionUploadPage = () => {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     if (!user.loggedIn) {
       message.info('You need to login to upload predictions and participate');
+=======
+    !user.loggedIn &&
+       
+>>>>>>> events-redesign
       history.replace(path.join(window.location.pathname, '../../../login'));
     }
   }, []);
