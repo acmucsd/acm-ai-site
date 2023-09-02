@@ -1,14 +1,68 @@
-@import '../../styles/base.less';
-.EventsPage {
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
+.Events {
+  // removes any default white space margins
   .noContainer();
-  @import '../../styles/impactful.less';
-  .upcomingEvents {
-    // width: ;
-    // text-align: center;
-    width: 100%;
-    .eventsBlock {
-      display: inline-block;
-      font-size: 2rem;
-    }
+  justify-content: space-between;
+
+  // Container for title
+  .eventsHeader {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 32px;
+    min-width: 180px;
+    text-align: center;
   }
+
+  .upcomingEvents {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 32px;
+    min-width: 180px;
+  }
+
+  // Footer for events page
+  .eventsFooter {
+    padding-left: 48px;
+    padding-right: 48px;
+
+    @media screen and (max-width: @xs) {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    width: 100%;
+    min-width: 180px;
+    background-color: @black;
+    color: @white;
+
+    .row {
+      padding: 12px;
+      margin-top: 12px;
+      margin-bottom: 4rem;
+    
+
+      h2 {
+        color: @white;
+      }
+
+  
+      h4 {
+        color: @white;
+      }
+  
+      p {
+        color: @white;
+      }
+    }
+    h3 {
+      @color: @white;
+      text-align: center;
+    }
+
+  }
+
+
 }

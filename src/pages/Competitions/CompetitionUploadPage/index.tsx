@@ -70,11 +70,11 @@ const CompetitionUploadPage = () => {
   };
 
   useEffect(() => {
-    !user.loggedIn &&
-       
+    if (!user.loggedIn) {
+      message.info('You need to login to upload predictions and participate');
       history.replace(path.join(window.location.pathname, '../../../login'));
-    
-  }, []);
+    }
+    }, []);
 
   const onSubmit = () => {
     setUploading(true);

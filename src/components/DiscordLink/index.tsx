@@ -1,5 +1,5 @@
 import React from 'react';
-export default () => {
+function DiscordLink () {
   return (
     <a
       href="https://acmurl.com/ai-disc"
@@ -9,4 +9,6 @@ export default () => {
       https://acmurl.com/ai-disc
     </a>
   );
-};
+}
+
+export default DiscordLink;
