@@ -1,4 +1,62 @@
-@import '../../../styles/base.less';
+@import '../../../newStyles/text.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/variables.less';
+
+.RequestResetPage {
+  margin-top: 9.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .requestDetails {
+    .generic-centered-section();
+    .constrained-bounds();
+     
+    .requestHeader {
+      width: 60%;
+      max-width: 490px;
+      text-align: center;
+      @media only screen and (max-width: @xxs) {
+        width: 100%;
+      }
+
+    }
+
+    form {
+      margin-top: 3rem;
+      width: 60%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      @media only screen and (max-width: @xxs) {
+        width: 100%;
+      }
+      Input {
+        line-height: 3rem ;
+        font-size: @font3;
+    
+      }
+
+      .requestButton {
+        background-color: @b1;
+        .button-square-black();
+        margin: auto;
+  
+        // text inside the button
+        h4 {
+          color: white;
+          font-weight: @semi-bold;
+        }
+      }
+    }
+  }
+}
+
+
+/*
 .LoginPage {
 
   .danger {
@@ -16,3 +74,4 @@
     margin-top: 12px;
   }
 }
+*/

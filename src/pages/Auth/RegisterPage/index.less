@@ -1,4 +1,80 @@
-@import '../../../styles/base.less';
+@import '../../../newStyles/text.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/variables.less';
+
+
+.RegisterPage {
+  margin-top: 9.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .registerDetails {
+    .generic-centered-section();
+    .constrained-bounds();
+
+    .registerHeader {
+      width: 60%;
+      max-width: 490px;
+      text-align: center;
+      @media only screen and (max-width: @xxs) {
+        width: 100%;
+      }
+
+    }
+
+    Form {
+      margin-top: 3rem;
+      width: 60%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: start;
+         
+      @media only screen and (max-width: @xxs) {
+        width: 100%;
+      }
+
+
+      Input {
+        line-height: 3rem ;
+        font-size: @font3;
+    
+      }
+
+      Checkbox {
+        font-size: @font3;
+      }
+
+      .errorBox {
+        margin-bottom: 2rem;
+        .danger {
+          color: @danger;
+        }
+      }
+
+      .registerButton {
+        background-color: @b1;
+        .button-square-black();
+        margin: auto;
+  
+        // text inside the button
+        h4 {
+          color: white;
+          font-weight: @semi-bold;
+        }
+      }
+    }
+
+    .loginLink {
+      margin-top: 24px;
+      text-align: center;
+    }
+  }
+    
+}
+/*
 .RegisterPage {
 
   .danger {
@@ -16,3 +92,5 @@
     margin-top: 12px;
   }
 }
+
+*/
