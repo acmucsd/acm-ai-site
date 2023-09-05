@@ -6,6 +6,7 @@
   // removes any default white space margins
   .noContainer();
 
+<<<<<<< HEAD
   // we add a top margin so that the nav bar doesn't obstruct content
   margin-top: 9.5rem;
 
@@ -13,6 +14,13 @@
   .eventsHeader {
     .generic-centered-section();
     .constrained-bounds();
+=======
+
+  // Container for title
+  .eventsHeader {
+    .center-both-ways();
+    margin-top: 9.5rem;
+>>>>>>> about-redesign
 
     min-width: 180px;
     text-align: center;
@@ -23,6 +31,7 @@
     .constrained-bounds();
     margin-top: 32px;
     min-width: 180px;
+
   }
 
   // Footer for events page
@@ -44,7 +53,8 @@
       padding: 12px;
       margin-top: 12px;
       margin-bottom: 4rem;
-    
+      max-width: @lg;
+     
 
       h2 {
         color: @white;
