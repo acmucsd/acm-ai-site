@@ -116,15 +116,21 @@
     .generic-centered-section();
     .gradient();
     margin: 0rem;
+    padding-top: 5.5rem;
+    padding-bottom: 9.5rem;
     h1 {
       color: @white;
       text-align: center;
-      margin-top: 5rem;
     }
     h4 {
       color: @white;
       text-align: center;
-      padding: 2rem;
+      width: 50%;
+      max-width: @lg;
+      @media screen and (max-width: @sm){
+        width: 90%;
+    }
+      margin: auto;
     }
   }
 

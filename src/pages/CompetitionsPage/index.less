@@ -6,21 +6,41 @@
   .noContainer();
 
   .competitionsHero {
+
     .gradient-hero();
+    .headerContent {
+      .generic-centered-section();
+      margin-top: 9.5rem;
+    }
+ 
   }
   
   .competitionsFooter {
-    padding-left: 48px;
-    padding-right: 48px;
+    
     width: 100%;
+    height: 100%;
     min-width: 180px;
-    background-color: @black;
-    color: @white;
+    background-color: #FAFAFA;
 
-    .pastCompetitions {
-      display: flex;
-      flex-wrap: wrap;
+
+    .pastCompetitions {     
+      h1 {
+        color: @black;
+      }
+      
+      p {
+        max-width: @sm;
+        color: @black;
+      }
+  
+      .constrained-bounds();
+      .generic-section();
+      
+
     }
+
+    
+
 
     .pastCompetitionsCard {
       flex: 1;

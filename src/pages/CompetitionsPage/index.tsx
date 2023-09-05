@@ -14,19 +14,24 @@ function CompetitionsPage(props: any) {
       <div className="CompetitionsPage">
 
         <Content className="competitionsHero">
-            <h1>Competitions</h1>
-            <h4>
-              These are fun competitions (with prizes) where you employ some aspect (or none at all) 
-              of AI to compete. We run standard AI programming competitions as well as Reinforcement Learning (RL) 
-              centric competitions using {' '}
-              <a
-                href="https://gym.openai.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open AI Gym.{' '} 
-              </a>
-            All skill levels are welcome!</h4>
+
+            <div className = "headerContent">
+              <h1 className = "title2">Competitions</h1>
+              <h4>
+                These are fun competitions (with prizes) where you employ some aspect (or none at all) 
+                of AI to compete. We run standard AI programming competitions as well as Reinforcement Learning (RL) 
+                centric competitions using {' '}
+                <a
+                  href="https://gym.openai.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open AI Gym.{' '} 
+                </a>
+                All skill levels are welcome!
+              </h4>
+            </div>
+            
         </Content>
         {/* <div className="hero">
           <p className="subtext">
@@ -44,9 +49,13 @@ function CompetitionsPage(props: any) {
         </div> */}
 
         <Footer className="competitionsFooter">
-          <h2 className="statement">Past Competitions</h2>
-
+          <section className = "pastCompetitions">
+            <h1 className="title2">Past Competitions</h1>
+            <p>Explore the roster of our previous endeavors into various aspects of AI. We encourage you to apply to future competitions! </p>
+          </section>
           <h3>Element AI</h3>
+
+       
           
 {/*           
           <Row className="pastCompetitions" gutter={16}>
