@@ -1,5 +1,56 @@
-@import '../../styles/base.less';
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
 .CompetitionsPage {
   .noContainer();
-  @import '../../styles/impactful.less';
+
+  .competitionsHero {
+    .gradient-hero();
+  }
+  
+  .competitionsFooter {
+    padding-left: 48px;
+    padding-right: 48px;
+    width: 100%;
+    min-width: 180px;
+    background-color: @black;
+    color: @white;
+
+    .pastCompetitions {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .pastCompetitionsCard {
+      flex: 1;
+      aspect-ratio: 1/ 1;
+      align-items: center;
+      padding: 5%;
+    }
+
+    @media screen and (max-width: @xs) {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    h2 {
+      color: @white;
+      margin-top: 4rem;
+    }
+
+    h3 {
+      @color: @white;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    h4 {
+      color: @white;
+    }
+
+    p {
+      color: @white;
+    }
+  }
 }

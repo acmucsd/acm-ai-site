@@ -114,7 +114,10 @@ function Header() {
         </Link>
       </Menu.Item> */}
       {loginItems}
+<<<<<<< HEAD
       {/*<Menu.Item className="empty"></Menu.Item>*/}
+=======
+>>>>>>> competitions-redesign
     </Menu>
   );
 }

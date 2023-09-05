@@ -2,21 +2,33 @@ import React, { useEffect } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { Layout, Card, Col, Row } from 'antd';
 import DiscordLink from '../../components/DiscordLink';
+const { Content, Footer } = Layout;
+const { Meta } = Card;
 
 function CompetitionsPage(props: any) {
   useEffect(() => {}, []);
   return (
     <DefaultLayout>
       <div className="CompetitionsPage">
-        <div className="hero">
-          <h1 id="title">
-            Welcome to ACM AI Competitions{' '}
-            <span role="img" aria-label="trophy-emoji">
-              🏆
-            </span>
-          </h1>
+
+        <Content className="competitionsHero">
+            <h1>Competitions</h1>
+            <h4>
+              These are fun competitions (with prizes) where you employ some aspect (or none at all) 
+              of AI to compete. We run standard AI programming competitions as well as Reinforcement Learning (RL) 
+              centric competitions using {' '}
+              <a
+                href="https://gym.openai.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open AI Gym.{' '} 
+              </a>
+            All skill levels are welcome!</h4>
+        </Content>
+        {/* <div className="hero">
           <p className="subtext">
             <span>Element.AI competition starts February 18th</span>
             <br />
@@ -29,57 +41,65 @@ function CompetitionsPage(props: any) {
               </Link>
             </div>
           </p>
+        </div> */}
+
+        <Footer className="competitionsFooter">
+          <h2 className="statement">Past Competitions</h2>
+
+          <h3>Element AI</h3>
           
-        </div>
-        <div>
-          <div className="main-section">
-            <h1 className="statement">What is this?</h1>
-            <p>
-              These are fun competitions (with prizes) where you employ some
-              aspect (or none at all) of AI to compete. We run standard AI
-              programming competitions as well as Reinforcement Learning
-              (RL) centric competitions using the{' '}
-              <a
-                href="https://gym.openai.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open AI Gym
-              </a>
-            </p>
-            <p>
-              All skill levels are welcome!
-            </p>
-            <p>
-              Join our discord to be up to date on updates and events related to
-              our competitions: <DiscordLink />
-            </p>
-          </div>
-          <div className="main-section">
-            {/* <h1 className="statement">Current Competitions</h1>
-            <p>
-              Check it out! Our{' '}
-              <Link to="/competitions/nn/">Neural Network Modelling</Link>{' '}
-              competition tasks you to build a network and accurately model a
-              hidden function given training data
-            </p> */}
-            <h1 className="statement">Past Competitions</h1>
-            <p>A list of some of our past competitions!</p>
-            <p>
+{/*           
+          <Row className="pastCompetitions" gutter={16}>
+            <Col span={8}>
               <Link to={`/old-competitions/nn`}>
-                2021 - NN Modelling
+                <Card 
+                  className="pastCompetitionsCard"
+                  hoverable 
+                  bordered={false}
+                >
+                  <h2>2021</h2>
+                  <h3>NN Modeling</h3>
+                </Card>
               </Link>
-            </p>
-            <p>
-              <Link to={`/old-competitions/hide-and-seek2020`}>
-                2020 - Hide and Seek
+            </Col>
+            <Col span={8}>
+            <Link to={`/old-competitions/nn`}>
+                <Card 
+                  className="pastCompetitionsCard"
+                  hoverable 
+                  bordered={false}
+                >
+                  <p>2021 - NN Modelling</p>
+                </Card>
               </Link>
-            </p>
-            <p>
-              <Link to="/old-competitions/energium/">2020 - Energium AI</Link>
-            </p>
-          </div>
-        </div>
+            </Col>
+            <Col span={8}>
+            <Link to={`/old-competitions/nn`}>
+                <Card 
+                  className="pastCompetitionsCard"
+                  hoverable 
+                  bordered={false}
+                >
+                  <p>2021 - NN Modelling</p>
+                </Card>
+              </Link>
+            </Col>
+          </Row>
+
+          <p>
+            <Link to={`/old-competitions/nn`}>
+              2021 - NN Modelling
+            </Link>
+          </p>
+          <p>
+            <Link to={`/old-competitions/hide-and-seek2020`}>
+              2020 - Hide and Seek
+            </Link>
+          </p>
+          <p>
+            <Link to="/old-competitions/energium/">2020 - Energium AI</Link>
+          </p> */}
+        </Footer>
       </div>
     </DefaultLayout>
   );
