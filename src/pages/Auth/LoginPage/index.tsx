@@ -8,7 +8,7 @@ import { loginUser, getUserFromToken } from '../../../actions/auth';
 import { Link } from 'react-router-dom';
 import UserContext from '../../../UserContext';
 import { DIMENSION_ID } from '../../../configs';
-const { Header, Content, Footer } = Layout;
+const { Content } = Layout;
 
 
 function LoginPage() {

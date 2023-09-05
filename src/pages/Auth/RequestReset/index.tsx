@@ -18,7 +18,7 @@ const RequestResetPage = () => {
   return (
     <DefaultLayout>
       <div className="RequestResetPage">
-        
+
         <Content className="requestDetails">
 
           <div className="requestHeader">
@@ -37,8 +37,6 @@ const RequestResetPage = () => {
               control={control}
               rules={{ required: true }}
             />
-
-    
 
             <Button htmlType="submit" className="requestButton">
               <h4>Send Reset Link</h4>
