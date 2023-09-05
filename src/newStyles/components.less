@@ -39,10 +39,7 @@
 
 
 
-
-
 // CONTAINERS AND SECTIONS  //
-
 
 // provides app theme linear gradient: red -> yellow
 .gradient {
@@ -97,6 +94,31 @@
     margin-top: 2rem;
 }
 
+
+// gradient bar for separating sections
+.gradient-bar {
+  .gradient();
+  text-align: center;
+  padding: 3rem;
+  margin-top: 8rem;
+}
+
+
+.gradient-hero {
+    .generic-centered-section();
+    .gradient();
+    margin: 0rem;
+    h1 {
+      color: @white;
+      text-align: center;
+      margin-top: 5rem;
+    }
+    h4 {
+      color: @white;
+      text-align: center;
+      padding: 2rem;
+    }
+  }
 
 
 //  Buttons typically for auth or navigation

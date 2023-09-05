@@ -29,7 +29,7 @@ function EventsPage(props: any) {
         </Content>
 
         <Content>
-          <div className="gradientBar">
+          <div className="gradient-bar">
           </div>
         </Content>
         <Footer className="eventsFooter">
