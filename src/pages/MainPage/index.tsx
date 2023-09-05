@@ -157,9 +157,9 @@ function MainPage() {
               <Empty
                 imageStyle={{ height: 50 }}
                 description={
-                  <h3 className="emptyDescription">
+                  <p className="emptyDescription">
                     There are no upcoming events at this time Check back later!
-                  </h3>
+                  </p>
                 }
               />
             </div>
