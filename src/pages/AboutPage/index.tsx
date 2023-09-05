@@ -35,8 +35,8 @@ const ColoredLine = () => (
 const CardsRow = ({ children }: { children?: ReactNode }) => (
   <Row
     gutter={[
-      { xs: 16, sm: 16, md: 24, lg: 32 },
-      { xs: 16, sm: 16, md: 24, lg: 32 },
+      { xs: 16, sm: 16, md: 24, lg: 24 },
+      { xs: 16, sm: 16, md: 24, lg: 24 },
     ]}
     justify="center"
   >
@@ -283,7 +283,7 @@ function AboutPage() {
       <div className="AboutPage">
 
         <Content className="aboutContent">
-          <h1 id="title2">Our Team</h1>
+          <h1 className="title2">Our Team</h1>
 
           {size.width!! < 600 ?
 
