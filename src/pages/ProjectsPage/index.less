@@ -1,13 +1,30 @@
-.project-section{
-    display: flex;
-    justify-content:space-around;
-    align-items: center;
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
+.ProjectsPage {
+    .noContainer();
+
+    .projectsHero {
+        .gradient-hero();
+    }
+
+    .projectsSection {
+        .generic-section();
+    }
+
+    .project-image{
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 8px -5px 18px gray;
+    }
+    .project-info{
+        width: 500px;
+    }
+
+    @media screen and (max-width: @xs) {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
 }
-.project-image{
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 8px -5px 18px gray;
-}
-.project-info{
-    width: 500px;
-}
+
