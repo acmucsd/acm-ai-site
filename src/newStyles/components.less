@@ -22,6 +22,10 @@
     height: 12px;
     width: 12px;
     border-radius: @radius-base3;
+    @media screen and (max-width: @sm){
+        height: 10px;
+        width: 10px;
+    }
 }
 
 .ant-carousel .slick-dots li.slick-active button {
@@ -30,6 +34,10 @@
     height: 12px;
     width: 12px;
     border-radius: @radius-base3;
+    @media screen and (max-width: @sm){
+        height: 10px;
+        width: 10px;
+    }
 }
 
 .ant-carousel .slick-dots  {
@@ -90,8 +98,8 @@
     padding: 2rem;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
 }
 
 
@@ -108,15 +116,21 @@
     .generic-centered-section();
     .gradient();
     margin: 0rem;
+    padding-top: 5.5rem;
+    padding-bottom: 9.5rem;
     h1 {
       color: @white;
       text-align: center;
-      margin-top: 5rem;
     }
     h4 {
       color: @white;
       text-align: center;
-      padding: 2rem;
+      width: 50%;
+      max-width: @lg;
+      @media screen and (max-width: @sm){
+        width: 90%;
+    }
+      margin: auto;
     }
   }
 
@@ -125,6 +139,7 @@
 .button-square-black {
     background-color: @black;
     border-radius: @radius-base3;
+   
 
     @media screen and (max-width: @sm){
         border-radius: @radius-base2;
@@ -148,6 +163,9 @@
     }
     h4 {
         color: @white;
+    }
+    p {
+        color: @white
     }
 }
 

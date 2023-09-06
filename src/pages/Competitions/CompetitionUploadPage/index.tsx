@@ -74,7 +74,7 @@ const CompetitionUploadPage = () => {
       message.info('You need to login to upload predictions and participate');
       history.replace(path.join(window.location.pathname, '../../../login'));
     }
-  }, []);
+    }, []);
 
   const onSubmit = () => {
     setUploading(true);

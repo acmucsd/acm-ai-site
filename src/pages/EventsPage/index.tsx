@@ -20,8 +20,8 @@ function EventsPage(props: any) {
     <DefaultLayout>
       <div className="Events">
         <Content className="eventsHeader">
-            <h1 className="eventsTitle">Upcoming Events</h1>
-            <h3 className="eventsSubTitle">make friends • have fun • learn something new</h3>
+            <h1 className="title2">Upcoming Events</h1>
+            <p className="eventsSubTitle">make friends • have fun • learn something new</p>
 
           <div className="upcomingEvents">
             <EventTimeline eventData={eventData}/>
@@ -32,10 +32,12 @@ function EventsPage(props: any) {
           <div className="gradient-bar">
           </div>
         </Content>
+
+
         <Footer className="eventsFooter">
           <Row className="row">
-            <Col className="infoText">
-              <h2>What events do we run?</h2>
+            <Col>
+              <h2 className = "title2">What events do we run?</h2>
               <p>We run all kinds of events, from intro to deep learning workshops to seminars from distinguished researchers and professors. 
                 Events are a great way to engage with the AI community at UCSD and learn content you may not 
                 typically learn in class! We also have a running contest ranking on Discord based on your performance on 
@@ -45,8 +47,8 @@ function EventsPage(props: any) {
           </Row>
 
           <Row className="row">
-            <Col className="infoText">
-              <h2>Where can I find past workshops?</h2>
+            <Col>
+              <h2 className = "title2">Where can I find past workshops?</h2>
               <p>We post all of our workshop recordings on our YouTube at <a href='https://acmurl.com/youtube' target='_blank' rel="noopener noreferrer">https://acmurl.com/youtube</a>. 
               Stay tuned in our Discord for uploads!
               </p>

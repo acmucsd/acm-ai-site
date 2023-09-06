@@ -5,40 +5,17 @@
 .Events {
   // removes any default white space margins
   .noContainer();
-
-  // horizontal gray bar just beneath the navigation bar
-  .homeTopBar {
-    background: @gray;
-    text-align: center;
-    padding: 2rem;
-
-    h4 {
-      color: @b1;
-      margin-left: 2rem;
-      margin-right: 2rem;
-    }
-
-    margin-bottom: 4rem;
-
-  }
+  margin-top: 9.5rem;
 
   // Container for title
   .eventsHeader {
-    .generic-centered-section();
-    .constrained-bounds();
-    margin-top: 32px;
-    min-width: 180px;
-    
-    h1 {
-      white-space: nowrap;
-    }
+    .center-both-ways();
+    text-align: center;
   }
 
   .upcomingEvents {
-    .generic-centered-section();
     .constrained-bounds();
-    margin-top: 32px;
-    min-width: 180px;
+    .center-both-ways();
   }
 
   // Footer for events page
@@ -50,29 +27,37 @@
       padding-left: 32px;
       padding-right: 32px;
     }
+
     width: 100%;
     min-width: 180px;
     background-color: @black;
     color: @white;
 
-    h2 {
-      color: @white;
-      margin-top: 4rem;
-    }
+    .row {
+      padding: 12px;
+      margin-top: 12px;
+      margin-bottom: 4rem;
+      max-width: @lg;
+     
 
+      h2 {
+        color: @white;
+      }
+
+  
+      h4 {
+        color: @white;
+      }
+  
+      p {
+        color: @white;
+      }
+    }
     h3 {
       @color: @white;
       text-align: center;
-      margin-top: 2rem;
     }
 
-    h4 {
-      color: @white;
-    }
-
-    p {
-      color: @white;
-    }
   }
 
 

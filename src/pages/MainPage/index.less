@@ -10,53 +10,49 @@
 
   // horizontal gray bar just beneath the navigation bar
   .homeTopBar {
-    background: @gray;
+    .gradient();
     text-align: center;
     padding: 2rem;
+    margin-top: 5.5rem;
 
     h4 {
-      color: @b1;
+      color: white;
       margin-left: 2rem;
       margin-right: 2rem;
     }
-
-    margin-bottom: 4rem;
 
   }
 
   // Gradient container that holds the main website title and subtitle
   .homeHeader {
-    .generic-centered-section();
-    .constrained-bounds();
-    margin-top: 32px;
     min-width: 180px;
+    .center-both-ways();
   
 
     .headerContent {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
+      padding-top: 10rem;
+      padding-bottom: 10rem;
       width: 100%;
-      .gradient();
+      background: #FAFAFA;
       .center-both-ways();
-      border-radius: @radius-base4;
-  
       
     // Main title "acm ai"
     .homeTitle {
-      color: @white;
+      color: @black;
       text-align: center;
       .title1();
     }
 
     .homeSubTitle {
-      width: 70%;
+      width: 60%;
 
       @media screen and (max-width: @sm) {
-        width: 90%;
+        width: 70%;
       }
 
-      max-width: 700px;
-      color: @white;
+      max-width: 600px;
+      color: @black;
+
       text-align: center;
     }
 
@@ -98,8 +94,11 @@
       margin-top: 3rem;
 
       .carouselContentWrapper {
-        h2 {
+
+        width: 80%;
+        h3 {
           font-weight: @bold;
+          font-size: @font4;
         }
 
         @media screen and (max-width: @sm) {
@@ -114,10 +113,6 @@
         margin-bottom: 2%;
         background-color: @b1;
         .button-round-black();
-
-        h4 {
-          font-weight: @semi-bold;
-        }
       }
 
     }
@@ -137,6 +132,7 @@
       border-radius: @radius-base4;
       display: flex;
       flex-direction: column;
+      margin-top: 2rem;
       margin-bottom: 16px;
       h4 {
         width: 80%;
@@ -195,8 +191,11 @@
     .homeEmptySection {
       .center-both-ways();
       background-color: @b1;
-      height: 32rem;
-      width: 100%;
+      height: 26rem;
+      width: 90%;
+      @media screen and (max-width: @xs) {
+        width: 100%; /* Adjusted width for smaller screens */
+      }
       border-radius: @radius-base4;
       margin-top: 28px;
       margin-left: auto;
@@ -223,7 +222,10 @@
 
     .sponsorCollapse {
       .gradient();
-      width: 100%;
+      width: 90%;
+      @media screen and (max-width: @xs) {
+        width: 100%; /* Adjusted width for smaller screens */
+      }
       padding-top: 2rem;
       padding-bottom: 2rem;
       border-radius: @radius-base4;
@@ -288,6 +290,9 @@
         width: 42%;
         min-width: 180px;
         height: 100%;
+        a {
+          color: white;
+        }
       }
 
       // container to hold links for board apps
@@ -328,9 +333,12 @@
     }
 
     h4 {
-      color: @white;
+       a {
+        color: white;
+       }
     }
-
+    
+    
     p {
       color: @white;
     }

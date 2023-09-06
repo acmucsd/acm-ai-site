@@ -65,9 +65,11 @@ function MainPage() {
               AI advocates, engineers, and scientists.
             </h4>
 
-            <Button shape="round" className="joinUsButton">
+            {/**   <Button shape="round" className="joinUsButton">
               <h4>join us</h4>
-            </Button>
+            </Button> */}
+         
+
           </div>
         </Content>
 
@@ -78,14 +80,14 @@ function MainPage() {
 
             <div className="homeCarouselCard">
               <div className="carouselContentWrapper">
-                <h2>What is ACM AI?</h2>
+                <h3>What is ACM AI?</h3>
                 <h4>
                   We are a tight-knit community of UCSD students that exists within the ACM family at UCSD.
                   Our team consists of bright minds from every background and expertise.
                 </h4>
 
                 <Button shape="round" className="navButton">
-                  <h4>meet the team</h4>
+                  <p>meet the team</p>
                 </Button>
 
               </div>
@@ -93,7 +95,7 @@ function MainPage() {
 
             <div className="homeCarouselCard">
               <div className="carouselContentWrapper">
-                <h2>Model Your AI/Ml Path</h2>
+                <h3>Model Your AI/Ml Path</h3>
                 <h4>
                   Our goals are to help build a community of AI enthusiasts at UCSD and connect that community
                   to the broader AI network. We also strive to keep AI fun and accessible to all as you navigate your
@@ -104,14 +106,14 @@ function MainPage() {
 
             <div className="homeCarouselCard">
               <div className="carouselContentWrapper">
-                <h2>Want more ACM?</h2>
+                <h3>Want more ACM?</h3>
                 <h4>
                   We are part of a larger group of bright innovators and thinkers here at UCSD. If you're feeling
                   adventurous in exploring our various aspects of computing or just having fun, check out ACM's main website
                   for exciting events!
                 </h4>
                 <Button shape="round" className="navButton">
-                  <h4><li><a href="https://acmucsd.com/">explore</a></li></h4>
+                  <p><li><a href="https://acmucsd.com/">explore</a></li></p>
                 </Button>
 
               </div>
@@ -155,9 +157,9 @@ function MainPage() {
               <Empty
                 imageStyle={{ height: 50 }}
                 description={
-                  <h3 className="emptyDescription">
+                  <p className="emptyDescription">
                     There are no upcoming events at this time Check back later!
-                  </h3>
+                  </p>
                 }
               />
             </div>
@@ -205,7 +207,7 @@ function MainPage() {
         <Footer className="mainFooter">
           <Row className="splitRow">
             <Col className="infoText">
-              <h2>Join the board</h2>
+              <h2 className = "title2">Join the board</h2>
               <p>We are always looking for more people to join our mission and build the growing AI community at UCSD.
                 The following roles are open to all undergraduate UCSD students:</p>
             </Col>
@@ -228,7 +230,7 @@ function MainPage() {
 
           <Row className="splitRow">
             <Col className="infoText">
-              <h2>Stay up to date</h2>
+              <h2 className = "title2">Stay up to date</h2>
               <p>We host many, many events through each quarter at UCSD. Best way to be in the loop of new events,
                 competitions etc. is to check out our Discord and Instagram. We run workshops on introductory to
                 advanced neural network concepts and programming to workshops on the Kaggle platform
@@ -246,7 +248,7 @@ function MainPage() {
 
           <Row className="splitRow">
             <Col className="infoText">
-              <h2>Networking</h2>
+              <h2 className = "title2">Networking</h2>
               <p>If you're looking for more networking opportunities or research, we also run seminars in
                 collaboration with AI professors at UCSD as well as host an AI reading group on our discord.
                 Trust us, it is very interesting. Make sure to also register an account with us! That way we

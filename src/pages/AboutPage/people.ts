@@ -196,8 +196,6 @@ export const operations: Person[] = [
       `Hi, I'm Vincent and I'm a first year (undeclared but intending to do CS) at 6th college at UCSD. I like AI (recently my focus has been on teaching computers how to see) so reach out to me on discord (alckasoc#5261; hopefully you have one) to talk about AI-related stuff 😎! ML models may underfit, deep neural networks may overfit, but you, you're a perfect fit.`,
     picture: Vincent,
     socials: {
-      // linkedin: "www.linkedin.com/in/wei-ji-chen",
-      // github: "https://github.com/Wei-Ji-Chen"
     }
   },
   {
