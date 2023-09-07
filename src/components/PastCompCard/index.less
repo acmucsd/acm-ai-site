@@ -1,0 +1,68 @@
+@import '../../newStyles/variables.less';
+
+
+
+.Card {
+
+    width: calc(33.33% - 16px);
+    height: 200px;
+    max-width: 320px;
+
+    @media (max-width: @sm) {
+        /* 100% for one column on even smaller screens */
+        width: calc(50% - 16px);
+    }
+
+    @media (max-width: @xs) {
+        /* 100% for one column on even smaller screens */
+        width: 100%;
+    }
+    @media (max-width: @xxs) {
+        /* 100% for one column on even smaller screens */
+        width: 100%;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+
+        .header {
+            align-items: center;
+
+            .yearWrapper {
+                border-radius: @radius-base2;
+                padding: 0.5rem;
+                margin-right: 1rem;
+                background: white;
+                h4 {
+                    color: @black;
+                    font-weight: @semi-bold;
+                }
+                @media (max-width: @xs) {
+                    padding: 1rem;
+                }
+
+            }
+
+            h4 {
+                color: white;
+            }
+        }
+
+        .buttonRow {
+            display: flex;
+            justify-content: end;
+            .viewBtn {
+                height: 35px;
+                width: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        
+    }
+}

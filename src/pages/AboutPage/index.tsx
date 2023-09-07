@@ -82,34 +82,7 @@ const SocialSection = ({ socials }: { socials?: Socials }) => {
   )
 
 }
-/*
-const SocialSection = ({ socials }: { socials?: Socials }) => {
-  if (!socials) return <></>;
 
-  return (
-    <>
-      <ColoredLine />
-      {socials.email && (
-        <p>
-          Email: <a href={`mailto:${socials.email}`}>{socials.email}</a>
-        </p>
-      )}
-      {socials.github && <SocialLink title="GitHub" href={socials.github} />}
-      {socials.twitter && <SocialLink title="Twitter" href={socials.twitter} />}
-      {socials.website && <SocialLink title="Website" href={socials.website} />}
-      {socials.instagram && (
-        <SocialLink title="Instagram" href={socials.instagram} />
-      )}
-      {socials.facebook && (
-        <SocialLink title="Facebook" href={socials.facebook} />
-      )}
-      {socials.linkedin && (
-        <SocialLink title="LinkedIn" href={socials.linkedin} />
-      )}
-    </>
-  );
-};
-*/
 
 interface Props {
   card: Person,

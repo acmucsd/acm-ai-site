@@ -1,11 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, ReactNode } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
 import { Layout, Card, Col, Row } from 'antd';
 import DiscordLink from '../../components/DiscordLink';
+import { PastCompCard } from '../../components/PastCompCard';
 const { Content, Footer } = Layout;
 const { Meta } = Card;
+
+const pastCompData = 
+[
+  {
+    name: 'Element.AI',
+    year:2023,
+    description: 'placeholder'
+  },
+  {
+    name: 'NN Modeling',
+    year: 2021,
+    description: 'placeholder'
+  },
+  {
+    name: 'Hide & Seek',
+    year:2020,
+    description: 'placeholder'
+  },
+  {
+    name: 'Energium AI',
+    year:2020,
+    description: 'placeholder'
+  },
+];
+
+
+const renderCards = () => (
+  <>
+    {pastCompData.map((comp) => (
+      <PastCompCard pastComp = {comp} />
+    ))}
+  </>
+);
+
+const CardsRow = ({ children }: { children?: ReactNode }) => (
+  <div className = "cardsBox">
+    {children}
+  </div>
+);
+
 
 function CompetitionsPage(props: any) {
   useEffect(() => {}, []);
@@ -52,8 +93,12 @@ function CompetitionsPage(props: any) {
           <section className = "pastCompetitions">
             <h1 className="title2">Past Competitions</h1>
             <p>Explore the roster of our previous endeavors into various aspects of AI. We encourage you to apply to future competitions! </p>
+            <CardsRow>{renderCards()}</CardsRow>
+
           </section>
           <h3>Element AI</h3>
+
+
 
        
           
