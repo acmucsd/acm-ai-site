@@ -3,7 +3,7 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { ACMEvent, fetchFutureEvents } from '../../actions/events';
 import EventTimeline from '../../components/EventTimeline';
-import { Empty, Row, Col, Layout} from 'antd';
+import { Row, Col, Layout} from 'antd';
 const { Content, Footer } = Layout;
 
 function EventsPage(props: any) {
