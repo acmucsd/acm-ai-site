@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
-import Card from '../../../components/Card';
 import { Form, Input, message, Button, Layout } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { loginUser, getUserFromToken } from '../../../actions/auth';

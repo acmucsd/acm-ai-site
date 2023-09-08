@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
-import Card from '../../../components/Card';
 import { Form, Input, message, Button, Checkbox, Layout } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { registerUser } from '../../../actions/auth';
 import { useHistory, Link } from 'react-router-dom';
-const { Header, Content, Footer } = Layout;
+const { Content } = Layout;
 
 function RegisterPage() {
   const history = useHistory();
