@@ -1,0 +1,67 @@
+@import '../../newStyles/variables.less';
+
+
+
+.CompCard {
+   
+    max-width: 300px;
+    width: calc(100%/3);
+    min-width: 200px;
+    height: 220px;
+
+    @media (max-width: @xs) {
+        width: calc(100%);
+        height: 180px;
+
+    }
+    
+    .compContent{
+        display: flex;
+        flex-direction: column;
+
+        .compHeader {
+            align-items: center;
+
+            .yearWrapper {
+                border-radius: @radius-base4;
+                padding: 0.5rem;
+                margin-right: 1rem;
+                background: white;
+                h43{
+                    color: rgb(141, 141, 141);
+                    font-weight: @semi-bold;
+                }
+                @media (max-width: @xs) {
+                    padding: 1rem;
+                }
+
+            }
+
+            h3 {
+                color: white;
+            }
+        }
+
+        .compDescription {
+            margin-top: 1rem;
+            p {
+                color: white;
+            }
+        }
+
+        .buttonRow {
+            display: flex;
+            justify-content: end;
+            align-self: flex-end;
+            .viewBtn {
+                height: 35px;
+                width: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        
+    }
+}

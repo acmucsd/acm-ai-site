@@ -3,6 +3,13 @@ import axios, { AxiosResponse } from 'axios';
 import { competitionAPI, COOKIE_NAME } from '../configs';
 import { getToken } from '../utils/token';
 
+
+export type PastCompetition = {
+  name: string, 
+  year: number, 
+  description: string
+};
+
 export const uploadSubmission = async (
   file: File | undefined,
   tagsSelected: string[],
@@ -159,3 +166,4 @@ export const getSubmissionReplay = async (competitionid: string, matchId: string
       });
   })
 }
+
