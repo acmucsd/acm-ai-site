@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { PastProjects } from '../../actions/projects';
-import {
-  projects,
-  Project
-} from '../../pages/ProjectsPage/projects'
+import { Project } from '../../pages/ProjectsPage/projects'
 import { GithubOutlined, LinkOutlined} from '@ant-design/icons';
 import { Card } from '../Card';
 import { Tag, Modal} from 'antd';

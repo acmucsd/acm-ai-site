@@ -14,9 +14,8 @@ function CompetitionsPage(props: any) {
       <div className="CompetitionsPage">
 
         <Content className="competitionsHero">
-
             <div className = "headerContent">
-              <h1 className = "title2">Competitions</h1>
+              <h1>Competitions</h1>
               <h4>
                 These are fun competitions (with prizes) where you employ some aspect (or none at all) 
                 of AI to compete. We run standard AI programming competitions as well as Reinforcement Learning (RL) 
