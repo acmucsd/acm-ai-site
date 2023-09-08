@@ -7,19 +7,32 @@
 
     .projectsHero {
         .gradient-hero();
+        .generic-centered-section();
         .headerContent {
-            .generic-centered-section();
-            margin-top: 9.5rem;
+            margin-top: 5rem;
+            margin-bottom: 2rem;
         }
+        
     }
 
     .projectsSection {
         .generic-section();
-        margin: 2rem;
-
         .ant-tag-checkable {
             line-height: 2rem;
         }
+        .projectsFilters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            .selectTags {
+                min-width: 200px;
+                max-width: 600px;
+                margin-right: 0.5rem;
+            }
+            margin-bottom: 2rem;
+        }
+        
     }
 
     .project-image{

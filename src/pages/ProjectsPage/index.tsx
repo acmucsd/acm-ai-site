@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { Col, Layout, Row, Tag } from 'antd';
+import { Row, Col, Layout, Select, Tag } from 'antd';
 import ProjectCard from '../../components/ProjectCard';
 import { projects } from './projects'
 const { Content } = Layout;
+const { Option } = Select;
+
+var ASCIISum = (str : string) => {
+  let sum = 0;
+  for (let i = 0; i < str.length; ++i) {
+    sum += str.charCodeAt(i)
+  }
+  return sum
+}
 
 function ProjectsPage() {
-  const { CheckableTag } = Tag;
+  // filter projects by tag
+  const color_tag : string[] = ['magenta', 'cyan', 'gold', 'blue', 'purple', 'green']
   const[selectedTags, setSelectedTags] = useState<string[]>([]);
+  const handleTagChange = (selectedTagValues: string[]) => {
+    setSelectedTags(selectedTagValues);
+  };
+
   const tagsData : string[] = Array.from(
     new Set(
       projects
@@ -18,10 +32,38 @@ function ProjectsPage() {
     )
   ).sort()
 
-  const filterProject = (tag: string, checked: boolean) =>{
-    setSelectedTags(checked ? [...selectedTags, tag]: selectedTags.filter(t => t !== tag))
-    projects.filter(p => p.tags && p.tags.includes(tag))
+  // sort projects
+  const [sortOption, setSortOption] = useState("Oldest");
+  const handleSortChange = (value: string) => {
+    setSortOption(value);
+  };
+
+  const sortProjects = (option: string) => {
+    let sortedProjects = [...projects];
+    switch (option) {
+      case "az":
+        sortedProjects.sort((a, b) => {
+          if (a.name && b.name) return a.name.localeCompare(b.name);
+          return 0;
+        });
+        break;
+      case "za":
+        sortedProjects.sort((a, b) => {
+          if (a.name && b.name) return b.name.localeCompare(a.name);
+          return 0;
+        });
+        break;
+      case "oldest":
+        break;
+      case "newest":
+      default:
+        sortedProjects.reverse();
+        break;
+    }
+    return sortedProjects;
   }
+
+  const sortedProjects = sortProjects(sortOption)
 
   return (
     <DefaultLayout>
@@ -37,32 +79,39 @@ function ProjectsPage() {
 
 
         <Content className="projectsSection">
-          <h3>Categories:</h3>
-            {tagsData.map(tag => (
-              <CheckableTag
-              key={tag}
-              checked={selectedTags.indexOf(tag) > -1}
-              onChange={checked => {
-                  filterProject(tag, checked)
-              }}
-              >
-              <p>{tag}</p>
-              </CheckableTag>
-            ))}
+          <div className="projectsFilters">
+            <Select
+              className="selectTags"
+              mode="multiple"
+              placeholder="Search tags..."
+              onChange={handleTagChange}
+              value={selectedTags}
+            >
+              {tagsData.map((tag) => {
+                return (
+                  <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+                );
+              })}
+            </Select>
+
+            <Select
+              defaultValue="newest"
+              style={{ width: 150 }}
+              onChange={handleSortChange}
+            >
+              <Option value="newest">Newest</Option>
+              <Option value="oldest">Oldest</Option>
+              <Option value="az">A-Z</Option>
+              <Option value="za">Z-A</Option>
+            </Select>
+          </div>
           <div className="projectsCards">
             <Row gutter={[24, 24]} justify="center">
-              {/* {
-                projects.map((card : Project) => (
-                  <Col>
-                    <ProjectCard project={card} key={card.name}/>
-                  </Col>
-                ))
-              } */}
-              {projects.filter((card) => 
+              {sortedProjects.filter((card) => 
                 selectedTags.length === 0 ? true : card.tags && card.tags.some(v => selectedTags.includes(v))).map((card) => {
                   return (
                     <Col>
-                      <ProjectCard project={card} key={card.name} />
+                      <ProjectCard key={card.name} project={card}  />
                     </Col>
                   );
               })}

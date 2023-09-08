@@ -25,10 +25,6 @@ const ProjectCard = ({ project }: {project: Project}) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  // const modalProps = {
-  //   open: isModalOpen,
-  //   onCancel: handleCancel
-  // }
 
   return (<>
     <div className="ProjectCard" onClick={showModal}>
@@ -44,7 +40,7 @@ const ProjectCard = ({ project }: {project: Project}) => {
         <div className="tags">
           {project.tags!.sort().map((tag)  => {
             return (
-              <Tag color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+              <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
             );
           })}
         </div>        
@@ -54,17 +50,25 @@ const ProjectCard = ({ project }: {project: Project}) => {
     <Modal
       open={isModalOpen}
       onCancel={handleCancel}
-      footer={[<a href={project.github} target="_blank" rel="noopener noreferrer"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>,
-      <a href={project.link} target="_blank" rel="noopener noreferrer"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>]}      >
-        <h3 className="title">{project.name}</h3>
-        <div className="tags">
-          {project.tags!.sort().map((tag)  => {
-            return (
-              <Tag color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
-            );
-          })}
-        </div>
-        <p className="description">{project.description}</p>                      
+      footer={[
+        project.github ? (
+          <a href={project.github} target="_blank" rel="noopener noreferrer"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>
+        ) : null,
+        project.link ? (
+          <a href={project.link} target="_blank" rel="noopener noreferrer"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>
+        ): null,
+      ]}
+        
+    >
+      <h3 className="title">{project.name}</h3>
+      <div className="tags">
+        {project.tags!.sort().map((tag)  => {
+          return (
+            <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+          );
+        })}
+      </div>
+      <p className="description">{project.description}</p>                      
     </Modal>
   </>);
 };
