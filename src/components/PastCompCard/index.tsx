@@ -1,21 +1,20 @@
 import React from 'react';
 import './index.less';
 import { PastCompetition } from "../../actions/competition";
-import {Row, Col, Button} from 'antd';
+import {Row, Col, Button, Card} from 'antd';
 import {BsArrowRight} from 'react-icons/bs';
-import Card from "../Card";
+//import Card from "../Card";
 
 export const PastCompCard = ({ pastComp }: {pastComp: PastCompetition}) => {
     return (
-       
-        <Card className = "Card" bordered = {false} style = {{background: "#3A3A3A", borderRadius: "20px"}}>
-            <Col className = "content" >
-                <Row className = "header">
-                    <div className = "yearWrapper"><h4>{pastComp.year}</h4></div>
-                    <h4>{pastComp.name}</h4>
+        <Card className = "CompCard" bordered = {false} style = {{background: "#3A3A3A", borderRadius: "20px", minHeight: "200px"}}>
+            <Col className = "compContent">
+                <Row className = "compHeader">
+                    <div className = "yearWrapper"><h3>{pastComp.year}</h3></div>
+                    <h3>{pastComp.name}</h3>
                 </Row>
-                <section className = "description">
-                    {pastComp.description}
+                <section className = "compDescription">
+                    <p>{pastComp.description}</p>
                 </section>
 
                 <section className = "buttonRow">
@@ -27,8 +26,6 @@ export const PastCompCard = ({ pastComp }: {pastComp: PastCompetition}) => {
             </Col>
 
         </Card>
-
-
 
     )
 }

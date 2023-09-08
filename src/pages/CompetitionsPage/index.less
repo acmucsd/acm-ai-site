@@ -16,13 +16,6 @@
  
   }
 
-  .cardsBox {
-    margin-top: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-
-  }
   
   .competitionsFooter {
     
@@ -32,7 +25,11 @@
     background-color: #FAFAFA;
 
 
-    .pastCompetitions {     
+    .pastCompetitions { 
+        
+      .constrained-bounds();
+      .generic-section();
+        
       h1 {
         color: @black;
       }
@@ -41,43 +38,18 @@
         max-width: @sm;
         color: @black;
       }
-  
-      .constrained-bounds();
-      .generic-section();
       
+          
+      .cardsBox {
+        margin-top: 4rem;
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 24px;
+        column-gap: 24px;
+      }
 
     }
 
   
-    .pastCompetitionsCard {
-      flex: 1;
-      aspect-ratio: 1/ 1;
-      align-items: center;
-      padding: 5%;
-    }
-
-    @media screen and (max-width: @xs) {
-      padding-left: 32px;
-      padding-right: 32px;
-    }
-
-    h2 {
-      color: @white;
-      margin-top: 4rem;
-    }
-
-    h3 {
-      @color: @white;
-      text-align: center;
-      margin-top: 2rem;
-    }
-
-    h4 {
-      color: @white;
-    }
-
-    p {
-      color: @white;
-    }
   }
 }

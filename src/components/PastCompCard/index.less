@@ -2,42 +2,33 @@
 
 
 
-.Card {
-
-    width: calc(33.33% - 16px);
-    height: 200px;
-    max-width: 320px;
-
-    @media (max-width: @sm) {
-        /* 100% for one column on even smaller screens */
-        width: calc(50% - 16px);
-    }
+.CompCard {
+   
+    max-width: 300px;
+    width: calc(100%/3);
+    min-width: 200px;
+    height: 220px;
 
     @media (max-width: @xs) {
-        /* 100% for one column on even smaller screens */
-        width: 100%;
-    }
-    @media (max-width: @xxs) {
-        /* 100% for one column on even smaller screens */
-        width: 100%;
-    }
+        width: calc(100%);
+        height: 180px;
 
-    .content {
+    }
+    
+    .compContent{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
 
-        .header {
+        .compHeader {
             align-items: center;
 
             .yearWrapper {
-                border-radius: @radius-base2;
+                border-radius: @radius-base4;
                 padding: 0.5rem;
                 margin-right: 1rem;
                 background: white;
-                h4 {
-                    color: @black;
+                h43{
+                    color: rgb(141, 141, 141);
                     font-weight: @semi-bold;
                 }
                 @media (max-width: @xs) {
@@ -46,7 +37,14 @@
 
             }
 
-            h4 {
+            h3 {
+                color: white;
+            }
+        }
+
+        .compDescription {
+            margin-top: 1rem;
+            p {
                 color: white;
             }
         }
@@ -54,6 +52,7 @@
         .buttonRow {
             display: flex;
             justify-content: end;
+            align-self: flex-end;
             .viewBtn {
                 height: 35px;
                 width: 35px;
