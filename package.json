@@ -16,10 +16,12 @@
     "querystring-es3": "^0.2.1",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.6",
+    "react-countup": "^6.4.2",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
     "react-hook-form": "^5.7.2",
     "react-icons": "^4.10.1",
+    "react-intersection-observer": "^9.5.2",
     "react-remark": "^2.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^5.0.0"
@@ -30,8 +32,8 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --write 'src/**/*.ts' 'src/**/*.tsx'"
   },
-  "engines" : { 
-    "npm" : ">=9.8.1 <10.0.0"
+  "engines": {
+    "npm": ">=9.8.1 <10.0.0"
   },
   "eslintConfig": {
     "extends": "react-app"

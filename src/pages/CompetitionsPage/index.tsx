@@ -1,18 +1,54 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { Link } from 'react-router-dom';
-import { Layout, Card, Col, Row } from 'antd';
-import DiscordLink from '../../components/DiscordLink';
-const { Content, Footer } = Layout;
-const { Meta } = Card;
+import Number from "../../components/Statistic";
+import { Layout, Space, Button } from 'antd';
+const { Content} = Layout;
+
+interface CompetitionButtonProps {
+  link1: string | { pathname: string; };
+  link1desc: string;
+  link2: string | { pathname: string; };
+  link2desc: string;
+  link3: string | { pathname: string; };
+  link3desc: string;
+}
+
+function CompetitionButtons({
+  link1, link1desc, link2, link2desc, link3, link3desc 
+  } : CompetitionButtonProps ) {
+  const buttonSize = 'large';
+
+  return (
+    <div>
+      <Space wrap>
+        <Link to={link1}>
+          <Button size={buttonSize} type="primary" danger>{link1desc}</Button>
+        </Link>
+        {link2 && (
+          <Link to={link2} target="_blank">
+            <Button size={buttonSize}>{link2desc}</Button>
+          </Link>
+        )}
+        {link3 && (
+          <Link to={link3} target="_blank">
+            <Button size={buttonSize}>{link3desc}</Button>
+          </Link>
+        )}
+      </Space>
+    </div>
+  );
+}
 
 function CompetitionsPage(props: any) {
   useEffect(() => {}, []);
+
+  const spaceSize = 10
+
   return (
     <DefaultLayout>
       <div className="CompetitionsPage">
-
         <Content className="competitionsHero">
             <div className = "headerContent">
               <h1>Competitions</h1>
@@ -30,84 +66,152 @@ function CompetitionsPage(props: any) {
                 All skill levels are welcome!
               </h4>
             </div>
-            
         </Content>
-        {/* <div className="hero">
-          <p className="subtext">
-            <span>Element.AI competition starts February 18th</span>
-            <br />
-            <div className="button-wrapper">
-              <Link to={{pathname: "https://acmurl.com/ai-competition-rsvp"}} target="_blank">
-                <Button className="registerbtn">RSVP Now</Button>
-              </Link>
-              <Link to="/competitions/Element.AI">
-                <Button className="registerbtn">More Details</Button>
-              </Link>
-            </div>
-          </p>
-        </div> */}
 
-        <Footer className="competitionsFooter">
-          <section className = "pastCompetitions">
-            <h1 className="title2">Past Competitions</h1>
-            <p>Explore the roster of our previous endeavors into various aspects of AI. We encourage you to apply to future competitions! </p>
-          </section>
-          <h3>Element AI</h3>
+        <Content className="competitionsSection">
+          <div className = "pastCompetitions">
+            
+            <Space direction="vertical" size={spaceSize} className="competitionDiv">
+              <h2>Element AI - 2023</h2>
+              <div className="competitionStats">
+                <Number color="#ff4d4f" description="In Prizes" prepend="$" extension="" number={5000} />
+                <Number color="#ff8d8b" description="Signups" prepend="" extension="" number={200} />
+                <Number color="#fe8019" description="Teams" prepend="" extension="+" number={50} />
+              </div>
+              <p>
+                Long ago, there was Sunny G. Using the four elements, he built and shaped the world, 
+                making the story of earth, water, fire, and air an ancient tale that has been told in 
+                many different cultures throughout history. 
+                
+                Now the guardian of UCSD, Sunny G, tired of students not filling out CAPES, has decided 
+                to reward the power of elemental-bending to diligent students who fill out their CAPES. 
+                However, unsure on which element is the strongest, he has put together a competition for 
+                the elements to demonstrate their strength.
+              </p>
 
-       
-          
-{/*           
-          <Row className="pastCompetitions" gutter={16}>
-            <Col span={8}>
-              <Link to={`/old-competitions/nn`}>
-                <Card 
-                  className="pastCompetitionsCard"
-                  hoverable 
-                  bordered={false}
-                >
-                  <h2>2021</h2>
-                  <h3>NN Modeling</h3>
-                </Card>
-              </Link>
-            </Col>
-            <Col span={8}>
-            <Link to={`/old-competitions/nn`}>
-                <Card 
-                  className="pastCompetitionsCard"
-                  hoverable 
-                  bordered={false}
-                >
-                  <p>2021 - NN Modelling</p>
-                </Card>
-              </Link>
-            </Col>
-            <Col span={8}>
-            <Link to={`/old-competitions/nn`}>
-                <Card 
-                  className="pastCompetitionsCard"
-                  hoverable 
-                  bordered={false}
-                >
-                  <p>2021 - NN Modelling</p>
-                </Card>
-              </Link>
-            </Col>
-          </Row>
+              <p>
+                Participants will get 6 hours to code a bot to compete in our multi-agent game environment. 
+                The winners will be decided by playing against other competitors and scoring points.
+                The competition will be structured like ICPC (International Competitive Programming Contest), 
+                meaning there will be no internet access other than access to our competition website to submit code.
+              </p>
 
-          <p>
-            <Link to={`/old-competitions/nn`}>
-              2021 - NN Modelling
-            </Link>
-          </p>
-          <p>
-            <Link to={`/old-competitions/hide-and-seek2020`}>
-              2020 - Hide and Seek
-            </Link>
-          </p>
-          <p>
-            <Link to="/old-competitions/energium/">2020 - Energium AI</Link>
-          </p> */}
-        </Footer>
+              <p>
+                We would like to thank our sponsor, Arjay Waran (RJ), for funding this competition to further AI and 
+                competitive programming.
+              </p>
+
+              <p>
+                This competition has concluded. Congratulations to Team Shubham on their win.
+              </p>
+              
+              <div>
+                <CompetitionButtons
+                  link1="/competitions/Element.AI/leaderboard"
+                  link1desc="Leaderboard"
+                  link2={{ pathname: "https://challonge.com/elementai_2023_finals/standings" }}
+                  link2desc="Top 16"
+                  link3={{ pathname: "https://challonge.com/elementai_2023_firstknockout" }}
+                  link3desc="Knockout Bracket"
+                />
+              </div>
+            </Space>
+
+            <Space direction="vertical" size={spaceSize} className="competitionDiv">
+              <h2>Neural Network Modeling - 2021</h2>
+              <div className="competitionStats">
+                <Number color="#ff4d4f" description="Teams" prepend="" extension="" number={10} />
+                <Number color="#ff8d8b" description="Submissions" prepend="" extension="+" number={500} />
+              </div>
+              <p>
+                Welcome to the Winter 2021 Neural Network Modeling Competition!
+                The objective of this competition is to model a unknown function as accurately as possible! 
+                Submissions are scored by lowest MSE.
+              </p>
+              <p>
+                This competition has concluded. Congratulations to programjames on their win.
+              </p>
+              <div>
+                <CompetitionButtons
+                  link1="/competitions/Element.AI/leaderboard"
+                  link1desc="Leaderboard"
+                  link2={{ pathname: "https://challonge.com/elementai_2023_finals/standings" }}
+                  link2desc="GitHub"
+                  link3=""
+                  link3desc=""
+                />
+              </div>
+            </Space>
+
+            <Space direction="vertical" size={spaceSize} className="competitionDiv">
+              <h2>Energium AI - 2020</h2>
+              <div className="competitionStats">
+                <Number color="#ff4d4f" description="Teams" prepend="" extension="" number={14} />
+                <Number color="#ff8d8b" description="Matches Played" prepend="" extension="+" number={2400} />
+              </div>
+              <p>
+               Upon the dawn of the new millennium, energy has become currency, the most precious resource after majority 
+               of Earth's resources have been mined out. You are an energy corporation with the technology of Collectors, 
+               robots that can mine a energy rich resource known as Energium on the asteroid belts of our solar system. 
+               But time is of the essence, and these robots need an AI to help them run effectively and mine as much 
+               energium possible before time runs out. What makes matters worse is, there's always a rival corporation on 
+               the same asteroid for some reason, trying to mine the resources too! Your goal is to build the best AI agent 
+               to control these collectors and get more energy than your competitors. Also, for some reason in 1000 years, 
+               Javascript, Python, and Java continue to be prevalent languages for AI.
+              </p>
+
+              <p>
+                Welcome to the 2nd ACM AI Competition, completely unique and different from any other competition. 
+                You must use your wits and strategies, along with knowledge of programming, to create an intelligent 
+                bot that beats all of the other competitors.
+              </p>
+
+              <p>
+                This competition has concluded. Congratulations to programjames on their win.
+              </p>
+              <div>
+                <CompetitionButtons
+                  link1="/old-competitions/energium/ranks"
+                  link1desc="Leaderboard"
+                  link2={{ pathname: "https://github.com/acmucsd/energium-ai-2020/" }}
+                  link2desc="GitHub"
+                  link3={{ pathname: "https://acmurl.com/ai-comp-fall2020"}}
+                  link3desc="Winner Interview"
+                />
+              </div>
+            </Space>
+
+            <Space direction="vertical" size={spaceSize} className="competitionDiv">
+              <h2>Hide and Seek - 2020</h2>
+              <div className="competitionStats">
+                <Number color="#ff4d4f" description="Teams" prepend="" extension="" number={15} />
+                <Number color="#ff8d8b" description="Matches Played" prepend="" extension="K+" number={120} />
+              </div>
+              <p>
+                Welcome to ACM AI's first competition, and the first of its kind at UCSD. 
+                You must use your wits and strategies, along with knowledge of programming, 
+                to effectively hide and seek. Your AI must be able to play the Seeker and 
+                the Hider, and must either find and tag all hiders or hide from all seekers. 
+                Are you up for the challenge?
+              </p>
+              <p>
+                The competition has concluded. Congratulations to Joe Cai for winning the 
+                Hide and Seek AI Competition and to Matei Gardus for winning the hacker award 💻
+              </p>
+              <div>
+                <CompetitionButtons
+                  link1="/history/hide-and-seek2020"
+                  link1desc="Leaderboard"
+                  link2={{ pathname: "https://github.com/acmucsd/hide-and-seek-ai"}}
+                  link2desc="GitHub"
+                  link3={{ pathname: "https://medium.com/acmucsd/how-to-hide-from-ai-the-winner-interview-82a59aed5b0b"}}
+                  link3desc="Finals Recording"
+                />
+              </div>
+            </Space>
+          </div>
+
+        </Content>
       </div>
     </DefaultLayout>
   );
