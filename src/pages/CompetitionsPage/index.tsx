@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import React, { useEffect, ReactNode } from 'react';
-import './index.less';
-import DefaultLayout from '../../components/layouts/default';
-import { Link } from 'react-router-dom';
-import { Layout, Card, Col, Row } from 'antd';
-import DiscordLink from '../../components/DiscordLink';
-import { PastCompCard } from '../../components/PastCompCard';
-const { Content, Footer } = Layout;
-const { Meta } = Card;
-=======
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './index.less';
@@ -51,73 +40,6 @@ function CompetitionButtons({
     </div>
   );
 }
->>>>>>> competitions-redesign
-
-const pastCompData = 
-[
-  {
-    name: 'Element.AI',
-    year:2023,
-    description: 'placeholder',
-    route: "/competitions/Element.AI"
-  },
-  {
-    name: 'NN Modeling',
-    year: 2021,
-    description: 'placeholder',
-    route: '/old-competitions/nn'
-  },
-  {
-    name: 'Hide & Seek',
-    year:2020,
-    description: 'placeholder',
-    route: '/old-competitions/hide-and-seek2020'
-  },
-  {
-    name: 'Energium AI',
-    year:2020,
-    description: 'placeholder',
-    route: '/old-competitions/energium/'
-  },
-  {
-    name: 'Energium AI',
-    year:2020,
-    description: 'placeholder',
-    route: ''
-  },
-  {
-    name: 'Energium AI',
-    year:2020,
-    description: 'placeholder',
-    route: ''
-  },
-  {
-    name: 'Energium AI',
-    year:2020,
-    description: 'placeholder',
-    route: ''
-  },
-];
-
-
-const renderCards = () => (
-  <>
-    {pastCompData.map((comp, index) => (
-      <PastCompCard pastComp = {comp} index = {index}/>
-    ))}
-  </>
-);
-
-const CardsRow = ({ children }: { children?: ReactNode }) => (
-  <Row className = "cardsBox"  gutter={[
-    { xs: 16, sm: 16, md: 24, lg: 24 },
-    { xs: 16, sm: 16, md: 24, lg: 24 },
-  ]}>
-    {children}
-  </Row>
- 
-);
-
 
 function CompetitionsPage(props: any) {
   useEffect(() => {}, []);
@@ -128,7 +50,7 @@ function CompetitionsPage(props: any) {
       <div className="CompetitionsPage">
         <Content className="competitionsHero">
             <div className = "headerContent">
-              <h1 className = "title2">Competitions</h1>
+              <h1>Competitions</h1>
               <h4>
                 These are fun competitions (with prizes) where you employ some aspect (or none at all) 
                 of AI to compete. We run standard AI programming competitions as well as Reinforcement Learning (RL) 
@@ -145,58 +67,6 @@ function CompetitionsPage(props: any) {
             </div>
         </Content>
 
-<<<<<<< HEAD
-        <Footer className="competitionsFooter">
-          <section className = "pastCompetitions">
-            <h1 className="title2">Past Competitions</h1>
-            <p>Explore the roster of our previous endeavors into various aspects of AI. We encourage you to apply to future competitions! </p>
-            <CardsRow>{renderCards()}</CardsRow>
-
-          </section>
-          <h3>Element AI</h3>
-
-
-
-       
-          
-{/*           
-          <Row className="pastCompetitions" gutter={16}>
-            <Col span={8}>
-              <Link to={`/old-competitions/nn`}>
-                <Card 
-                  className="pastCompetitionsCard"
-                  hoverable 
-                  bordered={false}
-                >
-                  <h2>2021</h2>
-                  <h3>NN Modeling</h3>
-                </Card>
-              </Link>
-            </Col>
-            <Col span={8}>
-            <Link to={`/old-competitions/nn`}>
-                <Card 
-                  className="pastCompetitionsCard"
-                  hoverable 
-                  bordered={false}
-                >
-                  <p>2021 - NN Modelling</p>
-                </Card>
-              </Link>
-            </Col>
-            <Col span={8}>
-            <Link to={`/old-competitions/nn`}>
-                <Card 
-                  className="pastCompetitionsCard"
-                  hoverable 
-                  bordered={false}
-                >
-                  <p>2021 - NN Modelling</p>
-                </Card>
-              </Link>
-            </Col>
-          </Row>
-=======
         <Content className="competitionsSection">
           <div className = "pastCompetitions">
             
@@ -224,7 +94,6 @@ function CompetitionsPage(props: any) {
                 The competition will be structured like ICPC (International Competitive Programming Contest), 
                 meaning there will be no internet access other than access to our competition website to submit code.
               </p>
->>>>>>> competitions-redesign
 
               <p>
                 We would like to thank our sponsor, Arjay Waran (RJ), for funding this competition to further AI and 
