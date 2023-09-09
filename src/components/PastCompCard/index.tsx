@@ -1,31 +1,50 @@
 import React from 'react';
 import './index.less';
 import { PastCompetition } from "../../actions/competition";
-import {Row, Col, Button, Card} from 'antd';
-import {BsArrowRight} from 'react-icons/bs';
+import { Row, Col, Button, Card } from 'antd';
+import { BsArrowRight } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+
 //import Card from "../Card";
 
-export const PastCompCard = ({ pastComp }: {pastComp: PastCompetition}) => {
+
+// pastComp is a data type that holds basic info about an older competition
+// index is the current index of the compeition in a list used for mapping its position to a color
+export const PastCompCard = ({ pastComp, index }: { pastComp: PastCompetition, index: number }) => {
+    const headerColors = ['#F87357', '#F88648', '#D6BABA', '#FFA826', '#DF8A85', '#93B4DA'];
+
     return (
-        <Card className = "CompCard" bordered = {false} style = {{background: "#3A3A3A", borderRadius: "20px", minHeight: "200px"}}>
-            <Col className = "compContent">
-                <Row className = "compHeader">
-                    <div className = "yearWrapper"><h3>{pastComp.year}</h3></div>
-                    <h3>{pastComp.name}</h3>
-                </Row>
-                <section className = "compDescription">
-                    <p>{pastComp.description}</p>
-                </section>
+        <Col xs={24} sm={12} xl={8} xxl={8}>
+            <Card
+            hoverable = {true}
+                title={
+                    <Col className="compHeader">
+                        <Row className = "compRow">
+                            <div className="yearWrapper"><h4>{pastComp.year}</h4></div>
+                            <Link to = {pastComp.route}>
+                                <Button shape="circle" className="viewBtn">
+                                    <BsArrowRight size={20} />
+                                </Button>
+                            </Link>
+                        </Row>
+        
+                        <h3>{pastComp.name}</h3>
+                    </Col>
+                }
+                className="CompCard"
+                bordered={false}
+                style={{ borderRadius: "20px", minHeight: "200px" }}
+                headStyle={{ background: headerColors[index % headerColors.length], borderRadius: "20px 20px 0 0" }}
 
-                <section className = "buttonRow">
-                    <Button shape="circle" className = "viewBtn">
-                        <BsArrowRight size = {20}/>
-                    </Button>
-                </section>
-                
-            </Col>
+            >
 
-        </Card>
+                    <section className="compDescription">
+                        <p>{pastComp.description}</p>
+                    </section>
+
+            </Card>
+        </Col>
+
 
     )
 }

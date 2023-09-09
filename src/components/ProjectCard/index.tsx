@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Project } from '../../pages/ProjectsPage/projects'
 import { GithubOutlined, LinkOutlined} from '@ant-design/icons';
 import { Card } from '../Card';
-import { Tag, Modal} from 'antd';
+import { Tag, Modal, Layout, Col } from 'antd';
 import './index.less';
 
 var ASCIISum = (str : string) => {
@@ -26,26 +26,29 @@ const ProjectCard = ({ project }: {project: Project}) => {
     setIsModalOpen(false);
   };
 
-  return (<>
-    <div className="ProjectCard" onClick={showModal}>
+  return (
+  <>
+    <Col xs={24} sm={12} xl={12} xxl={12}>
       <Card
-        hoverable={true}
+        onClick={showModal}
+        className="ProjectCard" 
+        hoverable = {true}
         cover={
           <img
             src={project.cover} alt="Project cover" 
           />
         }
       >
-        <h3 className="title">{project.name}</h3>
+        <h4 className = "title">{project.name}</h4>
         <div className="tags">
           {project.tags!.sort().map((tag)  => {
             return (
-              <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+              <Tag bordered={false} key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
             );
           })}
         </div>        
       </Card>
-    </div>
+    </Col>
     
     <Modal
       open={isModalOpen}
@@ -64,7 +67,7 @@ const ProjectCard = ({ project }: {project: Project}) => {
       <div className="tags">
         {project.tags!.sort().map((tag)  => {
           return (
-            <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+            <Tag key={tag} bordered={false} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
           );
         })}
       </div>

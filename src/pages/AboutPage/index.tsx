@@ -96,7 +96,7 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
 
     <Col xs={24} sm={12} xl={12} xxl={12}>
       <Card
-        className="Card"
+        className="AboutCard"
         cover={!card.picture ? <Skeleton.Image className="image" active={false} /> : <img className="image" src={card.picture} alt="cover image" />}
       >
         <Row className="cardPreviewContent">
@@ -252,6 +252,8 @@ function AboutPage() {
             </Col>
           </div>
         </Drawer>}
+
+
 
       <div className="AboutPage">
 

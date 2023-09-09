@@ -13,38 +13,64 @@ const pastCompData =
   {
     name: 'Element.AI',
     year:2023,
-    description: 'placeholder'
+    description: 'placeholder',
+    route: "/competitions/Element.AI"
   },
   {
     name: 'NN Modeling',
     year: 2021,
-    description: 'placeholder'
+    description: 'placeholder',
+    route: '/old-competitions/nn'
   },
   {
     name: 'Hide & Seek',
     year:2020,
-    description: 'placeholder'
+    description: 'placeholder',
+    route: '/old-competitions/hide-and-seek2020'
   },
   {
     name: 'Energium AI',
     year:2020,
-    description: 'placeholder'
+    description: 'placeholder',
+    route: '/old-competitions/energium/'
+  },
+  {
+    name: 'Energium AI',
+    year:2020,
+    description: 'placeholder',
+    route: ''
+  },
+  {
+    name: 'Energium AI',
+    year:2020,
+    description: 'placeholder',
+    route: ''
+  },
+  {
+    name: 'Energium AI',
+    year:2020,
+    description: 'placeholder',
+    route: ''
   },
 ];
 
 
 const renderCards = () => (
   <>
-    {pastCompData.map((comp) => (
-      <PastCompCard pastComp = {comp} />
+    {pastCompData.map((comp, index) => (
+      <PastCompCard pastComp = {comp} index = {index}/>
     ))}
   </>
 );
 
 const CardsRow = ({ children }: { children?: ReactNode }) => (
-  <div className = "cardsBox">
+  <Row className = "cardsBox"  gutter={[
+    { xs: 16, sm: 16, md: 24, lg: 24 },
+    { xs: 16, sm: 16, md: 24, lg: 24 },
+  ]}>
     {children}
-  </div>
+  </Row>
+ 
 );
 
 
@@ -56,7 +82,7 @@ function CompetitionsPage(props: any) {
 
         <Content className="competitionsHero">
             <div className = "headerContent">
-              <h1>Competitions</h1>
+              <h1 className = "title2">Competitions</h1>
               <h4>
                 These are fun competitions (with prizes) where you employ some aspect (or none at all) 
                 of AI to compete. We run standard AI programming competitions as well as Reinforcement Learning (RL) 

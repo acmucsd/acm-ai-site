@@ -7,7 +7,7 @@ import { projects } from './projects'
 const { Content } = Layout;
 const { Option } = Select;
 
-var ASCIISum = (str : string) => {
+var ASCIISum = (str: string) => {
   let sum = 0;
   for (let i = 0; i < str.length; ++i) {
     sum += str.charCodeAt(i)
@@ -17,18 +17,18 @@ var ASCIISum = (str : string) => {
 
 function ProjectsPage() {
   // filter projects by tag
-  const color_tag : string[] = ['magenta', 'cyan', 'gold', 'blue', 'purple', 'green']
-  const[selectedTags, setSelectedTags] = useState<string[]>([]);
+  const color_tag: string[] = ['magenta', 'cyan', 'gold', 'blue', 'purple', 'green']
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const handleTagChange = (selectedTagValues: string[]) => {
     setSelectedTags(selectedTagValues);
   };
 
-  const tagsData : string[] = Array.from(
+  const tagsData: string[] = Array.from(
     new Set(
       projects
-      .map((entry) => entry.tags || [])
-      .flat()
-      .filter((tag) => typeof tag === 'string')
+        .map((entry) => entry.tags || [])
+        .flat()
+        .filter((tag) => typeof tag === 'string')
     )
   ).sort()
 
@@ -70,7 +70,7 @@ function ProjectsPage() {
       <div className="ProjectsPage">
         <Content className="projectsHero">
           <div className="headerContent">
-            <h1>ACM AI Projects</h1>
+            <h1 className="title2">ACM AI Projects</h1>
             <h4>
               Interested in getting hands-on experience with AI? Join our quarterly ACM AI project teams.
             </h4>
@@ -79,6 +79,7 @@ function ProjectsPage() {
 
 
         <Content className="projectsSection">
+
           <div className="projectsFilters">
             <Select
               className="selectTags"
@@ -106,15 +107,18 @@ function ProjectsPage() {
             </Select>
           </div>
           <div className="projectsCards">
-            <Row gutter={[24, 24]} justify="center">
-              {sortedProjects.filter((card) => 
+            <Row gutter={[
+              { xs: 16, sm: 16, md: 24, lg: 24 },
+              { xs: 16, sm: 16, md: 24, lg: 24 },
+            ]} >
+              {sortedProjects.filter((card) =>
                 selectedTags.length === 0 ? true : card.tags && card.tags.some(v => selectedTags.includes(v))).map((card) => {
                   return (
-                    <Col>
-                      <ProjectCard key={card.name} project={card}  />
-                    </Col>
+                    
+                      <ProjectCard key={card.name} project={card} />
+          
                   );
-              })}
+                })}
             </Row>
           </div>
 

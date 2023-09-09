@@ -7,7 +7,8 @@ import { getToken } from '../utils/token';
 export type PastCompetition = {
   name: string, 
   year: number, 
-  description: string
+  description: string,
+  route: string
 };
 
 export const uploadSubmission = async (

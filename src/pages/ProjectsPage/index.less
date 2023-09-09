@@ -4,19 +4,19 @@
 
 .ProjectsPage {
     .noContainer();
+    background: #FAFAFA;
 
     .projectsHero {
         .gradient-hero();
-        .generic-centered-section();
         .headerContent {
-            margin-top: 5rem;
-            margin-bottom: 2rem;
+        .generic-centered-section();
+        margin-top: 9.5rem;
         }
-        
     }
 
     .projectsSection {
-        .generic-section();
+        padding: 4rem 0;    
+
         .ant-tag-checkable {
             line-height: 2rem;
         }
@@ -32,7 +32,12 @@
             }
             margin-bottom: 2rem;
         }
-        
+
+        .projectsCards {
+            .constrained-bounds();
+            .center-both-ways();
+
+        }
     }
 
     .project-image{
