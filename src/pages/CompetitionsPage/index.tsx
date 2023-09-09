@@ -40,48 +40,9 @@ function CompetitionButtons({
     </div>
   );
 }
-import Number from "../../components/Statistic";
-import { Layout, Space, Button } from 'antd';
-const { Content} = Layout;
-
-interface CompetitionButtonProps {
-  link1: string | { pathname: string; };
-  link1desc: string;
-  link2: string | { pathname: string; };
-  link2desc: string;
-  link3: string | { pathname: string; };
-  link3desc: string;
-}
-
-function CompetitionButtons({
-  link1, link1desc, link2, link2desc, link3, link3desc 
-  } : CompetitionButtonProps ) {
-  const buttonSize = 'large';
-
-  return (
-    <div>
-      <Space wrap>
-        <Link to={link1}>
-          <Button size={buttonSize} type="primary" danger>{link1desc}</Button>
-        </Link>
-        {link2 && (
-          <Link to={link2} target="_blank">
-            <Button size={buttonSize}>{link2desc}</Button>
-          </Link>
-        )}
-        {link3 && (
-          <Link to={link3} target="_blank">
-            <Button size={buttonSize}>{link3desc}</Button>
-          </Link>
-        )}
-      </Space>
-    </div>
-  );
-}
 
 function CompetitionsPage(props: any) {
   useEffect(() => {}, []);
-
   const spaceSize = 10
 
   return (
@@ -98,7 +59,7 @@ function CompetitionsPage(props: any) {
                   href="https://gym.openai.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                >e
+                >
                   Open AI Gym.{' '} 
                 </a>
                 All skill levels are welcome!
