@@ -1,29 +1,84 @@
 @import '../../newStyles/text.less';
 @import '../../newStyles/components.less';
 @import '../../newStyles/index.less';
-
+@import '../../newStyles/variables.less';
 
 
   .ProjectCard {
 
     // override default height
-    height: 350px !important;
-    
+    //height: 250px !important;
+
     @media screen and (max-width: @md) {
       height: 100% !important/* Adjusted width for smaller screens */
     }
+
     .title {
       font-weight: @semi-bold;
-      overflow-x: hidden;
     }
+
+    .descriptionBox {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-radius: 10px;
+      margin-top: 1rem;
+      height: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      p {
+        margin: 0;
+        font-size: @font2;
+        white-space: normal;
+      }
+
+      .iconsBox {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+
+        #view {
+          background: @black;
+          p {
+            color: white;
+          }
+        }
+
+
+        .icon, a{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-right: 1rem;
+        
+          padding: 0.5rem 1rem;
+          border-radius: @radius-base2;
+          
+          :hover {
+            cursor: pointer;
+          }
+          p {
+            font-size: 14px;
+            padding-left: 5px;
+            color: rgb(84, 84, 84);
+
+          }
+       
+        }
+      
+    }
+    }
+
+
     .tags {
       display: flex;
       text-align: center;
       justify-content:initial;
       flex-grow: 1;
       flex-wrap: wrap;
-      max-height: 50px;
       overflow-y: hidden;
+      margin-bottom: 0.5rem;
     }
     .ant-tag {
       margin: 3px;
@@ -34,11 +89,8 @@
     img {
       object-fit: cover;
       height: 200px;
+      margin-bottom: 0.5rem;
     }
-    overflow-y: hidden;
-    overflow-x: hidden;
-    height: 400px;
-    border-radius: 1.5rem;
   }
 
 .ant-modal-content {

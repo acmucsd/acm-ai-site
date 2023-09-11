@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Project } from '../../pages/ProjectsPage/projects'
 import { GithubOutlined, LinkOutlined} from '@ant-design/icons';
 import { Card } from '../Card';
-import { Tag, Modal, Layout, Col } from 'antd';
+import { Tag, Modal, Divider} from 'antd';
+import { AiOutlineInfoCircle, AiOutlineLink } from 'react-icons/ai';
 import './index.less';
 
 var ASCIISum = (str : string) => {
@@ -15,7 +16,9 @@ var ASCIISum = (str : string) => {
 
 const ProjectCard = ({ project }: {project: Project}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const color_tag : string[] = ['magenta', 'cyan', 'gold', 'blue', 'purple', 'green']
+  const color_tag : string[] =  ["red", "blue", "gold", "purple", "green"];
+  //['magenta', 'cyan', 'gold', 'blue', 'purple', 'green'];
+  //['#DCB9B9', '#8FA5BE', '#E1B053', '#6D6864', '#8E799F', '#889F79']
   
   // Modal props
   const showModal = () => {
@@ -28,27 +31,48 @@ const ProjectCard = ({ project }: {project: Project}) => {
 
   return (
   <>
-    <Col xs={24} sm={12} xl={12} xxl={12}>
       <Card
-        onClick={showModal}
         className="ProjectCard" 
-        hoverable = {true}
-        cover={
-          <img
-            src={project.cover} alt="Project cover" 
-          />
-        }
+        hoverable = {false}
       >
-        <h4 className = "title">{project.name}</h4>
         <div className="tags">
           {project.tags!.sort().map((tag)  => {
             return (
-              <Tag bordered={false} key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+              <Tag bordered={false} key={tag} color={"#F6F6F6"} style={{color: "black", borderRadius:"10px"}}>{tag}</Tag>
             );
           })}
-        </div>        
+        </div>  
+        <img
+           src={project.cover} alt="Project cover" 
+          style={{borderRadius:"100px", height:"50px", width: "50px", boxShadow:"0px 3px 5px 1px rgba(189, 189, 189, 0.5)"}}
+        />
+        <h4 className = "title">{project.name}</h4>
+        <h5>{project.quarter}</h5>
+        <Divider/>
+
+        <div className = "descriptionBox">
+
+          <div className = "iconsBox">
+
+            <div className = "icon" id = "view" onClick = {showModal}>
+              <AiOutlineInfoCircle size = {25} style = {{color:"white"}}/>
+              <p>view</p>
+            </div>
+
+            <div className = "icon" id= "link">
+              <a href ={project.github}>
+              <AiOutlineLink size = {25} style = {{color:"rgb(84, 84, 84)"}} />
+              <p>github</p>
+                
+              </a>
+            
+            </div>
+
+          </div>
+
+        </div>
+      
       </Card>
-    </Col>
     
     <Modal
       open={isModalOpen}

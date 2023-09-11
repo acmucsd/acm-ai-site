@@ -21,7 +21,6 @@
     "react-ga": "^2.7.0",
     "react-hook-form": "^5.7.2",
     "react-icons": "^4.10.1",
-    "react-intersection-observer": "^9.5.2",
     "react-remark": "^2.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^5.0.0"
@@ -67,6 +66,7 @@
     "less-loader": "^11.0.0",
     "mini-css-extract-plugin": "^2.7.6",
     "react-app-rewired": "^2.2.1",
+    "react-intersection-observer": "^9.5.2",
     "serve": "^14.2.0",
     "style-loader": "^3.3.3",
     "typescript": "^4.9.5"

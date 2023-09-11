@@ -67,15 +67,17 @@ h3 {
   
 }
 
+// h4 and p are very similar in size
 h4 {
-  font-size:@font3;
-  line-height: @font4;
+  // font-size:@font3;
+  // line-height: @font4;
   font-weight: @regular;
+  font-size: 20px;
+  line-height: 24px;
   @media only screen and (max-width: @xs) {
-    font-size:@font3;
-    line-height: @font4;
+    font-size: 14px;
+    line-height: 18px;
   }
-  
 }
 h5 {
   font-size: @font2;
@@ -84,7 +86,11 @@ h5 {
 }
 p {
   font-weight: 400;
-  font-size: @font3;
+  font-size: 18px;
+  @media only screen and (max-width: @xs) {
+    font-size: 14px;
+    line-height: 18px;
+  }
 }
 
 a:hover {

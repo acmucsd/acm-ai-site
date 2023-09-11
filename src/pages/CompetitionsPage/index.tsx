@@ -24,16 +24,16 @@ function CompetitionButtons({
     <div>
       <Space wrap>
         <Link to={link1}>
-          <Button size={buttonSize} type="primary" danger>{link1desc}</Button>
+          <Button className = "compButtonPrimary"size={buttonSize} type="primary" danger><p>{link1desc}</p></Button>
         </Link>
         {link2 && (
           <Link to={link2} target="_blank">
-            <Button size={buttonSize}>{link2desc}</Button>
+            <Button className = "compButtonSecondary" size={buttonSize}><p>{link2desc}</p></Button>
           </Link>
         )}
         {link3 && (
           <Link to={link3} target="_blank">
-            <Button size={buttonSize}>{link3desc}</Button>
+            <Button className = "compButtonSecondary" size={buttonSize}><p>{link3desc}</p></Button>
           </Link>
         )}
       </Space>
@@ -50,7 +50,7 @@ function CompetitionsPage(props: any) {
       <div className="CompetitionsPage">
         <Content className="competitionsHero">
             <div className = "headerContent">
-              <h1>Competitions</h1>
+              <h1 className = "title2">Competitions</h1>
               <h4>
                 These are fun competitions (with prizes) where you employ some aspect (or none at all) 
                 of AI to compete. We run standard AI programming competitions as well as Reinforcement Learning (RL) 
@@ -67,11 +67,19 @@ function CompetitionsPage(props: any) {
             </div>
         </Content>
 
+        <Content className = "pastCompetitionsHeader">
+          <h1 className = "title2">Looking Back</h1>
+          <h4>Explore our previous endeavors into AI over the years. 
+              Each one showcases the hard work and accomplishments of our participants. 
+          </h4>
+
+        </Content>
+
         <Content className="competitionsSection">
           <div className = "pastCompetitions">
             
             <Space direction="vertical" size={spaceSize} className="competitionDiv">
-              <h2>Element AI - 2023</h2>
+              <h3>Element.AI - 2023</h3>
               <div className="competitionStats">
                 <Number color="#ff4d4f" description="In Prizes" prepend="$" extension="" number={5000} />
                 <Number color="#ff8d8b" description="Signups" prepend="" extension="" number={200} />
@@ -86,13 +94,6 @@ function CompetitionsPage(props: any) {
                 to reward the power of elemental-bending to diligent students who fill out their CAPES. 
                 However, unsure on which element is the strongest, he has put together a competition for 
                 the elements to demonstrate their strength.
-              </p>
-
-              <p>
-                Participants will get 6 hours to code a bot to compete in our multi-agent game environment. 
-                The winners will be decided by playing against other competitors and scoring points.
-                The competition will be structured like ICPC (International Competitive Programming Contest), 
-                meaning there will be no internet access other than access to our competition website to submit code.
               </p>
 
               <p>
@@ -117,8 +118,9 @@ function CompetitionsPage(props: any) {
             </Space>
 
             <Space direction="vertical" size={spaceSize} className="competitionDiv">
-              <h2>Neural Network Modeling - 2021</h2>
+              <h3>Neural Network Modeling - 2021</h3>
               <div className="competitionStats">
+                
                 <Number color="#ff4d4f" description="Teams" prepend="" extension="" number={10} />
                 <Number color="#ff8d8b" description="Submissions" prepend="" extension="+" number={500} />
               </div>
@@ -143,7 +145,7 @@ function CompetitionsPage(props: any) {
             </Space>
 
             <Space direction="vertical" size={spaceSize} className="competitionDiv">
-              <h2>Energium AI - 2020</h2>
+              <h3>Energium AI - 2020</h3>
               <div className="competitionStats">
                 <Number color="#ff4d4f" description="Teams" prepend="" extension="" number={14} />
                 <Number color="#ff8d8b" description="Matches Played" prepend="" extension="+" number={2400} />
@@ -181,7 +183,7 @@ function CompetitionsPage(props: any) {
             </Space>
 
             <Space direction="vertical" size={spaceSize} className="competitionDiv">
-              <h2>Hide and Seek - 2020</h2>
+              <h3>Hide and Seek - 2020</h3>
               <div className="competitionStats">
                 <Number color="#ff4d4f" description="Teams" prepend="" extension="" number={15} />
                 <Number color="#ff8d8b" description="Matches Played" prepend="" extension="K+" number={120} />

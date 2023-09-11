@@ -110,15 +110,23 @@ function ProjectsPage() {
             <Row gutter={[
               { xs: 16, sm: 16, md: 24, lg: 24 },
               { xs: 16, sm: 16, md: 24, lg: 24 },
-            ]} >
-              {sortedProjects.filter((card) =>
-                selectedTags.length === 0 ? true : card.tags && card.tags.some(v => selectedTags.includes(v))).map((card) => {
-                  return (
-                    
-                      <ProjectCard key={card.name} project={card} />
-          
-                  );
-                })}
+            ]} justify="center">
+              {sortedProjects.length > 0 && sortedProjects.length ==  1 ? (
+                <ProjectCard key={sortedProjects[0].name} project={sortedProjects[0]} />
+
+              ):
+                sortedProjects.filter((card) =>
+                  selectedTags.length === 0 ? true : card.tags && card.tags.some(v => selectedTags.includes(v))).map((card) => {
+      
+                    return (
+                        <Col xs={24} sm={12} xl={12} xxl={12}>
+                          <ProjectCard key={card.name} project={card} />
+                        </Col>
+                    );
+                  })
+              }
+
+
             </Row>
           </div>
 

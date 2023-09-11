@@ -1,20 +1,25 @@
+@import '../../newStyles/variables.less';
 .number {
-  border-left: 8px solid;
+  //border-left: 8px solid;
+  border: none;
   display: inline-block;
-  padding: 0 20px;
-  width: 250px;
+  width: 150px;
+  @media only screen and (max-width: @xs) {
+    width: 100px;
+  }
 
   .count {
     display: block;
-    font-size: 50px;
-    line-height: 64.5px;
-    font-weight: 700;
+    font-size: @font4;
+    line-height: @font4;
+    font-weight: @semi-bold;
   }
 
   .description {
     display: block;
-    font-size: 25p;
-    font-weight: 700;
+    font-size: @font2;
+    font-weight: @regular;
     line-height: 32.25px;
+    color: rgb(155, 155, 155);
   }
 }

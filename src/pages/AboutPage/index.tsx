@@ -66,16 +66,17 @@ const SocialSection = ({ socials }: { socials?: Socials }) => {
         </p>
       )}
 
-      {socials.website && <section><div><AiFillHome size = {25}/></div><a href = {socials.website}><p>Website</p></a></section>}
-      {socials.twitter && <section><div><FaTwitterSquare size = {25}/></div><a href = {socials.twitter}><p>Twitter</p></a></section>}
+      {socials.github && <section><div><FaGithubSquare size = {28}/></div><a href = {socials.github}><p>Github</p></a></section>}
+      {socials.website && <section><div><AiFillHome size = {28}/></div><a href = {socials.website}><p>Website</p></a></section>}
+      {socials.twitter && <section><div><FaTwitterSquare size = {28}/></div><a href = {socials.twitter}><p>Twitter</p></a></section>}
       {socials.instagram && (
-        <section><div><BiLogoInstagram size = {25}/></div><a href = {socials.instagram}><p>Instagram</p></a></section>
+        <section><div><BiLogoInstagram size = {28}/></div><a href = {socials.instagram}><p>Instagram</p></a></section>
       )}
       {socials.facebook && (
-        <section><div><FaFacebookSquare size = {25}/></div><a href = {socials.facebook}><p>Facebook</p></a></section>
+        <section><div><FaFacebookSquare size = {28}/></div><a href = {socials.facebook}><p>Facebook</p></a></section>
       )}
       {socials.linkedin && (
-        <section><div><FaLinkedin size = {25}/></div><a href = {socials.linkedin}><p>Linked In</p></a></section>
+        <section><div><FaLinkedin size = {28}/></div><a href = {socials.linkedin}><p>Linked In</p></a></section>
       )}
       </Row>
     </div>
@@ -239,7 +240,7 @@ function AboutPage() {
                 />
                 <Col className="titleBox">
                   <Tag bordered={false} color={"error"}>{selectedPerson!!.role}</Tag>
-                  <h3>{selectedPerson!!.name}</h3>
+                  <h4>{selectedPerson!!.name}</h4>
                   <p>{`${selectedPerson!!.year} ${selectedPerson!!.major} major`}</p>
                 </Col>
               </Row>
