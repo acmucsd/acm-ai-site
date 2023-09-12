@@ -54,7 +54,7 @@ function EventsPage(props: any) {
 
   return (
     <DefaultLayout>
-      <div className="Events">
+      <div className="EventsPage">
         <Content>
           <div className="eventsTopBar">
           </div>
@@ -65,15 +65,15 @@ function EventsPage(props: any) {
           <h4>ACM AI offers a breadth of socials and workshops to help keep our members engaged. We try our best ot make them as fun and exciting for everyone! </h4>
         </Content>
 
-        <div className="eventsContent">
-          <Tabs
+        <Content className="eventsContent">
+         <Tabs
+            size = "small"
             animated={true}
             onTabClick={(key) => setSelectedEventKey(key)}
-            style = {{width: "100%"}}
             tabPosition="top"
             items={[{ label: <p>Upcoming Events</p>, key: "1", children: newEvents({eventData})}, { label: <p>Past Events</p>, key: "2", children: pastEvents({eventData})}]}
-          ></Tabs>
-        </div>
+          ></Tabs> 
+        </Content>
 
 
 

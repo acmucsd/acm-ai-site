@@ -140,7 +140,7 @@ function MainPage() {
               </div>
               <h3>Projects</h3>
               <h4>Explore our club's cutting-edge AI projects, showcasing innovation and expertise in artificial intelligence.</h4>
-              <Link to={`/competitions`} rel="noopener noreferrer">
+              <Link to={`/projects`} rel="noopener noreferrer">
                 <p style = {{marginTop:"1rem", marginBottom: "1rem"}}>{`learn more >`}</p>
               </Link>
             </Card>

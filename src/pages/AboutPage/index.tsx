@@ -152,7 +152,7 @@ const Section = ({
   onSelectPerson: (person: Person) => void;
   showDrawer: () => void;
 }) => (
-  <div className="teamSection">
+  <Content className="teamSection">
 
     <div className="banner">
       <div className="iconWrapper">
@@ -169,7 +169,7 @@ const Section = ({
 
     <br />
     <CardsRow>{renderCards(people, onSelectPerson, showDrawer)}</CardsRow>
-  </div>
+  </Content>
 );
 
 const items = [
