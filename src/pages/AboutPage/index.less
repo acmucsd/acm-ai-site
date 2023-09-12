@@ -138,6 +138,7 @@
   .segmentedBox,
   .filterButton {
     margin-top: 2rem;
+    z-index: 0;
   }
 
 
@@ -155,41 +156,44 @@
   .gallery {
     background: #FAFAFA;
 
-    .teamSection {
-      .generic-section();
-      .constrained-bounds();
+    .banner {
+      margin-top: 4rem;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #f5621e;
+      padding: 2rem 2rem 3rem 2rem;
 
-      .banner {
-        margin-bottom: 2rem;
-        text-align: start;
+
+
+      .iconWrapper {
+        background: white;
+        height: 50px;
+        width: 50px;
         display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
+        justify-content: center;
         align-items: center;
-
-
-        .iconWrapper {
-          background: white;
-          height: 50px;
-          width: 50px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 14px;
-          margin: 1rem 1rem 1rem 0;
-
-        }
-
-        .statement {
-          font-weight: @semi-bold;
-          text-align: left;
-          color: @black;
-          margin: 1rem 1rem 1rem 0;
-
-        }
+        border-radius: 14px;
+        margin: 1rem 1rem 1rem 0;
 
       }
 
+      .statement {
+        font-weight: @semi-bold;
+        max-width: 400px;
+        text-align: center;
+        color: white;
+        margin: 1rem 1rem 1rem 0;
+
+      }
+
+    }
+    .teamSection {
+      .generic-section();
+      .constrained-bounds();
     }
 
     .AboutCard {

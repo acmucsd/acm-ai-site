@@ -152,8 +152,8 @@ const Section = ({
   onSelectPerson: (person: Person) => void;
   showDrawer: () => void;
 }) => (
-  <Content className="teamSection">
 
+  <Content>
     <div className="banner">
       <div className="iconWrapper">
         {team == "directors" && <HiOutlineBriefcase size={25} color={"#f5621e"} />}
@@ -166,9 +166,10 @@ const Section = ({
 
     </div>
 
-
     <br />
-    <CardsRow>{renderCards(people, onSelectPerson, showDrawer)}</CardsRow>
+    <Content className="teamSection">
+      <CardsRow>{renderCards(people, onSelectPerson, showDrawer)}</CardsRow>
+    </Content>
   </Content>
 );
 
@@ -268,10 +269,10 @@ function AboutPage() {
           <h1 className="title2">Our Team</h1>
           <h4>Work isn’t always easy, so in order to make sure everything runs smoothly, we rely on a passionate group of individuals who bring their unique talents to the table.  From content creators, social leads, to coding and more everyone is an integral part of ou mission to make AI accessible and fun!</h4>
 
-          {size.width!! < 600 ?
+{/*           {size.width!! < 600 ?
 
             (
-              <Dropdown className="filterButton" menu={{ items, onClick }}>
+              <Dropdown trigger={['click']} className="filterButton" menu={{ items, onClick }}>
                 <Button>Filter By Category</Button>
               </Dropdown>
             )
@@ -286,12 +287,11 @@ function AboutPage() {
               />
             )
 
-          }
+          } */}
         </Content>
 
 
         <Content className="gallery">
-          {selectedSection == "Executives" &&
             <Section
               people={directors}
               team="directors"
@@ -299,9 +299,8 @@ function AboutPage() {
               onSelectPerson={(person: Person) => setSelectedPerson(person)}
               showDrawer={() => setIsDrawerVisible(true)}
             />
-          }
+          
 
-          {selectedSection == "Event Leads" &&
             <Section
               people={operations}
               team="operations"
@@ -309,9 +308,8 @@ function AboutPage() {
               onSelectPerson={(person: Person) => setSelectedPerson(person)}
               showDrawer={() => setIsDrawerVisible(true)}
             />
-          }
+          
 
-          {selectedSection == "Socials" &&
             <Section
               people={socials}
               team="socials"
@@ -319,9 +317,8 @@ function AboutPage() {
               onSelectPerson={(person: Person) => setSelectedPerson(person)}
               showDrawer={() => setIsDrawerVisible(true)}
             />
-          }
+          
 
-          {selectedSection == "Marketing" &&
             <Section
               people={external}
               team="marketing"
@@ -329,9 +326,8 @@ function AboutPage() {
               onSelectPerson={(person: Person) => setSelectedPerson(person)}
               showDrawer={() => setIsDrawerVisible(true)}
             />
-          }
+          
 
-          {selectedSection == "Developers" &&
             <Section
               people={dev}
               team="developers"
@@ -339,7 +335,7 @@ function AboutPage() {
               onSelectPerson={(person: Person) => setSelectedPerson(person)}
               showDrawer={() => setIsDrawerVisible(true)}
             />
-          }
+          
         </Content>
 
         <Footer className="aboutFooter">
