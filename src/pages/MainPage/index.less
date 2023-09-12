@@ -152,11 +152,14 @@
     
 
       // a card that holds basic info
-      .card {
-        background-color: @gray;
-        height: 250px;
+      .projectPreviewCard {
+        background-color: @black;
+        max-height: 300px;
         width: calc(50% - 8px);
         max-width: 460px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         font-size: @font3;
         border-radius: @radius-base4;
@@ -164,6 +167,26 @@
         @media screen and (max-width: @xs) {
           width: 100%; /* Adjusted width for smaller screens */
           margin-bottom: 16px;
+        }
+
+        .previewIcon {
+          background: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 8px;
+          width: 45px;
+          height: 45px; 
+        }
+
+    
+        h3 {
+          color: white;
+          font-weight: @semi-bold;
+        }
+
+        h4 {
+          color: rgb(213, 213, 213);
         }
       }
     }
@@ -199,13 +222,8 @@
       padding-bottom: 2rem;
       border-radius: @radius-base4;
       margin-top: 28px;
-  
-      .panel {
-        color: @white;
-  
-        :hover {
-          opacity: 0.8
-        }
+      .ant-collapse-arrow {
+        color: white; /* Replace with your desired arrow color */
       }
     }
   }

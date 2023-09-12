@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
-import DiscordLink from '../../components/DiscordLink';
 import { ACMEvent, fetchPastEvents } from '../../actions/events';
 import EventCard from '../../components/EventCard';
 import { Row, Col, Layout, Carousel, Button, Empty, Collapse, Card, Avatar, Tooltip } from 'antd';
 import { AiOutlineLink } from 'react-icons/ai';
+import { FaFireAlt, FaProjectDiagram } from 'react-icons/fa';
 import { BiLogoDiscord, BiLogoInstagram } from 'react-icons/bi';
 import EventTimeline from '../../components/EventTimeline/index';
-const { Header, Content, Footer } = Layout;
+import { HiOutlineFire } from 'react-icons/hi';
+const { Content, Footer } = Layout;
 const { Panel } = Collapse;
 
 function MainPage() {
@@ -124,15 +125,38 @@ function MainPage() {
         <Content className="projectsCompsBox">
           <div className="descriptionsBox">
             <div className="descriptions">
-              <h4>Apply Your Knowledge</h4>
+              <h4 style = {{fontWeight:"700"}}>Apply Your Knowledge</h4>
               <h4>Neural Networks don’t always have to be taught in the classroom. Start a project or join a competition!</h4>
+          
             </div>
           </div>
           
 
           <div className="cardsBox">
-            <Card className="card"><h4>3 Projects and counting</h4></Card>
-            <Card className="card"><h4>Sponsored competitions every year</h4></Card>
+
+            <Card className="projectPreviewCard">
+              <div className = "previewIcon" style = {{marginBottom: "1rem"}}>
+                <FaProjectDiagram size = {25} />
+              </div>
+              <h3>Projects</h3>
+              <h4>Explore our club's cutting-edge AI projects, showcasing innovation and expertise in artificial intelligence.</h4>
+              <Link to={`/competitions`} rel="noopener noreferrer">
+                <p style = {{marginTop:"1rem", marginBottom: "1rem"}}>{`learn more >`}</p>
+              </Link>
+            </Card>
+
+            <Card className="projectPreviewCard">
+              <div className = "previewIcon" style = {{marginBottom: "1rem"}}>
+                <FaFireAlt size = {25}/>
+              </div>
+              <h3>Competitions</h3>              
+              <h4>Dive into the world of fierce competitions where members demonstrate their skills in various challenges.</h4>
+
+              <Link to={`/competitions`} rel="noopener noreferrer">
+                <p style = {{marginTop:"1rem", marginBottom: "1rem"}}>{`learn more >`}</p>
+              </Link>
+
+            </Card>
           </div>
          
         </Content>
@@ -180,15 +204,15 @@ function MainPage() {
           </h4>
 
           <div className="sponsorCollapse">
-            <Collapse ghost  >
-              <Panel className="panel" header={<h4>What do we offer?</h4>} key="1">
-                <h4>hello</h4>
+            <Collapse ghost bordered={false} >
+              <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>What do we offer?</h4>} key="1">
+                <h4 style = {{color: "white"}}>hello</h4>
               </Panel>
-              <Panel className="panel" header={<h4>Who can I contact?</h4>} key="2">
-                <h4>hello</h4>
+              <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>Who can I contact?</h4>} key="2">
+                <h4 style = {{color: "white"}}>hello</h4>
               </Panel>
-              <Panel className="panel" header={<h4>Is there an official Sponsorship Packet?</h4>} key="3">
-                <h4>hello</h4>
+              <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>Is there an official Sponsorship Packet?</h4>} key="3">
+                <h4 style = {{color: "white"}}>hello</h4>
               </Panel>
             </Collapse>
           </div>
