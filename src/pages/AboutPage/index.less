@@ -5,31 +5,31 @@
 
 
 
-  .drawerButton {
-    .button-square-black();
-    width: 100px;
-    height: 45px;
-    border-radius: 14px;
-    box-shadow: 0px 3px 5px 1px rgba(189, 189, 189, 0.5);
-    color: white;
-    font-weight: @semi-bold;
+.drawerButton {
+  .button-square-black();
+  width: 100px;
+  height: 45px;
+  border-radius: 14px;
+  box-shadow: 0px 3px 5px 1px rgba(189, 189, 189, 0.5);
+  color: white;
+  font-weight: @semi-bold;
 
-    @media only screen and (max-width: @md) {
-      width: 80px;
-      height: 35px;
-      border-radius: 12px;
-    }
+  @media only screen and (max-width: @md) {
+    width: 80px;
+    height: 35px;
+    border-radius: 12px;
+  }
 
-    @media only screen and (max-width: @xxs) {
-      display: none;
-    }
-
-    
+  @media only screen and (max-width: @xxs) {
+    display: none;
   }
 
 
+}
+
+
 .drawerContent {
-  
+
   .drawerHeader {
     align-items: center;
     justify-content: start;
@@ -37,6 +37,7 @@
     @media only screen and (max-width: @xs) {
       justify-content: start;
     }
+
     @media only screen and (max-width: @xxs) {
       justify-content: center;
     }
@@ -44,37 +45,43 @@
     .titleBox {
       margin-top: 1rem;
       width: 70%;
+
       @media only screen and (max-width: @xs) {
         text-align: start;
       }
+
       @media only screen and (max-width: @xxs) {
         width: 100%;
         text-align: center;
       }
+
       h4 {
         font-weight: @semi-bold;
       }
+
       p {
         color: darkgray;
       }
     }
   }
 
-   .bio{
+  .bio {
     max-width: @sm;
     background: #FAFAFA;
     padding: 2rem 0;
     border-radius: @radius-base4;
+
     @media only screen and (max-width: @xs) {
       width: 100%;
     }
-     p {
+
+    p {
       width: 90%;
       margin: auto;
 
-     }
-   }
-   
+    }
+  }
+
 
 
   .contactsBox {
@@ -110,9 +117,11 @@
         a {
           color: darkgray;
           padding-left: 0.5rem;
+
           :hover {
             color: @mainred;
           }
+
           p {
             font-size: 14px;
           }
@@ -126,44 +135,60 @@
   .noContainer();
   margin-top: 9.5rem;
 
+  .segmentedBox,
+  .filterButton {
+    margin-top: 2rem;
+  }
+
 
   .aboutContent {
     .generic-centered-section();
     .constrained-bounds();
-    min-width: 180px;
     text-align: center;
+
+    h4 {
+      max-width: 700px;
+    }
   }
 
 
   .gallery {
-    .center-both-ways();
     background: #FAFAFA;
-  
-    padding: 4rem 0;    
+
+    padding: 4rem 0;
 
     .teamSection {
+      .generic-section();
       .constrained-bounds();
-      .center-horizontal();
-      
+
       .banner {
-        margin-bottom: 4rem;
-        text-align: center;
-        justify-content: center;
-        
+        margin-bottom: 2rem;
+        text-align: start;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+
+
         .iconWrapper {
-          .gradient();
-          .center-both-ways();
-          height: 60px;
-          width: 60px;
-          border-radius: 100px;
-          margin-bottom: 1rem;
-          
+          background: white;
+          height: 50px;
+          width: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 14px;
+          margin: 1rem 1rem 1rem 0;
+
         }
-         .statement {
-          width: 60%;
+
+        .statement {
           font-weight: @semi-bold;
-          margin: 0 auto 4rem;
-         }
+          text-align: left;
+          color: @black;
+          margin: 1rem 1rem 1rem 0;
+
+        }
 
       }
 
@@ -172,62 +197,54 @@
     .AboutCard {
       border-radius: 20px;
       text-align: left;
-
-      // Add the margin directly to the card at smaller screen sizes
-      // Otherwise if we apply it to the background, we will see horizontal whitespace
-      // from the global margins
-      @media only screen and (max-width: @xxs) {
-        margin-left: 12px;
-        margin-right: 12px;
-      }
-
-      
+      width: 100%;
 
       .cardPreviewContent {
         justify-content: space-between;
         align-items: center;
 
         .nameTitle {
-          width: 60%;
           @media only screen and (max-width: @sm) {
-            width: 50%;
-  
+            width: 70%;
           }
+
           h3 {
             font-weight: @semi-bold;
-           }
-          p{
+            line-height: @font4;
+          }
+
+          p {
             color: darkgray;
           }
         }
-   
-  
-         .viewButton {
+
+
+        .viewButton {
           width: 100px;
           height: 45px;
-          border:none;
+          border: none;
           border-radius: 14px;
-          box-shadow: 0px 3px 5px 1px rgba(189, 189, 189, 0.5);
           color: black;
+          background: #F6F6F6;
           font-weight: @semi-bold;
 
           @media only screen and (max-width: @sm) {
             width: 80px;
-            height: 35px;
+            height: 40px;
             border-radius: 12px;
           }
+
           @media only screen and (max-width: @xxs) {
-            width: 60px;
-            height: 35px;
+            width: 70px;
             border-radius: 10px;
           }
-          
+
         }
 
       }
 
     }
-   
+
     .image {
       max-height: 350px;
       height: 350px;
@@ -237,23 +254,27 @@
       @media only screen and (max-width: @lg) {
         height: 350px;
       }
+
       @media only screen and (max-width: @md) {
         height: 250px;
       }
+
       @media only screen and (max-width: @sm) {
         height: 250px;
       }
+
       @media only screen and (max-width: @xs) {
         height: 200px;
       }
- 
+
       object-fit: cover;
     }
 
 
   }
+
   .aboutFooter {
-    
+
     text-align: center;
     padding: 3rem;
 
@@ -265,41 +286,3 @@
 
 }
 
-
-/*
-  @import '../../styles/impactful.less';
-  p {
-    font-size: @font2;
-  }
-  .Card {
-    width: auto;
-    h3 {
-      margin: 0;
-      font-size: @font3;
-      color: inherit;
-    }
-    p{
-      font-size: @font2;
-    }
-    @media only screen and (min-width: 576px) {
-      .small-content {
-        display: none;
-      }
-    }
-    @media only screen and (max-width: 576px) {
-      .normal-content {
-        display: none;
-      }
-      .small-content {
-        border: 0px;
-        background-color: #fff;
-      }
-      .ant-collapse-header {
-        margin: 0;
-        font-size: @font3;
-        color: inherit;
-        font-weight: bold;
-      }
-    }
-  }
-*/

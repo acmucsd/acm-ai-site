@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Project } from '../../pages/ProjectsPage/projects'
 import { GithubOutlined, LinkOutlined} from '@ant-design/icons';
 import { Card } from '../Card';
-import { Tag, Modal, Divider} from 'antd';
-import { AiOutlineInfoCircle, AiOutlineLink } from 'react-icons/ai';
+import { Tag, Modal, Divider, Image, Button} from 'antd';
+import { AiOutlineInfoCircle, AiOutlineLink, AiOutlineGithub } from 'react-icons/ai';
 import './index.less';
 
 var ASCIISum = (str : string) => {
@@ -35,14 +35,15 @@ const ProjectCard = ({ project }: {project: Project}) => {
         className="ProjectCard" 
         hoverable = {false}
       >
-        <div className="tags">
+        {/* <div className="tags">
           {project.tags!.sort().map((tag)  => {
             return (
               <Tag bordered={false} key={tag} color={"#F6F6F6"} style={{color: "black", borderRadius:"10px"}}>{tag}</Tag>
             );
           })}
-        </div>  
-        <img
+
+        </div>   */}
+        <Image
            src={project.cover} alt="Project cover" 
           style={{borderRadius:"100px", height:"50px", width: "50px", boxShadow:"0px 3px 5px 1px rgba(189, 189, 189, 0.5)"}}
         />
@@ -54,19 +55,30 @@ const ProjectCard = ({ project }: {project: Project}) => {
 
           <div className = "iconsBox">
 
-            <div className = "icon" id = "view" onClick = {showModal}>
-              <AiOutlineInfoCircle size = {25} style = {{color:"white"}}/>
-              <p>view</p>
-            </div>
-
-            <div className = "icon" id= "link">
-              <a href ={project.github}>
-              <AiOutlineLink size = {25} style = {{color:"rgb(84, 84, 84)"}} />
-              <p>github</p>
-                
-              </a>
             
-            </div>
+            <Button 
+              size="large"
+              className = "viewModalButton"
+              onClick = {showModal}
+              icon = {<AiOutlineInfoCircle size = {25} style = {{color:"white"}} />}
+            >
+              <p>view</p>
+            </Button>
+
+
+    
+            <a href ={project.github}>
+            <Button 
+              size = "large"
+              className="gitHubButton"
+              icon = {<AiOutlineGithub size = {25} style = {{color:"rgb(84, 84, 84)"}} />}
+            ><p>github</p>
+            </Button>
+
+            </a>
+
+ 
+  
 
           </div>
 

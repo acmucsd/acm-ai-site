@@ -1,10 +1,10 @@
 import React from 'react';
-import { Card } from '../Card';
-
+import { Row, Col, Button} from 'antd';
+import { AiFillCalendar } from 'react-icons/ai';
 import './index.less';
 import { ACMEvent } from '../../actions/events';
 
-const EventCard = ({ event }: { event: ACMEvent }) => {
+/* const EventCard = ({ event }: { event: ACMEvent }) => {
   return (
     <div className="EventCard">
       <Card>
@@ -24,7 +24,42 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
       </Card>
     </div>
   );
-};
+}; */
+
+
+const EventCard = ({ event }: { event: ACMEvent }) => {
+  return (
+    <div className="EventCard">
+
+      <Row>
+        <img
+          src={event.cover}
+          style={{ marginBottom: "1.5rem", marginRight: "1rem", boxShadow:"0px 3px 5px 1px rgba(189, 189, 189, 0.5)", borderRadius: "16px", height: "80px", width: "80px" }}
+        />
+        <Col className = "eventHeaderTexts">
+          <h3>{event.title}</h3>
+          <p>{event.location}</p>
+        </Col>
+      </Row>
+
+      <Row className = "eventInfoRow">
+        <Row className = "eventDateContainer">
+            <div className = "calendarIconWrapper">
+              <AiFillCalendar size = {20} color = {"#FA5E5E"}/> 
+            </div>
+
+          <Col style = {{marginLeft: "1rem"}}>
+            <h4 className = "eventDate" >{formatMonthDate(event.start).month} {formatMonthDate(event.start).day}</h4>
+            <p className = "eventTimeRange">{formatTime(event.start)} - {formatTime(event.end)}</p>
+          </Col>
+     
+        </Row>
+
+        <Button size="large" className = "eventCardButton"><p>details</p></Button>
+      </Row>
+    </div>
+  )
+}
 /**
  * Formats a date to be readable.
  * @param {string} time The time in unformatted form.
@@ -59,4 +94,19 @@ export const isURL = (str: string): boolean => {
 
   return !!pattern.test(str);
 };
+
+
+/**
+ * Formats a date to be readable.
+ * @param {string} time The time in unformatted form.
+ * @return {string, numeric} The formatted time in short month and day
+ */
+export const formatMonthDate = (time: string) : {month: string, day: number}=> {
+  const parsedTime = new Date(time);
+  const month = parsedTime.toLocaleString('en-US', { month: 'short' });
+  const day = parsedTime.getDate();
+  return {month, day};
+};
+
+
 export default EventCard;

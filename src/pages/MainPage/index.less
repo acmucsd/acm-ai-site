@@ -56,17 +56,6 @@
       text-align: center;
     }
 
-    .joinUsButton {
-      margin-top: 6%;
-      background-color: @white;
-      .button-round-white();
-
-      // text inside the button
-      h4 {
-        @color: @b1;
-        font-weight: @semi-bold;
-      }
-    }
     }
 
   }
@@ -109,10 +98,14 @@
       }
 
       .navButton {
-        margin-top: 2%;
-        margin-bottom: 2%;
+        margin-top: 12px;
+        margin-bottom: 12px;
         background-color: @b1;
-        .button-round-black();
+        border: none;
+        color: white;
+        a {
+          font-size: @font2;
+        }
       }
 
     }
@@ -128,8 +121,9 @@
 
     // parent box just above the cardsBox
     .descriptionsBox {
-      background-color: #F9715F;
+      background-color: #f5621e;
       border-radius: @radius-base4;
+      box-shadow: 0px 3px 5px 1px rgb(224, 74, 74);
       display: flex;
       flex-direction: column;
       margin-top: 2rem;
@@ -186,31 +180,6 @@
     .constrained-bounds();
     margin-top: 32px;
     min-width: 180px;
-
-    // the box that appears when there are no events
-    .homeEmptySection {
-      .center-both-ways();
-      background-color: @b1;
-      height: 26rem;
-      width: 90%;
-      @media screen and (max-width: @xs) {
-        width: 100%; /* Adjusted width for smaller screens */
-      }
-      border-radius: @radius-base4;
-      margin-top: 28px;
-      margin-left: auto;
-      margin-right: auto;
-
-
-      // Text style for the homeEmptySection
-      .emptyDescription {
-        text-align: center;
-        width: 70%;
-        margin: auto;
-        color: @white;
-      }
-    }
-
   }
 
   // wrapper to hold the collapse component

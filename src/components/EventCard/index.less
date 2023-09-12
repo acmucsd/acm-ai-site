@@ -1,5 +1,69 @@
 @import '../../styles/base.less';
+@import '../../newStyles/variables.less';
 
+
+.EventCard {
+  background: #fafafa;
+  box-shadow: 0px 3px 5px 1px rgba(197, 197, 197, 0.5);
+  border-radius: 16px;
+  margin: 2rem auto;
+  padding: 2rem;
+
+
+   .eventHeaderTexts {
+    
+
+      h3 {
+        font-weight: @semi-bold;      
+        max-width: 300px;
+        line-height: @font4;
+        color: #585858;
+       }
+       p{
+        color: rgb(162, 162, 162);
+        font-weight: @regular;
+       }
+   }
+
+   .eventInfoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    .eventDateContainer {
+      display: flex;
+      justify-content: flex-start;
+
+      .calendarIconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 100px;
+        background: #FFD4D4;
+
+      }
+      h4 {
+        color: #FA5E5E;
+        font-weight: @semi-bold;
+      }
+      p {
+        color: rgb(67, 67, 67);
+      }
+    }
+
+    .eventCardButton {
+      background: @black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+   }
+}
+/*
 .EventCard {
   color: @b2;
   box-shadow: @bx1;
@@ -36,3 +100,4 @@
     height: 420px;
   }
 }
+*/

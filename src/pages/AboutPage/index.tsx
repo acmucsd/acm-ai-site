@@ -2,8 +2,8 @@ import React, { ReactNode } from 'react';
 import { Size, useWindowSize } from './useWindowSize';
 import './index.less';
 import { useState } from 'react';
-import { AiFillLinkedin, AiFillHome} from 'react-icons/ai';
-import {BiLogoInstagram} from 'react-icons/bi';
+import { AiFillLinkedin, AiFillHome } from 'react-icons/ai';
+import { BiLogoInstagram } from 'react-icons/bi';
 import { HiOutlineBriefcase, HiOutlineMail } from 'react-icons/hi';
 import { FaRegCalendar, FaBullhorn, FaFacebookSquare, FaLaptopCode, FaGithubSquare, FaTwitterSquare, FaLinkedin } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
@@ -34,6 +34,7 @@ const ColoredLine = () => (
 
 const CardsRow = ({ children }: { children?: ReactNode }) => (
   <Row
+    className="CardsRow"
     gutter={[
       { xs: 16, sm: 16, md: 24, lg: 24 },
       { xs: 16, sm: 16, md: 24, lg: 24 },
@@ -57,27 +58,27 @@ const SocialSection = ({ socials }: { socials?: Socials }) => {
   if (!socials) return <></>;
 
   return (
-    <div className = "contactsBox">
-    <h4>Contacts</h4>
-    <Row className = "links">
-      {socials.email && (
-        <p>
-          Email: <a href={`mailto:${socials.email}`}>{socials.email}</a>
-        </p>
-      )}
+    <div className="contactsBox">
+      <h4>Contacts</h4>
+      <Row className="links">
+        {socials.email && (
+          <p>
+            Email: <a href={`mailto:${socials.email}`}>{socials.email}</a>
+          </p>
+        )}
 
-      {socials.github && <section><div><FaGithubSquare size = {28}/></div><a href = {socials.github}><p>Github</p></a></section>}
-      {socials.website && <section><div><AiFillHome size = {28}/></div><a href = {socials.website}><p>Website</p></a></section>}
-      {socials.twitter && <section><div><FaTwitterSquare size = {28}/></div><a href = {socials.twitter}><p>Twitter</p></a></section>}
-      {socials.instagram && (
-        <section><div><BiLogoInstagram size = {28}/></div><a href = {socials.instagram}><p>Instagram</p></a></section>
-      )}
-      {socials.facebook && (
-        <section><div><FaFacebookSquare size = {28}/></div><a href = {socials.facebook}><p>Facebook</p></a></section>
-      )}
-      {socials.linkedin && (
-        <section><div><FaLinkedin size = {28}/></div><a href = {socials.linkedin}><p>Linked In</p></a></section>
-      )}
+        {socials.github && <section><div><FaGithubSquare size={28} /></div><a href={socials.github}><p>Github</p></a></section>}
+        {socials.website && <section><div><AiFillHome size={28} /></div><a href={socials.website}><p>Website</p></a></section>}
+        {socials.twitter && <section><div><FaTwitterSquare size={28} /></div><a href={socials.twitter}><p>Twitter</p></a></section>}
+        {socials.instagram && (
+          <section><div><BiLogoInstagram size={28} /></div><a href={socials.instagram}><p>Instagram</p></a></section>
+        )}
+        {socials.facebook && (
+          <section><div><FaFacebookSquare size={28} /></div><a href={socials.facebook}><p>Facebook</p></a></section>
+        )}
+        {socials.linkedin && (
+          <section><div><FaLinkedin size={28} /></div><a href={socials.linkedin}><p>Linked In</p></a></section>
+        )}
       </Row>
     </div>
   )
@@ -95,32 +96,32 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
 
   return (
 
-    <Col xs={24} sm={12} xl={12} xxl={12}>
-      <Card
-        className="AboutCard"
-        cover={!card.picture ? <Skeleton.Image className="image" active={false} /> : <img className="image" src={card.picture} alt="cover image" />}
-      >
-        <Row className="cardPreviewContent">
-          <Col className="nameTitle">
-            <h3>{card.name}</h3>
-            <p>{card.role}</p>
-          </Col>
 
-          <Button
-            className="viewButton"
+    <Card
+      className="AboutCard"
+      cover={!card.picture ? <Skeleton.Image className="image" active={false} /> : <img className="image" src={card.picture} alt="cover image" />}
+    >
+      <Row className="cardPreviewContent">
+        <Col className="nameTitle">
+          <h3>{card.name}</h3>
+          <p>{card.role}</p>
+        </Col>
 
-            onClick={() => {
-              onSelectPerson(card);
-              showDrawer();
-            }}
-          >
-            View
-          </Button>
+        <Button
+          className="viewButton"
 
-        </Row>
+          onClick={() => {
+            onSelectPerson(card);
+            showDrawer();
+          }}
+        >
+          View
+        </Button>
 
-      </Card>
-    </Col>
+      </Row>
+
+    </Card>
+
   )
 }
 
@@ -128,7 +129,10 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
 const renderCards = (people: Person[], onSelectPerson: (person: Person) => void, showDrawer: () => void) => (
   <>
     {people.map((card) => (
-      <AboutCard card={card} onSelectPerson={onSelectPerson} showDrawer={showDrawer} />
+      <Col xs={24} sm={12} xl={12} xxl={8}>
+        <AboutCard card={card} onSelectPerson={onSelectPerson} showDrawer={showDrawer} />
+
+      </Col>
 
     ))}
   </>
@@ -152,17 +156,19 @@ const Section = ({
 
     <div className="banner">
       <div className="iconWrapper">
-        {team == "directors" && <HiOutlineBriefcase size={35} color={"white"} />}
-        {team == "operations" && <FaRegCalendar size={35} color={"white"} />}
-        {team == "socials" && <BsPeopleFill size={35} color={"white"} />}
-        {team == "marketing" && <FaBullhorn size={35} color={"white"} />}
-        {team == "developers" && <FaLaptopCode size={35} color={"white"} />}
+        {team == "directors" && <HiOutlineBriefcase size={25} color={"#f5621e"} />}
+        {team == "operations" && <FaRegCalendar size={25} color={"#f5621e"} />}
+        {team == "socials" && <BsPeopleFill size={25} color={"#f5621e"} />}
+        {team == "marketing" && <FaBullhorn size={25} color={"#f5621e"} />}
+        {team == "developers" && <FaLaptopCode size={25} color={"#f5621e"} />}
       </div>
+      <h4 className="statement">{statement}</h4>
 
-      <h3 className="statement">{statement}</h3>
-      <br />
-      <CardsRow>{renderCards(people, onSelectPerson, showDrawer)}</CardsRow>
     </div>
+
+
+    <br />
+    <CardsRow>{renderCards(people, onSelectPerson, showDrawer)}</CardsRow>
   </div>
 );
 
@@ -211,7 +217,7 @@ function AboutPage() {
   return (
 
     <DefaultLayout>
-  
+
       {isDrawerVisible &&
         <Drawer
           width={"50%"}
@@ -226,17 +232,17 @@ function AboutPage() {
           <div className="drawerContent">
             <Col>
               <Row className="drawerHeader">
-                <img 
-                  style={{ 
-                    marginRight: '1rem', 
-                    height: '100px', 
-                    width: '100px', 
-                    objectFit: 'cover', 
-                    borderRadius: "100%" 
-                    }} 
-                    className="image" 
-                    src={selectedPerson!!.picture} 
-                    alt="cover image" 
+                <img
+                  style={{
+                    marginRight: '1rem',
+                    height: '100px',
+                    width: '100px',
+                    objectFit: 'cover',
+                    borderRadius: "100%"
+                  }}
+                  className="image"
+                  src={selectedPerson!!.picture}
+                  alt="cover image"
                 />
                 <Col className="titleBox">
                   <Tag bordered={false} color={"error"}>{selectedPerson!!.role}</Tag>
@@ -245,7 +251,7 @@ function AboutPage() {
                 </Col>
               </Row>
 
-              <Divider/>
+              <Divider />
 
               <div className="bio"><p>{selectedPerson!!.bio}</p></div>
               <SocialSection socials={selectedPerson!!.socials} />
@@ -260,17 +266,19 @@ function AboutPage() {
 
         <Content className="aboutContent">
           <h1 className="title2">Our Team</h1>
+          <h4>Work isn’t always easy, so in order to make sure everything runs smoothly, we rely on a passionate group of individuals who bring their unique talents to the table.  From content creators, social leads, to coding and more everyone is an integral part of ou mission to make AI accessible and fun!</h4>
 
           {size.width!! < 600 ?
 
             (
-              <Dropdown menu={{ items, onClick }}>
+              <Dropdown className="filterButton" menu={{ items, onClick }}>
                 <Button>Filter By Category</Button>
               </Dropdown>
             )
             :
             (
               <Segmented
+                className="segmentedBox"
                 value={selectedSection}
                 size="large"
                 options={['Executives', 'Event Leads', 'Socials', 'Marketing', 'Developers']}
@@ -347,33 +355,3 @@ function AboutPage() {
 
 export default AboutPage;
 
-
-
-/* old about card
-const AboutCard = ({ card }: { card: Person }) => (
-  <Col xs={12} sm={12} xl={12} xxl={12}>
-    <Card 
-      className = "Card"
-      cover={!card.picture ? null : <img src={card.picture} alt="" />}
-    >
-      <Collapse className="small-content">
-        <Panel header={`${card.role}: ${card.name}`} key={1}>
-          {card.minor ? <p className="position">{`${card.year} ${card.major} major, ${card.minor}`}</p> :
-          <p className="position">{`${card.year} ${card.major} major`}</p>
-          }
-          <ColoredLine />
-          <p className="quote">{card.bio}</p>
-          <SocialSection socials={card.socials} />
-        </Panel>
-      </Collapse>
-      <div className="normal-content">
-        <h3>{`${card.role}: ${card.name}`}</h3>
-        <p className="position">{`${card.year} ${card.major} major`}</p>
-        <ColoredLine />
-        <p className="quote">{card.bio}</p>
-        <SocialSection socials={card.socials} />
-      </div>
-    </Card>
-  </Col>
-);
-*/

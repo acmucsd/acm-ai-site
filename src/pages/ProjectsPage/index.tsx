@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { Row, Col, Layout, Select, Tag } from 'antd';
+import { Row, Col, Layout, Select, Tag, Menu, Dropdown, Collapse } from 'antd';
 import ProjectCard from '../../components/ProjectCard';
 import { projects } from './projects'
 const { Content } = Layout;
+const {Panel} = Collapse;
 const { Option } = Select;
 
 var ASCIISum = (str: string) => {
@@ -63,8 +64,42 @@ function ProjectsPage() {
     return sortedProjects;
   }
 
-  const sortedProjects = sortProjects(sortOption)
+const sortedProjects = sortProjects(sortOption);
 
+const items = [
+  {
+    key: "1",
+    label: 
+      <Select
+      className="selectTags"
+      mode="multiple"
+      placeholder="Search tags..."
+      onChange={handleTagChange}
+      value={selectedTags}
+    >
+      {tagsData.map((tag) => {
+        return (
+          <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+        );
+      })}
+    </Select>
+  },
+  {
+    key: "2",
+    label: 
+      
+      <Select
+      defaultValue="newest"
+      style={{ width: 150 }}
+      onChange={handleSortChange}
+    >
+      <Option value="newest">Newest</Option>
+      <Option value="oldest">Oldest</Option>
+      <Option value="az">A-Z</Option>
+      <Option value="za">Z-A</Option>
+    </Select>
+  }
+]
   return (
     <DefaultLayout>
       <div className="ProjectsPage">
@@ -74,38 +109,48 @@ function ProjectsPage() {
             <h4>
               Interested in getting hands-on experience with AI? Join our quarterly ACM AI project teams.
             </h4>
+
+            <div className="projectsFilters">
+
+              <Collapse className = "filterCollapse" >
+                <Panel header = "filter" key = "1" style = {{display: "flex", flexDirection:"column"}}>
+                  <Select
+                    className="selectTags"
+                    mode="multiple"
+                    placeholder="Search tags..."
+                    onChange={handleTagChange}
+                    value={selectedTags}
+                  >
+                    {tagsData.map((tag) => {
+                      return (
+                        <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+                      );
+                    })}
+                  </Select>
+
+                  <Select
+                    defaultValue="newest"
+                    style={{ width: 150 }}
+                    onChange={handleSortChange}
+                  >
+                    <Option value="newest">Newest</Option>
+                    <Option value="oldest">Oldest</Option>
+                    <Option value="az">A-Z</Option>
+                    <Option value="za">Z-A</Option>
+                  </Select>
+
+                </Panel>
+              </Collapse>
+
+
+          </div>
           </div>
         </Content>
 
 
         <Content className="projectsSection">
 
-          <div className="projectsFilters">
-            <Select
-              className="selectTags"
-              mode="multiple"
-              placeholder="Search tags..."
-              onChange={handleTagChange}
-              value={selectedTags}
-            >
-              {tagsData.map((tag) => {
-                return (
-                  <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
-                );
-              })}
-            </Select>
 
-            <Select
-              defaultValue="newest"
-              style={{ width: 150 }}
-              onChange={handleSortChange}
-            >
-              <Option value="newest">Newest</Option>
-              <Option value="oldest">Oldest</Option>
-              <Option value="az">A-Z</Option>
-              <Option value="za">Z-A</Option>
-            </Select>
-          </div>
           <div className="projectsCards">
             <Row gutter={[
               { xs: 16, sm: 16, md: 24, lg: 24 },
@@ -113,7 +158,6 @@ function ProjectsPage() {
             ]} justify="center">
               {sortedProjects.length > 0 && sortedProjects.length ==  1 ? (
                 <ProjectCard key={sortedProjects[0].name} project={sortedProjects[0]} />
-
               ):
                 sortedProjects.filter((card) =>
                   selectedTags.length === 0 ? true : card.tags && card.tags.some(v => selectedTags.includes(v))).map((card) => {

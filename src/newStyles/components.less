@@ -51,7 +51,7 @@
 
 // provides app theme linear gradient: red -> yellow
 .gradient {
-    background: linear-gradient(90deg, #F66161, #FFA659);
+    background: linear-gradient(90deg, rgb(253, 75, 65), #FFA659);
 }
 
 
@@ -95,11 +95,13 @@
 
 // A wrapper for most sections with content 
 .generic-section {
-    padding: 2rem;
+    padding: 2rem; // enables horizontal whitespace
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 3rem;
-    margin-top: 3rem;
+
+    // give enough vertical whitespace
+    padding-bottom: 3rem;
+    padding-top: 3rem;
 }
 
 

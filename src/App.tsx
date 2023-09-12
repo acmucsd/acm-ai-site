@@ -78,7 +78,9 @@ function App() {
   }, [initializedGA, location]);
 
   return (
+    
     <div>
+
       <Switch>
         {!verifying ? (
           <UserProvider value={{ user: user, setUser: setUser }}>

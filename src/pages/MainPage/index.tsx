@@ -3,18 +3,19 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
 import DiscordLink from '../../components/DiscordLink';
-import { ACMEvent, fetchFutureEvents } from '../../actions/events';
-import EventCard from '../../components/EventCard'
+import { ACMEvent, fetchPastEvents } from '../../actions/events';
+import EventCard from '../../components/EventCard';
 import { Row, Col, Layout, Carousel, Button, Empty, Collapse, Card, Avatar, Tooltip } from 'antd';
 import { AiOutlineLink } from 'react-icons/ai';
 import { BiLogoDiscord, BiLogoInstagram } from 'react-icons/bi';
+import EventTimeline from '../../components/EventTimeline/index';
 const { Header, Content, Footer } = Layout;
 const { Panel } = Collapse;
 
 function MainPage() {
   const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
   useEffect(() => {
-    fetchFutureEvents().then((data) => {
+    fetchPastEvents().then((data) => {
       setEventData(data);
     });
   }, []);
@@ -64,12 +65,6 @@ function MainPage() {
               We aspire to inspire the next generation of
               AI advocates, engineers, and scientists.
             </h4>
-
-            {/**   <Button shape="round" className="joinUsButton">
-              <h4>join us</h4>
-            </Button> */}
-         
-
           </div>
         </Content>
 
@@ -86,9 +81,12 @@ function MainPage() {
                   Our team consists of bright minds from every background and expertise.
                 </h4>
 
-                <Button shape="round" className="navButton">
-                  <p>meet the team</p>
-                </Button>
+                <Link to={`/about`} rel="noopener noreferrer">
+                  <Button size="large" shape="round" className="navButton">
+                    <p>meet the team</p>
+                  </Button>
+                </Link>
+           
 
               </div>
             </div>
@@ -112,8 +110,8 @@ function MainPage() {
                   adventurous in exploring our various aspects of computing or just having fun, check out ACM's main website
                   for exciting events!
                 </h4>
-                <Button shape="round" className="navButton">
-                  <p><li><a href="https://acmucsd.com/">explore</a></li></p>
+                <Button className="navButton" size="large" shape="round" >
+                  <a href="https://acmucsd.com/" rel="noopener noreferrer">explore</a>
                 </Button>
 
               </div>
@@ -165,11 +163,9 @@ function MainPage() {
             </div>
             :
             <a className="nextEventBannerWrapper" href="#events">
-              {eventData.slice(0, 1).map((event) => {
-                return (
-                  <img className="nextEventBanner" src={event.cover} alt="Event cover" />
-                );
-              })}
+             
+                  <EventTimeline eventData={eventData}/>
+          
             </a>}
 
         </Content>

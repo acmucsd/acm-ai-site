@@ -2,22 +2,62 @@
 @import '../../newStyles/components.less';
 @import '../../newStyles/index.less';
 
+
+
 .Events {
   // removes any default white space margins
   .noContainer();
-  margin-top: 9.5rem;
+  background: white;
 
+
+  .eventsTopBar {
+    .gradient();
+    margin-top: 5.5rem;
+    padding: 3rem;
+  }
+
+  
   // Container for title
   .eventsHeader {
+    padding-top: 5rem;
     .center-both-ways();
     text-align: center;
+
+    h4 {
+      max-width: 700px;
+      margin: 0 2rem;
+    }
   }
 
-  .upcomingEvents {
+  .eventsContent {
     .generic-centered-section();
     .constrained-bounds();
-    min-width: 180px;
+    max-width: 800px;
+    margin-top: 2rem;
+    margin-bottom: 15rem;
+    display: flex;
+
+    .ant-tabs-ink-bar {
+      display: none;
+    }
+
+    .eventsList {
+      flex-direction: column;
+      text-align: start;
+      margin-top: 2rem;
+      .eventsDescription {
+        h3 {
+          font-weight: @semi-bold;
+        }
+        
+     
+      }
+  
+    }
+
   }
+
+
 
   // Footer for events page
   .eventsFooter {

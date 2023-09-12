@@ -8,6 +8,8 @@
 
     // override default height
     //height: 250px !important;
+    box-shadow: none !important;
+    border: none;
 
     @media screen and (max-width: @md) {
       height: 100% !important/* Adjusted width for smaller screens */
@@ -15,7 +17,11 @@
 
     .title {
       font-weight: @semi-bold;
+      margin-top: 1rem;
+      color: #f5621e;
     }
+
+
 
     .descriptionBox {
       display: flex;
@@ -37,37 +43,44 @@
         flex-direction: row;
         align-items: center;
 
-
-        #view {
+        .viewModalButton {
+          border: none;
           background: @black;
+          display: flex;
+          padding: 1rem;
+          margin-right: 1rem;
+          align-items: center;
+          justify-content: center;
           p {
             color: white;
+
+            @media screen and (max-width: @xs) {
+              display: none;
+              margin: none;
+            }
+            
           }
+
         }
 
-
-        .icon, a{
+        .gitHubButton {
+          border: none;
+          background: rgb(245, 245, 245);
           display: flex;
-          flex-direction: row;
+          padding: 1rem;
           align-items: center;
-          margin-right: 1rem;
-        
-          padding: 0.5rem 1rem;
-          border-radius: @radius-base2;
-          
-          :hover {
-            cursor: pointer;
-          }
           p {
-            font-size: 14px;
-            padding-left: 5px;
-            color: rgb(84, 84, 84);
-
+            color: @black;
+            @media screen and (max-width: @xs) {
+              display: none;
+              margin: none;
+            }
           }
-       
         }
+
+
       
-    }
+      }
     }
 
 
@@ -86,11 +99,7 @@
     .description {
       font-size: @font1;
     }
-    img {
-      object-fit: cover;
-      height: 200px;
-      margin-bottom: 0.5rem;
-    }
+
   }
 
 .ant-modal-content {
