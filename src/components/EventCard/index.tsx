@@ -1,8 +1,9 @@
-import React from 'react';
-import { Row, Col, Button} from 'antd';
-import { AiFillCalendar } from 'react-icons/ai';
+import React, { useState } from 'react';
+import { Row, Col, Button,Modal} from 'antd';
+import { AiFillCalendar, AiOutlineLink } from 'react-icons/ai';
 import './index.less';
 import { ACMEvent } from '../../actions/events';
+import { HiLocationMarker } from 'react-icons/hi';
 
 /* const EventCard = ({ event }: { event: ACMEvent }) => {
   return (
@@ -28,7 +29,30 @@ import { ACMEvent } from '../../actions/events';
 
 
 const EventCard = ({ event }: { event: ACMEvent }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Modal props
+  const showModal = () => {
+    setIsModalOpen(true);
+    console.log(isModalOpen)
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const formatCalendarTime = (dateTime: string) => {
+    return new Date(dateTime).toISOString().replace(/-|:|\.\d+/g, '');
+  };
+
+  const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+    event.title
+  )}&details=${encodeURIComponent(
+    event.description
+  )}&dates=${encodeURIComponent(
+    formatCalendarTime(event.start)
+  )}/${encodeURIComponent(
+    formatCalendarTime(event.end)
+  )}&location=${encodeURIComponent(event.location)}`;
   return (
+    <>
     <div className="EventCard">
 
       <Row>
@@ -44,7 +68,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
 
       <Row className = "eventInfoRow">
         <Row className = "eventDateContainer">
-            <div className = "calendarIconWrapper">
+            <div className = "eventIconWrapper" id = "calendar">
               <AiFillCalendar size = {20} color = {"#FA5E5E"}/> 
             </div>
 
@@ -55,9 +79,71 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
      
         </Row>
 
-        <Button size="large" className = "eventCardButton"><p>details</p></Button>
+        <Button size="large" className = "eventCardButton" onClick = {() => showModal()}><p>details</p></Button>
       </Row>
     </div>
+
+        
+    <Modal
+      className = "eventModal"
+      width = {800}
+      style={{borderRadius: "20px"}}
+      open={isModalOpen}
+      onCancel={handleCancel}
+      title = {<h3 style = {{fontWeight: "700"}}>{event.title}</h3>}
+      footer={
+        <Button 
+          size="large" 
+          className ="eventScheduleButton"
+        >
+
+          <p><a href={googleCalendarLink} target="_blank" rel="noopener noreferrer">schedule</a></p>
+        </Button>
+      }      
+    >
+
+      <Col className = "eventModalContent">
+        
+        <Row>
+          <img src = {event.cover} style ={{ boxShadow:"0px 3px 5px 1px rgba(189, 189, 189, 0.5)",width: "40%", maxWidth: "300px", minWidth: "200px", borderRadius: "15px", marginRight: "1.5rem", marginBottom: "2rem"}} />
+
+          {/** Column to hold event details for date, time, location, and event link */}
+          <Col >
+
+            <section className = "eventDetailSection">
+              <div className = "eventIconWrapper" id = "calendar">
+                <AiFillCalendar size = {20} color = {"#FA5E5E"}/> 
+              </div>
+                <Col style = {{marginLeft: "1rem"}}>
+                  <h4 className = "eventDate" >{formatMonthDate(event.start).month} {formatMonthDate(event.start).day}</h4>
+                  <p className = "eventTimeRange">{formatTime(event.start)} - {formatTime(event.end)}</p>
+                </Col>
+            </section>
+
+            <section className = "eventDetailSection">
+              <div className = "eventIconWrapper" id = "location">
+                <HiLocationMarker size = {20} color = {"#F87A51"}/> 
+              </div>
+              <h4 style = {{marginLeft: "1rem", color: "#F87A51"}}>{event.location}</h4>
+            </section>
+
+            <section className = "eventDetailSection">
+              <div className = "eventIconWrapper"  id = "link">
+                <AiOutlineLink size = {20} color = {"gray"}/> 
+              </div>
+              <p style = {{marginLeft: "1rem"}}>{event.eventLink}</p>
+            </section>
+          </Col>
+        </Row>
+
+        <Row className = "eventDescriptionBox">
+          <p>{event.description}</p>
+        </Row>
+      </Col>
+     
+    </Modal>
+
+    </>
   )
 }
 /**

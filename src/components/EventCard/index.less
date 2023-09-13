@@ -11,8 +11,7 @@
 
 
    .eventHeaderTexts {
-    
-
+  
       h3 {
         font-weight: @semi-bold;      
         max-width: 300px;
@@ -35,16 +34,6 @@
       display: flex;
       justify-content: flex-start;
 
-      .calendarIconWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 35px;
-        height: 35px;
-        border-radius: 100px;
-        background: #FFD4D4;
-
-      }
       h4 {
         color: #FA5E5E;
         font-weight: @semi-bold;
@@ -62,42 +51,56 @@
       margin-top: 1rem;
     }
    }
+
 }
-/*
-.EventCard {
-  color: @b2;
-  box-shadow: @bx1;
-  border-radius: @radius-base2;
-  padding: 0.5rem;
-  .Card {
-    .ant-card {
-      border: 0px;
+
+.eventModal {
+  padding: 1rem;
+
+  .eventScheduleButton {
+    background: @black;
+    color: white;
+    border: none;
+  }
+
+  .eventModalContent {
+    margin-top: 2rem;
+    .eventDetailSection {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: flex-start;
+
+      h4 {
+        color: #FA5E5E;
+        font-weight: @semi-bold;
+      }
+      p {
+        color: rgb(67, 67, 67);
+      }
+    
     }
-    .title {
-      font-size: @font3;
-      color: @b2;
-      margin-top: 0;
-      margin-bottom: 1rem;
-      margin-bottom: 0;
+    .eventDescriptionBox {
+      background: #F6F6F6;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
     }
-    time {
-      font-size: @font2;
-      margin-bottom: 0.5rem;
-    }
-    .location {
-      font-size: @font2;
-      display: block;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid @gray;
-    }
-    .description {
-      font-size: @font2;
-    }
-    img {
-      width: 100%;
-    }
-    overflow-y: scroll;
-    height: 420px;
   }
 }
-*/
+
+.eventIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+
+}
+
+#calendar {
+  background:#FFD4D4;
+}
+

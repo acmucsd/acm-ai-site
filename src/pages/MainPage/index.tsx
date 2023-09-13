@@ -16,7 +16,8 @@ const { Panel } = Collapse;
 function MainPage() {
   const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
   useEffect(() => {
-    fetchFutureEvents().then((data) => {
+    fetchPastEvents().then((data) => {
+      console.log(data)
       setEventData(data);
     });
   }, []);
