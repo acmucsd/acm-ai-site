@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { ACMEvent, fetchPastEvents } from '../../actions/events';
+import { ACMEvent, fetchPastEvents, fetchFutureEvents } from '../../actions/events';
 import { Row, Col, Layout, Tabs } from 'antd';
 import EventCard from '../../components/EventCard/index';
 const { Content, Footer } = Layout;
@@ -9,7 +9,7 @@ const { Content, Footer } = Layout;
 
 
 
-const newEvents = ({ eventData }: { eventData: ACMEvent[] }): React.ReactNode => {
+const newEvents = (  eventData: ACMEvent[] ): React.ReactNode => {
   return (
     <Content className="eventsList">
 
@@ -27,7 +27,7 @@ const newEvents = ({ eventData }: { eventData: ACMEvent[] }): React.ReactNode =>
   );
 }
 
-const pastEvents = ({ eventData }: { eventData: ACMEvent[] }): React.ReactNode => {
+const pastEvents = ( eventData: ACMEvent[] ): React.ReactNode => {
   return (
     <Content className="eventsList">
 
@@ -43,11 +43,17 @@ const pastEvents = ({ eventData }: { eventData: ACMEvent[] }): React.ReactNode =
 
 
 function EventsPage(props: any) {
-  const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
+  const [futureEventData, setFutureEventData] = useState<Array<ACMEvent>>([]);
+  const [pastEventData, setPastEventData] = useState<Array<ACMEvent>>([]);
+
   const [selectedEventKey, setSelectedEventKey] = useState("");
   useEffect(() => {
+    fetchFutureEvents().then((data) => {
+      setFutureEventData(data);
+      console.log(data);
+    });
     fetchPastEvents().then((data) => {
-      setEventData(data);
+      setPastEventData(data);
       console.log(data);
     });
   }, []);
@@ -71,7 +77,7 @@ function EventsPage(props: any) {
             animated={true}
             onTabClick={(key) => setSelectedEventKey(key)}
             tabPosition="top"
-            items={[{ label: <p>Upcoming Events</p>, key: "1", children: newEvents({eventData})}, { label: <p>Past Events</p>, key: "2", children: pastEvents({eventData})}]}
+            items={[{ label: <p>Upcoming Events</p>, key: "1", children: newEvents(futureEventData)}, { label: <p>Past Events</p>, key: "2", children: pastEvents(pastEventData)}]}
           ></Tabs> 
         </Content>
 

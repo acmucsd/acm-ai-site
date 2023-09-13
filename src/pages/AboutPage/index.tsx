@@ -129,7 +129,7 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
 const renderCards = (people: Person[], onSelectPerson: (person: Person) => void, showDrawer: () => void) => (
   <>
     {people.map((card) => (
-      <Col xs={24} sm={12} xl={12} xxl={8}>
+      <Col xs={24} sm={12} xl={8} xxl={8}>
         <AboutCard card={card} onSelectPerson={onSelectPerson} showDrawer={showDrawer} />
 
       </Col>

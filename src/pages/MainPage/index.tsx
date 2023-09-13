@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
-import { ACMEvent, fetchPastEvents } from '../../actions/events';
+import { ACMEvent, fetchFutureEvents, fetchPastEvents } from '../../actions/events';
 import EventCard from '../../components/EventCard';
 import { Row, Col, Layout, Carousel, Button, Empty, Collapse, Card, Avatar, Tooltip } from 'antd';
 import { AiOutlineLink } from 'react-icons/ai';
@@ -16,7 +16,7 @@ const { Panel } = Collapse;
 function MainPage() {
   const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
   useEffect(() => {
-    fetchPastEvents().then((data) => {
+    fetchFutureEvents().then((data) => {
       setEventData(data);
     });
   }, []);
@@ -173,24 +173,9 @@ function MainPage() {
           </h4>
 
 
-          {eventData.length == 0 ?
-
-            <div className="homeEmptySection">
-              <Empty
-                imageStyle={{ height: 50 }}
-                description={
-                  <p className="emptyDescription">
-                    There are no upcoming events at this time Check back later!
-                  </p>
-                }
-              />
-            </div>
-            :
-            <a className="nextEventBannerWrapper" href="#events">
-             
-                  <EventTimeline eventData={eventData}/>
+          <EventTimeline eventData={eventData}/>
           
-            </a>}
+        
 
         </Content>
 
