@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { Row, Col, Layout, Select, Tag, Menu, Dropdown, Collapse } from 'antd';
+import { Row, Col, Layout, Select, Tag, Collapse } from 'antd';
 import ProjectCard from '../../components/ProjectCard';
 import { projects } from './projects'
 const { Content, Footer } = Layout;
-const { Panel } = Collapse;
 const { Option } = Select;
 
 var ASCIISum = (str: string) => {
@@ -100,9 +99,18 @@ function ProjectsPage() {
         </Select>
     }
   ]
+
+
+
+
   return (
     <DefaultLayout>
       <div className="ProjectsPage">
+        <Content>
+          <div className="projectsTopBar">
+          </div>
+        </Content>
+
         <Content className="projectsHero">
           <div className="headerContent">
             <h1 className="title2">ACM AI Projects</h1>
@@ -110,19 +118,19 @@ function ProjectsPage() {
               Interested in getting hands-on experience with AI? Join our quarterly ACM AI project teams.
             </h4>
           </div>
-          
-          <Select        
-              size = "large"
-              className = "sortDropDown"
-              style = {{width: "180px"}}
-              defaultValue="newest"
-              onChange={handleSortChange}
-            >
-              <Option className = "sortOption" value="newest">Newest</Option>
-              <Option className = "sortOption" value="oldest">Oldest</Option>
-              <Option className = "sortOption" value="az">A-Z</Option>
-              <Option className = "sortOption" value="za">Z-A</Option>
-            </Select>
+
+          <Select
+            size="large"
+            className="sortDropDown"
+            style={{ width: "180px" }}
+            defaultValue="newest"
+            onChange={handleSortChange}
+          >
+            <Option className="sortOption" value="newest">Newest</Option>
+            <Option className="sortOption" value="oldest">Oldest</Option>
+            <Option className="sortOption" value="az">A-Z</Option>
+            <Option className="sortOption" value="za">Z-A</Option>
+          </Select>
         </Content>
 
 
@@ -142,10 +150,6 @@ function ProjectsPage() {
                 );
               })}
             </Select> */}
-
-
-
-
           </div>
 
           <div className="projectsCards">
@@ -173,7 +177,7 @@ function ProjectsPage() {
 
         </Content>
 
-        <Footer className="aboutFooter">
+        <Footer className="projectsFooter">
           <h3>ACM AI at UCSD 2023</h3>
         </Footer>
       </div>

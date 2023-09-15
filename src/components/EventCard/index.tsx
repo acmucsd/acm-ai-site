@@ -52,6 +52,8 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
     formatCalendarTime(event.end)
   )}&location=${encodeURIComponent(event.location)}`;
 
+  const currentDate = new Date();
+
 
   return (
     <>
@@ -93,16 +95,21 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
       open={isModalOpen}
       onCancel={handleCancel}
       title = {<h3 style = {{fontWeight: "700"}}>{event.title}</h3>}
+      
       footer={
-        <Button 
-          size="large" 
-          className ="eventScheduleButton"
-          href = {googleCalendarLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <p>schedule</p>
-        </Button>
+        
+        // If this is an old event, do not give user ability to schedule the event 
+        new Date() > new Date(event.end) ? null : (
+          <Button
+            size="large"
+            className="eventScheduleButton"
+            href={googleCalendarLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <p>schedule</p>
+          </Button>
+        )
       }      
     >
 

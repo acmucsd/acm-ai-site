@@ -4,7 +4,7 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import Number from "../../components/Statistic";
 import { Layout, Space, Button } from 'antd';
-const { Content} = Layout;
+const { Content, Footer} = Layout;
 
 interface CompetitionButtonProps {
   link1: string | { pathname: string; };
@@ -213,6 +213,10 @@ function CompetitionsPage(props: any) {
           </div>
 
         </Content>
+
+        <Footer className="competitionsFooter">
+          <h3>ACM AI at UCSD 2023</h3>
+        </Footer>
       </div>
     </DefaultLayout>
   );

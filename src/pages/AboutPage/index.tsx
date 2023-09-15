@@ -227,7 +227,7 @@ function AboutPage() {
           placement={size.width!! < 600 ? "bottom" : "right"}
           closable={true}
           open={isDrawerVisible}
-          extra={<Button className="drawerButton" onClick={() => setIsDrawerVisible(false)}>Close</Button>}
+          extra={<Button size = "large" className="drawerButton" onClick={() => setIsDrawerVisible(false)}>Close</Button>}
           onClose={() => setIsDrawerVisible(false)}
         >
           <div className="drawerContent">

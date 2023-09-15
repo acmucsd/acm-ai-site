@@ -73,11 +73,6 @@
         justify-content: center;
         p {
           color: white;
-
-          // @media screen and (max-width: @xs) {
-          //   display: none;
-          //   margin: none;
-          // }
           
         }
 
@@ -111,6 +106,7 @@
       flex-wrap: wrap;
       overflow-y: hidden;
       margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
     }
     .ant-tag {
       margin-right: 3px;
@@ -134,9 +130,11 @@
   }
   .title {
     margin-bottom: 1rem;
+    font-weight: @semi-bold;
   }
   .ant-tag {
     margin: 3px;
+    border-radius: 10px;
   }
   .ant-modal-footer {
     display: flex;
@@ -149,7 +147,15 @@
   
 }
 .ant-modal-body {
-  .description {
-    margin-top: 1rem;
+  .projectModalDescriptionBox {
+    margin: 1rem 0;
+    background: #F6F6F6;
+    border-radius: 20px;
+    padding: 1rem;
+    .description {
+      margin: 1rem;
+    }
+
   }
+
 }
