@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Project } from '../../pages/ProjectsPage/projects'
-import { GithubOutlined, LinkOutlined} from '@ant-design/icons';
+import { GithubOutlined, LinkOutlined } from '@ant-design/icons';
+import { AiFillCalendar } from 'react-icons/ai';
 import { Card } from '../Card';
-import { Tag, Modal, Divider, Image, Button} from 'antd';
+import { Tag, Modal, Divider, Image, Button, Row, Col } from 'antd';
 import { AiOutlineInfoCircle, AiOutlineLink, AiOutlineGithub } from 'react-icons/ai';
 import './index.less';
 
-var ASCIISum = (str : string) => {
+var ASCIISum = (str: string) => {
   let sum = 0;
   for (let i = 0; i < str.length; ++i) {
     sum += str.charCodeAt(i)
@@ -14,12 +15,12 @@ var ASCIISum = (str : string) => {
   return sum
 }
 
-const ProjectCard = ({ project }: {project: Project}) => {
+const ProjectCard = ({ project }: { project: Project }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const color_tag : string[] =  ["red", "blue", "gold", "purple", "green"];
+  const color_tag: string[] = ["red", "blue", "gold", "purple", "green"];
   //['magenta', 'cyan', 'gold', 'blue', 'purple', 'green'];
   //['#DCB9B9', '#8FA5BE', '#E1B053', '#6D6864', '#8E799F', '#889F79']
-  
+
   // Modal props
   const showModal = () => {
     setIsModalOpen(true);
@@ -30,86 +31,87 @@ const ProjectCard = ({ project }: {project: Project}) => {
   };
 
   return (
-  <>
+    <>
       <Card
-        className="ProjectCard" 
-        hoverable = {false}
-      >
-        {/* <div className="tags">
-          {project.tags!.sort().map((tag)  => {
-            return (
-              <Tag bordered={false} key={tag} color={"#F6F6F6"} style={{color: "black", borderRadius:"10px"}}>{tag}</Tag>
-            );
-          })}
-
-        </div>   */}
-        <Image
-           src={project.cover} alt="Project cover" 
-          style={{borderRadius:"100px", height:"50px", width: "50px", boxShadow:"0px 3px 5px 1px rgba(189, 189, 189, 0.5)"}}
-        />
-        <h4 className = "title">{project.name}</h4>
-        <h5>{project.quarter}</h5>
-        <Divider/>
-
-        <div className = "descriptionBox">
-
-          <div className = "iconsBox">
-
-            
-            <Button 
-              size="large"
-              className = "viewModalButton"
-              onClick = {showModal}
-              icon = {<AiOutlineInfoCircle size = {25} style = {{color:"white"}} />}
-            >
-              <p>view</p>
-            </Button>
-
-
-    
-            <a href ={project.github}>
-            <Button 
-              size = "large"
-              className="gitHubButton"
-              icon = {<AiOutlineGithub size = {25} style = {{color:"rgb(84, 84, 84)"}} />}
-            ><p>github</p>
-            </Button>
-
-            </a>
-
- 
-  
-
+        className="ProjectCard"
+        hoverable={true}
+        onClick = {() => {showModal()}}
+        type="inner"
+        title={
+          <div className="projectCardHeader"><AiFillCalendar size={20} /> 
+            <p className="projectQuarter">{project.quarter}</p>  
           </div>
+        }
+      >
+
+        <Row className = "projectCardInfo">
+
+          <Col>
+              <img
+              src={project.cover}
+              style={{ objectFit: "cover",  boxShadow:"0px 3px 5px 1px rgba(189, 189, 189, 0.5)", borderRadius: "16px", height: "60px", width: "60px" }}
+            />
+            <h4 className="title">{project.name}</h4>
+            <div className="tags">
+              {project.tags!.sort().map((tag) => {
+                return (
+                  <Tag bordered={false} key={tag} color={"#F6F6F6"} style={{ color: "black", borderRadius: "10px" }}>{tag}</Tag>
+                );
+              })}
+
+            </div>
+          </Col>
+
+
+        </Row>
+
+
+        <div className="descriptionBox">
+
+          <p>{project.description}</p>
 
         </div>
-      
-      </Card>
-    
-    <Modal
-      open={isModalOpen}
-      onCancel={handleCancel}
-      footer={[
-        project.github ? (
-          <a href={project.github} target="_blank" rel="noopener noreferrer"><GithubOutlined style={{ fontSize: '30px', color: 'black' }}/></a>
-        ) : null,
-        project.link ? (
-          <a href={project.link} target="_blank" rel="noopener noreferrer"><LinkOutlined style={{ fontSize: '30px', color: 'black' }}/></a>
-        ): null,
-      ]}
         
-    >
-      <h3 className="title">{project.name}</h3>
-      <div className="tags">
-        {project.tags!.sort().map((tag)  => {
-          return (
-            <Tag key={tag} bordered={false} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
-          );
-        })}
-      </div>
-      <p className="description">{project.description}</p>                      
-    </Modal>
-  </>);
+        <div className="iconsBox">
+
+
+          {/* <Button
+            size="large"
+            className="viewModalButton"
+            onClick={showModal}
+          //icon={<AiOutlineInfoCircle size={25} style={{ color: "white" }} />}
+          >
+            <p>view</p>
+          </Button> */}
+
+
+        </div>
+      </Card>
+
+      <Modal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={[
+          project.github ? (
+            <a href={project.github} target="_blank" rel="noopener noreferrer"><GithubOutlined style={{ fontSize: '30px', color: 'black' }} /></a>
+          ) : null,
+          project.link ? (
+            <a href={project.link} target="_blank" rel="noopener noreferrer"><LinkOutlined style={{ fontSize: '30px', color: 'black' }} /></a>
+          ) : null,
+        ]}
+
+      >
+        <h3 className="title">{project.name}</h3>
+        <div className="tags">
+          {project.tags!.sort().map((tag) => {
+            return (
+              <Tag key={tag} bordered={false} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+            );
+          })}
+        </div>
+        <p className="description">{project.description}</p>
+      </Modal>
+    </>);
 };
 /**
  * Formats a date to be readable.
@@ -135,11 +137,11 @@ export const formatTime = (time: string | number | Date): string => {
 export const isURL = (str: string): boolean => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$', // fragment locator
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+    '(\\#[-a-z\\d_]*)?$', // fragment locator
     'i'
   );
 

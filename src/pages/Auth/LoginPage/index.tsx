@@ -29,7 +29,6 @@ function LoginPage() {
       <div className="LoginPage">
         <Content className="loginDetails">
 
-
           <Form onSubmitCapture={handleSubmit(onSubmit)}>
 
             <div className="loginHeader">
@@ -39,13 +38,14 @@ function LoginPage() {
 
             <Controller
               as={
-                <Form.Item>
+                <Form.Item style = {{marginBottom: "12px"}}> 
                   <Input
                     size="large"
                     allowClear={true}
                     type="text"
                     placeholder="Username"
                     name="username"
+                    autoComplete="off"
                   />
                 </Form.Item>
               }
@@ -55,12 +55,13 @@ function LoginPage() {
             />
             <Controller
               as={
-                <Form.Item>
+                <Form.Item style = {{marginBottom: "12px"}}>
                   <Input.Password
                     size="large"
                     type="password"
                     placeholder="Password"
                     name="password"
+                    autoComplete="off"
                   />
                 </Form.Item>
               }
@@ -75,8 +76,8 @@ function LoginPage() {
             )}
 
 
-            <Button htmlType="submit" className="loginButton">
-              <h4>Login</h4>
+            <Button htmlType="submit" size = "large" style = {{background: "black", height: "45px", border:"none" }}>
+              <h4 style = {{color:"white"}}>Login</h4>
             </Button>
 
             <div className="authOptionsBox">

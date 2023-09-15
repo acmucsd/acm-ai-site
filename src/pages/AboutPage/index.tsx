@@ -267,7 +267,11 @@ function AboutPage() {
 
         <Content className="aboutContent">
           <h1 className="title2">Our Team</h1>
-          <h4>Work isn’t always easy, so in order to make sure everything runs smoothly, we rely on a passionate group of individuals who bring their unique talents to the table.  From content creators, social leads, to coding and more everyone is an integral part of ou mission to make AI accessible and fun!</h4>
+          <h4>Work isn’t always easy, so in order to make sure everything runs smoothly, we rely 
+            on a passionate group of individuals who bring their unique talents to the table.  
+            From content creators, social leads, to programmers and more, everyone is an integral part 
+            of our mission to make AI accessible and fun!
+          </h4>
 
 {/*           {size.width!! < 600 ?
 

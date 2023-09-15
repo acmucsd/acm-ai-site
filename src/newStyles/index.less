@@ -64,17 +64,18 @@ h3 {
   font-size:@font4;
   line-height: @font5;
   font-weight: @regular;
-  
+  @media only screen and (max-width: @xs) {
+    font-size: 16px;
+    line-height: 18px;
+  }
 }
 
 // h4 and p are very similar in size
 h4 {
-  // font-size:@font3;
-  // line-height: @font4;
   font-weight: @regular;
   font-size: 20px;
   line-height: 24px;
-  @media only screen and (max-width: @sm) {
+  @media only screen and (max-width: @xs) {
     font-size: 14px;
     line-height: 18px;
   }
@@ -83,6 +84,10 @@ h5 {
   font-size: @font2;
   line-height: @font2;
   font-weight: @regular;
+  @media only screen and (max-width: @xs) {
+    font-size: 12px;
+    line-height: 16px;
+  }
 }
 p {
   font-weight: 400;

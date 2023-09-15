@@ -51,6 +51,8 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
   )}/${encodeURIComponent(
     formatCalendarTime(event.end)
   )}&location=${encodeURIComponent(event.location)}`;
+
+
   return (
     <>
     <div className="EventCard">
@@ -95,9 +97,11 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
         <Button 
           size="large" 
           className ="eventScheduleButton"
+          href = {googleCalendarLink}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-
-          <p><a href={googleCalendarLink} target="_blank" rel="noopener noreferrer">schedule</a></p>
+          <p>schedule</p>
         </Button>
       }      
     >

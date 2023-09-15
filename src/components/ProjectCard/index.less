@@ -4,11 +4,20 @@
 @import '../../newStyles/variables.less';
 
 
-  .ProjectCard {
+.projectCardHeader {
+  display: flex; 
+  flex-direction: row;
+  align-items: center;
+  
 
-    // override default height
-    //height: 250px !important;
-    box-shadow: none !important;
+  .projectQuarter {
+    font-weight: @semi-bold;
+    margin-left: 1rem;
+  }
+
+}
+
+  .ProjectCard {
     border: none;
 
     @media screen and (max-width: @md) {
@@ -18,8 +27,14 @@
     .title {
       font-weight: @semi-bold;
       margin-top: 1rem;
-      color: #f5621e;
+      color: #3e3e3e;
     }
+
+    .projectCardInfo {
+      margin: 0;
+
+    }
+
 
 
 
@@ -28,59 +43,63 @@
       align-items: center;
       justify-content: flex-start;
       border-radius: 10px;
-      margin-top: 1rem;
-      height: 50px;
+      margin: 1rem 0 2rem 0;
+      display: -webkit-box;
+      /* webkit attributes supported in 93% of all browsers*/
+      -webkit-line-clamp: 2; /* Limit the number of lines to 2 */
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      text-overflow: ellipsis;
       p {
         margin: 0;
-        font-size: @font2;
         white-space: normal;
+        color: gray;
+
       }
 
-      .iconsBox {
+    }
+
+    .iconsBox {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .viewModalButton {
+        border: none;
+        background: @black;
+        box-shadow: 0px 3px 5px 1px rgba(189, 189, 189, 0.5);
         display: flex;
-        flex-direction: row;
+        padding: 1rem;
         align-items: center;
+        justify-content: center;
+        p {
+          color: white;
 
-        .viewModalButton {
-          border: none;
-          background: @black;
-          display: flex;
-          padding: 1rem;
-          margin-right: 1rem;
-          align-items: center;
-          justify-content: center;
-          p {
-            color: white;
-
-            @media screen and (max-width: @xs) {
-              display: none;
-              margin: none;
-            }
-            
-          }
-
+          // @media screen and (max-width: @xs) {
+          //   display: none;
+          //   margin: none;
+          // }
+          
         }
 
-        .gitHubButton {
-          border: none;
-          background: rgb(245, 245, 245);
-          display: flex;
-          padding: 1rem;
-          align-items: center;
-          p {
-            color: @black;
-            @media screen and (max-width: @xs) {
-              display: none;
-              margin: none;
-            }
-          }
-        }
-
-
-      
       }
+
+      .gitHubButton {
+        border: none;
+        background: rgb(245, 245, 245);
+        display: flex;
+        padding: 1rem;
+        align-items: center;
+        p {
+          color: @black;
+          @media screen and (max-width: @xs) {
+            display: none;
+            margin: none;
+          }
+        }
+      }
+
+
+    
     }
 
 
@@ -94,7 +113,8 @@
       margin-bottom: 0.5rem;
     }
     .ant-tag {
-      margin: 3px;
+      margin-right: 3px;
+      margin-bottom: 4px;
     }
     .description {
       font-size: @font1;

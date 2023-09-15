@@ -2,6 +2,7 @@ import React from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
 import { Form, Input, message, Button, Layout } from 'antd';
+import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { requestReset } from '../../../actions/auth';
 const { Content } = Layout;
@@ -29,7 +30,7 @@ const RequestResetPage = () => {
             <Controller
               as={
                 <Form.Item>
-                  <Input type="text" placeholder="Username" name="username" />
+                  <Input size = "large" autoComplete="off" type="text" placeholder="Username" name="username" />
                 </Form.Item>
               }
               name="username"
@@ -37,10 +38,15 @@ const RequestResetPage = () => {
               rules={{ required: true }}
             />
 
-            <Button htmlType="submit" className="requestButton">
-              <h4>Send Reset Link</h4>
+            <Button htmlType="submit" size = "large" style = {{background: "black", height: "45px", border:"none" }}>
+              <h4 style = {{color: "white"}}>Send Reset Link</h4>
             </Button>
           </form>
+
+          <div className="loginLink">
+
+            <Link to="./login"><p className="option">Back to Login</p></Link>
+          </div>
 
         </Content>
 

@@ -112,8 +112,8 @@ function MainPage() {
                   adventurous in exploring our various aspects of computing or just having fun, check out ACM's main website
                   for exciting events!
                 </h4>
-                <Button className="navButton" size="large" shape="round" >
-                  <a href="https://acmucsd.com/" rel="noopener noreferrer">explore</a>
+                <Button className="navButton" size="large" shape="round" href ="https://acmucsd.com/">
+                 <p>explore</p>
                 </Button>
 
               </div>

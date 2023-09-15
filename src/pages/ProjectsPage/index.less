@@ -10,7 +10,6 @@
     background: #F6F6F6;
 
     .projectsHero {
-        .gradient();
         .center-both-ways();
         padding: 4rem;
 
@@ -20,49 +19,45 @@
 
             h1,
             h4 {
-                color: white;
+                color: @black;
                 text-align: center;
+
             }
+
             h4 {
                 max-width: 600px;
             }
         }
 
-        .filterCollapse{
-            margin-top: 3rem;
-            width: 400px;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            .selectTags {
-                width: 100%;
-            }
-            .newest {
-                width: 100%;
-            }
-        }
     }
 
-    
+
     .projectsFilters {
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
+        flex-direction: row;
         align-items: center;
+        display: flex;
+        width: 100%;
+
+        .sortDropDown {
+            .sortOption {
+                width: 170px;
+            }
+        }
     }
 
     .projectsSection {
-        padding: 4rem 0;
-
+        .constrained-bounds();
+        .center-both-ways();
         .ant-tag-checkable {
             line-height: 2rem;
         }
+        margin-bottom: 3rem;
 
 
-        .projectsCards {
-            .constrained-bounds();
-            .center-both-ways();
 
-        }
+
     }
 
     .project-image {
@@ -79,4 +74,16 @@
         padding-left: 32px;
         padding-right: 32px;
     }
+
+
+    .aboutFooter {
+        text-align: center;
+        padding: 3rem;
+    
+        width: 100%;
+        min-width: 180px;
+        background-color: @black;
+        color: @white;
+      }
+    
 }

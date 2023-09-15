@@ -39,8 +39,8 @@ function RegisterPage() {
           <Form onSubmitCapture={handleSubmit(onSubmit)}>
             <Controller
               as={
-                <Form.Item hasFeedback>
-                  <Input type="text" placeholder="Username" name="username" />
+                <Form.Item hasFeedback style = {{marginBottom: "12px"}}>
+                  <Input size="large" type="text" placeholder="Username" name="username"  autoComplete="off" />
                 </Form.Item>
               }
               control={control}
@@ -49,8 +49,8 @@ function RegisterPage() {
             />
             <Controller
               as={
-                <Form.Item>
-                  <Input type="text" placeholder="Email" name="email" />
+                <Form.Item style = {{marginBottom: "12px"}}>
+                  <Input size="large" type="text" placeholder="Email" name="email"  autoComplete="off"/>
                 </Form.Item>
               }
               name="email"
@@ -65,8 +65,9 @@ function RegisterPage() {
             />
             <Controller
               as={
-                <Form.Item>
+                <Form.Item style = {{marginBottom: "12px"}}>
                   <Input.Password
+                    size="large"                 
                     type="password"
                     placeholder="Password"
                     name="password"
@@ -79,8 +80,9 @@ function RegisterPage() {
             />
             <Controller
               as={
-                <Form.Item>
+                <Form.Item style = {{marginBottom: "12px"}}>
                   <Input.Password
+                    size="large"
                     type="password"
                     placeholder="Confirm Password"
                     name="confirmPassword"
@@ -130,8 +132,8 @@ function RegisterPage() {
             )}
             </div>
          
-            <Button htmlType="submit" className="registerButton">
-              <h4>Register</h4>
+            <Button htmlType="submit" size = "large" style = {{background: "black", height: "45px", border:"none" }}>
+              <h4 style = {{color: "white"}}>Register</h4>
             </Button>
           </Form>
           

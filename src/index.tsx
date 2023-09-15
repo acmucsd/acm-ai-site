@@ -23,9 +23,9 @@ ReactDOM.render(
                 dotBg: "black",
               },
               Menu: {
-                itemHoverColor:"#f5621e",
                 colorPrimary: "#f5621e"
-              }
+              },
+
             },
             
           }}
