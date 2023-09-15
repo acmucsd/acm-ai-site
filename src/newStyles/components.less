@@ -54,6 +54,20 @@
     background: linear-gradient(90deg, rgb(253, 75, 65), #FFA659);
 }
 
+.animated-gradient {
+    background: linear-gradient(to right, rgb(240, 80, 71),  #FFA659, rgb(253, 75, 65), #FFA659 );
+    animation: moveGradient 5s linear infinite;
+    background-size: 300% 100%;
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
 
 // Every page has a header so it's better to keep a single source of truth here
 .header-section {
