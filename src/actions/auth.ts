@@ -46,7 +46,7 @@ export const requestReset = async (username: string) => {
       })
       .catch((error) => {
         message.error('Request Failed');
-        reject(error);
+        //reject(error);
       });
   });
 };
@@ -71,7 +71,7 @@ export const registerUser = async (data: {
       .catch((error) => {
         message.error(error.response.data.error.message);
         console.error(error);
-        reject(error);
+        //reject(error);
       });
   });
 };
@@ -125,8 +125,8 @@ export const loginUser = async (
         resolve(res.data.token);
       })
       .catch((error) => {
-        // message.error(error.response.data.error.message);
-        reject(error);
+        message.error(error.response.data.error.message);
+        //reject(error);
       });
   });
 };
@@ -145,8 +145,8 @@ export const verifyToken = async (dimensionID: string, token: string) => {
         resolve(res);
       })
       .catch((error) => {
-        // message.error(error.response.data.error.message);
-        reject(error);
+        message.error(error.response.data.error.message);
+        //reject(error);
       });
   });
 };
