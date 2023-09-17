@@ -64,6 +64,11 @@ function CompetitionsPage(props: any) {
                 </a>
                 All skill levels are welcome!
               </h4>
+
+              <div className = "noCompetitionsBox">
+                <p>No upcoming competitions yet!</p>
+              </div>
+              
             </div>
         </Content>
 
