@@ -109,13 +109,13 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
 
         <Button
           className="viewButton"
-
+          size = "large"
           onClick={() => {
             onSelectPerson(card);
             showDrawer();
           }}
         >
-          View
+          <p>View</p>
         </Button>
 
       </Row>

@@ -23,7 +23,7 @@ const EventTimeline = ({ eventData }: { eventData: ACMEvent[] }) => {
 
           <Timeline.Item style = {{marginTop: "24px"}}color="black">
             <Link to={`/events`} rel="noopener noreferrer">
-             <Button size="large" style={{ background: "black", color: "white", border:"none"}}>
+             <Button size="large" style={{ background: "#282828", color: "white", border:"none"}}>
                 <p>Browse Events</p>
               </Button>
             </Link>

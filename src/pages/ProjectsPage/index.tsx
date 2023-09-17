@@ -15,7 +15,7 @@ var ASCIISum = (str: string) => {
   return sum
 }
 
-function ProjectsPage() {
+function ProjectsPage() { 
   // filter projects by tag
   const color_tag: string[] = ['magenta', 'cyan', 'gold', 'blue', 'purple', 'green']
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -106,10 +106,11 @@ function ProjectsPage() {
   return (
     <DefaultLayout>
       <div className="ProjectsPage">
+ 
         <Content>
-          <div className="projectsTopBar">
-          </div>
-        </Content>
+        <div className="projectsTopBar">
+        </div>
+      </Content>
 
         <Content className="projectsHero">
           <div className="headerContent">
@@ -152,7 +153,7 @@ function ProjectsPage() {
             </Select> */}
           </div>
 
-          <div className="projectsCards">
+          <Content className="projectsCards">
             <Row gutter={[
               { xs: 16, sm: 16, md: 24, lg: 24 },
               { xs: 16, sm: 16, md: 24, lg: 24 },
@@ -173,7 +174,7 @@ function ProjectsPage() {
 
 
             </Row>
-          </div>
+          </Content>
 
         </Content>
 

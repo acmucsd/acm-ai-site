@@ -7,12 +7,17 @@
 
 .ProjectsPage {
     .noContainer();
-    background: #F6F6F6;
+    //background: #F6F6F6;
+    
     
     .projectsTopBar {
         .gradient();
+        width: 100%;
+        // temporary left margin
+        margin-left: -12px;
         margin-top: 5.5rem;
         padding: 3rem;
+        max-height: 75px;
     }
     
 
@@ -44,7 +49,6 @@
         flex-direction: row;
         align-items: center;
         display: flex;
-        width: 100%;
 
         .sortDropDown {
             .sortOption {
@@ -55,14 +59,10 @@
 
     .projectsSection {
         .constrained-bounds();
-        .center-both-ways();
+        margin: auto;
         .ant-tag-checkable {
             line-height: 2rem;
         }
-
-
-
-
     }
 
     .project-image {

@@ -100,12 +100,14 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
         
         // If this is an old event, do not give user ability to schedule the event 
         new Date() > new Date(event.end) ? null : (
+
+          /* Antd Button has a bug where using href directly will mess up the 
+           * alignment of the button text so we use onClick instead 
+           */
           <Button
             size="large"
             className="eventScheduleButton"
-            href={googleCalendarLink}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick = {() => {window.location.href = googleCalendarLink}}
           >
             <p>schedule</p>
           </Button>
@@ -173,7 +175,7 @@ export const formatDate = (time: string): string => {
 export const formatTime = (time: string | number | Date): string => {
   const parsedTime = new Date(time);
   return parsedTime.toLocaleTimeString('en-US', {
-    hour: '2-digit',
+    hour: 'numeric',
     minute: '2-digit',
     hour12: true,
   });
