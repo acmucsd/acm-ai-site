@@ -87,32 +87,24 @@ interface Props {
 const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
 
   return (
-
-
-    <Card
-      className="AboutCard"
-      cover={!card.picture ? <Skeleton.Image className="image" active={false} /> : <img className="image" src={card.picture} alt="cover image" />}
+    <div className="AboutCardWrapper"
+      onClick={() => {
+        onSelectPerson(card);
+        showDrawer();
+      }}
     >
-      <Row className="cardPreviewContent">
-        <Col className="nameTitle">
-          <h3>{card.name}</h3>
-          <p>{card.role}</p>
-        </Col>
-
-        <Button
-          className="viewButton"
-          size = "large"
-          onClick={() => {
-            onSelectPerson(card);
-            showDrawer();
-          }}
-        >
-          <p>View</p>
-        </Button>
-
-      </Row>
-
-    </Card>
+      <Card
+        className="AboutCard"
+        cover={!card.picture ? <Skeleton.Image className="image" active={false} /> : <img className="image" src={card.picture} alt="cover image" />}
+      >
+        <Row className="cardPreviewContent">
+          <Col className="nameTitle">
+            <h3>{card.name}</h3>
+            <p>{card.role}</p>
+          </Col>
+        </Row>
+      </Card>
+    </div>
 
   )
 }
@@ -264,6 +256,7 @@ function AboutPage() {
             From content creators, social leads, to programmers and more, everyone is an integral part 
             of our mission to make AI accessible and fun!
           </h4>
+          <h4>Click on individual cards to learn more!</h4>
 
 {/*           {size.width!! < 600 ?
 
