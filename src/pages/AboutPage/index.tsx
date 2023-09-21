@@ -14,7 +14,7 @@ import {
   directors,
   operations,
   dev,
-  external,
+  marketing,
   Person,
   Socials,
   socials,
@@ -61,21 +61,13 @@ const SocialSection = ({ socials }: { socials?: Socials }) => {
     <div className="contactsBox">
       <h4>Contacts</h4>
       <Row className="links">
-        {socials.email && (
+        {/* {socials.email && (
           <p>
             Email: <a href={`mailto:${socials.email}`}>{socials.email}</a>
           </p>
-        )}
-
+        )} */}
         {socials.github && <section><div><FaGithubSquare size={28} /></div><a href={socials.github}><p>Github</p></a></section>}
         {socials.website && <section><div><AiFillHome size={28} /></div><a href={socials.website}><p>Website</p></a></section>}
-        {socials.twitter && <section><div><FaTwitterSquare size={28} /></div><a href={socials.twitter}><p>Twitter</p></a></section>}
-        {socials.instagram && (
-          <section><div><BiLogoInstagram size={28} /></div><a href={socials.instagram}><p>Instagram</p></a></section>
-        )}
-        {socials.facebook && (
-          <section><div><FaFacebookSquare size={28} /></div><a href={socials.facebook}><p>Facebook</p></a></section>
-        )}
         {socials.linkedin && (
           <section><div><FaLinkedin size={28} /></div><a href={socials.linkedin}><p>Linked In</p></a></section>
         )}
@@ -248,7 +240,7 @@ function AboutPage() {
                 <Col className="titleBox">
                   <Tag bordered={false} color={"error"}>{selectedPerson!!.role}</Tag>
                   <h4>{selectedPerson!!.name}</h4>
-                  <p>{`${selectedPerson!!.year} ${selectedPerson!!.major} major`}</p>
+                  <p>{`${selectedPerson!!.major} major`}</p>
                 </Col>
               </Row>
 
@@ -324,7 +316,7 @@ function AboutPage() {
           
 
             <Section
-              people={external}
+              people={marketing}
               team="marketing"
               statement="Our wonderful marketing and sponsorship team"
               onSelectPerson={(person: Person) => setSelectedPerson(person)}
