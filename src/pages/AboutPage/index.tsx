@@ -2,10 +2,9 @@ import React, { ReactNode } from 'react';
 import { Size, useWindowSize } from './useWindowSize';
 import './index.less';
 import { useState } from 'react';
-import { AiFillLinkedin, AiFillHome } from 'react-icons/ai';
-import { BiLogoInstagram } from 'react-icons/bi';
-import { HiOutlineBriefcase, HiOutlineMail } from 'react-icons/hi';
-import { FaRegCalendar, FaBullhorn, FaFacebookSquare, FaLaptopCode, FaGithubSquare, FaTwitterSquare, FaLinkedin } from 'react-icons/fa';
+import { AiFillHome } from 'react-icons/ai'
+import { HiOutlineBriefcase, } from 'react-icons/hi';
+import { FaRegCalendar, FaBullhorn, FaLaptopCode, FaGithubSquare, FaLinkedin } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
 import DefaultLayout from '../../components/layouts/default';
 import { Col, Row, Layout, Segmented, Dropdown, Button, Skeleton, Drawer, Tag, Divider } from 'antd';
@@ -21,17 +20,6 @@ import {
 } from './people';
 const { Content, Footer } = Layout;
 
-
-const ColoredLine = () => (
-  <hr
-    style={{
-      color: 'gray',
-      backgroundColor: 'gray',
-      height: '10%',
-    }}
-  />
-);
-
 const CardsRow = ({ children }: { children?: ReactNode }) => (
   <Row
     className="CardsRow"
@@ -46,12 +34,9 @@ const CardsRow = ({ children }: { children?: ReactNode }) => (
 );
 
 const SocialLink = ({ title, href }: { title: string; href: string }) => (
-  <p>
-    {title}:{' '}
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      {href}
-    </a>
-  </p>
+  <a href={href} target="_blank" rel="noopener noreferrer">
+    <p>{title}</p>
+  </a>
 );
 
 const SocialSection = ({ socials }: { socials?: Socials }) => {
@@ -61,15 +46,10 @@ const SocialSection = ({ socials }: { socials?: Socials }) => {
     <div className="contactsBox">
       <h4>Contacts</h4>
       <Row className="links">
-        {/* {socials.email && (
-          <p>
-            Email: <a href={`mailto:${socials.email}`}>{socials.email}</a>
-          </p>
-        )} */}
-        {socials.github && <section><div><FaGithubSquare size={28} /></div><a href={socials.github}><p>Github</p></a></section>}
-        {socials.website && <section><div><AiFillHome size={28} /></div><a href={socials.website}><p>Website</p></a></section>}
+        {socials.github && <section><div><FaGithubSquare size={28} /></div><SocialLink title="GitHub" href={socials.github}/></section>}
+        {socials.website && <section><div><AiFillHome size={28} /></div><SocialLink title="Website" href={socials.website}/></section>}
         {socials.linkedin && (
-          <section><div><FaLinkedin size={28} /></div><a href={socials.linkedin}><p>Linked In</p></a></section>
+          <section><div><FaLinkedin size={28} /></div><SocialLink title="LinkedIn" href={socials.linkedin}/></section>
         )}
       </Row>
     </div>
@@ -95,7 +75,7 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
     >
       <Card
         className="AboutCard"
-        cover={!card.picture ? <Skeleton.Image className="image" active={false} /> : <img className="image" src={card.picture} alt="cover image" />}
+        cover={!card.picture ? <Skeleton.Image className="image" active={false} /> : <img className="image" src={card.picture} alt={`profile of ${card.name}`} />}
       >
         <Row className="cardPreviewContent">
           <Col className="nameTitle">
@@ -140,11 +120,11 @@ const Section = ({
   <Content>
     <div className="banner">
       <div className="iconWrapper">
-        {team == "directors" && <HiOutlineBriefcase size={25} color={"#f5621e"} />}
-        {team == "operations" && <FaRegCalendar size={25} color={"#f5621e"} />}
-        {team == "socials" && <BsPeopleFill size={25} color={"#f5621e"} />}
-        {team == "marketing" && <FaBullhorn size={25} color={"#f5621e"} />}
-        {team == "developers" && <FaLaptopCode size={25} color={"#f5621e"} />}
+        {team === "directors" && <HiOutlineBriefcase size={25} color={"#f5621e"} />}
+        {team === "operations" && <FaRegCalendar size={25} color={"#f5621e"} />}
+        {team === "socials" && <BsPeopleFill size={25} color={"#f5621e"} />}
+        {team === "marketing" && <FaBullhorn size={25} color={"#f5621e"} />}
+        {team === "developers" && <FaLaptopCode size={25} color={"#f5621e"} />}
       </div>
       <h4 className="statement">{statement}</h4>
 
@@ -187,7 +167,6 @@ const items = [
 function AboutPage() {
   const [selectedSection, setSelectedSection] = useState("Executives");
   const size: Size = useWindowSize();
-  const [showSelectButton, setShowSelectButton] = useState(false)
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<Person>();
 
@@ -227,7 +206,7 @@ function AboutPage() {
                   }}
                   className="image"
                   src={selectedPerson!!.picture}
-                  alt="cover image"
+                  alt={`profile of ${selectedPerson!!.name}`}
                 />
                 <Col className="titleBox">
                   <Tag bordered={false} color={"error"}>{selectedPerson!!.role}</Tag>
@@ -258,7 +237,7 @@ function AboutPage() {
           </h4>
           <h4>Click on individual cards to learn more!</h4>
 
-{/*           {size.width!! < 600 ?
+          {/* {size.width!! < 600 ?
 
             (
               <Dropdown trigger={['click']} className="filterButton" menu={{ items, onClick }}>

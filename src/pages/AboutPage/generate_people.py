@@ -60,6 +60,8 @@ with open(csv_path, encoding="utf-8") as csv_file:
             continue
         if not person["picture"]:
             person["picture"] = ai_logo
+        if person["socials"]["github"] and "github.com" not in person["socials"]["github"]:
+            person["socials"]["github"] = "https://github.com/" + person["socials"]["github"]
 
         # add to teams
         if row["section"] == "directors":
