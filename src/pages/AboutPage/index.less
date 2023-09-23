@@ -1,13 +1,139 @@
+@import '../../newStyles/variables.less';
 @import '../../newStyles/text.less';
 @import '../../newStyles/components.less';
 @import '../../newStyles/index.less';
-@import '../../newStyles/variables.less';
+
+.About {
+  .noContainer();
+  padding-top: 9.5rem;
+  background: #FAFAFA;
+
+
+  .segmentedBox,
+  .filterButton {
+    margin-top: 2rem;
+    z-index: 0;
+  }
+
+
+  .aboutContent {
+    .generic-centered-section();
+    .constrained-bounds();
+    text-align: center;
+
+    h4 {
+      max-width: 700px;
+      line-height: 2rem;
+    }
+  }
+
+
+  .gallery {
+    margin-bottom: 10rem;
+
+    .banner {
+
+      margin-top: 4rem;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #f5621e;
+      padding: 3rem 2rem;
 
 
 
+      .iconWrapper {
+        background: white;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 14px;
+
+
+      }
+
+      .statement {
+        font-weight: @semi-bold;
+        max-width: 400px;
+        text-align: center;
+        color: white;
+        margin: 1rem 24px;
+
+
+      }
+
+    }
+
+    .teamSection {
+      .generic-section();
+      .constrained-bounds();
+
+    }
+
+
+  }
+
+
+}
+
+
+.AboutCard {
+  border-radius: 20px;
+  text-align: left;
+  width: 100%;
+
+  .cardPreviewContent {
+    justify-content: space-between;
+    align-items: center;
+
+    .nameTitle {
+
+      h4 {
+        font-weight: @semi-bold;
+
+      }
+
+      p {
+        color: darkgray;
+      }
+    }
+
+  }
+
+}
+
+.aboutImage {
+  max-height: 350px;
+  height: 350px;
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+
+  @media only screen and (max-width: @lg) {
+    height: 300px;
+  }
+
+  @media only screen and (max-width: @md) {
+    height: 250px;
+  }
+
+  @media only screen and (max-width: @sm) {
+    height: 250px;
+  }
+
+  @media only screen and (max-width: @xs) {
+    height: 280px;
+  }
+
+  object-fit: cover;
+}
 .drawerButton {
   background: @black;
-  border:none;
+  border: none;
   border-radius: 10px;
   box-shadow: 0px 3px 5px 1px rgba(189, 189, 189, 0.5);
   color: white;
@@ -113,162 +239,8 @@
           :hover {
             color: @mainred;
           }
-
-          p {
-            font-size: 14px;
-          }
         }
       }
     }
   }
 }
-
-.AboutPage {
-  .noContainer();
-  margin-top: 9.5rem;
-
-  .segmentedBox,
-  .filterButton {
-    margin-top: 2rem;
-    z-index: 0;
-  }
-
-
-  .aboutContent {
-    .generic-centered-section();
-    .constrained-bounds();
-    text-align: center;
-
-    h4 {
-      max-width: 700px;
-      line-height: 2rem;
-    }
-  }
-
-
-  .gallery {
-    background: #FAFAFA;
-
-    .banner {
-      
-      margin-top: 4rem;
-      text-align: center;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: #f5621e;
-      padding: 3rem 2rem;
-
-
-
-      .iconWrapper {
-        background: white;
-        height: 50px;
-        width: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 14px;
-    
-
-      }
-
-      .statement {
-        font-weight: @semi-bold;
-        max-width: 400px;
-        text-align: center;
-        color: white;
-        margin: 1rem 24px;
-        
-
-      }
-
-    }
-    .teamSection {
-      .generic-section();
-      .constrained-bounds();
-
-    }
-
-    .AboutCard {
-      border-radius: 20px;
-      text-align: left;
-      width: 100%;
-
-      .cardPreviewContent {
-        justify-content: space-between;
-        align-items: center;
-
-        .nameTitle {
-          @media only screen and (max-width: @sm) {
-            width: 70%;
-          }
-
-          h3 {
-            font-weight: @semi-bold;
-          }
-
-          p {
-            color: darkgray;
-          }
-        }
-
-
-        .viewButton {
-          border: none;
-          border-radius: 14px;
-          color: black;
-          background: #F6F6F6;
-          p {
-            font-weight: @semi-bold;
-
-          }
-
-        }
-
-      }
-
-    }
-
-    .image {
-      max-height: 350px;
-      height: 350px;
-      width: 100%;
-      border-radius: 20px 20px 0 0;
-
-      @media only screen and (max-width: @lg) {
-        height: 350px;
-      }
-
-      @media only screen and (max-width: @md) {
-        height: 250px;
-      }
-
-      @media only screen and (max-width: @sm) {
-        height: 250px;
-      }
-
-      @media only screen and (max-width: @xs) {
-        height: 200px;
-      }
-
-      object-fit: cover;
-    }
-
-
-  }
-
-  .aboutFooter {
-    text-align: center;
-    padding: 3rem;
-
-    width: 100%;
-    min-width: 180px;
-    background-color: @black;
-    color: @white;
-  }
-
-}
-

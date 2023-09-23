@@ -7,6 +7,7 @@ import { HiOutlineBriefcase, } from 'react-icons/hi';
 import { FaRegCalendar, FaBullhorn, FaLaptopCode, FaGithubSquare, FaLinkedin } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
 import DefaultLayout from '../../components/layouts/default';
+import MainFooter from '../../components/MainFooter/index';
 import { Col, Row, Layout, Segmented, Dropdown, Button, Skeleton, Drawer, Tag, Divider } from 'antd';
 import { Card } from '../../components/Card';
 import {
@@ -74,12 +75,13 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
       }}
     >
       <Card
+        hoverable={true}
         className="AboutCard"
-        cover={!card.picture ? <Skeleton.Image className="image" active={false} /> : <img className="image" src={card.picture} alt={`profile of ${card.name}`} />}
+        cover={!card.picture ? <Skeleton.Image className= "aboutImage" active={false} /> : <img className="aboutImage" src={card.picture} alt={`profile of ${card.name}`} />}
       >
         <Row className="cardPreviewContent">
           <Col className="nameTitle">
-            <h3>{card.name}</h3>
+            <h4>{card.name}</h4>
             <p>{card.role}</p>
           </Col>
         </Row>
@@ -161,9 +163,6 @@ const items = [
 ];
 
 
-
-
-
 function AboutPage() {
   const [selectedSection, setSelectedSection] = useState("Executives");
   const size: Size = useWindowSize();
@@ -226,7 +225,7 @@ function AboutPage() {
 
 
 
-      <div className="AboutPage">
+      <div className="About">
 
         <Content className="aboutContent">
           <h1 className="title2">Our Team</h1>
@@ -236,26 +235,6 @@ function AboutPage() {
             of our mission to make AI accessible and fun!
           </h4>
           <h4>Click on individual cards to learn more!</h4>
-
-          {/* {size.width!! < 600 ?
-
-            (
-              <Dropdown trigger={['click']} className="filterButton" menu={{ items, onClick }}>
-                <Button>Filter By Category</Button>
-              </Dropdown>
-            )
-            :
-            (
-              <Segmented
-                className="segmentedBox"
-                value={selectedSection}
-                size="large"
-                options={['Executives', 'Event Leads', 'Socials', 'Marketing', 'Developers']}
-                onChange={(e) => setSelectedSection(e.toString())}
-              />
-            )
-
-          } */}
         </Content>
 
 
@@ -305,13 +284,11 @@ function AboutPage() {
             />
           
         </Content>
+      
+        <MainFooter/>
 
-        <Footer className="aboutFooter">
-          <h3>ACM AI at UCSD 2023</h3>
-        </Footer>
       </div>
-
-
+      
 
     </DefaultLayout>
   );

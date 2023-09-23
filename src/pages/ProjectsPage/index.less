@@ -7,16 +7,13 @@
 
 .ProjectsPage {
     .noContainer();
-    //background: #F6F6F6;
-    
+
     
     .projectsTopBar {
         .gradient();
         width: 100%;
-        // temporary left margin
-        margin-left: -12px;
         margin-top: 5.5rem;
-        padding: 3rem;
+        padding: 3rem 0;
         max-height: 75px;
     }
     
@@ -59,7 +56,8 @@
 
     .projectsSection {
         .constrained-bounds();
-        margin: auto;
+        .generic-section();
+        margin: 0 auto 10rem auto;
         .ant-tag-checkable {
             line-height: 2rem;
         }
@@ -75,21 +73,7 @@
         width: 500px;
     }
 
-    @media screen and (max-width: @xs) {
-        padding-left: 32px;
-        padding-right: 32px;
-    }
 
 
-    .projectsFooter {
-        margin-top: 5rem;
-        text-align: center;
-        padding: 3rem;
-    
-        width: 100%;
-        min-width: 180px;
-        background-color: @black;
-        color: @white;
-      }
     
 }

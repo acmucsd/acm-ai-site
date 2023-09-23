@@ -4,6 +4,7 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import Number from "../../components/Statistic";
 import { Layout, Space, Button } from 'antd';
+import MainFooter from '../../components/MainFooter';
 const { Content, Footer} = Layout;
 
 interface CompetitionButtonProps {
@@ -112,14 +113,17 @@ function CompetitionsPage(props: any) {
               </p>
               
               <div>
-                <CompetitionButtons
+                <Link to="/old-competitions/nn">
+                  <Button className="compButtonPrimary" size="large" type="primary" danger><p>Leaderboard</p></Button>
+                </Link>
+                {/* <CompetitionButtons
                   link1="/competitions/Element.AI/leaderboard"
                   link1desc="Leaderboard"
                   link2={{ pathname: "https://challonge.com/elementai_2023_finals/standings" }}
                   link2desc="Top 16"
                   link3={{ pathname: "https://challonge.com/elementai_2023_firstknockout" }}
                   link3desc="Knockout Bracket"
-                />
+                /> */}
               </div>
             </Space>
 
@@ -139,14 +143,17 @@ function CompetitionsPage(props: any) {
                 This competition has concluded. Congratulations to programjames on their win.
               </p>
               <div>
-                <CompetitionButtons
+                <Link to="/old-competitions/nn">
+                  <Button className="compButtonPrimary" size="large" type="primary" danger><p>Leaderboard</p></Button>
+                </Link>
+               {/*  <CompetitionButtons
                   link1="/competitions/Element.AI/leaderboard"
                   link1desc="Leaderboard"
                   link2={{ pathname: "https://challonge.com/elementai_2023_finals/standings" }}
                   link2desc="GitHub"
                   link3=""
                   link3desc=""
-                />
+                /> */}
               </div>
             </Space>
 
@@ -177,14 +184,17 @@ function CompetitionsPage(props: any) {
                 This competition has concluded. Congratulations to programjames on their win.
               </p>
               <div>
-                <CompetitionButtons
+                <Link to="/old-competitions/energium/ranks">
+                  <Button className="compButtonPrimary" size="large" type="primary" danger><p>Leaderboard</p></Button>
+                </Link>
+                {/* <CompetitionButtons
                   link1="/old-competitions/energium/ranks"
                   link1desc="Leaderboard"
                   link2={{ pathname: "https://github.com/acmucsd/energium-ai-2020/" }}
                   link2desc="GitHub"
                   link3={{ pathname: "https://acmurl.com/ai-comp-fall2020"}}
                   link3desc="Winner Interview"
-                />
+                /> */}
               </div>
             </Space>
 
@@ -206,23 +216,24 @@ function CompetitionsPage(props: any) {
                 Hide and Seek AI Competition and to Matei Gardus for winning the hacker award 💻
               </p>
               <div>
-                <CompetitionButtons
+                <Link to="/old-competitions/hide-and-seek2020">
+                  <Button className="compButtonPrimary" size="large" type="primary" danger><p>Leaderboard</p></Button>
+                </Link>
+                {/* <CompetitionButtons
                   link1="/history/hide-and-seek2020"
                   link1desc="Leaderboard"
                   link2={{ pathname: "https://github.com/acmucsd/hide-and-seek-ai"}}
                   link2desc="GitHub"
                   link3={{ pathname: "https://medium.com/acmucsd/how-to-hide-from-ai-the-winner-interview-82a59aed5b0b"}}
                   link3desc="Finals Recording"
-                />
+                /> */}
               </div>
             </Space>
           </div>
 
         </Content>
 
-        <Footer className="competitionsFooter">
-          <h3>ACM AI at UCSD 2023</h3>
-        </Footer>
+        <MainFooter/>
       </div>
     </DefaultLayout>
   );

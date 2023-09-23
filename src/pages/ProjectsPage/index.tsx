@@ -4,6 +4,7 @@ import DefaultLayout from '../../components/layouts/default';
 import { Row, Col, Layout, Select, Tag, Collapse } from 'antd';
 import ProjectCard from '../../components/ProjectCard';
 import { projects } from './projects'
+import MainFooter from '../../components/MainFooter';
 const { Content, Footer } = Layout;
 const { Option } = Select;
 
@@ -15,7 +16,7 @@ var ASCIISum = (str: string) => {
   return sum
 }
 
-function ProjectsPage() { 
+function ProjectsPage() {
   // filter projects by tag
   const color_tag: string[] = ['magenta', 'cyan', 'gold', 'blue', 'purple', 'green']
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -106,11 +107,10 @@ function ProjectsPage() {
   return (
     <DefaultLayout>
       <div className="ProjectsPage">
- 
+
         <Content>
-        <div className="projectsTopBar">
-        </div>
-      </Content>
+          <div className="projectsTopBar"/> 
+        </Content>
 
         <Content className="projectsHero">
           <div className="headerContent">
@@ -178,9 +178,7 @@ function ProjectsPage() {
 
         </Content>
 
-        <Footer className="projectsFooter">
-          <h3>ACM AI at UCSD 2023</h3>
-        </Footer>
+        <MainFooter />
       </div>
     </DefaultLayout>
   );
