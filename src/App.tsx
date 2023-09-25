@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import { TournamentProvider } from './contexts/tournament';
 import { Spin } from 'antd';
@@ -44,6 +44,21 @@ import ProjectPage from './pages/ProjectsPage/index'
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
 
 let cookie = getCookie(COOKIE_NAME);
+
+function ScrollToTop() {
+  const history = useHistory();
+  useEffect(() => {
+    const unlisten = history.listen(() => {
+      window.scrollTo(0, 0);
+    });
+    return () => {
+      unlisten(); 
+    };
+  }, [history]);
+
+  return null;
+}
+
 function App() {
   const [user, setUser] = useState(defaultUser);
   const [initializedGA, setGA] = useState(false);
@@ -79,8 +94,9 @@ function App() {
 
   return (
     
+    <Router>
     <div>
-
+      <ScrollToTop/>
       <Switch>
         {!verifying ? (
           <UserProvider value={{ user: user, setUser: setUser }}>
@@ -146,6 +162,7 @@ function App() {
         )}
       </Switch>
     </div>
+    </Router>
   );
 }
 
