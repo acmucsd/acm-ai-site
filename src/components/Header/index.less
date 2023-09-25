@@ -6,16 +6,19 @@
   position: fixed;
   width: 100%;
   z-index: 100;
-  top:0;
-  //box-shadow: 0px 3px 5px 1px rgba(132, 132, 132, 0.5);
-  background: white;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  background: rgb(255, 255, 255);
 
-  .headerWrapper {
+  .navBarWrapper {
+    height: 80px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 0.5rem;
+
   }
   
   .navBarGradientLine {
@@ -60,6 +63,7 @@
 
 
 .mobileDropDown {
+  margin-top: 80px;
   width: 100vw;
   max-height: 500px;
   display: flex;

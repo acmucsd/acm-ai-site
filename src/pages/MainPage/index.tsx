@@ -58,7 +58,7 @@ function MainPage() {
           */}
 
         <Content className="homeHeader">
-          <div className="headerContent">
+          <div className="homeHeaderContent">
             <h1 className="homeTitle">acm ai</h1>
             <h4 className="homeSubTitle">
               We aspire to inspire the next generation of

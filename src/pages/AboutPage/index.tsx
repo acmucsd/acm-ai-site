@@ -77,7 +77,7 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
       <Card
         hoverable={true}
         className="AboutCard"
-        cover={!card.picture ? <Skeleton.Image className= "aboutImage" active={false} /> : <img className="aboutImage" style = {{borderRadius: "20px 20px 0 0 "}} src={card.picture} alt={`profile of ${card.name}`} />}
+        cover={!card.picture ? <Skeleton.Image className= "aboutImage" active={false} /> : <img className="aboutImage" style = {{borderRadius: "20px 20px 0 0"}} src={card.picture} alt={`profile of ${card.name}`} />}
       >
         <Row className="cardPreviewContent">
           <Col className="nameTitle">
@@ -254,8 +254,8 @@ function AboutPage() {
         drawerStyle={{position: "absolute", zIndex: "2000"}}
           width={"50%"}
           // 600 => same as @xs 
-          height={size.width!! < 600 ? "90%" : "100%"}
-          placement={size.width!! < 600 ? "bottom" : "right"}
+          height={size.width!! < 960 ? "90%" : "100%"}
+          placement={size.width!! < 960 ? "bottom" : "right"}
           closable={true}
           open={isDrawerVisible}
           extra={<Button size = "large" className="drawerButton" onClick={() => setIsDrawerVisible(false)}>Close</Button>}

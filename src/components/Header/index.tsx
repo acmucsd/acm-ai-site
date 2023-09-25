@@ -113,7 +113,7 @@ function Header() {
     <>
     <div className = "Header">
 
-      <div className = "headerWrapper">
+      <div className = "navBarWrapper">
         
       <div className = "logoWrapper">
         <Link to="/">
