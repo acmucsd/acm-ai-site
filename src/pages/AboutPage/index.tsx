@@ -77,7 +77,7 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
       <Card
         hoverable={true}
         className="AboutCard"
-        cover={!card.picture ? <Skeleton.Image className= "aboutImage" active={false} /> : <img className="aboutImage" src={card.picture} alt={`profile of ${card.name}`} />}
+        cover={!card.picture ? <Skeleton.Image className= "aboutImage" active={false} /> : <img className="aboutImage" style = {{borderRadius: "20px 20px 0 0 "}} src={card.picture} alt={`profile of ${card.name}`} />}
       >
         <Row className="cardPreviewContent">
           <Col className="nameTitle">

@@ -48,12 +48,6 @@ function MainPage() {
 
       <div className="Main">
 
-        <Content >
-          <div className="homeTopBar">
-            <h4>Welcome, Tritons to the new ACM AI site! Stay tuned for exciting content this year!</h4>
-          </div>
-        </Content>
-
 
         {/* Main header section*/}
 

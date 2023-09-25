@@ -113,7 +113,8 @@ function Header() {
     <>
     <div className = "Header">
 
-
+      <div className = "headerWrapper">
+        
       <div className = "logoWrapper">
         <Link to="/">
           <img src= "https://i.imgur.com/YqHEpJx.png" alt = "ACM AI Logo" style = {{height: "50px", width: "50px"}}/>
@@ -167,7 +168,12 @@ function Header() {
 
         </div>
       }
+      </div>
+
+      <div className = "navBarGradientLine"></div>
+
     </div>
+
 
     {/** Mobile dropdown nav links */}
 
