@@ -177,9 +177,26 @@ function Header() {
             <a>{link.text}</a>
           </Link>
         ))}
-         <Link className = "mobileNavItem" to = "/login">
+
+        {user.loggedIn ? 
+          (
+            <div    
+              className = "logOutOption"
+              onClick={() => {
+              logoutUser();
+              setUser(defaultUser);
+              message.success('Logged out');
+              history.push('/')}}
+              >
+                <a>Logout</a>
+              </div>
+           ) 
+           : 
+          (<Link className="mobileNavItem" to="/login">
             <a>Login</a>
-          </Link>
+           </Link>)
+        }
+
       </div>
     
       </>

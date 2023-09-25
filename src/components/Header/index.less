@@ -21,19 +21,7 @@
     font-weight: @semi-bold;
   }
 
-  .authButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background: @black;
-    color: white;
-    margin-left: 1rem;
-    margin-right: 2rem;
-    font-size: @font3;
-    border: none;
-    text-decoration: none;
-  }
+
 
   .logoWrapper {
     height: 50px;
@@ -80,10 +68,37 @@
     font-weight: @semi-bold;
     margin: 0.5rem 0;
   }
+
+  .logOutOption {
+    width: 100%;
+    text-decoration: none;
+    font-size: @font4;
+    color: @black;
+    font-weight: @semi-bold;
+    margin: 0.5rem 0;
+    :hover {
+      cursor: pointer;
+    }
+  }
 }
 
 /* Final state - menu is visible */
 .mobileDropDown.open {
   height: auto;
   transform: translateY(0);
+}
+
+.authButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: @black;
+  color: white;
+  margin-left: 1rem;
+  margin-right: 2rem;
+  font-size: @font4;
+  font-weight: @semi-bold;
+  border: none;
+  text-decoration: none;
 }
