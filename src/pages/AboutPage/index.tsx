@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { Size, useWindowSize } from './useWindowSize';
 import './index.less';
 import { useState } from 'react';
 import { AiFillHome } from 'react-icons/ai'
@@ -19,6 +18,7 @@ import {
   Socials,
   socials,
 } from './people';
+import { Size, useWindowSize } from '../../components/Header/useWindowSize';
 const { Content, Footer } = Layout;
 
 const CardsRow = ({ children }: { children?: ReactNode }) => (
@@ -181,60 +181,20 @@ function AboutPage() {
 
     <DefaultLayout>
 
-      {isDrawerVisible &&
-        <Drawer
-          width={"50%"}
-          // 600 => same as @xs 
-          height={size.width!! < 600 ? "90%" : "100%"}
-          placement={size.width!! < 600 ? "bottom" : "right"}
-          closable={true}
-          open={isDrawerVisible}
-          extra={<Button size = "large" className="drawerButton" onClick={() => setIsDrawerVisible(false)}>Close</Button>}
-          onClose={() => setIsDrawerVisible(false)}
-        >
-          <div className="drawerContent">
-            <Col>
-              <Row className="drawerHeader">
-                <img
-                  style={{
-                    marginRight: '1rem',
-                    height: '100px',
-                    width: '100px',
-                    objectFit: 'cover',
-                    borderRadius: "100%"
-                  }}
-                  className="image"
-                  src={selectedPerson!!.picture}
-                  alt={`profile of ${selectedPerson!!.name}`}
-                />
-                <Col className="titleBox">
-                  <Tag bordered={false} color={"error"}>{selectedPerson!!.role}</Tag>
-                  <h4>{selectedPerson!!.name}</h4>
-                  <p>{`${selectedPerson!!.major} major`}</p>
-                </Col>
-              </Row>
-
-              <Divider />
-
-              <div className="bio"><p>{selectedPerson!!.bio}</p></div>
-              <SocialSection socials={selectedPerson!!.socials} />
-
-            </Col>
-          </div>
-        </Drawer>}
-
-
 
       <div className="About">
 
-        <Content className="aboutContent">
-          <h1 className="title2">Our Team</h1>
-          <h4>Work isn’t always easy, so in order to make sure everything runs smoothly, we rely 
-            on a passionate group of individuals who bring their unique talents to the table.  
-            From content creators, social leads, to programmers and more, everyone is an integral part 
-            of our mission to make AI accessible and fun!
-          </h4>
-          <h4>Click on individual cards to learn more!</h4>
+        <Content>
+          <div className="aboutHeader">
+            <h1 className="title2">Our Team</h1>
+            <h4>Work isn’t always easy, so in order to make sure everything runs smoothly, we rely 
+              on a passionate group of individuals who bring their unique talents to the table.  
+              From content creators, social leads, to programmers and more, everyone is an integral part 
+              of our mission to make AI accessible and fun!
+            </h4>
+            <h4>Click on individual cards to learn more!</h4>
+          </div>
+
         </Content>
 
 
@@ -288,6 +248,50 @@ function AboutPage() {
         <MainFooter/>
 
       </div>
+
+      {isDrawerVisible &&
+        <Drawer
+        drawerStyle={{position: "absolute", zIndex: "2000"}}
+          width={"50%"}
+          // 600 => same as @xs 
+          height={size.width!! < 600 ? "90%" : "100%"}
+          placement={size.width!! < 600 ? "bottom" : "right"}
+          closable={true}
+          open={isDrawerVisible}
+          extra={<Button size = "large" className="drawerButton" onClick={() => setIsDrawerVisible(false)}>Close</Button>}
+          onClose={() => setIsDrawerVisible(false)}
+        >
+          <div className="drawerContent">
+            <Col>
+              <Row className="drawerHeader">
+                <img
+                  style={{
+                    marginRight: '1rem',
+                    height: '100px',
+                    width: '100px',
+                    objectFit: 'cover',
+                    borderRadius: "100%"
+                  }}
+                  className="image"
+                  src={selectedPerson!!.picture}
+                  alt={`profile of ${selectedPerson!!.name}`}
+                />
+                <Col className="titleBox">
+                  <Tag bordered={false} color={"error"}>{selectedPerson!!.role}</Tag>
+                  <h4>{selectedPerson!!.name}</h4>
+                  <p>{`${selectedPerson!!.major} major`}</p>
+                </Col>
+              </Row>
+
+              <Divider />
+
+              <div className="bio"><p>{selectedPerson!!.bio}</p></div>
+              <SocialSection socials={selectedPerson!!.socials} />
+
+            </Col>
+          </div>
+        </Drawer>}
+
       
 
     </DefaultLayout>

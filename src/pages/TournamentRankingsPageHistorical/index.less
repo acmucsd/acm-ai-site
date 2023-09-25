@@ -1,6 +1,29 @@
 @import '../../styles/base.less';
-.TournamentRankingsPage{
-  margin-top: 9.5rem;
+@import '../../newStyles/layout.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/variables.less';
+
+.TournamentRankingsPageHistorical{
+  
+  .noContainer();
+  .generic-section();
+
+  .tournamentTitles {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+
+    h2 {
+      color: @black;
+      font-weight: @semi-bold;
+      margin-bottom: 2rem;
+    }
+  }
+
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+  
   .meta-data {
     font-size: @font2;
     margin-bottom: @margin-base;

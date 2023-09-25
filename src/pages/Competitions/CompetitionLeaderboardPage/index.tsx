@@ -147,9 +147,10 @@ const CompetitionLeaderboardPage = () => {
 
   return (
     (<DefaultLayout>
+      
       <div className="CompetitionLeaderboardPage">
         <br />
-        <BackLink to="../" />
+        {/* <BackLink to="../" /> */}
         <h2>{meta?.competitionName}</h2>
         {/* TODO: make this configurable */}
         <p>

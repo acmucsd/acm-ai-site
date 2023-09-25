@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './index.less';
 import { Tournament } from '../../types/dimensions';
 import DefaultLayout from '../../components/layouts/default';
-import { Table } from 'antd';
+import { Table, Layout } from 'antd';
 import axios, { AxiosResponse } from 'axios';
-
+const {Content} = Layout;
 const trueskillCols = [
   {
     title: 'User',
@@ -135,26 +135,34 @@ const TournamentRankingsPageHistorical = ({
           });
       });
   }, [dataDir]);
+
+
   return (
     <DefaultLayout>
-      <div className="TournamentRankingsPage">
-        <br />
-        <h2>{tournament?.name}</h2>
-        <br />
-        {description && description()}
-        <br />
-        <h3>Ranks</h3>
-        {ranksystem === 'trueskill' && (
-          <Table loading={loading} columns={trueskillCols} dataSource={data} />
-        )}
-        {ranksystem === 'elo' && (
-          <Table loading={loading} columns={eloCols} dataSource={data} />
-        )}
-        {ranksystem === 'wins' && (
-          <Table loading={loading} columns={winsCols} dataSource={data} />
-        )}
-        {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
+      <div className="TournamentRankingsPageHistorical">
+        <Content>
+          <div className="tournamentTitles" >
+            <h2>{tournament?.name}</h2>
+            <p>{description && description()}</p>
+            
+          </div>
+        </Content>
+        <Content>
+        <h3>Rankings</h3>
+          {ranksystem === 'trueskill' && (
+            <Table loading={loading} columns={trueskillCols} dataSource={data} />
+          )}
+          {ranksystem === 'elo' && (
+            <Table loading={loading} columns={eloCols} dataSource={data} />
+          )}
+          {ranksystem === 'wins' && (
+            <Table loading={loading} columns={winsCols} dataSource={data} />
+          )}
+          {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
+        </Content>
+
       </div>
+
     </DefaultLayout>
   );
 };

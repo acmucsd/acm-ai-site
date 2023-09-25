@@ -113,7 +113,7 @@ function CompetitionsPage(props: any) {
               </p>
               
               <div>
-                <Link to="/old-competitions/nn">
+                <Link to="/competitions/Element.AI/leaderboard">
                   <Button className="compButtonPrimary" size="large" type="primary" danger><p>Leaderboard</p></Button>
                 </Link>
                 {/* <CompetitionButtons
@@ -212,11 +212,19 @@ function CompetitionsPage(props: any) {
                 Are you up for the challenge?
               </p>
               <p>
-                The competition has concluded. Congratulations to Joe Cai for winning the 
-                Hide and Seek AI Competition and to Matei Gardus for winning the hacker award 💻
+                The competition has concluded. Congratulations to Joe Cai for winning the
+                Hide and Seek AI Competition and to Matei Gardus for winning the hacker award 💻.
+                Be sure to checkout the{' '}
+                <a
+                  href="https://medium.com/acmucsd/how-to-hide-from-ai-the-winner-interview-82a59aed5b0b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  winner interview
+                </a>{' '} as  well!
               </p>
               <div>
-                <Link to="/old-competitions/hide-and-seek2020">
+                <Link to="/history/hide-and-seek2020">
                   <Button className="compButtonPrimary" size="large" type="primary" danger><p>Leaderboard</p></Button>
                 </Link>
                 {/* <CompetitionButtons

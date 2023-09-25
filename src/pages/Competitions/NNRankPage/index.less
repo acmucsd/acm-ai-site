@@ -1,5 +1,15 @@
 @import '../../../styles/base.less';
+@import '../../../newStyles/layout.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/variables.less';
+
 .NNRankPage {
+  .noContainer();
+  .generic-section();
+  h2 {
+    margin-top: 2rem;
+    color: @black;
+  }
   .meta-data {
     font-size: @font2;
     margin-bottom: @margin-base;
@@ -10,7 +20,5 @@
   .refresh-btn {
     margin-left: 1rem;
   }
-  p {
-    font-size: @font2;
-  }
+
 }

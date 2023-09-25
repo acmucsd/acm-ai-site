@@ -1,6 +1,11 @@
 @import '../../../styles/base.less';
+@import '../../../newStyles/layout.less';
+@import '../../../newStyles/layout.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/variables.less';
 .CompetitionLeaderboardPage {
-  margin-top: 5.5rem;
+  .noContainer();
+  .generic-section();
   .meta-data {
     font-size: @font2;
     margin-bottom: @margin-base;
@@ -10,6 +15,9 @@
   }
   .refresh-btn {
     margin-left: 1rem;
+    background: @black;
+    border: none;
+    color: white;
   }
   p {
     font-size: @font2;

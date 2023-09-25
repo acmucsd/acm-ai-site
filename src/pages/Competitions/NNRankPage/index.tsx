@@ -134,7 +134,7 @@ const NNRankPage = () => {
     (<DefaultLayout>
       <div className="NNRankPage">
         <br />
-        <BackLink to="../" />
+        {/* <BackLink to="../" /> */}
         <h2>Neural Network Modelling Competition Fall 2020</h2>
         <p>
           The objective of this competition is to model a unknown function as

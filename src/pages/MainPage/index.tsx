@@ -44,7 +44,7 @@ function MainPage() {
 
   return (
     <DefaultLayout>
-      {/* Every page will have a .nonontainer() class applied to ermove default margins*/}
+      {/* Every page will have a .noContainer() class applied to remove default margins*/}
 
       <div className="Main">
 
@@ -219,8 +219,6 @@ function MainPage() {
 
         <MainFooter />
   
-
-
       </div>
     </DefaultLayout>
 

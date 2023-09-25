@@ -3,7 +3,9 @@
 @import '../../../newStyles/variables.less';
 
 .RequestResetPage {
-  margin-top: 9.5rem;
+
+  .noContainer();
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,11 +15,12 @@
     .constrained-bounds();
      
     .requestHeader {
+      margin-top: 4rem;
       width: 60%;
       max-width: 490px;
       text-align: center;
       @media only screen and (max-width: @xxs) {
-        width: 100%;
+        width: 90%;
       }
 
     }
@@ -32,7 +35,7 @@
       text-align: center;
 
       @media only screen and (max-width: @xxs) {
-        width: 100%;
+        width: 90%;
       }
       Input {
         line-height: 2.5rem ;
