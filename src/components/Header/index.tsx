@@ -58,7 +58,7 @@ function Header() {
   const [isMobile, setIsMobile] = useState<Boolean>(false);
   const [menuOpen, setMenuOpen] = useState<Boolean>(false);
 
-  const [loginItems, setLoginItems] = useState<any>();
+  //const [loginItems, setLoginItems] = useState<any>();
   const history = useHistory();
 
   /*
@@ -131,7 +131,7 @@ function Header() {
         <div className = "navLinksWrapper">
           {navLinks.map((link, key) => (
             <Link className = "navItem" key = {key} to = {link.to}>
-              <a >{link.text}</a>
+              <a href = "#">{link.text}</a>
             </Link>
           ))}
 
@@ -179,8 +179,8 @@ function Header() {
 
       <div className = {`mobileDropDown ${menuOpen ? 'open': ''}`}>
         {navLinks.map((link, key) => (
-          <Link  className = "mobileNavItem" key = {key} to = {link.to}>
-            <a>{link.text}</a>
+          <Link className = "mobileNavItem"  key = {key} to = {link.to}>
+            <a href = "#">{link.text}</a>
           </Link>
         ))}
 
@@ -194,12 +194,12 @@ function Header() {
               message.success('Logged out');
               history.push('/')}}
               >
-                <a>Logout</a>
+                <a href = "#">Logout</a>
               </div>
            ) 
            : 
           (<Link className="mobileNavItem" to="/login">
-            <a>Login</a>
+            <a href = "#">Login</a>
            </Link>)
         }
 

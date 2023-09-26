@@ -4,8 +4,6 @@ import { useHistory } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import { getNNRanks } from '../../../actions/nn';
 import { Table, Button, Modal } from 'antd';
-import BackLink from '../../../components/BackLink';
-import path from 'path';
 import ChartJS from 'chart.js';
 const chartConfig = {
   type: 'line',
