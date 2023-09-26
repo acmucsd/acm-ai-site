@@ -59,11 +59,14 @@ function EventsPage(props: any) {
     <DefaultLayout>
       <div className="EventsPage">
 
-        <Content className="eventsHeader">
-          <h1 className="title2">ACM AI Events</h1>
-          <h4>ACM AI offers a breadth of socials and workshops to help keep our 
-            members engaged. We try our best to make them as fun and exciting for everyone! 
-          </h4>
+        <Content>
+          <div  className="eventsHeader">
+            <h1 className="title2">ACM AI Events</h1>
+            <h4>ACM AI offers a breadth of socials and workshops to help keep our 
+              members engaged. We try our best to make them as fun and exciting for everyone! 
+            </h4>
+          </div>
+
         </Content>
 
         <Content className="eventsContent">

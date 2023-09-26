@@ -8,57 +8,38 @@
 .ProjectsPage {
     .noContainer();
 
-    
-    .projectsTopBar {
-        .gradient();
-        width: 100%;
-        padding: 1.5rem 0;
-        max-height: 70px;
-        min-height: 30px;
-    }
-    
+    .projectsHeader {
+        .generic-centered-section();
+        .constrained-bounds();
+        text-align: center;
+        margin-top: 4rem;
 
-    .projectsHero {
-        .center-both-ways();
-        padding: 5rem;
 
-        .headerContent {
-            margin-bottom: 4.5rem;
-
-            h1,
-            h4 {
-                color: @black;
-                text-align: center;
-
+        h4 {
+            max-width: 600px;
+            margin: 0 24px;
+            width: 60%;
+      
+            @media screen and (max-width: @sm) {
+              width: 70%;
             }
-
-            h4 {
-                max-width: 600px;
-            }
-        }
-
-    }
-
-
-    .projectsFilters {
-        display: flex;
-        justify-content: flex-end;
-        flex-direction: row;
-        align-items: center;
-        display: flex;
-
+      
+            text-align: center;
+          }
         .sortDropDown {
-            .sortOption {
-                width: 170px;
-            }
+            margin-top: 2rem;
         }
     }
+
+
+
 
     .projectsSection {
         .constrained-bounds();
         .generic-section();
-        
+
         margin: 0 auto 10rem auto;
+
         .ant-tag-checkable {
             line-height: 2rem;
         }
@@ -76,5 +57,5 @@
 
 
 
-    
+
 }

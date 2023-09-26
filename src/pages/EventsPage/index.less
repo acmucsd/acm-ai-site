@@ -9,31 +9,22 @@
   .noContainer();
   background: white;
 
-  .eventsTopBar {
-    .gradient();
-    width: 100%;
-    padding: 1.5rem 0;
-    max-height: 70px;
-    min-height: 30px;
-  }
-
   
   // Container for title
   .eventsHeader {
-    padding-top: 5rem;
-    .center-both-ways();
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 4rem;
     text-align: center;
 
     h4 {
       max-width: 600px;
-      margin: 0 2rem;
+      margin: 0 24px;
       width: 60%;
 
       @media screen and (max-width: @sm) {
         width: 70%;
       }
-
-      color: @black;
 
       text-align: center;
     }

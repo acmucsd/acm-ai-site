@@ -105,19 +105,17 @@ function ProjectsPage() {
     <DefaultLayout>
       <div className="ProjectsPage">
 
-        <Content>
-          <div className="projectsTopBar"/> 
-        </Content>
+  
 
-        <Content className="projectsHero">
-          <div className="headerContent">
+        <Content>
+
+          <div className="projectsHeader">
             <h1 className="title2">ACM AI Projects</h1>
             <h4>
               Interested in getting hands-on experience with AI? Join our quarterly ACM AI project teams.
             </h4>
-          </div>
 
-          <Select
+            <Select
             size="large"
             className="sortDropDown"
             style={{ width: "180px" }}
@@ -129,7 +127,10 @@ function ProjectsPage() {
             <Option className="sortOption" value="az">A-Z</Option>
             <Option className="sortOption" value="za">Z-A</Option>
           </Select>
-        </Content>
+          </div>
+          </Content>
+          
+
 
 
         <Content className="projectsSection">

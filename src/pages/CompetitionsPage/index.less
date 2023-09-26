@@ -5,17 +5,24 @@
 .CompetitionsPage {
   .noContainer();
 
-  .competitionsHero {
+  .competitionHeader{
     .generic-centered-section();
     .constrained-bounds();
     text-align: center;
-    .headerContent {
-      margin-top: 4rem;
-    }
+    margin-top: 4rem;
 
+
+    
     h4 {
-      max-width: 650px;
+      max-width: 600px;
+      margin: 0 24px;
+      width: 60%;
 
+      @media screen and (max-width: @sm) {
+        width: 70%;
+      }
+
+      text-align: center;
     }
 
   }
