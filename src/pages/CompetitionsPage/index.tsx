@@ -5,42 +5,42 @@ import DefaultLayout from '../../components/layouts/default';
 import Number from "../../components/Statistic";
 import { Layout, Space, Button } from 'antd';
 import MainFooter from '../../components/MainFooter';
-const { Content, Footer} = Layout;
+const { Content } = Layout;
 
-interface CompetitionButtonProps {
-  link1: string | { pathname: string; };
-  link1desc: string;
-  link2: string | { pathname: string; };
-  link2desc: string;
-  link3: string | { pathname: string; };
-  link3desc: string;
-}
+// interface CompetitionButtonProps {
+//   link1: string | { pathname: string; };
+//   link1desc: string;
+//   link2: string | { pathname: string; };
+//   link2desc: string;
+//   link3: string | { pathname: string; };
+//   link3desc: string;
+// }
 
-function CompetitionButtons({
-  link1, link1desc, link2, link2desc, link3, link3desc 
-  } : CompetitionButtonProps ) {
-  const buttonSize = 'large';
+// function CompetitionButtons({
+//   link1, link1desc, link2, link2desc, link3, link3desc 
+//   } : CompetitionButtonProps ) {
+//   const buttonSize = 'large';
 
-  return (
-    <div>
-      <Space wrap>
-        <Link to={link1}>
-          <Button className = "compButtonPrimary"size={buttonSize} type="primary" danger><p>{link1desc}</p></Button>
-        </Link>
-        {link2 && (
-          <Link to={link2} target="_blank">
-            <Button className = "compButtonSecondary" size={buttonSize}><p>{link2desc}</p></Button>
-          </Link>
-        )}
-        {link3 && (
-          <Link to={link3} target="_blank">
-            <Button className = "compButtonSecondary" size={buttonSize}><p>{link3desc}</p></Button>
-          </Link>
-        )}
-      </Space>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <Space wrap>
+//         <Link to={link1}>
+//           <Button className = "compButtonPrimary"size={buttonSize} type="primary" danger><p>{link1desc}</p></Button>
+//         </Link>
+//         {link2 && (
+//           <Link to={link2} target="_blank">
+//             <Button className = "compButtonSecondary" size={buttonSize}><p>{link2desc}</p></Button>
+//           </Link>
+//         )}
+//         {link3 && (
+//           <Link to={link3} target="_blank">
+//             <Button className = "compButtonSecondary" size={buttonSize}><p>{link3desc}</p></Button>
+//           </Link>
+//         )}
+//       </Space>
+//     </div>
+//   );
+// }
 
 function CompetitionsPage(props: any) {
   useEffect(() => {}, []);

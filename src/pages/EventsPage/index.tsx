@@ -7,13 +7,11 @@ import EventCard from '../../components/EventCard/index';
 const { Content, Footer } = Layout;
 
 
-
-
 const newEvents = (  eventData: ACMEvent[] ): React.ReactNode => {
   return (
     <Content className="eventsList">
 
-      {eventData.length == 0 && (
+      {eventData.length === 0 && (
         <div><h3>There are no upcoming events at this time. Check back later!</h3></div>
       )}
 
@@ -46,7 +44,6 @@ function EventsPage(props: any) {
   const [futureEventData, setFutureEventData] = useState<Array<ACMEvent>>([]);
   const [pastEventData, setPastEventData] = useState<Array<ACMEvent>>([]);
 
-  const [selectedEventKey, setSelectedEventKey] = useState("");
   useEffect(() => {
     fetchFutureEvents().then((data) => {
       setFutureEventData(data);
@@ -61,10 +58,6 @@ function EventsPage(props: any) {
   return (
     <DefaultLayout>
       <div className="EventsPage">
-        <Content>
-          <div className="eventsTopBar">
-          </div>
-        </Content>
 
         <Content className="eventsHeader">
           <h1 className="title2">ACM AI Events</h1>
@@ -77,7 +70,6 @@ function EventsPage(props: any) {
          <Tabs
             size = "small"
             animated={true}
-            onTabClick={(key) => setSelectedEventKey(key)}
             tabPosition="top"
             items={[{ label: <p>Upcoming Events</p>, key: "1", children: newEvents(futureEventData)}, { label: <p>Past Events</p>, key: "2", children: pastEvents(pastEventData)}]}
           ></Tabs> 

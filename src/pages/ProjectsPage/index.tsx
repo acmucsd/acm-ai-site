@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { Row, Col, Layout, Select, Tag, Collapse } from 'antd';
+import { Row, Col, Layout, Select, Tag } from 'antd';
 import ProjectCard from '../../components/ProjectCard';
 import { projects } from './projects'
 import MainFooter from '../../components/MainFooter';
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 const { Option } = Select;
 
 var ASCIISum = (str: string) => {
@@ -66,43 +66,40 @@ function ProjectsPage() {
 
   const sortedProjects = sortProjects(sortOption);
 
-  const items = [
-    {
-      key: "1",
-      label:
-        <Select
-          className="selectTags"
-          mode="multiple"
-          placeholder="Search tags..."
-          onChange={handleTagChange}
-          value={selectedTags}
-        >
-          {tagsData.map((tag) => {
-            return (
-              <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
-            );
-          })}
-        </Select>
-    },
-    {
-      key: "2",
-      label:
+  // const items = [
+  //   {
+  //     key: "1",
+  //     label:
+  //       <Select
+  //         className="selectTags"
+  //         mode="multiple"
+  //         placeholder="Search tags..."
+  //         onChange={handleTagChange}
+  //         value={selectedTags}
+  //       >
+  //         {tagsData.map((tag) => {
+  //           return (
+  //             <Tag key={tag} color={color_tag[ASCIISum(tag) % color_tag.length]}>{tag}</Tag>
+  //           );
+  //         })}
+  //       </Select>
+  //   },
+  //   {
+  //     key: "2",
+  //     label:
 
-        <Select
-          defaultValue="newest"
-          style={{ width: 150 }}
-          onChange={handleSortChange}
-        >
-          <Option value="newest">Newest</Option>
-          <Option value="oldest">Oldest</Option>
-          <Option value="az">A-Z</Option>
-          <Option value="za">Z-A</Option>
-        </Select>
-    }
-  ]
-
-
-
+  //       <Select
+  //         defaultValue="newest"
+  //         style={{ width: 150 }}
+  //         onChange={handleSortChange}
+  //       >
+  //         <Option value="newest">Newest</Option>
+  //         <Option value="oldest">Oldest</Option>
+  //         <Option value="az">A-Z</Option>
+  //         <Option value="za">Z-A</Option>
+  //       </Select>
+  //   }
+  // ]
 
   return (
     <DefaultLayout>
@@ -158,7 +155,7 @@ function ProjectsPage() {
               { xs: 16, sm: 16, md: 24, lg: 24 },
               { xs: 16, sm: 16, md: 24, lg: 24 },
             ]} justify="center">
-              {sortedProjects.length > 0 && sortedProjects.length == 1 ? (
+              {sortedProjects.length > 0 && sortedProjects.length === 1 ? (
                 <ProjectCard key={sortedProjects[0].name} project={sortedProjects[0]} />
               ) :
                 sortedProjects.filter((card) =>

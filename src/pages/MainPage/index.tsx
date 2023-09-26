@@ -2,22 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
-import { ACMEvent, fetchFutureEvents, fetchPastEvents } from '../../actions/events';
-import EventCard from '../../components/EventCard';
-import { Row, Col, Layout, Carousel, Button, Empty, Collapse, Card, Avatar, Tooltip } from 'antd';
-import { AiOutlineLink } from 'react-icons/ai';
+import { ACMEvent, fetchFutureEvents } from '../../actions/events';
+import { Layout, Carousel, Button, Collapse, Card } from 'antd';
 import { FaFireAlt, FaProjectDiagram } from 'react-icons/fa';
-import { BiLogoDiscord, BiLogoInstagram } from 'react-icons/bi';
 import EventTimeline from '../../components/EventTimeline/index';
 import MainFooter from '../../components/MainFooter/index';
-import { HiOutlineFire } from 'react-icons/hi';
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 const { Panel } = Collapse;
 
 function MainPage() {
   const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
   useEffect(() => {
-    fetchPastEvents().then((data) => {
+    fetchFutureEvents().then((data) => {
       console.log(data)
       setEventData(data);
     });

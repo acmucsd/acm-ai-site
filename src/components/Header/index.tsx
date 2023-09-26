@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, Drawer, message } from 'antd';
+import { Button, message } from 'antd';
 import './index.less';
 
 import UserContext from '../../UserContext';
@@ -49,10 +49,10 @@ function Header() {
     initKeys = ['events'];
   }
 
-  const [key, setKey] = useState<Array<string>>(initKeys);
-  const handleClick = (e: any) => {
-    setKey(e.key);
-  };
+  // const [key, setKey] = useState<Array<string>>(initKeys);
+  // const handleClick = (e: any) => {
+  //   setKey(e.key);
+  // };
 
   const size: Size = useWindowSize();
   const [isMobile, setIsMobile] = useState<Boolean>(false);
