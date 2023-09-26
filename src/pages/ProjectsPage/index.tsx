@@ -8,13 +8,6 @@ import MainFooter from '../../components/MainFooter';
 const { Content } = Layout;
 const { Option } = Select;
 
-var ASCIISum = (str: string) => {
-  let sum = 0;
-  for (let i = 0; i < str.length; ++i) {
-    sum += str.charCodeAt(i)
-  }
-  return sum
-}
 
 function ProjectsPage() {
   // filter projects by tag
@@ -104,11 +97,7 @@ function ProjectsPage() {
   return (
     <DefaultLayout>
       <div className="ProjectsPage">
-
-
-
         <Content>
-
           <div className="projectsHeader">
             <h1 className="title2">ACM AI Projects</h1>
             <h4>

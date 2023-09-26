@@ -2,14 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
 import { useHistory, useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
-import { Link } from 'react-router-dom';
 import {
   getMetaData,
   getRanks,
   getLeaderboard,
 } from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
-import BackLink from '../../../components/BackLink';
 import path from 'path';
 import ChartJS from 'chart.js';
 import { ColumnsType } from 'antd/lib/table';

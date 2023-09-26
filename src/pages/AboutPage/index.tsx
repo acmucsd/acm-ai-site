@@ -7,7 +7,7 @@ import { FaRegCalendar, FaBullhorn, FaLaptopCode, FaGithubSquare, FaLinkedin } f
 import { BsPeopleFill } from 'react-icons/bs';
 import DefaultLayout from '../../components/layouts/default';
 import MainFooter from '../../components/MainFooter/index';
-import { Col, Row, Layout, Segmented, Dropdown, Button, Skeleton, Drawer, Tag, Divider } from 'antd';
+import { Col, Row, Layout, Button, Skeleton, Drawer, Tag, Divider } from 'antd';
 import { Card } from '../../components/Card';
 import {
   directors,
@@ -19,7 +19,7 @@ import {
   socials,
 } from './people';
 import { Size, useWindowSize } from '../../components/Header/useWindowSize';
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 
 const CardsRow = ({ children }: { children?: ReactNode }) => (
   <Row
@@ -139,42 +139,11 @@ const Section = ({
   </Content>
 );
 
-const items = [
-  {
-    label: 'Executives',
-    key: '1',
-  },
-  {
-    label: 'Event Leads',
-    key: '2',
-  },
-  {
-    label: 'Socials',
-    key: '3',
-  },
-  {
-    label: 'Marketing',
-    key: '4',
-  },
-  {
-    label: 'Developers',
-    key: '5',
-  },
-];
-
 
 function AboutPage() {
-  const [selectedSection, setSelectedSection] = useState("Executives");
   const size: Size = useWindowSize();
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<Person>();
-
-  const onClick = ({ key }: { key: React.Key }) => {
-    const selectedItem = items.find(item => item.key === key)
-    if (selectedItem) {
-      setSelectedSection(selectedItem.label)
-    }
-  }
 
 
   return (

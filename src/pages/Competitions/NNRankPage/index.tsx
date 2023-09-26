@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import { getNNRanks } from '../../../actions/nn';
 import { Table, Button, Modal } from 'antd';
@@ -27,7 +27,7 @@ const chartConfig = {
   },
 };
 const NNRankPage = () => {
-  const history = useHistory();
+  //const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [updateTime, setUpdateTime] = useState<Date>();
   const [data, setData] = useState<any>([]);

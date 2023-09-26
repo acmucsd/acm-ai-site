@@ -19,24 +19,6 @@ function MainPage() {
     });
   }, []);
 
-  // Array of items to populate the sponsorship info section
-  const sponsorItems = [
-    {
-      key: '1',
-      label: <h3>What do we offer?</h3>,
-      children: <h4>Something here</h4>
-    },
-    {
-      key: '2',
-      label: <h3>Is there an official sponsorship packet?</h3>,
-      children: <h4>Something here</h4>
-    },
-    {
-      key: '3',
-      label: <h3>Who can I contact?</h3>,
-      children: <h4>Something here</h4>
-    }
-  ]
 
   return (
     <DefaultLayout>
