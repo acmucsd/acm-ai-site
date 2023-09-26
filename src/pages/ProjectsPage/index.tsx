@@ -105,7 +105,7 @@ function ProjectsPage() {
     <DefaultLayout>
       <div className="ProjectsPage">
 
-  
+
 
         <Content>
 
@@ -116,20 +116,20 @@ function ProjectsPage() {
             </h4>
 
             <Select
-            size="large"
-            className="sortDropDown"
-            style={{ width: "180px" }}
-            defaultValue="newest"
-            onChange={handleSortChange}
-          >
-            <Option className="sortOption" value="newest">Newest</Option>
-            <Option className="sortOption" value="oldest">Oldest</Option>
-            <Option className="sortOption" value="az">A-Z</Option>
-            <Option className="sortOption" value="za">Z-A</Option>
-          </Select>
+              size="large"
+              className="sortDropDown"
+              style={{ width: "180px" }}
+              defaultValue="newest"
+              onChange={handleSortChange}
+            >
+              <Option className="sortOption" value="newest">Newest</Option>
+              <Option className="sortOption" value="oldest">Oldest</Option>
+              <Option className="sortOption" value="az">A-Z</Option>
+              <Option className="sortOption" value="za">Z-A</Option>
+            </Select>
           </div>
-          </Content>
-          
+        </Content>
+
 
 
 
