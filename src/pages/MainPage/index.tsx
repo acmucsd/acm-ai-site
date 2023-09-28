@@ -168,7 +168,8 @@ function MainPage() {
           </h4>
 
           <div className="sponsorCollapse">
-            <Collapse ghost bordered={false} >
+            <p>We will be launching our Sponsorship Packet with information on how to sponsor our competitions soon! In the meantime, if you would like to contact us about sponsorship, please email us at ai@acmucsd.org.</p>
+{/*             <Collapse ghost bordered={false} >
               <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>What do we offer?</h4>} key="1">
                 <h4 style = {{color: "white"}}>hello</h4>
               </Panel>
@@ -178,7 +179,7 @@ function MainPage() {
               <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>Is there an official Sponsorship Packet?</h4>} key="3">
                 <h4 style = {{color: "white"}}>hello</h4>
               </Panel>
-            </Collapse>
+            </Collapse> */}
           </div>
 
         </Content>

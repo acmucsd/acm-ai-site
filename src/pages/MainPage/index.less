@@ -199,16 +199,16 @@
 
     .sponsorCollapse {
       .gradient();
-      width: 90%;
-      @media screen and (max-width: @xs) {
-        width: 100%; /* Adjusted width for smaller screens */
-      }
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+      .generic-centered-section();
+      .constrained-bounds();
+      padding: 3rem;
       border-radius: @radius-base4;
       margin-top: 28px;
       .ant-collapse-arrow {
         color: white; /* Replace with your desired arrow color */
+      }
+      p {
+        color: white;
       }
     }
   }
