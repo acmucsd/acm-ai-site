@@ -5,7 +5,7 @@
   display: inline-block;
   width: 150px;
   @media only screen and (max-width: @xs) {
-    width: 100px;
+    width: 120px;
   }
 
   .count {
@@ -18,6 +18,9 @@
   .description {
     display: block;
     font-size: @font2;
+    @media only screen and (max-width: @xs) {
+      font-size: 14px;
+    }
     font-weight: @regular;
     line-height: 32.25px;
     color: rgb(155, 155, 155);

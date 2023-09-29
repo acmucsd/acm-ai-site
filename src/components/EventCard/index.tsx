@@ -63,8 +63,9 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
               marginRight: '1rem',
               boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
               borderRadius: '16px',
-              height: '80px',
-              width: '80px',
+              height: '88px',
+              width: '88px',
+              objectFit: 'cover'
             }}
           />
           <Col className="eventHeaderTexts">
@@ -103,7 +104,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
       <Modal
         className="eventModal"
         width={800}
-        style={{ borderRadius: '20px' }}
+        style={{ borderRadius: '40px' }}
         open={isModalOpen}
         onCancel={handleCancel}
         title={<h3 style={{ fontWeight: '700' }}>{event.title}</h3>}
@@ -130,11 +131,11 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
             <img
               src={event.cover}
               alt={event.title}
+              className = "eventModalImage"
               style={{
                 boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
-                width: '40%',
-                maxWidth: '300px',
-                minWidth: '200px',
+                width: '45%',
+                maxWidth: '400px',
                 borderRadius: '15px',
                 marginRight: '1.5rem',
                 marginBottom: '2rem',

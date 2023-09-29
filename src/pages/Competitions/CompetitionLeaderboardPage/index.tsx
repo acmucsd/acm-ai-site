@@ -169,6 +169,8 @@ const CompetitionLeaderboardPage = () => {
           </div>
         </Modal>
         <Button
+          size = "large"
+          className = "upload-btn"
           onClick={() => {
             history.push(path.join(history.location.pathname, '../upload'));
           }}
@@ -176,15 +178,16 @@ const CompetitionLeaderboardPage = () => {
           Upload Predictions
         </Button>
         <Button
+          size = "large"
           className="refresh-btn"
           onClick={() => {
             update();
           }}
         >
-          Refresh Leaderboard (Last refreshed{' '}
-          {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
+          Refresh Leaderboard
         </Button>
-        <Button
+        <Button 
+          size = "large"
           className="refresh-btn"
           onClick={() => {
             if (intervalObj) {
@@ -198,6 +201,11 @@ const CompetitionLeaderboardPage = () => {
         </Button>
         <br />
         <br />
+
+        <p style = {{fontWeight: 600}}>
+        (Table last refreshed{': '}
+          {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
+        </p>
 
         <Table loading={loading} columns={columns} dataSource={data} />
         {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}

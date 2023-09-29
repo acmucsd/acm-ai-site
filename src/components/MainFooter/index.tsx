@@ -26,13 +26,14 @@ const MainFooter = () => {
             <Avatar
               size="default"
               shape="square"
-              className="link"
-              icon={
+              className="linkBox"
+              icon = {
                 <a href="https://acmurl.com/ai-marketing-sponsorship-app">
-                  <AiOutlineLink />
+                  <AiOutlineLink size = {20} className = "linkIcon"/>
                 </a>
-              }
-            ></Avatar>
+              
+              }/>
+            
           </Row>
           <Row className="position">
             <h4>
@@ -41,10 +42,10 @@ const MainFooter = () => {
             <Avatar
               size="default"
               shape="square"
-              className="link"
+              className="linkBox"
               icon={
                 <a href="https://acmurl.com/ai-events">
-                  <AiOutlineLink />
+                  <AiOutlineLink  size = {20} className = "linkIcon" />
                 </a>
               }
             />
@@ -57,10 +58,10 @@ const MainFooter = () => {
             <Avatar
               size="default"
               shape="square"
-              className="link"
+              className="linkBox"
               icon={
                 <a href="https://acmurl.com/ai-dev">
-                  <AiOutlineLink />
+                  <AiOutlineLink  size = {20} className = "linkIcon"/>
                 </a>
               }
             />

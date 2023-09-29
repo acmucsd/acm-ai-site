@@ -157,7 +157,7 @@ function MainPage() {
         <Content className="eventsContainer">
           <h1 className="title2">Events</h1>
           <h4 className="homeSubTitle2">
-            To make things interesting, our team strives to come up with new
+            To make things fun, our team strives to come up with new
             workshops and socials so that everyone has a chance to explore a
             different aspect of AI
           </h4>

@@ -193,8 +193,8 @@ function AboutPage() {
               their unique talents to the table. From content creators, social
               leads, to programmers and more, everyone is an integral part of
               our mission to make AI accessible and fun!
+              Click on individual cards to learn more!
             </h4>
-            <h4>Click on individual cards to learn more!</h4>
           </div>
         </Content>
 

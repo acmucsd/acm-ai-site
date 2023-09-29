@@ -12,7 +12,7 @@
     padding-top: 10rem;
     padding-bottom: 12rem;
     min-width: 180px;
-    background: #fff8f8;
+    background: @mainred;
 
     .center-both-ways();
   
@@ -23,20 +23,20 @@
       
     // Main title "acm ai"
     .homeTitle {
-      color: @black;
+      color: white;
       text-align: center;
       .title1();
     }
 
     .homeSubTitle {
       width: 60%;
+      color: white;
 
       @media screen and (max-width: @sm) {
         width: 70%;
       }
 
       max-width: 600px;
-      color: @black;
 
       text-align: center;
     }
@@ -195,7 +195,9 @@
     .generic-centered-section();
     .constrained-bounds();
     margin-top: 32px;
-    min-width: 180px;
+    h4 {
+      max-width: @xxs;
+    }
   }
 
   // wrapper to hold the collapse component
@@ -203,8 +205,9 @@
     .generic-centered-section();
     .constrained-bounds();
     margin-top: 32px;
-    min-width: 180px;
-
+    h4 {
+      width: 100%;
+    }
     .sponsorCollapse {
       .gradient();
       .generic-centered-section();

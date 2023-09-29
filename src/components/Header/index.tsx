@@ -109,14 +109,15 @@ function Header() {
     <>
       <div className="Header">
         <div className="navBarWrapper">
-          <div className="logoWrapper">
-            <Link to="/">
+          <div className="logoContentWrapper">
+            <Link to="/" className = "AILogo">
               <img
                 src="https://i.imgur.com/YqHEpJx.png"
                 alt="ACM AI Logo"
-                style={{ height: '50px', width: '50px' }}
+                style={{ height: '60px', width: '60px' }}
               />
             </Link>
+            <p>at UCSD</p>
           </div>
 
           {isMobile ? (
