@@ -52,11 +52,11 @@ function MainPage() {
             <div className="homeCarouselCard">
               <div className="carouselContentWrapper">
                 <h3>What is ACM AI at UCSD?</h3>
-                <h4>
+                <p>
                   We are a tight-knit community of students that exists
                   within the ACM at UCSD family. Our team consists of bright
                   minds from every background and expertise.
-                </h4>
+                </p>
 
                 <Link to={`/about`} rel="noopener noreferrer">
                   <Button size="large" shape="round" className="navButton">
@@ -69,25 +69,25 @@ function MainPage() {
             <div className="homeCarouselCard">
               <div className="carouselContentWrapper">
                 <h3>Model Your AI/Ml Path</h3>
-                <h4>
+                <p>
                   Our goals are to help build a community of AI enthusiasts at
                   UCSD and connect that community to the broader AI network. We
                   also strive to keep AI fun and accessible to all as you
                   navigate your path around the complex world of AI through
                   workshops, competitions, networking events and more!
-                </h4>
+                </p>
               </div>
             </div>
 
             <div className="homeCarouselCard">
               <div className="carouselContentWrapper">
                 <h3>Want more ACM at UCSD?</h3>
-                <h4>
+                <p>
                   We are part of a larger group of bright innovators and
                   thinkers here at UCSD. If you're feeling adventurous in
                   exploring our various aspects of computing or just having fun,
                   check out ACM at UCSD's main website for exciting events!
-                </h4>
+                </p>
 
                 {/** Antd Button has a bug where using href directly will mess up the alignment of the button text so we use onClick instead */}
                 <Button
