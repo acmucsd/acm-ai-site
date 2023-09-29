@@ -100,8 +100,7 @@ function TournamentRankingsPage() {
   const [updateTime, setUpdateTime] = useState<Date>();
   const { tournament } = useContext(TournamentContext);
   //@ts-ignore
-  const [ranksystem, setRankSystem] =
-    useState('trueskill');
+  const [ranksystem, setRankSystem] = useState('trueskill');
   const [data, setData] = useState<any>([]);
   const update = () => {
     let rankSystem = tournament.configs.rankSystem;

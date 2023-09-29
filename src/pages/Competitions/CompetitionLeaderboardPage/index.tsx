@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
 import { useHistory, useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
-import {
-  getMetaData,
-  getLeaderboard,
-} from '../../../actions/competition';
+import { getMetaData, getLeaderboard } from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
 import path from 'path';
 import ChartJS from 'chart.js';
