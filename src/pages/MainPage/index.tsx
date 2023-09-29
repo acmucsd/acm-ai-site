@@ -109,7 +109,7 @@ function MainPage() {
         <Content className="projectsCompsBox">
           <div className="descriptionsBox">
             <div className="descriptions">
-              <h4 style={{ fontWeight: '700' }}>Apply Your Knowledge</h4>
+              <h3>Apply Your Knowledge</h3>
               <h4>
                 Neural Networks don’t always have to be taught in the classroom.
                 Start a project or join a competition!
