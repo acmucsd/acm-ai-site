@@ -116,7 +116,6 @@ function Header() {
                 alt="ACM AI Logo"
                 style={{ height: '60px', width: '60px' }}
               />
-              <p>at UC San Diego</p>
             </Link>
             <p>at UCSD</p>
           </div>
