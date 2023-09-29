@@ -4,7 +4,7 @@ import { Tournament } from '../../types/dimensions';
 import DefaultLayout from '../../components/layouts/default';
 import { Table, Layout } from 'antd';
 import axios, { AxiosResponse } from 'axios';
-const {Content} = Layout;
+const { Content } = Layout;
 const trueskillCols = [
   {
     title: 'User',
@@ -136,21 +136,23 @@ const TournamentRankingsPageHistorical = ({
       });
   }, [dataDir]);
 
-
   return (
     <DefaultLayout>
       <div className="TournamentRankingsPageHistorical">
         <Content>
-          <div className="tournamentTitles" >
+          <div className="tournamentTitles">
             <h2>{tournament?.name}</h2>
             <p>{description && description()}</p>
-            
           </div>
         </Content>
         <Content>
-        <h3>Rankings</h3>
+          <h3>Rankings</h3>
           {ranksystem === 'trueskill' && (
-            <Table loading={loading} columns={trueskillCols} dataSource={data} />
+            <Table
+              loading={loading}
+              columns={trueskillCols}
+              dataSource={data}
+            />
           )}
           {ranksystem === 'elo' && (
             <Table loading={loading} columns={eloCols} dataSource={data} />
@@ -160,9 +162,7 @@ const TournamentRankingsPageHistorical = ({
           )}
           {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
         </Content>
-
       </div>
-
     </DefaultLayout>
   );
 };

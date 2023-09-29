@@ -1,10 +1,9 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export interface Size {
   width: number | null;
   height: number | null;
 }
-
 
 export function useWindowSize(): Size {
   const [windowSize, setWindowSize] = useState<Size>({
@@ -16,31 +15,27 @@ export function useWindowSize(): Size {
     let isMounted = true; // Flag to check if the component is still mounted
 
     function handleResize() {
-
-      try {      
+      try {
         if (isMounted) {
-        setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        });
+          setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+          });
+        }
+      } catch (error) {
+        console.error('Error in handleResize: ', error);
       }
-
-      }
-      catch(error) {
-        console.error("Error in handleResize: ", error)
-      }
-
     }
 
     // Add event listener for window resize
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     // Initial window size update
     handleResize();
 
     // Cleanup function to remove the event listener
     return () => {
       isMounted = false;
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []); // Empty dependency array to run the effect only once
 

@@ -58,7 +58,8 @@ const JoinTeamsPage = () => {
                 onChange={(evt) => setTeamName(evt.target.value)}
                 placeholder="Team Name"
               />
-              <br/><br/>
+              <br />
+              <br />
               <Input
                 value={code}
                 onChange={(evt) => setCode(evt.target.value)}

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
-import { useRemark, Remark } from 'react-remark';
+import React, { useEffect, useState, useContext } from 'react';
+import { Remark } from 'react-remark';
 import './index.less';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import { Link } from 'react-router-dom';
 import { Button, Modal, message } from 'antd';
@@ -27,21 +27,22 @@ const CompetitionLandingPage = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
   const [registerLoading, setRegisterLoading] = useState<boolean>(false);
-  const [reactContent, setMarkdownSource] = useRemark();
+  //const [reactContent, setMarkdownSource] = useRemark();
   const params = useParams() as { id: string };
   const { user } = useContext(UserContext);
 
   const competitionID = params.id;
 
   const update = () => {
-    getMetaData(competitionID).then((res) => {
-      // console.log("METADATA", res.data);
-      setMeta(res.data);
-    }).catch((error) => {
-      message.info("No metadata")
+    getMetaData(competitionID)
+      .then((res) => {
+        // console.log("METADATA", res.data);
+        setMeta(res.data);
       })
-    };
-  
+      .catch((error) => {
+        message.info('No metadata');
+      });
+  };
 
   const onRegister = () => {
     setRegisterLoading(true);
@@ -59,15 +60,16 @@ const CompetitionLandingPage = () => {
 
   useEffect(() => {
     if (user.loggedIn) {
-      getCompetitionUser(competitionID, user.username).then((res) => {
-        console.log(res);
-        setIsRegistered(res.data.registered);
-        
-      }).catch((error) => {
-        message.info(
-          'You need to register to see teams, join a team, and participate'
-        );
-      });
+      getCompetitionUser(competitionID, user.username)
+        .then((res) => {
+          console.log(res);
+          setIsRegistered(res.data.registered);
+        })
+        .catch((error) => {
+          message.info(
+            'You need to register to see teams, join a team, and participate'
+          );
+        });
     } else {
       message.info('You need to login to register for the competition');
     }
@@ -79,7 +81,7 @@ const CompetitionLandingPage = () => {
   if (!meta) return <DefaultLayout>Nothing</DefaultLayout>;
 
   return (
-    (<DefaultLayout>
+    <DefaultLayout>
       <div className="CompetitionLandingPage">
         {/* Some banner here with title and button */}
         <div className="hero">
@@ -160,7 +162,7 @@ const CompetitionLandingPage = () => {
           </div>
         </div> */}
       </div>
-    </DefaultLayout>)
+    </DefaultLayout>
   );
 };
 

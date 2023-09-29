@@ -1,7 +1,7 @@
-import React, { useState }from "react";
-import CountUp from "react-countup";
-import { InView } from "react-intersection-observer";
-import "./index.less"
+import React, { useState } from 'react';
+import CountUp from 'react-countup';
+import { InView } from 'react-intersection-observer';
+import './index.less';
 
 // https://github.com/acmucsd/main-website/blob/main/src/components/Statistic/index.tsx
 interface NumberProps {
@@ -12,11 +12,13 @@ interface NumberProps {
   number: number;
 }
 
-const Number = ({ color, 
-                  description,
-                  prepend, 
-                  extension, 
-                  number }: NumberProps) => {
+const Number = ({
+  color,
+  description,
+  prepend,
+  extension,
+  number,
+}: NumberProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -47,7 +49,9 @@ const Number = ({ color,
               redraw
             />
           ) : (
-            <span className="count">{prepend}0{extension}</span>
+            <span className="count">
+              {prepend}0{extension}
+            </span>
           )}
         </InView>
       </span>

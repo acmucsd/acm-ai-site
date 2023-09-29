@@ -11,7 +11,7 @@ import {
 } from '../../../../actions/teams/utils';
 import UserContext from '../../../../UserContext';
 import BackLink from '../../../../components/BackLink';
-import path from 'path';
+import * as path from 'path';
 // Block for each team
 const Team = (team: any) => {
   return (
@@ -83,7 +83,11 @@ const CompetitionAllTeamsPage = () => {
             {!team && (
               <div className="main-section">
                 <h2 className="statement">Create a team</h2>
-                <h4><strong>You can only do this once! Choose a wise name.</strong></h4>
+                <h4>
+                  <strong>
+                    You can only do this once! Choose a wise name.
+                  </strong>
+                </h4>
                 <div className="teamBlock teamCreateForm">
                   <Form>
                     <form onSubmit={handleSubmit(onSubmit)}>

@@ -10,19 +10,16 @@ import { Size, useWindowSize } from './useWindowSize';
 import { HiOutlineMenu } from 'react-icons/hi';
 
 function Header() {
-
-
   const { user, setUser } = useContext(UserContext);
   const navLinks = [
-    { to: "/", text: "Home" },
-    { to: "/about", text: "About" },
-    { to: "/events", text: "Events" },
-    { to: "/competitions", text: "Competitions" },
-    { to: "/projects", text: "Projects" },
-  ]
+    { to: '/', text: 'Home' },
+    { to: '/about', text: 'About' },
+    { to: '/events', text: 'Events' },
+    { to: '/competitions', text: 'Competitions' },
+    { to: '/projects', text: 'Projects' },
+  ];
   let path = window.location.pathname;
   let initKeys: Array<string> = [];
-
 
   if (path.match(`/home`)) {
     initKeys = ['home'];
@@ -96,116 +93,112 @@ function Header() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-  }
+  };
 
   useEffect(() => {
     setIsMobile(size.width!! <= 960);
-  }, [size])
+  }, [size]);
 
   useEffect(() => {
-    if (!isMobile){
+    if (!isMobile) {
       setMenuOpen(false);
-    } 
+    }
   }, [isMobile]);
-
 
   return (
     <>
-    <div className = "Header">
-
-      <div className = "navBarWrapper">
-        
-      <div className = "logoWrapper">
-        <Link to="/">
-          <img src= "https://i.imgur.com/YqHEpJx.png" alt = "ACM AI Logo" style = {{height: "50px", width: "50px"}}/>
-        </Link> 
-      </div>
-
-
-  
-      {isMobile ? (
-        // Mobile menu button
-        <Button className = "menuButton" icon = {<HiOutlineMenu size = {35}/>} onClick = {() => toggleMenu()}/>
-      ):
-        // Desktop nav links 
-        <div className = "navLinksWrapper">
-          {navLinks.map((link, key) => (
-            <Link className = "navItem" key = {key} to = {link.to}>
-              <a href = "#">{link.text}</a>
+      <div className="Header">
+        <div className="navBarWrapper">
+          <div className="logoWrapper">
+            <Link to="/">
+              <img
+                src="https://i.imgur.com/YqHEpJx.png"
+                alt="ACM AI Logo"
+                style={{ height: '50px', width: '50px' }}
+              />
             </Link>
-          ))}
+          </div>
 
-            {user.loggedIn ?
-              (
-                <Button 
-                  size = "large"   
-                  className = "authButton"
+          {isMobile ? (
+            // Mobile menu button
+            <Button
+              className="menuButton"
+              icon={<HiOutlineMenu size={35} />}
+              onClick={() => toggleMenu()}
+            />
+          ) : (
+            // Desktop nav links
+            <div className="navLinksWrapper">
+              {navLinks.map((link, key) => (
+                <Link className="navItem" key={key} to={link.to}>
+                  <a href="#">{link.text}</a>
+                </Link>
+              ))}
+
+              {user.loggedIn ? (
+                <Button
+                  size="large"
+                  className="authButton"
                   onClick={() => {
-                  logoutUser();
-                  setUser(defaultUser);
-                  message.success('Logged out');
-                  history.push('/')}}
-                >Logout </Button>
-              
-              )
-              :
-
-              
-              (<Link to="/login">
-                <Button    
-                  size = "large"
-                  className = "authButton"
-                  onClick={() => {
-                  logoutUser();
-                  setUser(defaultUser);
-                  message.success('Logged out');
-                  history.push('/')}}
-                >Login </Button>
-              </Link>
-              )
-            }
-
-
+                    logoutUser();
+                    setUser(defaultUser);
+                    message.success('Logged out');
+                    history.push('/');
+                  }}
+                >
+                  Logout{' '}
+                </Button>
+              ) : (
+                <Link to="/login">
+                  <Button
+                    size="large"
+                    className="authButton"
+                    onClick={() => {
+                      logoutUser();
+                      setUser(defaultUser);
+                      message.success('Logged out');
+                      history.push('/');
+                    }}
+                  >
+                    Login{' '}
+                  </Button>
+                </Link>
+              )}
+            </div>
+          )}
         </div>
-      }
+
+        <div className="navBarGradientLine"></div>
       </div>
 
-      <div className = "navBarGradientLine"></div>
+      {/** Mobile dropdown nav links */}
 
-    </div>
-
-
-    {/** Mobile dropdown nav links */}
-
-      <div className = {`mobileDropDown ${menuOpen ? 'open': ''}`}>
+      <div className={`mobileDropDown ${menuOpen ? 'open' : ''}`}>
         {navLinks.map((link, key) => (
-          <Link className = "mobileNavItem"  key = {key} to = {link.to}>
-            <a href = "#">{link.text}</a>
+          <Link className="mobileNavItem" key={key} to={link.to}>
+            <a href="#">{link.text}</a>
           </Link>
         ))}
 
-        {user.loggedIn ? 
-          (
-            <div    
-              className = "logOutOption"
-              onClick={() => {
+        {user.loggedIn ? (
+          <div
+            className="logOutOption"
+            onClick={() => {
               logoutUser();
               setUser(defaultUser);
               message.success('Logged out');
-              history.push('/')}}
-              >
-                <a href = "#">Logout</a>
-              </div>
-           ) 
-           : 
-          (<Link className="mobileNavItem" to="/login">
-            <a href = "#">Login</a>
-           </Link>)
-        }
-
+              history.push('/');
+            }}
+          >
+            <a href="#">Logout</a>
+          </div>
+        ) : (
+          <Link className="mobileNavItem" to="/login">
+            <a href="#">Login</a>
+          </Link>
+        )}
       </div>
-    
-      </>
+    </>
   );
 }
 /* <Menu

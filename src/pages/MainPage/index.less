@@ -73,6 +73,7 @@
         h3 {
           font-weight: @bold;
           font-size: @font4;
+          line-height: 4rem;
         }
 
         @media screen and (max-width: @sm) {
@@ -113,9 +114,14 @@
       flex-direction: column;
       margin-top: 2rem;
       margin-bottom: 16px;
+      h3 {
+        color: white;
+        margin: 2rem 0 1rem 2rem;
+        font-weight: @semi-bold;
+      }
       h4 {
         width: 80%;
-        margin: 2rem;
+        margin: 0 0 2rem 2rem;
         color: @white;
       }
     }
@@ -148,6 +154,7 @@
 
         font-size: @font3;
         border-radius: @radius-base4;
+        border-width: 0;
 
         @media screen and (max-width: @xs) {
           width: 100%; /* Adjusted width for smaller screens */
@@ -168,6 +175,7 @@
         h3 {
           color: white;
           font-weight: @semi-bold;
+          margin-bottom: 1rem;
         }
 
         h4 {

@@ -1,5 +1,5 @@
 import React from 'react';
-function DiscordLink () {
+function DiscordLink() {
   return (
     <a
       href="https://acmurl.com/ai-disc"

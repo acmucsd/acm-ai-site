@@ -9,7 +9,6 @@ import UserContext from '../../../UserContext';
 import { DIMENSION_ID } from '../../../configs';
 const { Content } = Layout;
 
-
 function LoginPage() {
   let { setUser } = useContext(UserContext);
   const { handleSubmit, errors, control } = useForm();
@@ -28,9 +27,7 @@ function LoginPage() {
     <DefaultLayout>
       <div className="LoginPage">
         <Content className="loginDetails">
-
           <Form onSubmitCapture={handleSubmit(onSubmit)}>
-
             <div className="loginHeader">
               <h2>Login</h2>
               <p>Log back into your account!</p>
@@ -38,7 +35,7 @@ function LoginPage() {
 
             <Controller
               as={
-                <Form.Item style = {{marginBottom: "12px"}}> 
+                <Form.Item style={{ marginBottom: '12px' }}>
                   <Input
                     size="large"
                     allowClear={true}
@@ -55,7 +52,7 @@ function LoginPage() {
             />
             <Controller
               as={
-                <Form.Item style = {{marginBottom: "12px"}}>
+                <Form.Item style={{ marginBottom: '12px' }}>
                   <Input.Password
                     size="large"
                     type="password"
@@ -75,26 +72,29 @@ function LoginPage() {
               <p className="danger">Password is required</p>
             )}
 
-
-            <Button htmlType="submit" size = "large" style = {{background: "black", height: "45px", border:"none" }}>
-              <h4 style = {{color:"white"}}>Login</h4>
+            <Button
+              htmlType="submit"
+              size="large"
+              style={{ background: 'black', height: '45px', border: 'none' }}
+            >
+              <h4 style={{ color: 'white' }}>Login</h4>
             </Button>
 
             <div className="authOptionsBox">
-              <Link to="./register"><p className="option">New here? Register an account</p></Link>
-              <Link to="./requestreset"><p className="option">Forgot password?</p></Link>
+              <Link to="./register">
+                <p className="option">New here? Register an account</p>
+              </Link>
+              <Link to="./requestreset">
+                <p className="option">Forgot password?</p>
+              </Link>
             </div>
-
           </Form>
         </Content>
       </div>
     </DefaultLayout>
-
-
   );
 }
 export default LoginPage;
-
 
 /*
     <DefaultLayout>

@@ -73,7 +73,8 @@ const CompetitionSubmissionDetailsPage = () => {
         const teamScores = teams
           .map((v: any) => {
             return { teamName: v.teamName, score: v.score };
-          }).sort((a: any, b: any) => b.score - a.score);
+          })
+          .sort((a: any, b: any) => b.score - a.score);
         let rank = 1;
         for (let i = 0; i < teamScores.length; i++) {
           const d = teamScores[i];

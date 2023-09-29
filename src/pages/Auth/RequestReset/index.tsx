@@ -11,7 +11,7 @@ const RequestResetPage = () => {
   const { handleSubmit, control } = useForm();
 
   const onSubmit = (values: any) => {
-    console.log(values.username)
+    console.log(values.username);
 
     requestReset(values.username).then((res) => {
       message.success('Reset Link Sent! Check your email');
@@ -20,19 +20,26 @@ const RequestResetPage = () => {
   return (
     <DefaultLayout>
       <div className="RequestResetPage">
-
         <Content className="requestDetails">
-
           <div className="requestHeader">
             <h2>Forgot Password?</h2>
-            <p>Enter your username and we'll send you an email to reset your password</p>
+            <p>
+              Enter your username and we'll send you an email to reset your
+              password
+            </p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
               as={
                 <Form.Item>
-                  <Input size = "large" autoComplete="off" type="text" placeholder="Username" name="username" />
+                  <Input
+                    size="large"
+                    autoComplete="off"
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                  />
                 </Form.Item>
               }
               name="username"
@@ -40,18 +47,21 @@ const RequestResetPage = () => {
               rules={{ required: true }}
             />
 
-            <Button htmlType="submit" size = "large" style = {{background: "black", height: "45px", border:"none" }}>
-              <h4 style = {{color: "white"}}>Send Reset Link</h4>
+            <Button
+              htmlType="submit"
+              size="large"
+              style={{ background: 'black', height: '45px', border: 'none' }}
+            >
+              <h4 style={{ color: 'white' }}>Send Reset Link</h4>
             </Button>
           </form>
 
           <div className="loginLink">
-
-            <Link to="./login"><p className="option">Back to Login</p></Link>
+            <Link to="./login">
+              <p className="option">Back to Login</p>
+            </Link>
           </div>
-
         </Content>
-
       </div>
     </DefaultLayout>
   );

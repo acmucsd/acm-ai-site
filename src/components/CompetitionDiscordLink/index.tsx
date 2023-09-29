@@ -1,5 +1,5 @@
 import React from 'react';
-function CompetitionDiscordLink () {
+function CompetitionDiscordLink() {
   return (
     <a
       href="https://discord.gg/XsG5etY"
