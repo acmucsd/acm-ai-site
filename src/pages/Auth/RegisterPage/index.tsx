@@ -24,23 +24,29 @@ function RegisterPage() {
     setChecked(e.target.checked);
   };
   return (
-
     <DefaultLayout>
       <div className="RegisterPage">
         <Content className="registerDetails">
-
           <div className="registerHeader">
             <h2>Register</h2>
-            <p>An ACM AI account will help you get the most out of our
-              events and opportunities whether it be for awesome competitions
-              or cool networking events!</p>
+            <p>
+              An ACM AI account will help you get the most out of our events and
+              opportunities whether it be for awesome competitions or cool
+              networking events!
+            </p>
           </div>
 
           <Form onSubmitCapture={handleSubmit(onSubmit)}>
             <Controller
               as={
-                <Form.Item hasFeedback style = {{marginBottom: "12px"}}>
-                  <Input size="large" type="text" placeholder="Username" name="username"  autoComplete="off" />
+                <Form.Item hasFeedback style={{ marginBottom: '12px' }}>
+                  <Input
+                    size="large"
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    autoComplete="off"
+                  />
                 </Form.Item>
               }
               control={control}
@@ -49,8 +55,14 @@ function RegisterPage() {
             />
             <Controller
               as={
-                <Form.Item style = {{marginBottom: "12px"}}>
-                  <Input size="large" type="text" placeholder="Email" name="email"  autoComplete="off"/>
+                <Form.Item style={{ marginBottom: '12px' }}>
+                  <Input
+                    size="large"
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    autoComplete="off"
+                  />
                 </Form.Item>
               }
               name="email"
@@ -65,9 +77,9 @@ function RegisterPage() {
             />
             <Controller
               as={
-                <Form.Item style = {{marginBottom: "12px"}}>
+                <Form.Item style={{ marginBottom: '12px' }}>
                   <Input.Password
-                    size="large"                 
+                    size="large"
                     type="password"
                     placeholder="Password"
                     name="password"
@@ -80,7 +92,7 @@ function RegisterPage() {
             />
             <Controller
               as={
-                <Form.Item style = {{marginBottom: "12px"}}>
+                <Form.Item style={{ marginBottom: '12px' }}>
                   <Input.Password
                     size="large"
                     type="password"
@@ -108,42 +120,45 @@ function RegisterPage() {
               control={control}
             />
 
-            <div className = "errorBox">
-            {errors.username && <p className="danger">Missing username</p>}
-            {errors.email &&
-              ((errors.email.type === 'required' && (
-                <p className="danger">Missing email</p>
-              )) ||
-                (errors.email.type === 'pattern' && (
-                  <p className="danger">Email is invalid</p>
-                )))}
-            {errors.password &&
-              ((errors.password.type === 'minLength' && (
-                <p className="danger">Password is not long enough</p>
-              )) ||
-                (errors.password.type === 'required' && (
-                  <p className="danger">Password is required</p>
-                )))}
-            {errors.confirmPassword?.type === 'required' && (
-              <p className="danger">Need to confirm password</p>
-            )}
-            {errors.confirmPassword?.type === 'validate' && (
-              <p className="danger">Passwords need to match</p>
-            )}
+            <div className="errorBox">
+              {errors.username && <p className="danger">Missing username</p>}
+              {errors.email &&
+                ((errors.email.type === 'required' && (
+                  <p className="danger">Missing email</p>
+                )) ||
+                  (errors.email.type === 'pattern' && (
+                    <p className="danger">Email is invalid</p>
+                  )))}
+              {errors.password &&
+                ((errors.password.type === 'minLength' && (
+                  <p className="danger">Password is not long enough</p>
+                )) ||
+                  (errors.password.type === 'required' && (
+                    <p className="danger">Password is required</p>
+                  )))}
+              {errors.confirmPassword?.type === 'required' && (
+                <p className="danger">Need to confirm password</p>
+              )}
+              {errors.confirmPassword?.type === 'validate' && (
+                <p className="danger">Passwords need to match</p>
+              )}
             </div>
-         
-            <Button htmlType="submit" size = "large" style = {{background: "black", height: "45px", border:"none" }}>
-              <h4 style = {{color: "white"}}>Register</h4>
+
+            <Button
+              htmlType="submit"
+              size="large"
+              style={{ background: 'black', height: '45px', border: 'none' }}
+            >
+              <h4 style={{ color: 'white' }}>Register</h4>
             </Button>
           </Form>
-          
+
           <div className="loginLink">
-              <Link to="./login"><p>Already have an account? Log in</p></Link>
+            <Link to="./login">
+              <p>Already have an account? Log in</p>
+            </Link>
           </div>
-
         </Content>
-
-
       </div>
     </DefaultLayout>
   );
@@ -163,7 +178,6 @@ function handlePasswordErrors(errors: any) {
   }
 }
 export default RegisterPage;
-
 
 /*
        <Card className="registerCard">

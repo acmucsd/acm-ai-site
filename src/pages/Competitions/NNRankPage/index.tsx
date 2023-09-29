@@ -129,7 +129,7 @@ const NNRankPage = () => {
   }, []);
 
   return (
-    (<DefaultLayout>
+    <DefaultLayout>
       <div className="NNRankPage">
         <br />
         {/* <BackLink to="../" /> */}
@@ -137,7 +137,9 @@ const NNRankPage = () => {
         <p>
           The objective of this competition is to model a unknown function as
           accurately as possible! All data, starter code can be found on{' '}
-          <a href="https://github.com/acmucsd/NN-competition">the github</a>. Submissions are scored by lowest MSE. The competition has finished, the rankings here are final.
+          <a href="https://github.com/acmucsd/NN-competition">the github</a>.
+          Submissions are scored by lowest MSE. The competition has finished,
+          the rankings here are final.
         </p>
         {/* <p>
           This public leaderboard is ranked based on lowest Mean Squared Error
@@ -182,7 +184,7 @@ const NNRankPage = () => {
         <Table loading={loading} columns={cols} dataSource={data} />
         {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
       </div>
-    </DefaultLayout>)
+    </DefaultLayout>
   );
 };
 

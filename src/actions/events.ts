@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const MEMBERSHIP_PORTAL_API =
-  'https://api.acmucsd.com/api/v2';
+const MEMBERSHIP_PORTAL_API = 'https://api.acmucsd.com/api/v2';
 
 export type ACMEvent = {
   committee: string;

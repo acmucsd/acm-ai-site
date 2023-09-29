@@ -4,6 +4,8 @@ const {
   adjustStyleLoaders,
 } = require('customize-cra');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+
 
 module.exports = override(
   // access webpack configuration
@@ -33,7 +35,7 @@ module.exports = override(
         }
       });
     }
-
+    config.resolve.plugins = config.resolve.plugins.filter(plugin => !(plugin instanceof ModuleScopePlugin));
     // include polyfill
     config.resolve.fallback = {
       path: require.resolve('path-browserify'),

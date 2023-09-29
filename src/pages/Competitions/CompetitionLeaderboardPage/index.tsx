@@ -4,7 +4,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import {
   getMetaData,
-  getRanks,
   getLeaderboard,
 } from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
@@ -24,15 +23,16 @@ interface CompetitionData {
 
 const stringHash = (str: string) => {
   let hash = 0,
-    i, chr;
+    i,
+    chr;
   if (str.length === 0) return hash;
   for (i = 0; i < str.length; i++) {
-    chr = str.charCodeAt(i)*2;
-    hash = ((hash << 5) - hash) + chr;
+    chr = str.charCodeAt(i) * 2;
+    hash = (hash << 5) - hash + chr;
     hash |= 0; // Convert to 32bit integer
   }
   return hash;
-}
+};
 
 const columns: ColumnsType<CompetitionData> = [
   {
@@ -61,7 +61,11 @@ const columns: ColumnsType<CompetitionData> = [
               marginRight: '0.75rem',
             }}
           ></div>
-          {value.length > 28 ? <span>{value.substring(0, 28)}...</span> : <span>{value.substring(0, 28)}</span>}
+          {value.length > 28 ? (
+            <span>{value.substring(0, 28)}...</span>
+          ) : (
+            <span>{value.substring(0, 28)}</span>
+          )}
         </span>
       );
     },
@@ -126,13 +130,13 @@ const CompetitionLeaderboardPage = () => {
   const scheduleUpdate = () => {
     const interval = setInterval(() => {
       update();
-    }, 1000 * 60)
+    }, 1000 * 60);
     setIntervalObj(interval);
-  }
+  };
   const clearAutoRefresh = () => {
     clearInterval(intervalObj);
     setIntervalObj(null);
-  }
+  };
 
   useEffect(() => {
     update();
@@ -144,8 +148,7 @@ const CompetitionLeaderboardPage = () => {
   }, []);
 
   return (
-    (<DefaultLayout>
-      
+    <DefaultLayout>
       <div className="CompetitionLeaderboardPage">
         <br />
         {/* <BackLink to="../" /> */}
@@ -181,7 +184,8 @@ const CompetitionLeaderboardPage = () => {
             update();
           }}
         >
-          Refresh Leaderboard (Last refreshed {lastRefresh ? (lastRefresh.toLocaleString()): "never"})
+          Refresh Leaderboard (Last refreshed{' '}
+          {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
         </Button>
         <Button
           className="refresh-btn"
@@ -193,7 +197,7 @@ const CompetitionLeaderboardPage = () => {
             }
           }}
         >
-         {intervalObj ? "Stop Auto Refresh" : "Auto Refresh"}
+          {intervalObj ? 'Stop Auto Refresh' : 'Auto Refresh'}
         </Button>
         <br />
         <br />
@@ -201,7 +205,7 @@ const CompetitionLeaderboardPage = () => {
         <Table loading={loading} columns={columns} dataSource={data} />
         {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
       </div>
-    </DefaultLayout>)
+    </DefaultLayout>
   );
 };
 

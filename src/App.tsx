@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import { TournamentProvider } from './contexts/tournament';
 import { Spin } from 'antd';
@@ -40,7 +46,7 @@ import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/A
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
 import CompetitionSubmissionDetailsPage from './pages/Competitions/CompetitionTeamPages/SubmissionDetailsPage';
 
-import ProjectPage from './pages/ProjectsPage/index'
+import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
 
 let cookie = getCookie(COOKIE_NAME);
@@ -52,7 +58,7 @@ function ScrollToTop() {
       window.scrollTo(0, 0);
     });
     return () => {
-      unlisten(); 
+      unlisten();
     };
   }, [history]);
 
@@ -93,75 +99,106 @@ function App() {
   }, [initializedGA, location]);
 
   return (
-    
     <Router>
-    <div>
-      <ScrollToTop/>
-      <Switch>
-        {!verifying ? (
-          <UserProvider value={{ user: user, setUser: setUser }}>
-            <Route path="/" exact component={MainPage} />
-            <Route path="/about" exact component={AboutPage} />
-            <Route path="/competitions" exact component={CompetitionsPage} />
-            <Route path="/alumni" exact component={AlumniPage} />
-            <Route path="/projects" exact component={ProjectPage} />
-            <Route
-              path="/old-competitions/hide-and-seek2020"
-              exact
-              component={HideAndSeek2020Page}
-            />
-            <Route path="/events" exact component={EventsPage} />
-            <Route path="/register" exact component={RegisterPage} />
-            <Route
-              path="/eventhasnotstarted"
-              exact
-              component={EventHasNotStartedPage}
-            />
-            <Route path="/login" exact component={LoginPage} />
-            <Route path="/old-competitions/nn" exact component={nnRanksPage} />
-            <Route path="/competitions/:id" exact component={CompetitionLandingPage} />
-            <Route path="/competitions/:id/leaderboard" exact component={CompetitionLeaderboardPage} />
-            <Route path="/competitions/:id/upload" exact component={CompetitionUploadPage} />
-            <Route path="/competitions/:competitionName/teams" exact component={CompetitionAllTeamsPage} />
-            <Route path="/competitions/:competitionName/teams/:teamName" exact component={CompetitionSpecificTeamPage} />
-            <Route path="/competitions/:competitionName/teams/:teamName/submissions/:submissionId" exact component={CompetitionSubmissionDetailsPage} />
-            <Route path="/competitions/:competitionName/add-to-team" exact component={JoinTeamsPage} />
-            {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
-            <Route
-              exact
-              path="/history/hide-and-seek2020"
-              component={() => {
-                return (
-                  <TournamentRankingsPageHistorical
-                    dataDir="2020summer"
-                    description={HideAndSeek2020}
-                  />
-                );
+      <div>
+        <ScrollToTop />
+        <Switch>
+          {!verifying ? (
+            <UserProvider value={{ user: user, setUser: setUser }}>
+              <Route path="/" exact component={MainPage} />
+              <Route path="/about" exact component={AboutPage} />
+              <Route path="/competitions" exact component={CompetitionsPage} />
+              <Route path="/alumni" exact component={AlumniPage} />
+              <Route path="/projects" exact component={ProjectPage} />
+              <Route
+                path="/old-competitions/hide-and-seek2020"
+                exact
+                component={HideAndSeek2020Page}
+              />
+              <Route path="/events" exact component={EventsPage} />
+              <Route path="/register" exact component={RegisterPage} />
+              <Route
+                path="/eventhasnotstarted"
+                exact
+                component={EventHasNotStartedPage}
+              />
+              <Route path="/login" exact component={LoginPage} />
+              <Route
+                path="/old-competitions/nn"
+                exact
+                component={nnRanksPage}
+              />
+              <Route
+                path="/competitions/:id"
+                exact
+                component={CompetitionLandingPage}
+              />
+              <Route
+                path="/competitions/:id/leaderboard"
+                exact
+                component={CompetitionLeaderboardPage}
+              />
+              <Route
+                path="/competitions/:id/upload"
+                exact
+                component={CompetitionUploadPage}
+              />
+              <Route
+                path="/competitions/:competitionName/teams"
+                exact
+                component={CompetitionAllTeamsPage}
+              />
+              <Route
+                path="/competitions/:competitionName/teams/:teamName"
+                exact
+                component={CompetitionSpecificTeamPage}
+              />
+              <Route
+                path="/competitions/:competitionName/teams/:teamName/submissions/:submissionId"
+                exact
+                component={CompetitionSubmissionDetailsPage}
+              />
+              <Route
+                path="/competitions/:competitionName/add-to-team"
+                exact
+                component={JoinTeamsPage}
+              />
+              {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
+              <Route
+                exact
+                path="/history/hide-and-seek2020"
+                component={() => {
+                  return (
+                    <TournamentRankingsPageHistorical
+                      dataDir="2020summer"
+                      description={HideAndSeek2020}
+                    />
+                  );
+                }}
+              />
+              <TournamentProvider
+                value={{ tournament: tournament, setTournament: setTournament }}
+              >
+                <EnergiumRoutes />
+              </TournamentProvider>
+              <Route path="/resetpassword" component={ForgotPasswordPage} />
+              <Route path="/requestreset" component={requestreset} />
+            </UserProvider>
+          ) : (
+            <div
+              className="Loading"
+              style={{
+                textAlign: 'center',
+                fontSize: '2rem',
+                height: '100vh',
+                lineHeight: '100vh',
               }}
-            />
-            <TournamentProvider
-              value={{ tournament: tournament, setTournament: setTournament }}
             >
-              <EnergiumRoutes />
-            </TournamentProvider>
-            <Route path="/resetpassword" component={ForgotPasswordPage} />
-            <Route path="/requestreset" component={requestreset} />
-          </UserProvider>
-        ) : (
-          <div
-            className="Loading"
-            style={{
-              textAlign: 'center',
-              fontSize: '2rem',
-              height: '100vh',
-              lineHeight: '100vh',
-            }}
-          >
-            Loading <Spin indicator={antIcon} />
-          </div>
-        )}
-      </Switch>
-    </div>
+              Loading <Spin indicator={antIcon} />
+            </div>
+          )}
+        </Switch>
+      </div>
     </Router>
   );
 }

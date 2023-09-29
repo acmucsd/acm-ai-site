@@ -27,16 +27,14 @@ export const UploadBotPage = ({ competitionKey }: UploadBotPageProps) => {
     }
   }, []);
   useEffect(() => {
-    if (user.competitionRegistrations[competitionKey] !== undefined &&
-       !user.competitionRegistrations[competitionKey]) {
-        message.info(
-          'You need to register into the competition to upload a bot'
-        );
-        history.replace(path.join(window.location.pathname, '../'));
+    if (
+      user.competitionRegistrations[competitionKey] !== undefined &&
+      !user.competitionRegistrations[competitionKey]
+    ) {
+      message.info('You need to register into the competition to upload a bot');
+      history.replace(path.join(window.location.pathname, '../'));
     }
   }, [user]);
-
-
 
   const onSubmit = (values: any) => {
     // TODO: remove hardcoded competition specific names
