@@ -104,7 +104,6 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
       <Modal
         className="eventModal"
         width={800}
-        style={{ borderRadius: '40px' }}
         open={isModalOpen}
         onCancel={handleCancel}
         title={<h3 style={{ fontWeight: '700' }}>{event.title}</h3>}
@@ -135,6 +134,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
               style={{
                 boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
                 width: '45%',
+                minWidth: '260px',
                 maxWidth: '400px',
                 borderRadius: '15px',
                 marginRight: '1.5rem',
