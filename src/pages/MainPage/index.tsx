@@ -51,10 +51,10 @@ function MainPage() {
           >
             <div className="homeCarouselCard">
               <div className="carouselContentWrapper">
-                <h3>What is ACM AI?</h3>
+                <h3>What is ACM AI at UCSD?</h3>
                 <h4>
-                  We are a tight-knit community of UCSD students that exists
-                  within the ACM family at UCSD. Our team consists of bright
+                  We are a tight-knit community of students that exists
+                  within the ACM at UCSD family. Our team consists of bright
                   minds from every background and expertise.
                 </h4>
 
@@ -81,12 +81,12 @@ function MainPage() {
 
             <div className="homeCarouselCard">
               <div className="carouselContentWrapper">
-                <h3>Want more ACM?</h3>
+                <h3>Want more ACM at UCSD?</h3>
                 <h4>
                   We are part of a larger group of bright innovators and
                   thinkers here at UCSD. If you're feeling adventurous in
                   exploring our various aspects of computing or just having fun,
-                  check out ACM's main website for exciting events!
+                  check out ACM at UCSD's main website for exciting events!
                 </h4>
 
                 {/** Antd Button has a bug where using href directly will mess up the alignment of the button text so we use onClick instead */}
