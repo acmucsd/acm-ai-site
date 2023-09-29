@@ -270,7 +270,7 @@ export const socials: Person[] = [
     name: 'Philip Chen',
     major: 'Electrical Computer Engineering',
     bio: "Hello I'm Philip. Currently in my 4th year as an Electrical Engineering major in Warren. I like AI because of it's infinite possibilities and because it's the forefront of the technological frontier. My hobbees are cooking, basketball, and wasting time. ",
-    picture: 'https://i.imgur.com/yqJMarX.png',
+    picture: 'https://i.imgur.com/Ja7LMNB.png',
     socials: {
       github: 'https://github.com/PPlip',
       linkedin: 'https://www.linkedin.com/in/philip-chen-hi-ca/',
