@@ -58,11 +58,11 @@ function CompetitionsPage(props: any) {
               programming competitions as well as Reinforcement Learning (RL)
               centric competitions using{' '}
               <a
-                href="https://gym.openai.com/"
+                href="https://gymnasium.farama.org/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Open AI Gym.{' '}
+                Gymnasium.{' '}
               </a>
               All skill levels are welcome!
             </h4>
