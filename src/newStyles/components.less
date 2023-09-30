@@ -97,21 +97,22 @@
  */
 .constrained-bounds {
     width: 70%;
+    margin: 0 auto;
     max-width: 1000px;
-
     // at smaller screen sizes, too much whitespace
     // squeezes content so we increase the width ratio
     @media screen and (max-width: @sm){
-        width: 85%;
+        width: 100%;
+    
     }
 }
 
 
 // A wrapper for most sections with content 
 .generic-section {
-    padding: 3rem 0; // enables horizontal whitespace
-    margin-left: auto;
-    margin-right: auto;
+    padding: 3rem 24px;
+    margin: 0 auto; /* This will center the container horizontally */
+    box-sizing: border-box; /* Include padding and borders within the width */
 }
 
 
