@@ -117,7 +117,7 @@ function Header() {
                 style={{ height: '60px', width: '60px' }}
               />
             </Link>
-            <p>at UCSD</p>
+            <p>at UC San Diego</p>
           </div>
 
           {isMobile ? (
