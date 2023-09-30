@@ -202,13 +202,13 @@ const CompetitionLeaderboardPage = () => {
         <br />
         <br />
 
-        <p style = {{fontWeight: 600}}>
+        <p style = {{marginBottom: "12px", fontWeight: 600}}>
         (Table last refreshed{': '}
           {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
         </p>
 
         <Table loading={loading} columns={columns} dataSource={data} />
-        {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
+        {updateTime && <p>Last updated {updateTime?.toLocaleString()}</p>}
       </div>
     </DefaultLayout>
   );

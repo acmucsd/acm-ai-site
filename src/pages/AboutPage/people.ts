@@ -170,7 +170,7 @@ export const dev: Person[] = [
     picture: 'https://i.imgur.com/9Roje5s.jpeg',
     socials: {
       github: 'https://github.com/will-loves-coding82',
-      linkedin: '(6) William Kim | LinkedIn',
+      linkedin: 'https://www.linkedin.com/in/william-kim-810684221/',
       website: '',
     },
   },
@@ -221,7 +221,7 @@ export const marketing: Person[] = [
     picture: 'https://i.imgur.com/9Roje5s.jpeg',
     socials: {
       github: 'https://github.com/will-loves-coding82',
-      linkedin: '(6) William Kim | LinkedIn',
+      linkedin: 'https://www.linkedin.com/in/william-kim-810684221/',
       website: '',
     },
   },
