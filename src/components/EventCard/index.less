@@ -1,38 +1,113 @@
 @import '../../styles/base.less';
+@import '../../newStyles/variables.less';
+
 
 .EventCard {
-  color: @b2;
-  box-shadow: @bx1;
-  border-radius: @radius-base2;
-  padding: 0.5rem;
-  .Card {
-    .ant-card {
-      border: 0px;
+  background: #fafafa;
+  box-shadow: 0px 3px 5px 1px rgba(197, 197, 197, 0.5);
+  border-radius: 16px;
+  margin: 2rem 0;
+  padding: 2rem;
+
+
+   .eventHeaderTexts {
+  
+      h3 {
+        font-weight: @semi-bold;      
+        max-width: 300px;
+        line-height: @font4;
+        color: #585858;
+       }
+       p{
+        color: rgb(162, 162, 162);
+        font-weight: @regular;
+       }
+   }
+
+   .eventInfoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    .eventDateContainer {
+      display: flex;
+      justify-content: flex-start;
+
+      h4 {
+        color: #FA5E5E;
+        font-weight: @semi-bold;
+      }
+      p {
+        color: rgb(67, 67, 67);
+      }
     }
-    .title {
-      font-size: @font3;
-      color: @b2;
-      margin-top: 0;
-      margin-bottom: 1rem;
-      margin-bottom: 0;
+
+    .eventCardButton {
+      background: @black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      margin-top: 1rem;
     }
-    time {
-      font-size: @font2;
-      margin-bottom: 0.5rem;
+   }
+
+}
+
+.eventModal {
+  padding: 1rem;
+
+  .eventScheduleButton {
+    background: @black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+  }
+
+  .eventModalContent {
+    margin-top: 2rem;
+
+    .eventModalImage {
+      @media screen and (max-width: @sm) {
+        width: 100%;
+      }
     }
-    .location {
-      font-size: @font2;
-      display: block;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid @gray;
+    .eventDetailSection {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: flex-start;
+
+      h4 {
+        color: #FA5E5E;
+        font-weight: @semi-bold;
+      }
+      p {
+        color: rgb(67, 67, 67);
+      }
+    
     }
-    .description {
-      font-size: @font2;
+    .eventDescriptionBox {
+      background: #F6F6F6;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
     }
-    img {
-      width: 100%;
-    }
-    overflow-y: scroll;
-    height: 420px;
   }
 }
+
+.eventIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+
+}
+
+#calendar {
+  background:#FFD4D4;
+}
+

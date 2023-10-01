@@ -1,7 +1,14 @@
 import { message } from 'antd';
 import axios, { AxiosResponse } from 'axios';
-import { competitionAPI, COOKIE_NAME } from '../configs';
+import { COOKIE_NAME } from '../configs';
 import { getToken } from '../utils/token';
+
+export type PastCompetition = {
+  name: string;
+  year: number;
+  description: string;
+  route: string;
+};
 
 export const uploadSubmission = async (
   file: File | undefined,
@@ -18,12 +25,13 @@ export const uploadSubmission = async (
   return new Promise((resolve, reject) => {
     let bodyFormData = new FormData();
     bodyFormData.set('predictions', file);
-    bodyFormData.set('description', desc)
-    bodyFormData.set('tags', new Blob(tagsSelected))
+    bodyFormData.set('description', desc);
+    bodyFormData.set('tags', new Blob(tagsSelected));
 
     axios
       .post(
-        process.env.REACT_APP_API + `/v1/competitions/${competitionid}/${userid}/newScore`,
+        process.env.REACT_APP_API +
+          `/v1/competitions/${competitionid}/${userid}/newScore`,
         bodyFormData,
         {
           headers: {
@@ -42,7 +50,9 @@ export const uploadSubmission = async (
   });
 };
 
-export const getMetaData = async (competitionid: string): Promise<AxiosResponse> => {
+export const getMetaData = async (
+  competitionid: string
+): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
     axios
       .get(process.env.REACT_APP_API + `/v1/competitions/${competitionid}/`)
@@ -56,10 +66,15 @@ export const getMetaData = async (competitionid: string): Promise<AxiosResponse>
   });
 };
 
-export const getRanks = async (competitionid: string): Promise<AxiosResponse> => {
+export const getRanks = async (
+  competitionid: string
+): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
     axios
-      .get(process.env.REACT_APP_API + `/v1/competitions/${competitionid}/leaderboard`)
+      .get(
+        process.env.REACT_APP_API +
+          `/v1/competitions/${competitionid}/leaderboard`
+      )
       .then((res: AxiosResponse) => {
         resolve(res);
       })
@@ -70,73 +85,95 @@ export const getRanks = async (competitionid: string): Promise<AxiosResponse> =>
   });
 };
 
-export const getLeaderboard = async (competitionid: string): Promise<AxiosResponse> => {
+export const getLeaderboard = async (
+  competitionid: string
+): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
     axios
-      .get(process.env.REACT_APP_API + `/v1/competitions/${competitionid}/leaderboard`)
+      .get(
+        process.env.REACT_APP_API +
+          `/v1/competitions/${competitionid}/leaderboard`
+      )
       .then((res: AxiosResponse) => {
         resolve(res);
       })
       .catch((error) => {
-        message.error("Could not get leaderboard");
+        message.error('Could not get leaderboard');
         reject(error);
       });
-  })
-}
+  });
+};
 
-export const registerCompetitionUser = async (competitionid: string, userid: string): Promise<AxiosResponse> => {
+export const registerCompetitionUser = async (
+  competitionid: string,
+  userid: string
+): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
     let token = getToken(COOKIE_NAME);
     axios
       .post(
-        process.env.REACT_APP_API + `/v1/competitions/${competitionid}/${userid}/register`,
+        process.env.REACT_APP_API +
+          `/v1/competitions/${competitionid}/${userid}/register`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         }
-      ).then((res: AxiosResponse) => {
+      )
+      .then((res: AxiosResponse) => {
         resolve(res);
       })
       .catch((error) => {
         message.error(`Could not register ${userid} for ${competitionid}`);
         reject(error);
       });
-  })
-}
+  });
+};
 
-export const getSubmissionMatches = async (competitionid: string, submissionid: string): Promise<AxiosResponse> => {
+export const getSubmissionMatches = async (
+  competitionid: string,
+  submissionid: string
+): Promise<AxiosResponse> => {
   let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     axios
-      .get(process.env.REACT_APP_API + `/v1/competitions/matches/${competitionid}/match/entry/${submissionid}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-      })
+      .get(
+        process.env.REACT_APP_API +
+          `/v1/competitions/matches/${competitionid}/match/entry/${submissionid}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res: AxiosResponse) => {
         resolve(res);
       })
       .catch((error) => {
-        message.error("Could not get submission matches");
+        message.error('Could not get submission matches');
         reject(error);
       });
-  })
-}
+  });
+};
 
-export const getSubmissionReplay = async (competitionid: string, matchId: string): Promise<AxiosResponse> => {
+export const getSubmissionReplay = async (
+  competitionid: string,
+  matchId: string
+): Promise<AxiosResponse> => {
   let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     axios
-      .get(process.env.REACT_APP_API + `/v1/competitions/matches/${competitionid}/match/${matchId}/replay`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        responseType: 'blob',
-      })
+      .get(
+        process.env.REACT_APP_API +
+          `/v1/competitions/matches/${competitionid}/match/${matchId}/replay`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          responseType: 'blob',
+        }
+      )
       .then((res: AxiosResponse) => {
         // create file link in browser's memory
         const href = URL.createObjectURL(res.data);
@@ -154,8 +191,8 @@ export const getSubmissionReplay = async (competitionid: string, matchId: string
         resolve(res);
       })
       .catch((error) => {
-        message.error("Could not get match replay");
+        message.error('Could not get match replay');
         reject(error);
       });
-  })
-}
+  });
+};

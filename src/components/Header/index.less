@@ -1,15 +1,148 @@
 @import '../../styles/base.less';
+@import '../../newStyles/variables.less';
+@import '../../newStyles/components.less';
+
 .Header {
-  line-height: 4rem;
-  font-size: 1.2rem;
-  .empty {
-    flex-grow: 1;
-    cursor: default;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  background: rgb(255, 255, 255);
+
+  .navBarWrapper {
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 2rem;
+
   }
-  .login-item {
-    padding-right: 0px;
+  
+  .navBarGradientLine {
+    .gradient();
+    height: 8px;
+    z-index: 998;
   }
-  .profile-item {
-    padding-right: 0px;
+
+
+
+  .navItem{
+    margin: 0 1rem;
+    font-size: @font3;
+    color: @black;
+    font-weight: @semi-bold;
+    a {
+      color: @black;
+    }
+    a:hover {
+      color: @mainred;
+    }
   }
+
+
+
+  .logoContentWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .AILogo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    p {
+      margin-left: 4px;
+      font-weight: @semi-bold;
+    }
+
+  }
+
+  .menuButton {
+    border:none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1rem;
+  }
+
+  .navLinksWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+
+
+.mobileDropDown {
+  margin-top: 80px;
+  width: 100vw;
+  max-height: 500px;
+  display: flex;
+  text-align: center;
+  position: fixed;
+  flex-direction: column;
+  background: white;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  z-index: 99;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out; /* You can adjust the duration and easing as needed */
+  box-shadow: 0px 3px 5px 1px rgba(132, 132, 132, 0.5);
+
+  .mobileNavItem {
+    text-decoration: none;
+  
+    font-size: @font4;
+    color: @black;
+    font-weight: @semi-bold;
+    margin: 1rem 0;
+
+    a {
+      color: @black;
+    }
+    a:hover {
+      color: @mainred;
+    }
+
+  }
+
+  .logOutOption {
+    width: 100%;
+    text-decoration: none;
+    font-size: @font4;
+    color: @black;
+    font-weight: @semi-bold;
+    margin: 0.5rem 0;
+    :hover {
+      cursor: pointer;
+    }
+  }
+}
+
+/* Final state - menu is visible */
+.mobileDropDown.open {
+  height: auto;
+  transform: translateY(0);
+}
+
+
+.authButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: @black;
+  color: white;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: @font4;
+  font-weight: @semi-bold;
+  border: none;
+  text-decoration: none;
 }

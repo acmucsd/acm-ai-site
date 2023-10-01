@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import { getNNRanks } from '../../../actions/nn';
 import { Table, Button, Modal } from 'antd';
-import BackLink from '../../../components/BackLink';
-import path from 'path';
 import ChartJS from 'chart.js';
 const chartConfig = {
   type: 'line',
@@ -29,7 +27,7 @@ const chartConfig = {
   },
 };
 const NNRankPage = () => {
-  const history = useHistory();
+  //const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [updateTime, setUpdateTime] = useState<Date>();
   const [data, setData] = useState<any>([]);
@@ -134,12 +132,14 @@ const NNRankPage = () => {
     <DefaultLayout>
       <div className="NNRankPage">
         <br />
-        <BackLink to="../" />
+        {/* <BackLink to="../" /> */}
         <h2>Neural Network Modelling Competition Fall 2020</h2>
         <p>
           The objective of this competition is to model a unknown function as
           accurately as possible! All data, starter code can be found on{' '}
-          <a href="https://github.com/acmucsd/NN-competition">the github</a>. Submissions are scored by lowest MSE. The competition has finished, the rankings here are final.
+          <a href="https://github.com/acmucsd/NN-competition">the github</a>.
+          Submissions are scored by lowest MSE. The competition has finished,
+          the rankings here are final.
         </p>
         {/* <p>
           This public leaderboard is ranked based on lowest Mean Squared Error
@@ -153,7 +153,7 @@ const NNRankPage = () => {
         <br />
         <Modal
           title={scoreHistTitle}
-          visible={visible}
+          open={visible}
           footer={null}
           onCancel={() => {
             setVisible(false);

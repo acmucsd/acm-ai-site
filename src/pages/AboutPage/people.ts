@@ -1,32 +1,6 @@
-import Arth from './pictures/Arth.jpg';
-import Dennis from './pictures/Dennis.jpg';
-import Grant from './pictures/Grant.jpg';
-import Jackie from './pictures/Jackie.jpg';
-import Jon from './pictures/Jon.jpg';
-import Jonah from './pictures/Jonah.jpg';
-import Joshua from './pictures/Joshua.jpg';
-import Judy from './pictures/Judy.jpg';
-import Karthik from './pictures/Karthik.jpg';
-import AlanLi from './pictures/AlanLi.jpg';
-import Stone from './pictures/Stone.jpg';
-import WeijiChen from './pictures/WeijiChen.jpg';
-import EdwardJin from './pictures/EdwardJin.jpg';
-import Vincent from './pictures/Vincent.png';
-import Stefanie from './pictures/StefanieDao.jpg';
-import JennyLam from './pictures/JennyLam.png';
-import GordonChiu from './pictures/GordonChiu.jpg';
-import MilanGanai from './pictures/MilanGanai.png';
-import FatimaDong from './pictures/FatimaDong.jpg';
-import MohakVaswani from './pictures/MohakVaswani.jpg';
-import NabhanSazzad from "./pictures/NabhanSazzad.jpg";
-import PhilipChen from "./pictures/PhilipChen.jpg";
 export interface Socials {
-  readonly email?: string;
   readonly website?: string;
-  readonly twitter?: string;
   readonly github?: string;
-  readonly instagram?: string;
-  readonly facebook?: string;
   readonly linkedin?: string;
 }
 
@@ -34,328 +8,297 @@ export interface Person {
   readonly role: string;
   readonly name: string;
   readonly major: string;
-  readonly minor?: string;
-  readonly year: string;
   readonly bio: string;
   readonly picture?: string;
   readonly socials?: Socials;
 }
-
 export const directors: Person[] = [
   {
     role: 'President',
-    name: 'Jonathan Zamora',
-    major: 'Computer Science',
-    minor: 'Math',
-    year: 'Final year',
-    bio:
-      "Hi everyone! My name is Jon, and it's a pleasure to be ACM AI's President this year. I am currently a Robotics/AI researcher in Prof. Xiaolong Wang's Group, and I am broadly interested in robotics, reinforcement learning, computer vision, and machine learning. Aside from AI, I enjoy cooking, traveling, watching movies, and being with family. Here's my site: https://jonzamora.dev/",
-    picture: Jon,
+    name: 'Arth Shukla',
+    major: 'Mathematics-Computer Science',
+    bio: "Hey all, I'm Arth. I'm currently researching RL and Robotics in Prof. Hao Su's Group, and I'm generally interested in how AI can learn from diverse data, experiences, and representations. In my free time, I like playing TTRPGs like D&D and Cyberpunk Red.",
+    picture:
+      'https://arth.website/static/media/Me_Profile.5eff0ef62c5cce2f4269.jpg',
     socials: {
-      website: "https://jonzamora.dev/",
-      linkedin: "https://www.linkedin.com/in/jonzamora18/",
-      github: "https://github.com/jonzamora"
-    }
+      github: 'https://github.com/arth-shukla',
+      linkedin: 'https://www.linkedin.com/in/arth-shukla/',
+      website: 'https://arth.website',
+    },
   },
   {
-    role: 'Director of Operations',
-    name: 'Arth Shukla',
-    major: 'Math Computer Science',
-    year: 'Second year',
-    bio:
-      "Hey all, I'm Arth. I'm a first-year Math-CS major interested in AI/ML, math, and web development. I'm also interested in global politics, and in my spare time I like playing D&D and watching anime.",
-    picture: Arth,
+    role: 'Director of Events',
+    name: 'Jackie Piepkorn',
+    major: 'Computer Science',
+    bio: 'Hi everyone, my name is Jackie and I am a Computer Science major interested in the intersection of AI and Software Engineering, especially related to Natural Language Processing. My favorite part about ACM AI is our goal of making AI education more accessible to students. Outside of coding, I enjoy live music and learning langauges.',
+    picture: 'https://i.imgur.com/wIlvoSY.png',
     socials: {
-      linkedin: "https://www.linkedin.com/in/arth-shukla/",
-      github: "https://github.com/arth-shukla"
-    }
+      github: 'https://github.com/jackiepiepkorn',
+      linkedin: 'https://linkedin.com/in/jackie-piepkorn',
+      website: '',
+    },
+  },
+  {
+    role: 'Co-Director of Marketing',
+    name: 'Aaron Li',
+    major: 'Computer Science',
+    bio: 'Hello! I am Aaron, a second-year computer science major. I love meeting new people and playing badminton!',
+    picture:
+      'https://media.licdn.com/dms/image/D5603AQEpfjYgmxHxhg/profile-displayphoto-shrink_800_800/0/1684959634953?e=1700697600&v=beta&t=o8L3eId97yVmkZk1Vx-kONXx-scIxLMWx9YPkshC-zw',
+    socials: {
+      github: 'https://github.com/aarli421',
+      linkedin: 'https://www.linkedin.com/in/aarli421/',
+      website: '',
+    },
+  },
+  {
+    role: 'Co-Director of Marketing',
+    name: 'Weiji Chen',
+    major: 'Computer Science',
+    bio: "Hello everyone - my name is Weiji. I have too many research interests - but if i had to pick my favorite, it'll like be computer vision/graphics for AR/XR, RL for AV/Robotics, and NLP in Generative AI (as you can see, clearly, I can't really choose a single one). I enjoy reading, writing, and visual storytelling so don't feel the need to only stick to AI topics. Always happy to either grab food or do something together. ",
+    picture: 'https://i.imgur.com/Wr2PDuY.jpeg',
+    socials: {
+      github: 'https://github.com/wei-ji-chen',
+      linkedin: 'https://www.linkedin.com/in/wei-ji-chen/',
+      website: '',
+    },
   },
   {
     role: 'Director of Development',
-    name: 'Stone Tao',
-    major: 'Computer Science & Cognitive Science',
-    minor: 'Math',
-    year: 'Fourth year',
-    bio:
-      "Hi everyone, I'm Stone, and I'm super interested in AI, specifically reinforcement learning and AI competition design. Currently a research in Hao Su's Lab and co-founder of the non-profit Lux AI Challenge. In my spare time I spend time fencing as well.",
-    picture: Stone,
+    name: 'Mohak Vaswani',
+    major: 'Computer Science ',
+    bio: 'Hey there! I am Mohak, a third-year computer science major in Warren college. I love cooking and meeting new people.',
+    picture: 'https://i.imgur.com/LVrK1DY.jpg',
     socials: {
-      website: "https://www.stoneztao.com/",
-      linkedin: "https://www.stoneztao.com/",
-      github: "https://github.com/StoneT2000/"
-    }
+      github: 'https://github.com/Mohakvni',
+      linkedin: 'https://www.linkedin.com/in/movaswani',
+      website: 'https://mvaswani.com',
+    },
   },
-  {
-    role: 'Director of DEI',
-    name: 'Jackie Piepkorn',
-    major: 'Computer Science',
-    year: 'Second year',
-    bio:
-      "Hi everyone! I'm Jackie and I am a computer science student interested in software and AI, particularly in Backend Development, Cloud Computing, Natural Language Processing, and Neural Networks. My favorite part about ACM AI is our goal of making AI education more accessible to students. When I'm not coding, I enjoy learning languages, hiking, and volleyball.",
-    picture: Jackie,
-    socials: {
-      linkedin: "https://linkedin.com/in/jackie-piepkorn",
-      github: "https://github.com/jackiepiepkorn"
-    }
-  },
-  {
-    role: 'Co-Director of Marketing',
-    name: 'Karthik Guruvayurappan',
-    major: 'Data Science & General Bio',
-    year: 'Fourth year',
-    bio:
-      "Hi! My name is Karthik and I'm from the Bay Area. I am interested in the intersection of genetics and machine learning, and hope to pursue a PhD in the future. For fun, I enjoy playing tennis, running, playing the guitar, watching sports, and hanging out with friends!",
-    picture: Karthik,
-    socials: {
-      website: "https://karthikguru.com/",
-      linkedin: "https://www.linkedin.com/in/karthik-guruvayurappan-172747163/",
-      github: "https://github.com/somet3000"
-    }
-  },
-  {
-    role: 'Co-Director of Marketing',
-    name: 'Jonah Soong',
-    major: 'Computer Engineering',
-    year: 'Third year',
-    bio:
-      "Hey! I am Jonah! I'm a third year Computer Engineering major in Sixth College. My interests are in Robotics and similar fields that mesh hardware and software together :). I enjoy playing table tennis or video games in my free time, feel free to reach out if u wanna play (Im not very good tho :( )",
-    picture: Jonah,
-  },
-  
 ];
 
 export const operations: Person[] = [
   {
     role: 'Event Lead',
-    name: 'Alan Li',
+    name: 'Kevin Chan',
     major: 'Computer Science',
-    minor: 'Math',
-    year: 'Fourth year',
-    bio:
-      "I'm Alan, a 4th year CS major. My research experience lies in sequence forecasting and RL. In my free time I enjoy reading, watching movies, and photography. Feel free to reach out!",
-    picture: AlanLi,
+    bio: "Hi, I'm Kevin, a second-year CS major in Warren interested in emerging and innovative technologies. Currently, I research RL/Robotics in Prof. Hao Su's Lab and work on AI/VR software at Qualcomm Institute. In my free time, I enjoy table tennis, Tetris, movies, animes, and hanging out with friends.",
+    picture: 'https://i.imgur.com/UghaWk8.jpg',
+    socials: {
+      github: 'https://github.com/t-sekai',
+      linkedin: 'https://www.linkedin.com/in/tsekaichan/',
+      website: 'https://tsekai.com',
+    },
   },
   {
     role: 'Event Lead',
-    name: 'Judy Liu',
+    name: 'Xander Hinirchsen',
     major: 'Computer Science',
-    year: 'Fourth year',
-    bio:
-      "Hi! My name is Judy. I focus on iOS dev and computer vision research. Some of my hobbies include dancing and travelling.",
-    picture: Judy,
+    bio: "I'm Xander, a 3rd-year CS major in Revelle and AI Researcher at USC, advised by Yue Wang. My research currently involves Machine Learning for Robotics, including Computer Vision and Deep Reinforcement Learning.",
+    picture: 'https://i.imgur.com/pDqDrg7.jpeg',
     socials: {
-      linkedin: "https://www.linkedin.com/in/judyliu14/",
-      github: "https://github.com/judyliu14"
-    }
+      github: 'https://github.com/Xander-Hinrichsen',
+      linkedin: '',
+      website: 'https://xander-hinrichsen.github.io/',
+    },
   },
   {
     role: 'Event Lead',
-    name: 'Stefanie Dao',
-    major: 'Cognitive Science',
-    year: 'Fourth year',
-    bio:
-      "Hi I'm Stefanie! I am a senior studying Cognitive Science with interest in Computer Vision, Graphic and Cloud Computation.",
-    picture: Stefanie,
+    name: 'Sonia Fereidooni',
+    major: 'Computer Science',
+    bio: "Hi, I'm Sonia! I'm a second-year CS Major in Seventh interested in Reinforcement Learning. I'm currently a participant in ERSP and am excited to apply AI to solve problems. In my spare time, I love jamming out to the Hamilton soundtrack, hangingout with friends, and going to the beach!",
+    picture:
+      'https://cdn.discordapp.com/attachments/288778978506833921/1112519482901004389/MG_0969.JPG',
     socials: {
-      linkedin: "https://www.linkedin.com/in/stefanie-dao/"
-    }
+      github: 'https://github.com/s-fereidooni',
+      linkedin: 'https://www.linkedin.com/in/sonia-fereidooni/',
+      website: '',
+    },
   },
   {
     role: 'Event Lead',
-    name: 'Milan Ganai',
+    name: 'Samvrit Srinath',
     major: 'Computer Science',
-    year: 'Third year',
-    bio:
-      "Hey y'all, I'm Milan, and I'm a third year CS major from the Bay. I'm interested in AI and Robotics. I enjoy cooking, traveling, trying new food, hiking, and listening to music.",
-    picture: MilanGanai,
+    bio: "Hi, I'm Samvrit, a second-year CS Major in Warren interested in Computer Vision and Reinforcement Learning. I'm currently a participant in ERSP and do research under Prof. John Hwang in CRI doing NN Modeling for Aircraft Design. In my spare time, I love to spend time going to the beach, hangingout with friends, and cooking!",
+    picture: 'https://i.imgur.com/HtxqJv9.jpeg',
     socials: {
-      linkedin: "https://www.linkedin.com/in/milanganai/"
-    }
-  },
-  {
-    role: 'Event Lead',
-    name: 'Weiji Chen',
-    major: 'Computer Science',
-    minor: 'Math',
-    year: 'Third year',
-    bio:
-      `Hello! My name is Weiji, a CS major, minoring in Math. I find every field in computer science to be deeply impactful in their own way so I have a broad spectrum of interests including computer vision/graphics, robotics, cryptography, human-computer interactions, networking, etc. Outside of school, I enjoy being involved in outreach events centered on CS education, learning new languages, and reading history. I'm always happy to chat with anyone; welcome to ACM!`,
-    picture: WeijiChen,
-    socials: {
-      linkedin: "www.linkedin.com/in/wei-ji-chen",
-      github: "https://github.com/Wei-Ji-Chen"
-    }
-  },
-  {
-    role: 'Event Lead',
-    name: 'Vincent Tu',
-    major: 'Computer Science',
-    // minor: 'Math',
-    year: 'Second year',
-    bio:
-      `Hi, I'm Vincent and I'm a first year (undeclared but intending to do CS) at 6th college at UCSD. I like AI (recently my focus has been on teaching computers how to see) so reach out to me on discord (alckasoc#5261; hopefully you have one) to talk about AI-related stuff 😎! ML models may underfit, deep neural networks may overfit, but you, you're a perfect fit.`,
-    picture: Vincent,
-    socials: {
-      // linkedin: "www.linkedin.com/in/wei-ji-chen",
-      // github: "https://github.com/Wei-Ji-Chen"
-    }
-  },
-  {
-    role: 'Event Lead',
-    name: 'Jackie Piepkorn',
-    major: 'Computer Science',
-    year: 'Second year',
-    bio:
-      "Hi everyone! I'm Jackie and I am a computer science student interested in software and AI, particularly in Backend Development, Cloud Computing, Natural Language Processing, and Neural Networks. My favorite part about ACM AI is our goal of making AI education more accessible to students. When I'm not coding, I enjoy learning languages, hiking, and volleyball.",
-    picture: Jackie,
-    socials: {
-      linkedin: "https://linkedin.com/in/jackie-piepkorn",
-      github: "https://github.com/jackiepiepkorn"
-    }
+      github: 'https://github.com/SamvritSrinath',
+      linkedin: 'https://www.linkedin.com/in/samvrit-srinath/',
+      website: '',
+    },
   },
 ];
 
 export const dev: Person[] = [
   {
     role: 'Developer',
-    name: 'Joshua Hong',
-    major: 'Mathematics-Computer Science & Cognitive Science',
-    year: 'Fourth year',
-    bio:
-      `Hello everyone! I'm Joshua and I'm a Math-CS, Cog Sci double major from the Bay Area. I'm interested in AI, especially natural language processing and representation learning. In my free time, I enjoy cooking, reading, and playing video games!`,
-    picture: Joshua,
-    socials: {
-      linkedin: "https://www.linkedin.com/in/joshua--hong/",
-      github: "https://github.com/joshua-j-hong",
-    }
-  },
-  {
-    role: 'Developer',
-    name: 'Edward jin',
-    major: 'Computer Science',
-    year: 'Second year',
-    bio:
-      `Hello! My name is Edward Jin and I am a 2nd year computer science student. I enjoy learning new tools/technologies and building applications. In my free time I usually play basketball or hang out with friends.`,
-    picture: EdwardJin,
-    socials: {
-      linkedin: "https://www.linkedin.com/in/edwardcjin/",
-      github: "https://github.com/EddieJ03"
-    }
-  },
-  {
-    role: 'Developer',
-    name: 'Grant Cheng',
-    major: 'Computer Science',
-    minor: 'Japanese Studies',
-    year: 'Second year',
-    bio:
-      "Hello! I'm Grant, a second year computer science major at Muir. Outside of coding and AI, I like a variety of things from rock climbing to video games to Japanese language and culture.",
-    picture: Grant,
-    socials: {
-      github: 'https://github.com/CatFish47',
-      linkedin: "https://www.linkedin.com/in/grant-cheng-52171b205/"
-    },
-  },
-  {
-    role: 'Developer',
     name: 'Jenny Lam',
     major: 'Mathematics-Computer Science',
-    year: 'Second year',
-    bio:
-      "I'm Jenny, a 2nd year student interested in web development, AI, and bioinformatics. I'm currently doing research in the Moshiri lab at UCSD and the Stowers lab at Scripps Research. In my free time, I love making digital art!",
-    picture: JennyLam,
+    bio: "Hi, I'm Jenny, a 3rd year math CS major in Sixth. I'm interested in full-stack development, machine learning, and bioinformatics. In my free time, I like drawing, painting, and listening to K-pop.",
+    picture: 'https://i.imgur.com/kNxXPlP.jpeg',
+    socials: { github: '', linkedin: '', website: '' },
+  },
+  {
+    role: 'Developer',
+    name: 'Samantha Prestrelski',
+    major: 'Mathematics-Computer Science',
+    bio: "Hello! I'm Sam, a Math-CS major interested in software engineering, machine learning, and computer vision. I'm currently doing research in Curt Schuger and Ryan Kastner's lab, Engineers for Exploration. Outside of AI, I like to listen to podcasts and play Tetris.",
+    picture: 'https://i.imgur.com/x4L9yt8.png',
     socials: {
-      linkedin: 'https://www.linkedin.com/in/jwny/',
+      github: 'https://github.com/sprestrelski',
+      linkedin: 'https://linkedin.com/in/samanthaprestrelski',
+      website: '',
     },
   },
   {
     role: 'Developer',
-    name: 'Mohak Vaswani',
+    name: 'Kevin Shen',
     major: 'Computer Science',
-    year: 'Second year',
-    bio:
-      `Hi there, I am Mohak Vaswani. I am from Qatar, currently pursuing Computer Science. I am a sophomore who loves to code and play table tennis. I am a very social individual who loves to meet new people. `,
-    picture: MohakVaswani,
+    bio: "Hi everyone! I'm Kevin, a second-year computer science major in Marshall. I enjoy learning about new technologies and building cool applications. Feel free to reach out, I'm always down to grab boba and chat!",
+    picture: 'https://i.imgur.com/t9sme5H.jpg',
     socials: {
-      linkedin: "www.linkedin.com/in/movaswani",
-      github: "https://github.com/mohakvni",
-    }
+      github: 'https://github.com/k3shen',
+      linkedin: 'https://www.linkedin.com/in/kevinshen66',
+      website: '',
+    },
   },
   {
     role: 'Developer',
-    name: 'David Tran',
-    major: 'Computer Science',
-    year: 'Second year',
-    bio:
-      `I'm a second-year CS major in Warren interested in AI, software engineering, and computer networks. One of my favorite text editors is vim. I often watch anime in my free time. `,
+    name: 'William Kim',
+    major: 'Cog Sci / ML',
+    bio: "Hey, I'm William. I'm a fourth-year Cognitive Science major in ERC. I enjoy my time tackling different programming topics and improving on my frontend skills. Outside of school, I usually wind down by playing piano and ocassionally make digital art. ",
+    picture: 'https://i.imgur.com/9Roje5s.jpeg',
     socials: {
-      linkedin: "https://linkedin.com/in/d6tran",
-    }
-  }
-];
-
-
-export const external: Person[] = [
-  {
-    role: 'Marketing Coordinator',
-    name: 'Dennis Luc',
-    major: 'Computer Science',
-    year: 'Fourth year',
-    minor: 'Math & Business',
-    bio:
-      `Hi everyone! My name is Dennis and I'm a 4th-year at UCSD majoring in Computer Science and minoring in Mathematics and Business. In my free time, I like to go on hikes, get food with friends, and work out!`,
-    picture: Dennis,
-    socials: {
-      linkedin: "https://www.linkedin.com/in/dennisluc/",
-      github: "https://github.com/denniskluc"
-    }
+      github: 'https://github.com/will-loves-coding82',
+      linkedin: 'https://www.linkedin.com/in/william-kim-810684221/',
+      website: '',
+    },
   },
   {
-    role: 'Marketing Coordinator',
-    name: 'Gordon Chiu',
-    major: 'Cognitive Science',
-    year: 'Second year transfer',
-    bio:
-      "Hello! My name is Gordon, and I'm a Cognitive Science Major Specializing in Machine Learning and Neural Computation. I enjoy playing pool and video games during my free time, and love to listen to EDM.",
-    picture: GordonChiu,
+    role: 'Competition Dev',
+    name: 'Eban Covarrubias',
+    major: 'Computer Engineering',
+    bio: "Hello, I'm Eban, a third-year Computer Engineering major in Warren. I'm interested in Artificial Intelligence and using computer science to solve problems. I love the continuous learning aspect of cs and enjoy the process of delving into new topics.",
+    picture: 'https://i.imgur.com/bnNLVE9.jpeg',
     socials: {
-      
-    }
+      github: 'https://github.com/Eban-Covarrubias',
+      linkedin: 'https://www.linkedin.com/in/eban-covarrubias/',
+      website: '',
+    },
+  },
+  {
+    role: 'Competition Dev',
+    name: 'Aaron Liu',
+    major: 'Computer Science',
+    bio: "Hi, I'm Aaron, a third year CS major in ERC interested in software engineering and machine learning.",
+    picture: 'https://i.imgur.com/MN8okzk.jpeg',
+    socials: {
+      github: 'https://github.com/doublealiu',
+      linkedin: '',
+      website: '',
+    },
+  },
+  {
+    role: 'Competition Dev',
+    name: 'Amy Koh',
+    major: 'Computer Engineering',
+    bio: "Hi, I'm Amy! I'm a third-year CE major in Seventh college. I've done research in computer vision, and I'm currently working in Prof. Rosing and Niema's bioinformatics/computer architecture lab. In my free time I enjoy baking as well as exploring new hobbies and places!",
+    picture: 'https://i.imgur.com/YqHEpJx.png',
+    socials: {
+      github: 'https://github.com/ahkoh29',
+      linkedin: '',
+      website: '',
+    },
   },
 ];
+
+export const marketing: Person[] = [
+  {
+    role: 'Graphic Designer',
+    name: 'William Kim',
+    major: 'Cog Sci / ML',
+    bio: "Hey, I'm William. I'm a fourth-year Cognitive Science major in ERC. I enjoy my time tackling different programming topics and improving on my frontend skills. Outside of school, I usually wind down by playing piano and ocassionally make digital art.",
+    picture: 'https://i.imgur.com/9Roje5s.jpeg',
+    socials: {
+      github: 'https://github.com/will-loves-coding82',
+      linkedin: 'https://www.linkedin.com/in/william-kim-810684221/',
+      website: '',
+    },
+  },
+  {
+    role: 'Graphic Designer',
+    name: 'Kyla Park',
+    major: 'Data Science',
+    bio: "Hi, I'm Kyla, a second-year Data Science major in Marshall. I'm interested in bioinformatics and computer vision/image processing. Outside of school, I love fashion, art, and exploring new places.",
+    picture:
+      'https://cdn.discordapp.com/attachments/288778978506833921/1112981977004515359/7ZXLCge_1.jpeg',
+    socials: {
+      github: 'https://github.com/kyladawon',
+      linkedin: 'https://www.linkedin.com/in/kyla-park-936219260/',
+      website: '',
+    },
+  },
+  {
+    role: 'Content Writer',
+    name: 'Andy Liu',
+    major: 'Mathematics-Computer Science',
+    bio: "Hi, I'm Andy, a third-year Math-CS  in Sixth. AI is a topic that has interested me for a while now, and is something I hope to explore more with ACM. In my free time, I like gyming, playing video games, and going for walks.",
+    picture: 'https://i.imgur.com/YqHEpJx.png',
+    socials: {
+      github: '',
+      linkedin: 'https://www.linkedin.com/in/andy-liu-1091b31ab/',
+      website: '',
+    },
+  },
+  {
+    role: 'Content Writer',
+    name: 'Anchit Kumar',
+    major: 'Computer Science',
+    bio: "Hey, I'm Anchit and I'm a second-year CS major in Sixth. I'm interested in AI's intersection with creativity and using AI to aid exploration. Outside of CS, I enjoy playing the guitar, running, writing and travelling!",
+    picture: 'https://i.imgur.com/yua26Fq.jpg',
+    socials: {
+      github: 'https://github.com/Anchit-Kumar',
+      linkedin: 'https://www.linkedin.com/in/anchitk/',
+      website: '',
+    },
+  },
+];
+
 export const socials: Person[] = [
-  {
-    role: 'Social Lead',
-    name: 'Fatima Dong',
-    major: 'Cognitive Science',
-    year: 'Second year',
-    bio: "I am from the Bay Area. My interests include exploring new music and writing! I look forward meeting everyone this year.",
-    picture: FatimaDong,
-  },
-  {
-    role: 'Social Lead',
-    name: 'Nabhan Sazzad',
-    major: 'Computer Science',
-    minor: 'Buisness Economics',
-    year: 'Third year',
-    bio: "Hi! My name is Nabhan, I am a thid year in Warren studying Computer Science and am excited to be a part of ACM AI this year. Some fun things I like to do is watch a bunch of sports, go to the gym and play guitar. My favorite show on HBO is Silicon Valley.",
-    picture: NabhanSazzad,
-    socials: {
-      website: "https://nabhan02.github.io/",
-      linkedin: "https://www.linkedin.com/in/nabhansazzad/",
-      github: "https://github.com/nabhan02"
-    }
-  },
   {
     role: 'Social Lead',
     name: 'Philip Chen',
     major: 'Electrical Computer Engineering',
-    year: 'Second year',
-    picture: PhilipChen,
-    bio: "Hello, I'm Philip and I am a third year ECE major with a focus in ML. I am interested in anything related to technology and I strive to improve my coding skills. I enjoy wasting time, spending time with friends, and cooking.",
+    bio: "Hello I'm Philip. Currently in my 4th year as an Electrical Engineering major in Warren. I like AI because of it's infinite possibilities and because it's the forefront of the technological frontier. My hobbees are cooking, basketball, and wasting time. ",
+    picture: 'https://i.imgur.com/Ja7LMNB.png',
     socials: {
-      linkedin: "www.linkedin.com/in/philip-chen-hi-ca",
-      github: "https://github.com/PPlip"
-    }
-  }
-]
+      github: 'https://github.com/PPlip',
+      linkedin: 'https://www.linkedin.com/in/philip-chen-hi-ca/',
+      website: '',
+    },
+  },
+  {
+    role: 'Social Lead',
+    name: 'Shreyas Pasumarthi',
+    major: 'Mathematics-Computer Science',
+    bio: "Hey everyone, I'm Shreyas, a third-year Math-CS major in Muir. I'm interested in how AI and entrepreneurship can solve problems in space exploration, environmental science, and urban planning. Outside of school, I enjoy hiking, snorkeling, and playing the Kalimba",
+    picture: 'https://i.imgur.com/YqHEpJx.png',
+    socials: {
+      github: 'https://github.com/shreyaspasumarthi',
+      linkedin: 'https://www.linkedin.com/in/shreyaspasumarthi/',
+      website: '',
+    },
+  },
+  {
+    role: 'Social Lead',
+    name: 'Aniruddha Dasu',
+    major: 'Mathematics-Computer Science',
+    bio: "Hey, I'm Aniruddha, a second-year Math-CS major in Muir. I'm interested in AI and its utility in solving everyday problems. In my free time, I love playing basketball and the drums.",
+    picture: 'https://i.imgur.com/wRf0asq.png',
+    socials: {
+      github: 'https://github.com/anidasu',
+      linkedin: 'https://www.linkedin.com/in/aniruddha-dasu-621822203/',
+      website: '',
+    },
+  },
+];

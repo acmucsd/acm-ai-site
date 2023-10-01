@@ -1,52 +1,129 @@
 import React, { useEffect, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { ACMEvent, fetchFutureEvents } from '../../actions/events';
-import EventCard from '../../components/EventCard';
+import {
+  ACMEvent,
+  fetchPastEvents,
+  fetchFutureEvents,
+} from '../../actions/events';
+import { Row, Col, Layout, Tabs } from 'antd';
+import EventCard from '../../components/EventCard/index';
+const { Content, Footer } = Layout;
+
+const newEvents = (eventData: ACMEvent[]): React.ReactNode => {
+  return (
+    <Content className="eventsList">
+      {eventData.length === 0 && (
+        <div>
+          <h3>There are no upcoming events at this time. Check back later!</h3>
+        </div>
+      )}
+
+      <div>
+        {eventData.map((event) => (
+          <EventCard event={event} key={event.uuid} />
+        ))}
+      </div>
+    </Content>
+  );
+};
+
+const pastEvents = (eventData: ACMEvent[]): React.ReactNode => {
+  return (
+    <Content className="eventsList">
+      <div>
+        {eventData.map((event) => (
+          <EventCard event={event} key={event.uuid} />
+        ))}
+      </div>
+    </Content>
+  );
+};
 
 function EventsPage(props: any) {
-  const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
+  const [futureEventData, setFutureEventData] = useState<Array<ACMEvent>>([]);
+  const [pastEventData, setPastEventData] = useState<Array<ACMEvent>>([]);
 
   useEffect(() => {
     fetchFutureEvents().then((data) => {
-      setEventData(data);
+      setFutureEventData(data);
+      console.log(data);
+    });
+    fetchPastEvents().then((data) => {
+      setPastEventData(data);
+      console.log(data);
     });
   }, []);
-  const haveFutureEvents = eventData.length < 0;
+
   return (
     <DefaultLayout>
-      <div className = "EventsPage">
-        <div className = "hero">
-          <h1 id = "title">Events</h1>
-          <p className = "subtext">
-            Welcome to our events! Learn about what events we run and how to find them.
-            <div className="upcomingEvents">
-                {haveFutureEvents && <>These are the upcoming events <br/></>}
-                <div className="eventsBlock">
-                {
-                haveFutureEvents ? <EventCard event={eventData[0]} />  : "There are no upcoming events at this time."
-              }
-              </div>
+      <div className="EventsPage">
+        <Content>
+          <div className="eventsHeader">
+            <h1 className="title2">ACM AI Events</h1>
+            <h4>
+              ACM AI offers a breadth of socials and workshops to help keep our
+              members engaged. We try our best to make them as fun and exciting
+              for everyone!
+            </h4>
           </div>
-          </p>
-        </div>
-        
-        <div>
-        <div className = "main-section">
-            <h1 className = "statement">What events do we run?</h1>
-            <p className = "subtext">
-              We run all kinds of events, from intro to deep learning to seminars from distinguished researchers and professors. Events are a great way to be engaged with the AI community at UCSD as well as a way to learn content you may not typically learn in class! 
-              <br />
-              We also have a running contest where we give out kahoot rankings on discord based on your ranking on our latest kahoot quizzes. We often host these quizzes at the start or end of a workshop.
-            </p>
-         </div>
-          <div className = "main-section">
-            <h1 className = "statement">Where to find our workshops?</h1>
-            <p className = "subtext">
-              We post all our workshop recordings on our youtube at <a href='https://acmurl.com/youtube' target='_blank'>https://acmurl.com/youtube</a>. Stay tuned in our Discord for when we upload them.
-            </p>
-          </div>
-        </div>
+        </Content>
+
+        <Content className="eventsContent">
+          <Tabs
+            size="small"
+            animated={true}
+            tabPosition="top"
+            items={[
+              {
+                label: <p>Upcoming Events</p>,
+                key: '1',
+                children: newEvents(futureEventData),
+              },
+              {
+                label: <p>Past Events</p>,
+                key: '2',
+                children: pastEvents(pastEventData),
+              },
+            ]}
+          ></Tabs>
+        </Content>
+
+        <Footer className="eventsFooter">
+          <Row className="row">
+            <Col>
+              <h2 className="title2">What events do we run?</h2>
+              <p>
+                We run all kinds of events, from intro to deep learning
+                workshops to seminars from distinguished researchers and
+                professors. Events are a great way to engage with the AI
+                community at UCSD and learn content you may not typically learn
+                in class! We also have a running contest ranking on Discord
+                based on your performance on our latest Kahoot quizzes. We often
+                host these quizzes at the start or end of a workshop.
+              </p>
+            </Col>
+          </Row>
+
+          <Row className="row">
+            <Col>
+              <h2 className="title2">Where can I find past workshops?</h2>
+              <p>
+                We post all of our workshop recordings on our YouTube at{' '}
+                <a
+                  href="https://acmurl.com/youtube"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://acmurl.com/youtube
+                </a>
+                . Stay tuned in our Discord for uploads!
+              </p>
+            </Col>
+          </Row>
+
+          <h3>ACM AI at UCSD 2023</h3>
+        </Footer>
       </div>
     </DefaultLayout>
   );

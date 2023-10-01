@@ -1,0 +1,28 @@
+@import '../../newStyles/variables.less';
+.number {
+  //border-left: 8px solid;
+  border: none;
+  display: inline-block;
+  width: 150px;
+  @media only screen and (max-width: @xs) {
+    width: 120px;
+  }
+
+  .count {
+    display: block;
+    font-size: @font4;
+    line-height: @font4;
+    font-weight: @semi-bold;
+  }
+
+  .description {
+    display: block;
+    font-size: @font2;
+    @media only screen and (max-width: @xs) {
+      font-size: 14px;
+    }
+    font-weight: @regular;
+    line-height: 32.25px;
+    color: rgb(155, 155, 155);
+  }
+}

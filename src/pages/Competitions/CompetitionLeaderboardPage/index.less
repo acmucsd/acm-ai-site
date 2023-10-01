@@ -1,5 +1,16 @@
 @import '../../../styles/base.less';
+@import '../../../newStyles/layout.less';
+@import '../../../newStyles/layout.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/variables.less';
 .CompetitionLeaderboardPage {
+  .noContainer();
+  .generic-section();
+  overflow-x: visible !important;
+
+  h2 {
+    margin-top: 100px;
+  }
   .meta-data {
     font-size: @font2;
     margin-bottom: @margin-base;
@@ -7,11 +18,18 @@
   .meta-data-title {
     margin-bottom: 0px;
   }
+
+  .upload-btn {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+  }
   .refresh-btn {
-    margin-left: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    background: @black;
+    border: none;
+    color: white;
   }
-  p {
-    font-size: @font2;
-  }
+
   @import '../../../styles/impactful.less';
 }

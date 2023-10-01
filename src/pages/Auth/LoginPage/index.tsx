@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
-import Card from '../../../components/Card';
-import { Form, Input, message, Button } from 'antd';
+import { Form, Input, message, Button, Layout } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { loginUser, getUserFromToken } from '../../../actions/auth';
 import { Link } from 'react-router-dom';
 import UserContext from '../../../UserContext';
 import { DIMENSION_ID } from '../../../configs';
+const { Content } = Layout;
 
 function LoginPage() {
   let { setUser } = useContext(UserContext);
@@ -24,6 +24,79 @@ function LoginPage() {
   };
 
   return (
+    <DefaultLayout>
+      <div className="LoginPage">
+        <Content className="loginDetails">
+          <Form onSubmitCapture={handleSubmit(onSubmit)}>
+            <div className="loginHeader">
+              <h2>Login</h2>
+              <p>Log back into your account!</p>
+            </div>
+
+            <Controller
+              as={
+                <Form.Item style={{ marginBottom: '12px' }}>
+                  <Input
+                    size="large"
+                    allowClear={true}
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    autoComplete="off"
+                  />
+                </Form.Item>
+              }
+              control={control}
+              rules={{ required: true }}
+              name="username"
+            />
+            <Controller
+              as={
+                <Form.Item style={{ marginBottom: '12px' }}>
+                  <Input.Password
+                    size="large"
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    autoComplete="off"
+                  />
+                </Form.Item>
+              }
+              name="password"
+              control={control}
+              rules={{ required: true }}
+            />
+
+            {errors.username && <p className="danger">Missing username</p>}
+            {errors.password && errors.password.type === 'required' && (
+              <p className="danger">Password is required</p>
+            )}
+
+            <Button
+              htmlType="submit"
+              size="large"
+              style={{ background: 'black', height: '45px', border: 'none' }}
+            >
+              <h4 style={{ color: 'white' }}>Login</h4>
+            </Button>
+
+            <div className="authOptionsBox">
+              <Link to="./register">
+                <p className="option">New here? Register an account</p>
+              </Link>
+              <Link to="./requestreset">
+                <p className="option">Forgot password?</p>
+              </Link>
+            </div>
+          </Form>
+        </Content>
+      </div>
+    </DefaultLayout>
+  );
+}
+export default LoginPage;
+
+/*
     <DefaultLayout>
       <div className="LoginPage">
         <Card className="loginCard">
@@ -74,6 +147,4 @@ function LoginPage() {
         </Card>
       </div>
     </DefaultLayout>
-  );
-}
-export default LoginPage;
+*/

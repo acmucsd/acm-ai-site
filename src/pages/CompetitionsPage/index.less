@@ -1,5 +1,91 @@
-@import '../../styles/base.less';
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
 .CompetitionsPage {
   .noContainer();
-  @import '../../styles/impactful.less';
+
+  .competitionHeader{
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 4rem;
+
+    
+    h4 {
+      max-width: 600px;
+      margin: 0 24px;
+      width: 60%;
+
+      @media screen and (max-width: @sm) {
+        width: 70%;
+      }
+
+      text-align: center;
+    }
+
+  }
+
+  .pastCompetitionsHeader {
+    background: #f5621e;
+    margin-top: 4rem;
+    padding: 4rem ;
+    text-align: center;
+    h1, h4 {
+      color: white;
+      margin: auto;
+    }
+    h4 {
+      margin-top: 1rem;
+      max-width: 600px;
+
+    }
+    
+  }
+
+  .noCompetitionsBox {
+    display: inline-block;
+    border-radius: 50px;
+    background: #F6F6F6;
+    margin-top: 3rem;
+    padding: 1rem 2rem;
+
+  }
+
+  
+  .competitionsSection {
+    .generic-section();
+    .constrained-bounds();
+    margin-bottom: 7rem;
+
+    .competitionDiv {
+      margin-bottom: 3rem;
+      margin-top: 3rem;
+      padding: 4rem;
+      background: #f7f7f7;
+      border-radius: 20px;
+
+      h3 {
+        font-weight: @bold;
+      }
+      .competitionStats {
+        display: inline-block;
+        padding: 1rem 0;
+        border-radius: 20px;      
+      }
+      .compButtonPrimary {
+        border: none;
+        background: @black;
+        margin-top: 1rem;
+      }
+
+      .compButtonSecondary {
+        border:none;
+        
+      }
+
+    }
+  }
+
+ 
+
 }

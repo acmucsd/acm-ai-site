@@ -1,0 +1,79 @@
+@import '../../newStyles/variables.less';
+
+
+
+.CompCard {
+
+    border-radius: 20px;
+
+    @media (max-width: @xs) {
+        width: 70%;
+    }
+
+    @media (max-width: @xxs) {
+        width: 100%;
+    }
+
+
+    .compHeader {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        height: 150px;
+        margin: 2rem 0;
+        background-color: "#3A3A3A";
+
+        .compRow {
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .yearWrapper {
+            border-radius: @radius-base4;
+            padding: 0.5rem 2rem;
+            margin-right: 1rem;
+            background: white;
+
+            h3 {
+                color: rgb(141, 141, 141);
+                font-weight: @semi-bold;
+            }
+
+            @media (max-width: @sm) {
+                padding: 1rem;
+                border-radius: @radius-base3;
+                padding: 1rem 2rem;
+            }
+
+            @media (max-width: @xs) {
+                padding: 1rem;
+                border-radius: @radius-base2;
+                padding: 1rem 3rem;
+            }
+
+        }
+
+        h3 {
+            color: rgb(255, 255, 255);
+            font-size: @font4;
+            max-width: 80%;
+
+            @media (max-width: @xxs) {
+                font-size: @font5;
+            }
+        }
+    }
+
+
+    .compDescription {
+        p {
+            color: @black;
+            font-size: @font2;
+        }
+    }
+
+
+
+
+
+}

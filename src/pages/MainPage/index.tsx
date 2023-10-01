@@ -2,122 +2,203 @@ import React, { useEffect, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
-import DiscordLink from '../../components/DiscordLink';
 import { ACMEvent, fetchFutureEvents } from '../../actions/events';
-import EventCard from '../../components/EventCard';
-import { Col, Row } from 'antd';
+import { Layout, Carousel, Button, Collapse, Card } from 'antd';
+import { FaFireAlt, FaProjectDiagram } from 'react-icons/fa';
+import EventTimeline from '../../components/EventTimeline/index';
+import MainFooter from '../../components/MainFooter/index';
+const { Content } = Layout;
+
 function MainPage() {
   const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
   useEffect(() => {
     fetchFutureEvents().then((data) => {
+      console.log(data);
       setEventData(data);
     });
   }, []);
 
   return (
     <DefaultLayout>
+      {/* Every page will have a .noContainer() class applied to remove default margins*/}
+
       <div className="Main">
-        <div className="hero">
-          <div className="heading">
-            <h1 className="homepageTitle">ACM AI at UCSD</h1>
-            <p className="homepageSubtext">
-              We aspire to inspire the next generation of AI advocates, engineers,
-              and scientists.
-            </p>
+        {/* Main header section*/}
+
+        {/* NOTE: If you want a constrained box centered on the page, you
+         *       must apply .constrained-bounds and/or .generic class
+         *       to a wrapper component. Then place your content inside
+         *       Otherwise, the content will just fill the entire width :)
+         */}
+
+        <Content className="homeHeader">
+          <div className="homeHeaderContent">
+            <h1 className="homeTitle">acm ai</h1>
+            <h4 className="homeSubTitle">
+              We aspire to inspire the next generation of AI advocates,
+              engineers, and scientists.
+            </h4>
           </div>
-          <a className="nextEventBannerWrapper" href="#events">
-            {eventData.slice(0, 1).map((event) => {
-              return (
-                <img className="nextEventBanner" src={event.cover} alt="Event cover" />
-              );
-            })}
-          </a>
-        </div>
-        <div>
-          <div className="main-section">
-            <h2 className="statement">Model Your AI/ML Path</h2>
-            <p>
-              Our goals are to help build a community of AI enthusiasts at UCSD
-              and connect that community to the broader AI network. We also
-              strive to keep AI fun and accessible to all. We want to help you
-              navigate your path around the complex world of AI through
-              workshops, competitions, networking events and more!
-            </p>
-            <p>
-              Don't know where to start? Scroll down or go to our{' '}
-              <a href="/#events">events</a>
-            </p>
+        </Content>
+
+        {/* Carousel section that holds 3 cards with info about acm ai */}
+        <Content className="homeCarousel">
+          <Carousel
+            autoplay={true}
+            autoplaySpeed={10000}
+            dotPosition="bottom"
+            effect="fade"
+          >
+            <div className="homeCarouselCard">
+              <div className="carouselContentWrapper">
+                <h3>What is ACM AI at UCSD?</h3>
+                <p>
+                  We are a tight-knit community of students that exists
+                  within the ACM at UCSD family. Our team consists of bright
+                  minds from every background and expertise.
+                </p>
+
+                <Link to={`/about`} rel="noopener noreferrer">
+                  <Button size="large" shape="round" className="navButton">
+                    <p>meet the team</p>
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="homeCarouselCard">
+              <div className="carouselContentWrapper">
+                <h3>Model Your AI/Ml Path</h3>
+                <p>
+                  Our goals are to help build a community of AI enthusiasts at
+                  UCSD and connect that community to the broader AI network. We
+                  also strive to keep AI fun and accessible to all as you
+                  navigate your path around the complex world of AI through
+                  workshops, competitions, networking events and more!
+                </p>
+              </div>
+            </div>
+
+            <div className="homeCarouselCard">
+              <div className="carouselContentWrapper">
+                <h3>Want more ACM at UCSD?</h3>
+                <p>
+                  We are part of a larger group of bright innovators and
+                  thinkers here at UCSD. If you're feeling adventurous in
+                  exploring our various aspects of computing or just having fun,
+                  check out ACM at UCSD's main website for exciting events!
+                </p>
+
+                {/** Antd Button has a bug where using href directly will mess up the alignment of the button text so we use onClick instead */}
+                <Button
+                  className="navButton"
+                  size="large"
+                  shape="round"
+                  onClick={() => {
+                    window.location.href = 'https://acmucsd.com/';
+                  }}
+                >
+                  <p>explore</p>
+                </Button>
+              </div>
+            </div>
+          </Carousel>
+        </Content>
+
+        {/* Content section for projects and competitions info*/}
+        <Content className="projectsCompsBox">
+          <div className="descriptionsBox">
+            <div className="descriptions">
+              <h3>Apply Your Knowledge</h3>
+              <h4>
+                Neural Networks don’t always have to be taught in the classroom.
+                Start a project or join a competition!
+              </h4>
+            </div>
           </div>
-          <div className="main-section">
-            <h2 className="statement" id="learn-ai">
-              Learn about AI and Get Involved!
-            </h2>
-            <h3>Workshops, Competitions, Events</h3>
-            <p>
-              We host many, many, *many* events throughout each quarter at UCSD.
-              Best way to be in the loop of new events, competitions etc. is to
-              join our Discord at <DiscordLink />. We run workshops on
-              introductory to advanced neural network concepts and programming
-              to workshops on the Kaggle platform
-            </p>
-            <h3>Networking, Research, Reading Groups</h3>
-            <p>
-              If you're looking for more networking opportunities or research,
-              we also run seminars in collaboration with AI professors at UCSD
-              as well as host an AI reading group on our discord. Trust us, it
-              is very interesting.
-            </p>
-            <p>
-              Make sure to also <Link to="/register">register</Link> an account
-              with us! That way we can reach out to you about new opportunities
-              and you can enter our exciting competitions
-            </p>
-            <h3>Joining Us</h3>
-            <p>
-              We are always looking for more people to join our mission and
-              build the growing AI community at UCSD. The following roles are
-              open to all undergraduate UCSD students:
-            </p>
-            <li>
-              Developer - apply here{' '}
-              <a href="https://acmurl.com/ai-dev">https://acmurl.com/ai-dev</a>
-            </li>
-            <li>
-              Event Lead - apply here{' '}
-              <a href="https://acmurl.com/ai-events">
-                https://acmurl.com/ai-events
-              </a>
-            </li>
-            <li>
-              Marketing / Sponsorship - apply here{' '}
-              <a href="https://acmurl.com/ai-marketing-sponsorship-app">
-                https://acmurl.com/ai-marketing-sponsorship-app
-              </a>
-            </li>
-            <p>
-              More details, including application forms, can be found on our
-              discord
-            </p>
+
+          <div className="cardsBox">
+            <Card className="projectPreviewCard">
+              <div className="previewIcon" style={{ marginBottom: '1rem' }}>
+                <FaProjectDiagram size={25} />
+              </div>
+              <h3>Projects</h3>
+              <h4>
+                Explore our club's cutting-edge AI projects, showcasing
+                innovation and expertise in artificial intelligence.
+              </h4>
+              <Link to={`/projects`} rel="noopener noreferrer">
+                <p
+                  style={{ marginTop: '1rem', marginBottom: '1rem' }}
+                >{`learn more >`}</p>
+              </Link>
+            </Card>
+
+            <Card className="projectPreviewCard">
+              <div className="previewIcon" style={{ marginBottom: '1rem' }}>
+                <FaFireAlt size={25} />
+              </div>
+              <h3>Competitions</h3>
+              <h4>
+                Dive into the world of fierce competitions where members
+                demonstrate their skills in various challenges.
+              </h4>
+
+              <Link to={`/competitions`} rel="noopener noreferrer">
+                <p
+                  style={{ marginTop: '1rem', marginBottom: '1rem' }}
+                >{`learn more >`}</p>
+              </Link>
+            </Card>
           </div>
-          <div className="main-section" id="events">
-            <h2 className="statement" id="learn-ai">
-              Upcoming Events!
-            </h2>
+        </Content>
+
+        {/* Content section for events*/}
+        <Content className="eventsContainer">
+          <h1 className="title2">Events</h1>
+          <h4 className="homeSubTitle2">
+            To make things fun, our team strives to come up with new
+            workshops and socials so that everyone has a chance to explore a
+            different aspect of AI
+          </h4>
+
+          <EventTimeline eventData={eventData} />
+        </Content>
+
+        <Content className="sponsorBox">
+          <h1 className="title2">Sponsor Us</h1>
+          <h4 className="homeSubTitle2">
+            As a club, we are always seeking passionate sponsors who care about
+            our mission to make AI fun and accessible. Here are some quick
+            resources if you are a company interested in working with us!
+          </h4>
+
+          <div className="sponsorCollapse">
             <p>
-              These are our upcoming events on workshops, competitions,
-              networking and more!
+              We will be launching our Sponsorship Packet with information on
+              how to sponsor our competitions soon! In the meantime, if you
+              would like to contact us about sponsorship, please email us at
+              ai@acmucsd.org.
             </p>
-            <Row gutter={[24, 24]} justify="center">
-              {eventData.map((event) => {
-                return (
-                  <Col>
-                    <EventCard event={event} />
-                  </Col>
-                );
-              })}
-            </Row>
+            {/*             <Collapse ghost bordered={false} >
+              <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>What do we offer?</h4>} key="1">
+                <h4 style = {{color: "white"}}>hello</h4>
+              </Panel>
+              <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>Who can I contact?</h4>} key="2">
+                <h4 style = {{color: "white"}}>hello</h4>
+              </Panel>
+              <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>Is there an official Sponsorship Packet?</h4>} key="3">
+                <h4 style = {{color: "white"}}>hello</h4>
+              </Panel>
+            </Collapse> */}
           </div>
-        </div>
+        </Content>
+
+        <Content>
+          <div className="homeBottomBar"></div>
+        </Content>
+
+        <MainFooter />
       </div>
     </DefaultLayout>
   );

@@ -37,10 +37,9 @@ const CompetitionLandingPage = () => {
   const [chart, setChart] = useState<ChartJS | null>(null);
   const chartContainer = useRef<HTMLCanvasElement>(null);
   const [scoreHistTitle, setScoreHistTitle] = useState('');
-  const [meta, setMeta] = useState<{competitionName?: string}>({});
-  const params = useParams() as {id: string};
+  const [meta, setMeta] = useState<{ competitionName?: string }>({});
+  const params = useParams() as { id: string };
   const competitionID = params.id;
-  
 
   const [chartTrigger, setTrigger] = useState(false);
   useEffect(() => {
@@ -58,7 +57,7 @@ const CompetitionLandingPage = () => {
 
   const update = () => {
     getMetaData(competitionID).then((res) => {
-      console.log("METADATA", res.data);
+      console.log('METADATA', res.data);
       setMeta(res.data);
     });
     getRanks(competitionID).then((res) => {
@@ -146,7 +145,7 @@ const CompetitionLandingPage = () => {
         <h2>{meta.competitionName}</h2>
         <p>
           The objective of this competition is to model a unknown function as
-          accurately as possible! 
+          accurately as possible!
           {/* All data, starter code can be found on{' '}
           <a href="https://github.com/acmucsd/NN-competition">the github</a>. */}
         </p>
@@ -162,7 +161,7 @@ const CompetitionLandingPage = () => {
         <br />
         <Modal
           title={scoreHistTitle}
-          visible={visible}
+          open={visible}
           footer={null}
           onCancel={() => {
             setVisible(false);

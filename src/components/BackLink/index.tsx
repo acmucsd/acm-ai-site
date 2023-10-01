@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import path from 'path';
 const BackLink = (props: { to?: string }) => {
   let link = path.join(window.location.pathname, props.to ? props.to : '../');
-  if (link[link.length - 1] === "/") {
+  if (link[link.length - 1] === '/') {
     link = link.slice(0, link.length - 1);
   }
   return (

@@ -11,7 +11,8 @@ export const getCompetitionUser = (
   return new Promise((resolve, reject) => {
     axios
       .get(
-        process.env.REACT_APP_API + `/v1/competitions/${competitionName}/users/${username}`
+        process.env.REACT_APP_API +
+          `/v1/competitions/${competitionName}/users/${username}`
       )
       .then((res: AxiosResponse) => {
         resolve(res);
@@ -80,15 +81,19 @@ export const getTeamInfo = async (
 };
 
 // Create new team
-export const createTeam = async (competitionid: string, userid: string, teamName: string): Promise<AxiosResponse> => {
+export const createTeam = async (
+  competitionid: string,
+  userid: string,
+  teamName: string
+): Promise<AxiosResponse> => {
   let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     axios
       .post(
         process.env.REACT_APP_API + `/v1/teams/${competitionid}/new-team`,
         {
-          'username': userid,
-          'teamName': teamName
+          username: userid,
+          teamName: teamName,
         },
         {
           headers: {
@@ -105,7 +110,7 @@ export const createTeam = async (competitionid: string, userid: string, teamName
         reject(error);
       });
   });
-}
+};
 
 export const getSubmissionDetails = async (
   competitionName: string,
@@ -113,18 +118,20 @@ export const getSubmissionDetails = async (
 ): Promise<AxiosResponse> => {
   // let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
-    axios.get(
-      process.env.REACT_APP_API + `/v1/competitions/${competitionName}/entry/${submissionId}`
-    )
-    .then((res: AxiosResponse) => {
-      resolve(res);
-    })
-    .catch((error) => {
-      message.error(error.response.data.error.message);
-      reject(error)
-    })
-  })
-}
+    axios
+      .get(
+        process.env.REACT_APP_API +
+          `/v1/competitions/${competitionName}/entry/${submissionId}`
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error(error.response.data.error.message);
+        reject(error);
+      });
+  });
+};
 export const addToTeam = async (
   competitionName: string,
   username: string,

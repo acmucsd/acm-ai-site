@@ -7,7 +7,7 @@ interface cardText {
   readonly picture?: string;
 }
 
-export const ex: cardText[] =[
+export const ex: cardText[] = [
   {
     role: 'Member',
     name: 'Ishaan Kavoori',
