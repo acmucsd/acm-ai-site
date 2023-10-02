@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import './index.less';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { HiOutlineBriefcase } from 'react-icons/hi';
 import {
@@ -97,6 +97,7 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
         showDrawer();
       }}
     >
+
       <Card
         hoverable={true}
         className="AboutCard"
@@ -180,6 +181,23 @@ function AboutPage() {
   const size: Size = useWindowSize();
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<Person>();
+
+  const teams: Person[][] = [directors, operations, dev, marketing, socials];
+  const allImageUrls: string[] = [];
+
+  teams.forEach((team) => {
+    const teamUrls = team
+      .map((person) => person.picture)
+      .filter((imageUrl) => imageUrl !== undefined) as string[];
+    allImageUrls.push(...teamUrls);
+  })
+
+  useEffect(() => {
+    allImageUrls.forEach((imageUrl) => {
+      const img = new Image();
+      img.src=imageUrl;
+    });
+  }, [allImageUrls]);
 
   return (
     <DefaultLayout>
