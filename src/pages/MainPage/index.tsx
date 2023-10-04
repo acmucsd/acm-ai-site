@@ -3,7 +3,7 @@ import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
 import { ACMEvent, fetchFutureEvents } from '../../actions/events';
-import { Layout, Carousel, Button, Collapse, Card } from 'antd';
+import { Layout, Button, Collapse, Card } from 'antd';
 import { FaFireAlt, FaProjectDiagram } from 'react-icons/fa';
 import EventTimeline from '../../components/EventTimeline/index';
 import MainFooter from '../../components/MainFooter/index';
@@ -41,73 +41,66 @@ function MainPage() {
           </div>
         </Content>
 
-        {/* Carousel section that holds 3 cards with info about acm ai */}
-        <Content className="homeCarousel">
-          <Carousel
-            autoplay={true}
-            autoplaySpeed={10000}
-            dotPosition="bottom"
-            effect="fade"
-          >
-            <div className="homeCarouselCard">
-              <div className="carouselContentWrapper">
-                <h3>What is ACM AI at UCSD?</h3>
-                <p>
-                  We are a tight-knit community of students that exists
-                  within the ACM at UCSD family. Our team consists of bright
-                  minds from every background and expertise.
-                </p>
-
-                <Link to={`/about`} rel="noopener noreferrer">
-                  <Button size="large" shape="round" className="navButton">
-                    <p>meet the team</p>
-                  </Button>
-                </Link>
-              </div>
-            </div>
-
-            <div className="homeCarouselCard">
-              <div className="carouselContentWrapper">
-                <h3>Model Your AI/Ml Path</h3>
-                <p>
-                  Our goals are to help build a community of AI enthusiasts at
-                  UCSD and connect that community to the broader AI network. We
-                  also strive to keep AI fun and accessible to all as you
-                  navigate your path around the complex world of AI through
-                  workshops, competitions, networking events and more!
-                </p>
-              </div>
-            </div>
-
-            <div className="homeCarouselCard">
-              <div className="carouselContentWrapper">
-                <h3>Want more ACM at UCSD?</h3>
-                <p>
-                  We are part of a larger group of bright innovators and
-                  thinkers here at UCSD. If you're feeling adventurous in
-                  exploring our various aspects of computing or just having fun,
-                  check out ACM at UCSD's main website for exciting events!
-                </p>
-
-                {/** Antd Button has a bug where using href directly will mess up the alignment of the button text so we use onClick instead */}
-                <Button
-                  className="navButton"
-                  size="large"
-                  shape="round"
-                  onClick={() => {
-                    window.location.href = 'https://acmucsd.com/';
-                  }}
-                >
-                  <p>explore</p>
-                </Button>
-              </div>
-            </div>
-          </Carousel>
-        </Content>
-
         {/* Content section for projects and competitions info*/}
-        <Content className="projectsCompsBox">
-          <div className="descriptionsBox">
+        <Content className="homeBox">
+          <div className="homeInfo">
+            <div className="info">
+              <h3>What is ACM AI at UC San Diego?</h3>
+              <p>
+                We are a tight-knit community of students that exists
+                within the ACM family at UCSD. Our team consists of bright
+                minds from every background and expertise.
+              </p>
+              <Link to={`/about`} rel="noopener noreferrer">
+                <Button size="large" shape="round" className="darkButton">
+                  <p>meet the team</p>
+                </Button>
+              </Link>
+            </div>
+            
+            <div className="info">
+              <h3>Model Your AI/Ml Path</h3>
+              <p>
+                Our goals are to help build a community of AI enthusiasts at
+                UCSD and connect that community to the broader AI network. We
+                also strive to keep AI fun and accessible to all as you
+                navigate your path around the complex world of AI through
+                workshops, competitions, networking events and more!
+              </p>
+              <Button
+                className="lightButton"
+                size="large"
+                shape="round"
+                onClick={() => {
+                  window.open('https://wiki.ai.acmucsd.com/', '_blank')
+                }}
+              >
+                <p>view our wiki</p>
+              </Button>
+            </div>
+
+            <div className="info">
+              <h3>Want more ACM at UCSD?</h3>
+              <p>
+                We are part of a larger group of bright innovators and
+                thinkers here at UCSD. If you're feeling adventurous in
+                exploring our various aspects of computing or just having fun,
+                check out ACM at UC San Diego's main website for exciting events!
+              </p>
+              <Button
+                className="lightButton"
+                size="large"
+                shape="round"
+                onClick={() => {
+                  window.open('https://acmucsd.com/', '_blank')
+                }}
+              >
+                <p>explore the org</p>
+              </Button>
+            </div>
+          </div>
+
+          <div className="projectCompsBox">
             <div className="descriptions">
               <h3>Apply Your Knowledge</h3>
               <h4>
@@ -117,7 +110,7 @@ function MainPage() {
             </div>
           </div>
 
-          <div className="cardsBox">
+          <div className="projectCompsCardsBox">
             <Card className="projectPreviewCard">
               <div className="previewIcon" style={{ marginBottom: '1rem' }}>
                 <FaProjectDiagram size={25} />
