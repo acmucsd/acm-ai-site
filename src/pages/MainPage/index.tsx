@@ -52,7 +52,7 @@ function MainPage() {
                 minds from every background and expertise.
               </p>
               <Link to={`/about`} rel="noopener noreferrer">
-                <Button size="large" shape="round" className="darkButton">
+                <Button size="large" shape="round">
                   <p>meet the team</p>
                 </Button>
               </Link>
@@ -68,7 +68,6 @@ function MainPage() {
                 workshops, competitions, networking events and more!
               </p>
               <Button
-                className="lightButton"
                 size="large"
                 shape="round"
                 onClick={() => {
@@ -88,7 +87,6 @@ function MainPage() {
                 check out ACM at UC San Diego's main website for exciting events!
               </p>
               <Button
-                className="lightButton"
                 size="large"
                 shape="round"
                 onClick={() => {
