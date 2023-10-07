@@ -60,61 +60,44 @@
     color: @b1;
   }
 
-  // Custom carousel for the home screen
-  .homeCarousel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .generic-section();
-    .constrained-bounds();
-
-    .homeCarouselCard {
-      .alignCenter();
-      margin-top: 3rem;
-
-      .carouselContentWrapper {
-
-        width: 80%;
-        h3 {
-          font-weight: @bold;
-          font-size: @font4;
-          line-height: 4rem;
-        }
-
-        @media screen and (max-width: @sm) {
-          width: 90%;
-        }
-
-        .center-both-ways();
-      }
-
-      .navButton {
-        margin-top: 12px;
-        margin-bottom: 12px;
-        background-color: @b1;
-        border: none;
-        color: white;
-        a {
-          font-size: @font2;
-        }
-      }
-
-    }
-  }
-
-
-
-
-  .projectsCompsBox {
+  .homeBox {
    
     .generic-section();
     .constrained-bounds();
 
+    .homeInfo {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+
+      .info {
+        padding-bottom: 1.5rem;
+      }
+      h3 {
+        font-weight: @bold;
+        font-size: @font4;
+        line-height: 3rem;
+      }
+    
+      Button {
+        margin-top: 12px;
+        margin-bottom: 12px;
+        background-color: @b1;
+        color: @white;
+        border: none;
+        a {
+          font-size: @font2;
+        }
+        &:hover {
+          color: @mainred;
+          border-color: @mainred !important;
+        }
+        
+      }  
+    }
     // parent box just above the cardsBox
-    .descriptionsBox {
+    .projectCompsBox {
       background-color: #f5621e;
       border-radius: @radius-base4;
-      box-shadow: 0px 3px 5px 1px rgb(255, 127, 127);
       display: flex;
       flex-direction: column;
       margin-top: 2rem;
@@ -133,7 +116,7 @@
 
     // row that holds the two cards that converts to a column
     // at an xtra small device width for responsiveness
-    .cardsBox {
+    .projectCompsCardsBox {
       display: flex;
       justify-content: space-between;
       flex-direction: row;
