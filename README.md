@@ -15,7 +15,7 @@ We aspire to inspire the next generation of AI advocates, engineers, and scienti
 
 </p>
 </div>
-    <a href=""><strong>View Demo »</strong></a>
+    <a href="https://ai.acmucsd.com/"><strong>View Demo »</strong></a>
     <br />
     <br />
 
