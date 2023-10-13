@@ -33,7 +33,7 @@ function MainPage() {
 
         <Content className="homeHeader">
           <div className="homeHeaderContent">
-            <h1 className="homeTitle">acm ai</h1>
+            <h1 className="homeTitle">ACM AI</h1>
             <h4 className="homeSubTitle">
               We aspire to inspire the next generation of AI advocates,
               engineers, and scientists.
@@ -156,7 +156,7 @@ function MainPage() {
           <EventTimeline eventData={eventData} />
         </Content>
 
-        <Content className="sponsorBox">
+        <Content className="sponsorShipBox">
           <h1 className="title2">Sponsor Us</h1>
           <h4 className="homeSubTitle2">
             As a club, we are always seeking passionate sponsors who care about
@@ -169,7 +169,7 @@ function MainPage() {
               We will be launching our Sponsorship Packet with information on
               how to sponsor our competitions soon! In the meantime, if you
               would like to contact us about sponsorship, please email us at
-              ai@acmucsd.org.
+              <a href = "mailto: ai@acmucsd.org"> ai@acmucsd.org</a>
             </p>
             {/*             <Collapse ghost bordered={false} >
               <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>What do we offer?</h4>} key="1">
