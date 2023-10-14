@@ -156,7 +156,7 @@ function MainPage() {
           <EventTimeline eventData={eventData} />
         </Content>
 
-        <Content className="sponsorShipBox">
+        <Content className="sponsorshipBox">
           <h1 className="title2">Sponsor Us</h1>
           <h4 className="homeSubTitle2">
             As a club, we are always seeking passionate sponsors who care about
@@ -164,7 +164,7 @@ function MainPage() {
             resources if you are a company interested in working with us!
           </h4>
 
-          <div className="sponsorCollapse">
+          <div className="sponsorshipCollapse">
             <p>
               We will be launching our Sponsorship Packet with information on
               how to sponsor our competitions soon! In the meantime, if you
