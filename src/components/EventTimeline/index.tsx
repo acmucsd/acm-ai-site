@@ -12,7 +12,7 @@ const EventTimeline = ({ eventData }: { eventData: ACMEvent[] }) => {
         <Timeline>
           {/* Show at most 2 events as a preview */}
           {eventData.slice(0, 2).map((event) => (
-            <Timeline.Item key={event.uuid} color="black">
+            <Timeline.Item className = "timeLineItem" key={event.uuid} color="black">
               <EventCard event={event} />
             </Timeline.Item>
           ))}

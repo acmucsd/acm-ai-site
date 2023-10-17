@@ -5,28 +5,6 @@ import './index.less';
 import { ACMEvent } from '../../actions/events';
 import { HiLocationMarker } from 'react-icons/hi';
 
-/* const EventCard = ({ event }: { event: ACMEvent }) => {
-  return (
-    <div className="EventCard">
-      <Card>
-        <img src={event.cover} alt="Event cover" />
-        <h3 className="title">{event.title}</h3>
-        <time>{`${formatDate(event.start)} ${formatTime(
-          event.start
-        )} - ${formatTime(event.end)}`}</time>
-        {isURL(event.location) ? (
-          <a className="location" href={event.location}>
-            {event.location}
-          </a>
-        ) : (
-          <p className="location">{event.location}</p>
-        )}
-        <p className="description">{event.description}</p>
-      </Card>
-    </div>
-  );
-}; */
-
 const EventCard = ({ event }: { event: ACMEvent }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // Modal props
@@ -41,7 +19,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
     return new Date(dateTime).toISOString().replace(/-|:|\.\d+/g, '');
   };
 
-  const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+  const googleCalendarLink = `$https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
     event.title
   )}&details=${encodeURIComponent(
     event.description
@@ -54,6 +32,8 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
   return (
     <>
       <div className="EventCard">
+
+
         <Row>
           <img
             src={event.cover}
@@ -68,6 +48,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
               objectFit: 'cover'
             }}
           />
+          
           <Col className="eventHeaderTexts">
             <h3>{event.title}</h3>
             <p>{event.location}</p>

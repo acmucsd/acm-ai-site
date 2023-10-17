@@ -7,24 +7,26 @@
   box-shadow: 0px 3px 5px 1px rgba(197, 197, 197, 0.5);
   border-radius: 16px;
   margin: 2rem 0;
+  box-sizing: border-box;
   padding: 2rem;
 
 
-   .eventHeaderTexts {
-  
-      h3 {
-        font-weight: @semi-bold;      
-        max-width: 300px;
-        line-height: @font4;
-        color: #585858;
-       }
-       p{
-        color: rgb(162, 162, 162);
-        font-weight: @regular;
-       }
-   }
+  .eventHeaderTexts {
 
-   .eventInfoRow {
+    h3 {
+      font-weight: @semi-bold;
+      max-width: 300px;
+      line-height: @font4;
+      color: #585858;
+    }
+
+    p {
+      color: rgb(162, 162, 162);
+      font-weight: @regular;
+    }
+  }
+
+  .eventInfoRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,11 +35,13 @@
     .eventDateContainer {
       display: flex;
       justify-content: flex-start;
+      margin-right: 1rem;
 
       h4 {
         color: #FA5E5E;
         font-weight: @semi-bold;
       }
+
       p {
         color: rgb(67, 67, 67);
       }
@@ -50,7 +54,7 @@
       border-radius: 10px;
       margin-top: 1rem;
     }
-   }
+  }
 
 }
 
@@ -72,6 +76,7 @@
         width: 100%;
       }
     }
+
     .eventDetailSection {
       display: flex;
       align-items: center;
@@ -83,11 +88,13 @@
         color: #FA5E5E;
         font-weight: @semi-bold;
       }
+
       p {
         color: rgb(67, 67, 67);
       }
-    
+
     }
+
     .eventDescriptionBox {
       background: #F6F6F6;
       padding: 20px;
@@ -108,6 +115,5 @@
 }
 
 #calendar {
-  background:#FFD4D4;
+  background: #FFD4D4;
 }
-
