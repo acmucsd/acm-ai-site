@@ -46,7 +46,7 @@
 
 
   // For titles like Events and Sponsor Us
-  .homeSubTitle2 {
+  .homeSubTitle {
     width: 90%;
     text-align: center;
     max-width: @max-width2;
@@ -65,29 +65,22 @@
 
       .info {
         padding-bottom: 1.5rem;
-      }
-      h3 {
-        font-weight: @bold;
-        font-size: @font4;
-        line-height: 3rem;
-      }
-    
-      Button {
-        margin-top: 12px;
-        margin-bottom: 12px;
-        background-color: @b1;
-        color: @white;
-        border: none;
-        a {
-          font-size: @font2;
+      
+        h3 {
+          font-weight: @bold;
+          font-size: @font4;
+          line-height: 3rem;
         }
-        &:hover {
-          color: @mainred;
-          border-color: @mainred !important;
-        }
-        
-      }  
+      
+        Button {
+          margin-top: @margin-base;
+          margin-bottom: @margin-base;
+          .button-black();
+        }  
+      }
     }
+
+
     // parent box just above the cardsBox
     .projectCompsBox {
       background-color: @orange;
@@ -125,7 +118,7 @@
     
 
       // a card that holds basic info
-      .projectPreviewCard {
+      .previewCard {
         background-color: @black;
         max-height: 350px;
         width: calc(50% - 8px);

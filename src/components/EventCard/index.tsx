@@ -74,7 +74,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
 
           <Button
             size="large"
-            className="eventCardButton"
+            id ="eventCardButton"
             onClick={() => showModal()}
           >
             <p>details</p>
@@ -96,7 +96,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
              */
             <Button
               size="large"
-              className="eventScheduleButton"
+              id ="eventScheduleButton"
               onClick={() => {
                 window.open(googleCalendarLink, "_blank");
               }}

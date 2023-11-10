@@ -66,56 +66,22 @@
 
 
 
-//  Buttons typically for auth or navigation
-.button-square-black {
-    background-color: @black;
+//  For Square Buttons
+.button-black-square {
     border-radius: @radius-base3;
-   
-
-    @media screen and (max-width: @sm){
-        border-radius: @radius-base2;
-    }
-
-    .button();
-    &:hover {
-        opacity: 0.8;
-    }
-    p {
-        color: @white
-    }
-}
-
-.button-round-black {
-    background-color: @black;
-
-    .button();
-    &:hover {
-        opacity: 0.8;
-    }
-    h4 {
-        color: @white;
-    }
-    p {
-        color: @white
-    }
-}
-
-
-// Another variation on the button
-.button-round-white{
-    background-color: @white;
-    .button();
-    &:hover {
-        opacity: 0.8;
-    }
-}
-
-
-.button {
-    height: 4rem;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-left: 8px;
-    margin-right:8px;
     border-style: none;
+    .button-black();
 }
+
+
+/* Used for giving basic styling for nay button*/
+.button-black {
+    background-color: @b1;
+    color: @white;
+    border-style: none;
+
+    &:hover {
+        color: @mainred;
+    }
+}
+

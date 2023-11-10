@@ -21,11 +21,7 @@ const EventTimeline = ({ eventData }: { eventData: ACMEvent[] }) => {
             <Link to={`/events`} rel="noopener noreferrer">
               <Button
                 size="large"
-                style={{
-                  background: '#282828',
-                  color: 'white',
-                  border: 'none',
-                }}
+                id = "browseEventsButton"
               >
                 <p>Browse Events</p>
               </Button>

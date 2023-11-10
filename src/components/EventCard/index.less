@@ -1,5 +1,6 @@
 @import '../../styles/base.less';
 @import '../../newStyles/variables.less';
+@import '../../newStyles/components.less';
 
 
 .EventCard {
@@ -47,11 +48,8 @@
       }
     }
 
-    .eventCardButton {
-      background: @black;
-      color: white;
-      border: none;
-      border-radius: @radius-base3;
+    #eventCardButton {
+      .button-black-square();
       margin-top: 1rem;
     }
   }
@@ -61,11 +59,8 @@
 .eventModal {
   padding: 1rem;
 
-  .eventScheduleButton {
-    background: @black;
-    color: white;
-    border: none;
-    border-radius: @radius-base2
+  #eventScheduleButton {
+    .button-black-square();
   }
 
   .eventModalContent {
