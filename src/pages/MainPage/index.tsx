@@ -34,7 +34,7 @@ function MainPage() {
         <Content className="homeHeader">
           <div className="homeHeaderContent">
             <h1 className="homeTitle">ACM AI</h1>
-            <h4 className="homeSubTitle">
+            <h4>
               We aspire to inspire the next generation of AI advocates,
               engineers, and scientists.
             </h4>
@@ -159,9 +159,9 @@ function MainPage() {
         <Content className="sponsorshipBox">
           <h1 className="title2">Sponsor Us</h1>
           <h4 className="homeSubTitle2">
-            As a club, we are always seeking passionate sponsors who care about
+            We're always seeking passionate sponsors who care about
             our mission to make AI fun and accessible. Here are some quick
-            resources if you are a company interested in working with us!
+            resources if you're a company interested in working with us!
           </h4>
 
           <div className="sponsorshipCollapse">

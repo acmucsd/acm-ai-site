@@ -2,9 +2,6 @@
 @import '../../newStyles/components.less';
 @import '../../newStyles/index.less';
 
-
-
-
 .ProjectsPage {
     .noContainer();
 
@@ -14,10 +11,9 @@
         text-align: center;
         margin-top: 4rem;
 
-
         h4 {
-            max-width: 600px;
-            margin: 0 24px;
+            max-width: @max-width2;
+            margin: 0 @margin-base2;
             width: 60%;
       
             @media screen and (max-width: @sm) {
@@ -31,14 +27,9 @@
         }
     }
 
-
-
-
     .projectsSection {
         .constrained-bounds();
         .generic-section();
-
-        margin: 0 auto 10rem auto;
 
         .ant-tag-checkable {
             line-height: 2rem;
@@ -47,15 +38,11 @@
 
     .project-image {
         object-fit: cover;
-        border-radius: 10px;
-        box-shadow: 8px -5px 18px gray;
+        border-radius: @radius-base3;
+        box-shadow: @bx2;
     }
 
     .project-info {
         width: 500px;
     }
-
-
-
-
 }

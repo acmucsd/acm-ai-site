@@ -247,7 +247,6 @@ function AboutPage() {
         <Drawer
           drawerStyle={{ position: 'absolute', zIndex: '2000' }}
           width={'50%'}
-          // 600 => same as @xs
           height={size.width!! < 960 ? '90%' : '100%'}
           placement={size.width!! < 960 ? 'bottom' : 'right'}
           closable={true}

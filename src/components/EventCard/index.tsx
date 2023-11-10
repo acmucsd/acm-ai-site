@@ -19,7 +19,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
     return new Date(dateTime).toISOString().replace(/-|:|\.\d+/g, '');
   };
 
-  const googleCalendarLink = `$https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+  const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
     event.title
   )}&details=${encodeURIComponent(
     event.description
@@ -98,7 +98,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
               size="large"
               className="eventScheduleButton"
               onClick={() => {
-                window.location.href = googleCalendarLink;
+                window.open(googleCalendarLink, "_blank");
               }}
             >
               <p>schedule</p>

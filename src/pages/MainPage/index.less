@@ -10,41 +10,35 @@
   // Gradient container that holds the main website title and subtitle
   .homeHeader {
     padding-top: 10rem;
-    padding-bottom: 12rem;
+    padding-bottom: 12rem; 
+    min-width: 180px;
+    background: @mainred;
+    .center-both-ways();
 
     @media screen and (max-width: @sm) {
       padding-top: 14rem;
       padding-bottom: 16rem;
     }
-    min-width: 180px;
-    background: @mainred;
 
-    .center-both-ways();
 
     .homeHeaderContent {
       width: 100%;
       .center-both-ways();
-      
-    // Main title "acm ai"
-    .homeTitle {
-      color: @white;
-      text-align: center;
-      .title1();
-    }
-
-    .homeSubTitle {
-      width: 60%;
-      color: white;
-
-      @media screen and (max-width: @sm) {
-        width: 70%;
+        
+      // Main title "acm ai"
+      .homeTitle {
+        color: @white;
+        text-align: center;
+        .title1();
       }
 
-      max-width: 600px;
-      color: @white;
-
-      text-align: center;
-    }
+      h4 {
+        width: 60%;
+        color: @white;
+        max-width: @max-width1;
+        color: @white;
+        text-align: center;
+      }
 
     }
 
@@ -53,21 +47,21 @@
 
   // For titles like Events and Sponsor Us
   .homeSubTitle2 {
-    width: 85%;
+    width: 90%;
     text-align: center;
-    max-width: 700px;
+    max-width: @max-width2;
     min-width: 150px;
     color: @b1;
   }
 
   .homeBox {
-   
     .generic-section();
     .constrained-bounds();
 
     .homeInfo {
       padding-top: 1rem;
       padding-bottom: 1rem;
+      max-width: @max-width3;
 
       .info {
         padding-bottom: 1.5rem;
@@ -96,7 +90,7 @@
     }
     // parent box just above the cardsBox
     .projectCompsBox {
-      background-color: #f5621e;
+      background-color: @orange;
       border-radius: @radius-base4;
       display: flex;
       flex-direction: column;
@@ -181,7 +175,7 @@
   .eventsContainer {
     .generic-centered-section();
     .constrained-bounds();
-    margin-top: 32px;
+    margin-top: @margin-base3;
     h4 {
       max-width: @xxs;
     }
@@ -191,17 +185,16 @@
   .sponsorshipBox {
     .generic-centered-section();
     .constrained-bounds();
-    margin-top: 32px;
-    h4 {
-      width: 100%;
-    }
+    margin-top: @margin-base3;
+
+   
     .sponsorshipCollapse {
       .gradient();
       .generic-centered-section();
       .constrained-bounds();
       padding: 3rem;
       border-radius: @radius-base4;
-      margin-top: 28px;
+      margin-top: @margin-base2;
       .ant-collapse-arrow {
         color: white; /* Replace with your desired arrow color */
       }
