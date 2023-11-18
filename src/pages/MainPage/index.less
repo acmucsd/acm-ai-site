@@ -9,42 +9,36 @@
 
   // Gradient container that holds the main website title and subtitle
   .homeHeader {
-    padding-top: 10rem;
-    padding-bottom: 12rem;
+    padding-top: 14rem;
+    padding-bottom: 16rem; 
+    min-width: 180px;
+    background: @mainred;
+    .center-both-ways();
 
     @media screen and (max-width: @sm) {
       padding-top: 14rem;
       padding-bottom: 16rem;
     }
-    min-width: 180px;
-    background: @mainred;
 
-    .center-both-ways();
 
     .homeHeaderContent {
       width: 100%;
       .center-both-ways();
-      
-    // Main title "acm ai"
-    .homeTitle {
-      color: @white;
-      text-align: center;
-      .title1();
-    }
-
-    .homeSubTitle {
-      width: 60%;
-      color: white;
-
-      @media screen and (max-width: @sm) {
-        width: 70%;
+        
+      // Main title "acm ai"
+      .homeTitle {
+        color: @white;
+        text-align: center;
+        .title1();
       }
 
-      max-width: 600px;
-      color: @white;
-
-      text-align: center;
-    }
+      h4 {
+        width: 60%;
+        color: @white;
+        max-width: @max-width1;
+        color: @white;
+        text-align: center;
+      }
 
     }
 
@@ -52,55 +46,49 @@
 
 
   // For titles like Events and Sponsor Us
-  .homeSubTitle2 {
-    width: 85%;
+  .homeSubTitle {
+    width: 90%;
     text-align: center;
-    max-width: 700px;
+    max-width: @max-width2;
     min-width: 150px;
     color: @b1;
   }
 
   .homeBox {
-   
+    box-sizing: border-box;
     .generic-section();
     .constrained-bounds();
-
+    margin-top: @content-top-margin;
     .homeInfo {
       padding-top: 1rem;
       padding-bottom: 1rem;
+      max-width: @max-width3;
 
       .info {
         padding-bottom: 1.5rem;
-      }
-      h3 {
-        font-weight: @bold;
-        font-size: @font4;
-        line-height: 3rem;
-      }
-    
-      Button {
-        margin-top: 12px;
-        margin-bottom: 12px;
-        background-color: @b1;
-        color: @white;
-        border: none;
-        a {
-          font-size: @font2;
+      
+        h3 {
+          font-weight: @bold;
+          font-size: @font4;
+          line-height: 3rem;
         }
-        &:hover {
-          color: @mainred;
-          border-color: @mainred !important;
-        }
-        
-      }  
+      
+        Button {
+          margin-top: @margin-base;
+          margin-bottom: @margin-base;
+          .button-black();
+        }  
+      }
     }
+
+
     // parent box just above the cardsBox
     .projectCompsBox {
-      background-color: #f5621e;
+      background-color: @orange;
       border-radius: @radius-base4;
       display: flex;
       flex-direction: column;
-      margin-top: 2rem;
+      margin-top: @content-top-margin;
       margin-bottom: 16px;
       h3 {
         color: white;
@@ -131,7 +119,7 @@
     
 
       // a card that holds basic info
-      .projectPreviewCard {
+      .previewCard {
         background-color: @black;
         max-height: 350px;
         width: calc(50% - 8px);
@@ -181,7 +169,7 @@
   .eventsContainer {
     .generic-centered-section();
     .constrained-bounds();
-    margin-top: 32px;
+    margin-top: @content-top-margin;
     h4 {
       max-width: @xxs;
     }
@@ -191,17 +179,16 @@
   .sponsorshipBox {
     .generic-centered-section();
     .constrained-bounds();
-    margin-top: 32px;
-    h4 {
-      width: 100%;
-    }
+    margin-top: @content-top-margin;
+
+   
     .sponsorshipCollapse {
       .gradient();
       .generic-centered-section();
       .constrained-bounds();
       padding: 3rem;
       border-radius: @radius-base4;
-      margin-top: 28px;
+      margin-top: @margin-base2;
       .ant-collapse-arrow {
         color: white; /* Replace with your desired arrow color */
       }
@@ -215,104 +202,10 @@
   // the gradient bar just above the main footer
   .homeBottomBar {
     .gradient();
+    box-sizing: border-box;
     text-align: center;
     padding: 3rem;
     margin-top: 8rem;
   }
-
-  // Footer for main page
-  .mainFooter {
-    padding-left: 48px;
-    padding-right: 48px;
-
-    @media screen and (max-width: @xs) {
-      padding-left: 32px;
-      padding-right: 32px;
-    }
-    width: 100%;
-    min-width: 180px;
-    background-color: @black;
-    color: @white;
-
-    // Splits paragraph content and other resource content into
-    // two sections along the same row
-    .splitRow {
-      padding: 12px;
-      margin-top: 12px;
-      margin-bottom: 4rem;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-
-      // pargraph text on left side of split row
-      .infoText {
-        width: 50%;
-
-        @media screen and (max-width: @xs) {
-
-          width: 100%;
-        }
-      }
-
-      // container to hold social media icons
-      .socialMedia {
-        margin-top: 8px;
-        width: 42%;
-        min-width: 180px;
-        height: 100%;
-        a {
-          color: white;
-        }
-      }
-
-      // container to hold links for board apps
-      .boardPositions {
-        margin-top: 8px;
-        width: 42%;
-        min-width: 190px;
-        height: 100%;
-        justify-content: space-between;
-
-        .position {
-          margin-top: 8px;
-          margin-bottom: 8px;
-          align-items: center;
-          width: 100%;
-          flex-wrap: wrap;
-
-          .link {
-            size: 28px;
-            margin-left: 8px;
-
-            :hover {
-              cursor: pointer;
-            }
-          }
-        }
-
-      }
-    }
-
-    h2 {
-      color: @white;
-    }
-
-    h3 {
-      @color: @white;
-      text-align: center;
-    }
-
-    h4 {
-       a {
-        color: white;
-       }
-    }
-    
-    
-    p {
-      color: @white;
-    }
-  }
-
 
 }

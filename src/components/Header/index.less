@@ -9,7 +9,7 @@
   height: 88px;
   display: flex;
   flex-direction: column;
-  background: rgb(255, 255, 255);
+  background: @white;
 
   .navBarWrapper {
     height: 80px;
@@ -24,7 +24,7 @@
   .navBarGradientLine {
     .gradient();
     height: 8px;
-    z-index: 998;
+    z-index: 100;
   }
 
 
@@ -74,7 +74,20 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    /* Displayed when in desktop mode */
+    .authButton {
+      margin: 0 1rem;
+      .button-black-square();
+
+      p {
+        font-weight: @semi-bold;
+      }
+  
+    }
   }
+
+
 }
 
 
@@ -87,13 +100,13 @@
   text-align: center;
   position: fixed;
   flex-direction: column;
-  background: white;
+  background:@white;
   padding-top: 4rem;
   padding-bottom: 3rem;
   z-index: 99;
   transform: translateY(-100%);
   transition: transform 0.3s ease-in-out; /* You can adjust the duration and easing as needed */
-  box-shadow: 0px 3px 5px 1px rgba(132, 132, 132, 0.5);
+  box-shadow: @bx2;
 
   .mobileNavItem {
     text-decoration: none;
@@ -123,26 +136,16 @@
       cursor: pointer;
     }
   }
+
+
 }
 
-/* Final state - menu is visible */
+
+/* Final state - menu is visible 
+ * Keep this here otherwise scoping it to another 
+ * block will mess up the CSS selection
+ */
 .mobileDropDown.open {
   height: auto;
   transform: translateY(0);
-}
-
-
-.authButton {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  background: @black;
-  color: white;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  font-size: @font4;
-  font-weight: @semi-bold;
-  border: none;
-  text-decoration: none;
 }

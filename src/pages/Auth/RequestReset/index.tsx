@@ -23,10 +23,10 @@ const RequestResetPage = () => {
         <Content className="requestDetails">
           <div className="requestHeader">
             <h2>Forgot Password?</h2>
-            <p>
+            <h4>
               Enter your username and we'll send you an email to reset your
               password
-            </p>
+            </h4>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,9 +50,9 @@ const RequestResetPage = () => {
             <Button
               htmlType="submit"
               size="large"
-              style={{ background: 'black', height: '45px', border: 'none' }}
+              id = "requestButton"
             >
-              <h4 style={{ color: 'white' }}>Send Reset Link</h4>
+              <p>Send Reset Link</p>
             </Button>
           </form>
 

@@ -183,9 +183,9 @@ function AboutPage() {
 
   return (
     <DefaultLayout>
-      <div className="About">
-        <Content>
-          <div className="aboutHeader">
+      <Content className="About">
+
+        <Content className="aboutHeader">
             <h1 className="title2">Our Team</h1>
             <h4>
               Work isn’t always easy, so in order to make sure everything runs
@@ -195,7 +195,6 @@ function AboutPage() {
               our mission to make AI accessible and fun!
               Click on individual cards to learn more!
             </h4>
-          </div>
         </Content>
 
         <Content className="gallery">
@@ -241,13 +240,12 @@ function AboutPage() {
         </Content>
 
         <MainFooter />
-      </div>
+      </Content>
 
       {isDrawerVisible && (
         <Drawer
           drawerStyle={{ position: 'absolute', zIndex: '2000' }}
           width={'50%'}
-          // 600 => same as @xs
           height={size.width!! < 960 ? '90%' : '100%'}
           placement={size.width!! < 960 ? 'bottom' : 'right'}
           closable={true}

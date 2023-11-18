@@ -48,7 +48,7 @@ function CompetitionsPage(props: any) {
 
   return (
     <DefaultLayout>
-      <div className="CompetitionsPage">
+      <Content className="CompetitionsPage">
         <Content>
           <div className="competitionHeader">
             <h1 className="title2">Competitions</h1>
@@ -350,7 +350,7 @@ function CompetitionsPage(props: any) {
         </Content>
 
         <MainFooter />
-      </div>
+      </Content>
     </DefaultLayout>
   );
 }

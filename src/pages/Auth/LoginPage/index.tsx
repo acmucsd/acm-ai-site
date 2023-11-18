@@ -75,9 +75,9 @@ function LoginPage() {
             <Button
               htmlType="submit"
               size="large"
-              style={{ background: 'black', height: '45px', border: 'none' }}
+              id = "loginButton"
             >
-              <h4 style={{ color: 'white' }}>Login</h4>
+              <p>Login</p>
             </Button>
 
             <div className="authOptionsBox">

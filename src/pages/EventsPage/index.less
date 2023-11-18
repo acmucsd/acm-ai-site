@@ -7,7 +7,10 @@
 .EventsPage {
   // removes any default white space margins
   .noContainer();
-  background: white;
+
+  // prevents layout shifts caused by scrollbar 
+  overflow-y: hidden;
+  background: @white;
 
   
   // Container for title
@@ -18,15 +21,14 @@
     text-align: center;
 
     h4 {
-      max-width: 600px;
-      margin: 0 24px;
+      text-align: center;
+      max-width: @max-width2;
+      margin: 0 @margin-base2;
       width: 60%;
 
       @media screen and (max-width: @sm) {
         width: 70%;
       }
-
-      text-align: center;
     }
   }
 
@@ -48,60 +50,43 @@
         h3 {
           font-weight: @semi-bold;
         }
-        
-     
       }
-  
     }
-
   }
 
 
-
-  // Footer for events page
+  // Custom Footer for Events Page
   .eventsFooter {
-    
-    padding-left: 24px;
-    padding-right: 24px;
-
-    @media screen and (max-width: @xs) {
-      padding-left: 12px !important;
-      padding-right: 12px !important;
-    }
-
-
-
     width: 100%;
     min-width: 180px;
     background-color: @black;
     color: @white;
 
+    padding-left: @padding-base2;
+    padding-right: @padding-base2;
+
+    @media screen and (max-width: @xs) {
+      padding-left: @padding-base !important;
+      padding-right: @padding-base !important;
+    }
+
+  
     .row {
-      padding: 12px;
-      margin-top: 12px;
+      padding: @padding-base;
+      margin-top: @margin-base;
       margin-bottom: 4rem;
       max-width: @lg;
      
 
-      h2 {
+      h4, h2, p{
         color: @white;
       }
 
-  
-      h4 {
-        color: @white;
-      }
-  
-      p {
-        color: @white;
-      }
     }
     h3 {
       @color: @white;
       text-align: center;
     }
-
   }
-
 
 }

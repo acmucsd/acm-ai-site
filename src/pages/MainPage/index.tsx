@@ -22,7 +22,7 @@ function MainPage() {
     <DefaultLayout>
       {/* Every page will have a .noContainer() class applied to remove default margins*/}
 
-      <div className="Main">
+      <Content className="Main">
         {/* Main header section*/}
 
         {/* NOTE: If you want a constrained box centered on the page, you
@@ -34,7 +34,7 @@ function MainPage() {
         <Content className="homeHeader">
           <div className="homeHeaderContent">
             <h1 className="homeTitle">ACM AI</h1>
-            <h4 className="homeSubTitle">
+            <h4>
               We aspire to inspire the next generation of AI advocates,
               engineers, and scientists.
             </h4>
@@ -93,7 +93,7 @@ function MainPage() {
                   window.open('https://acmucsd.com/', '_blank')
                 }}
               >
-                <p>explore the org</p>
+                <p>explore</p>
               </Button>
             </div>
           </div>
@@ -109,7 +109,7 @@ function MainPage() {
           </div>
 
           <div className="projectCompsCardsBox">
-            <Card className="projectPreviewCard">
+            <Card className="previewCard">
               <div className="previewIcon" style={{ marginBottom: '1rem' }}>
                 <FaProjectDiagram size={25} />
               </div>
@@ -125,7 +125,7 @@ function MainPage() {
               </Link>
             </Card>
 
-            <Card className="projectPreviewCard">
+            <Card className="previewCard">
               <div className="previewIcon" style={{ marginBottom: '1rem' }}>
                 <FaFireAlt size={25} />
               </div>
@@ -147,7 +147,7 @@ function MainPage() {
         {/* Content section for events*/}
         <Content className="eventsContainer">
           <h1 className="title2">Events</h1>
-          <h4 className="homeSubTitle2">
+          <h4 className="homeSubTitle">
             To make things fun, our team strives to come up with new
             workshops and socials so that everyone has a chance to explore a
             different aspect of AI
@@ -158,10 +158,10 @@ function MainPage() {
 
         <Content className="sponsorshipBox">
           <h1 className="title2">Sponsor Us</h1>
-          <h4 className="homeSubTitle2">
-            As a club, we are always seeking passionate sponsors who care about
+          <h4 className="homeSubTitle">
+            We're always seeking passionate sponsors who care about
             our mission to make AI fun and accessible. Here are some quick
-            resources if you are a company interested in working with us!
+            resources if you're a company interested in working with us!
           </h4>
 
           <div className="sponsorshipCollapse">
@@ -190,7 +190,7 @@ function MainPage() {
         </Content>
 
         <MainFooter />
-      </div>
+      </Content>
     </DefaultLayout>
   );
 }

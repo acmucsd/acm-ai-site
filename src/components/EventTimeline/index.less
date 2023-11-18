@@ -1,6 +1,7 @@
 @import '../../newStyles/text.less';
 @import '../../newStyles/components.less';
 @import '../../newStyles/index.less';
+@import '../../newStyles/variables.less';
 
 .EventTimeline {
   display: flex;
@@ -8,7 +9,7 @@
   justify-content: center;
 
   .timeLineItem {
-    width: 600px;
+    width: @max-width2;
     @media screen and (max-width: @md) {
       width: 500px;
     }
@@ -39,5 +40,13 @@
       color: @white;
     }
   }
+
+      
+  #browseEventsButton {
+    margin-top: @margin-base;
+    margin-bottom: @margin-base;
+    .button-black-square();
+    
+  }  
 
 }
