@@ -12,21 +12,18 @@ const EventTimeline = ({ eventData }: { eventData: ACMEvent[] }) => {
         <Timeline>
           {/* Show at most 2 events as a preview */}
           {eventData.slice(0, 2).map((event) => (
-            <Timeline.Item className = "timeLineItem" key={event.uuid} color="black">
+            <Timeline.Item
+              className="timeLineItem"
+              key={event.uuid}
+              color="black"
+            >
               <EventCard event={event} />
             </Timeline.Item>
           ))}
 
           <Timeline.Item style={{ marginTop: '24px' }} color="black">
             <Link to={`/events`} rel="noopener noreferrer">
-              <Button
-                size="large"
-                style={{
-                  background: '#282828',
-                  color: 'white',
-                  border: 'none',
-                }}
-              >
+              <Button size="large" id="browseEventsButton">
                 <p>Browse Events</p>
               </Button>
             </Link>

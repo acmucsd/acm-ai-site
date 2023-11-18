@@ -102,7 +102,7 @@ function ProjectsPage() {
 
   return (
     <DefaultLayout>
-      <div className="ProjectsPage">
+      <Content className="ProjectsPage">
         <Content>
           <div className="projectsHeader">
             <h1 className="title2">ACM AI Projects</h1>
@@ -185,7 +185,7 @@ function ProjectsPage() {
         </Content>
 
         <MainFooter />
-      </div>
+      </Content>
     </DefaultLayout>
   );
 }

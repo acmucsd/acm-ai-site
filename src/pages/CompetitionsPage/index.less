@@ -12,8 +12,8 @@
 
     
     h4 {
-      max-width: 600px;
-      margin: 0 24px;
+      max-width: @max-width2;
+      margin: 0 @margin-base;
       width: 60%;
 
       @media screen and (max-width: @sm) {
@@ -26,7 +26,7 @@
   }
 
   .pastCompetitionsHeader {
-    background: #f5621e;
+    background: @orange;
     margin-top: 4rem;
     padding: 4rem ;
     text-align: center;
@@ -36,7 +36,7 @@
     }
     h4 {
       margin-top: 1rem;
-      max-width: 600px;
+      max-width: @max-width2;
 
     }
     
@@ -62,7 +62,7 @@
       margin-top: 3rem;
       padding: 4rem;
       background: #f7f7f7;
-      border-radius: 20px;
+      border-radius: @radius-base5;
 
       h3 {
         font-weight: @bold;
@@ -70,7 +70,7 @@
       .competitionStats {
         display: inline-block;
         padding: 1rem 0;
-        border-radius: 20px;      
+        border-radius: @radius-base5;      
       }
       .compButtonPrimary {
         border: none;
@@ -85,7 +85,4 @@
 
     }
   }
-
- 
-
 }

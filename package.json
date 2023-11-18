@@ -29,7 +29,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write 'src/**/*.ts' 'src/**/*.tsx'"
+    "prettier-check": "prettier --check src/**/*.ts src/**/*.tsx",
+    "prettier-write": "prettier --write src/**/*.ts src/**/*.tsx"
   },
   "engines": {
     "npm": ">=9.8.1 <10.0.0"

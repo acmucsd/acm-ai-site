@@ -107,10 +107,10 @@ function Header() {
 
   return (
     <>
-      <div className="Header">
+      <nav className="Header">
         <div className="navBarWrapper">
           <div className="logoContentWrapper">
-            <Link to="/" className = "AILogo">
+            <Link to="/" className="AILogo">
               <img
                 src="https://i.imgur.com/YqHEpJx.png"
                 alt="ACM AI Logo"
@@ -147,7 +147,7 @@ function Header() {
                     history.push('/');
                   }}
                 >
-                  Logout{' '}
+                  <p>Logout</p>
                 </Button>
               ) : (
                 <Link to="/login">
@@ -161,7 +161,7 @@ function Header() {
                       history.push('/');
                     }}
                   >
-                    Login{' '}
+                    <p>Login</p>
                   </Button>
                 </Link>
               )}
@@ -170,7 +170,7 @@ function Header() {
         </div>
 
         <div className="navBarGradientLine"></div>
-      </div>
+      </nav>
 
       {/** Mobile dropdown nav links */}
 

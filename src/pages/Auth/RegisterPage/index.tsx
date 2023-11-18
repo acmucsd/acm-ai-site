@@ -144,12 +144,8 @@ function RegisterPage() {
               )}
             </div>
 
-            <Button
-              htmlType="submit"
-              size="large"
-              style={{ background: 'black', height: '45px', border: 'none' }}
-            >
-              <h4 style={{ color: 'white' }}>Register</h4>
+            <Button htmlType="submit" size="large" id="registerButton">
+              <p>Register</p>
             </Button>
           </Form>
 

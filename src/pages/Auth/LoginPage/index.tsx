@@ -72,12 +72,8 @@ function LoginPage() {
               <p className="danger">Password is required</p>
             )}
 
-            <Button
-              htmlType="submit"
-              size="large"
-              style={{ background: 'black', height: '45px', border: 'none' }}
-            >
-              <h4 style={{ color: 'white' }}>Login</h4>
+            <Button htmlType="submit" size="large" id="loginButton">
+              <p>Login</p>
             </Button>
 
             <div className="authOptionsBox">
