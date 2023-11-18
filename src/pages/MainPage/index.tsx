@@ -47,9 +47,9 @@ function MainPage() {
             <div className="info">
               <h3>What is ACM AI at UC San Diego?</h3>
               <p>
-                We are a tight-knit community of students that exists
-                within the ACM family at UCSD. Our team consists of bright
-                minds from every background and expertise.
+                We are a tight-knit community of students that exists within the
+                ACM family at UCSD. Our team consists of bright minds from every
+                background and expertise.
               </p>
               <Link to={`/about`} rel="noopener noreferrer">
                 <Button size="large" shape="round">
@@ -57,21 +57,21 @@ function MainPage() {
                 </Button>
               </Link>
             </div>
-            
+
             <div className="info">
               <h3>Model Your AI/Ml Path</h3>
               <p>
                 Our goals are to help build a community of AI enthusiasts at
                 UCSD and connect that community to the broader AI network. We
-                also strive to keep AI fun and accessible to all as you
-                navigate your path around the complex world of AI through
-                workshops, competitions, networking events and more!
+                also strive to keep AI fun and accessible to all as you navigate
+                your path around the complex world of AI through workshops,
+                competitions, networking events and more!
               </p>
               <Button
                 size="large"
                 shape="round"
                 onClick={() => {
-                  window.open('https://wiki.ai.acmucsd.com/', '_blank')
+                  window.open('https://wiki.ai.acmucsd.com/', '_blank');
                 }}
               >
                 <p>view our wiki</p>
@@ -81,16 +81,16 @@ function MainPage() {
             <div className="info">
               <h3>Want more ACM at UCSD?</h3>
               <p>
-                We are part of a larger group of bright innovators and
-                thinkers here at UCSD. If you're feeling adventurous in
-                exploring our various aspects of computing or just having fun,
-                check out ACM at UC San Diego's main website for exciting events!
+                We are part of a larger group of bright innovators and thinkers
+                here at UCSD. If you're feeling adventurous in exploring our
+                various aspects of computing or just having fun, check out ACM
+                at UC San Diego's main website for exciting events!
               </p>
               <Button
                 size="large"
                 shape="round"
                 onClick={() => {
-                  window.open('https://acmucsd.com/', '_blank')
+                  window.open('https://acmucsd.com/', '_blank');
                 }}
               >
                 <p>explore</p>
@@ -148,9 +148,9 @@ function MainPage() {
         <Content className="eventsContainer">
           <h1 className="title2">Events</h1>
           <h4 className="homeSubTitle">
-            To make things fun, our team strives to come up with new
-            workshops and socials so that everyone has a chance to explore a
-            different aspect of AI
+            To make things fun, our team strives to come up with new workshops
+            and socials so that everyone has a chance to explore a different
+            aspect of AI
           </h4>
 
           <EventTimeline eventData={eventData} />
@@ -159,9 +159,9 @@ function MainPage() {
         <Content className="sponsorshipBox">
           <h1 className="title2">Sponsor Us</h1>
           <h4 className="homeSubTitle">
-            We're always seeking passionate sponsors who care about
-            our mission to make AI fun and accessible. Here are some quick
-            resources if you're a company interested in working with us!
+            We're always seeking passionate sponsors who care about our mission
+            to make AI fun and accessible. Here are some quick resources if
+            you're a company interested in working with us!
           </h4>
 
           <div className="sponsorshipCollapse">
@@ -169,7 +169,7 @@ function MainPage() {
               We will be launching our Sponsorship Packet with information on
               how to sponsor our competitions soon! In the meantime, if you
               would like to contact us about sponsorship, please email us at
-              <a href = "mailto: ai@acmucsd.org"> ai@acmucsd.org</a>
+              <a href="mailto: ai@acmucsd.org"> ai@acmucsd.org</a>
             </p>
             {/*             <Collapse ghost bordered={false} >
               <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>What do we offer?</h4>} key="1">

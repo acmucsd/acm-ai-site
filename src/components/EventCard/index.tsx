@@ -32,8 +32,6 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
   return (
     <>
       <div className="EventCard">
-
-
         <Row>
           <img
             src={event.cover}
@@ -45,10 +43,10 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
               borderRadius: '16px',
               height: '88px',
               width: '88px',
-              objectFit: 'cover'
+              objectFit: 'cover',
             }}
           />
-          
+
           <Col className="eventHeaderTexts">
             <h3>{event.title}</h3>
             <p>{event.location}</p>
@@ -72,11 +70,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
             </Col>
           </Row>
 
-          <Button
-            size="large"
-            id ="eventCardButton"
-            onClick={() => showModal()}
-          >
+          <Button size="large" id="eventCardButton" onClick={() => showModal()}>
             <p>details</p>
           </Button>
         </Row>
@@ -96,9 +90,9 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
              */
             <Button
               size="large"
-              id ="eventScheduleButton"
+              id="eventScheduleButton"
               onClick={() => {
-                window.open(googleCalendarLink, "_blank");
+                window.open(googleCalendarLink, '_blank');
               }}
             >
               <p>schedule</p>
@@ -111,7 +105,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
             <img
               src={event.cover}
               alt={event.title}
-              className = "eventModalImage"
+              className="eventModalImage"
               style={{
                 boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
                 width: '45%',

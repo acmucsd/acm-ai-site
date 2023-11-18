@@ -72,11 +72,7 @@ function LoginPage() {
               <p className="danger">Password is required</p>
             )}
 
-            <Button
-              htmlType="submit"
-              size="large"
-              id = "loginButton"
-            >
+            <Button htmlType="submit" size="large" id="loginButton">
               <p>Login</p>
             </Button>
 

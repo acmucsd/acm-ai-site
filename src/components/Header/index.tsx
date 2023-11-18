@@ -110,7 +110,7 @@ function Header() {
       <nav className="Header">
         <div className="navBarWrapper">
           <div className="logoContentWrapper">
-            <Link to="/" className = "AILogo">
+            <Link to="/" className="AILogo">
               <img
                 src="https://i.imgur.com/YqHEpJx.png"
                 alt="ACM AI Logo"

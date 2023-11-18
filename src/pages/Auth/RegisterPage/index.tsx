@@ -144,11 +144,7 @@ function RegisterPage() {
               )}
             </div>
 
-            <Button
-              htmlType="submit"
-              size="large"
-              id = "registerButton"
-            >
+            <Button htmlType="submit" size="large" id="registerButton">
               <p>Register</p>
             </Button>
           </Form>

@@ -169,8 +169,8 @@ const CompetitionLeaderboardPage = () => {
           </div>
         </Modal>
         <Button
-          size = "large"
-          className = "upload-btn"
+          size="large"
+          className="upload-btn"
           onClick={() => {
             history.push(path.join(history.location.pathname, '../upload'));
           }}
@@ -178,7 +178,7 @@ const CompetitionLeaderboardPage = () => {
           Upload Predictions
         </Button>
         <Button
-          size = "large"
+          size="large"
           className="refresh-btn"
           onClick={() => {
             update();
@@ -186,8 +186,8 @@ const CompetitionLeaderboardPage = () => {
         >
           Refresh Leaderboard
         </Button>
-        <Button 
-          size = "large"
+        <Button
+          size="large"
           className="refresh-btn"
           onClick={() => {
             if (intervalObj) {
@@ -202,8 +202,8 @@ const CompetitionLeaderboardPage = () => {
         <br />
         <br />
 
-        <p style = {{marginBottom: "12px", fontWeight: 600}}>
-        (Table last refreshed{': '}
+        <p style={{ marginBottom: '12px', fontWeight: 600 }}>
+          (Table last refreshed{': '}
           {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
         </p>
 

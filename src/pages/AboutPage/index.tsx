@@ -106,7 +106,10 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
           ) : (
             <img
               className="aboutImage"
-              style={{ borderRadius: '20px 20px 0 0', objectPosition: 'center top'}}
+              style={{
+                borderRadius: '20px 20px 0 0',
+                objectPosition: 'center top',
+              }}
               src={card.picture}
               alt={`profile of ${card.name}`}
             />
@@ -184,17 +187,16 @@ function AboutPage() {
   return (
     <DefaultLayout>
       <Content className="About">
-
         <Content className="aboutHeader">
-            <h1 className="title2">Our Team</h1>
-            <h4>
-              Work isn’t always easy, so in order to make sure everything runs
-              smoothly, we rely on a passionate group of individuals who bring
-              their unique talents to the table. From content creators, social
-              leads, to programmers and more, everyone is an integral part of
-              our mission to make AI accessible and fun!
-              Click on individual cards to learn more!
-            </h4>
+          <h1 className="title2">Our Team</h1>
+          <h4>
+            Work isn’t always easy, so in order to make sure everything runs
+            smoothly, we rely on a passionate group of individuals who bring
+            their unique talents to the table. From content creators, social
+            leads, to programmers and more, everyone is an integral part of our
+            mission to make AI accessible and fun! Click on individual cards to
+            learn more!
+          </h4>
         </Content>
 
         <Content className="gallery">

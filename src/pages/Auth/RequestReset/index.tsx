@@ -47,11 +47,7 @@ const RequestResetPage = () => {
               rules={{ required: true }}
             />
 
-            <Button
-              htmlType="submit"
-              size="large"
-              id = "requestButton"
-            >
+            <Button htmlType="submit" size="large" id="requestButton">
               <p>Send Reset Link</p>
             </Button>
           </form>
