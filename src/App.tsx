@@ -47,6 +47,7 @@ import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionTeamPag
 import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/AllTeamsPage';
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
 import CompetitionSubmissionDetailsPage from './pages/Competitions/CompetitionTeamPages/SubmissionDetailsPage';
+import CompetitionPortalPage from './pages/Competitions/CompetitionPortalPage';
 import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
@@ -117,6 +118,11 @@ function App() {
               <Route path="/eventhasnotstarted" exact component={EventHasNotStartedPage}/>
               
               {/* new competition format */}
+              <Route
+                path="/competitionPortal"
+                exact
+                component={CompetitionPortalPage}
+              />  
               <Route
                 path="/competitions/:id"
                 exact
