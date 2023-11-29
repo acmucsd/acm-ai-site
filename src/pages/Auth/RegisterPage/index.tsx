@@ -15,20 +15,19 @@ function RegisterPage() {
 
   const history = useHistory();
   const { handleSubmit, watch, control, formState: { errors } } = useForm();
-  const [checked, setChecked] = useState(true);
+  const [ UCSDChecked, setUCSDChecked] = useState(true);
+  const adminChecked = isAdmin;
+
   const onSubmit = (values: any) => {
     if (errors.confirmPassword) {
       handlePasswordErrors(errors);
     }
-    registerUser({ ...values, isUCSD: checked, admin: isAdmin }).then((res) => {
+    registerUser({ ...values, isUCSD: UCSDChecked, admin: adminChecked }).then((res) => {
       message.success(isAdmin ? 
         'Admin registered! Redirecting to login page' : 
         'Registered! Redirecting to login page');
       history.push('/login');
     });
-  };
-  const onCheckChange = (e: any) => {
-    setChecked(e.target.checked);
   };
 
   return (
@@ -126,17 +125,12 @@ function RegisterPage() {
                 validate: (value) => watch('password') === value,
               }}
             />
-            { !isAdmin ? <></>: <Controller
-              render={({ field }) => ( 
-                <Form.Item>
-                  <Checkbox {...field} value={checked} onChange={onCheckChange}>
-                    <p>From UCSD</p>
-                  </Checkbox>
-                </Form.Item> 
-              )}
-              name="isUCSD"
-              control={control}
-            />}
+
+            <Form.Item>
+              <Checkbox checked={UCSDChecked} onChange={(e) => setUCSDChecked(e.target.checked)}>
+                <p>From UCSD</p>
+              </Checkbox>
+            </Form.Item>
 
             <div className="errorBox">
               {errors.username && <p className="danger">Missing username</p>}
