@@ -131,7 +131,7 @@ function App() {
               />
 
               <Route
-                path="/competitions/portal"
+                path="/competitionPortal"
                 exact
                 component={CompetitionPortalPage}
               />  

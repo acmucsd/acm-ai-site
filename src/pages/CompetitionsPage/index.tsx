@@ -71,9 +71,9 @@ function CompetitionsPage(props: any) {
               <p>No upcoming competitions yet!</p>
             </div> */}
             <div className="compsPortalBox">
-                <Link to={`/competitions/portal`} rel="noopener noreferrer">
+                <Link to={`/competitionPortal`} rel="noopener noreferrer">
                   <Button size="large" shape="round">
-                    <p>Competition Portal</p>
+                    <p>Competitions Portal</p>
                   </Button>
                 </Link>
             </div>
