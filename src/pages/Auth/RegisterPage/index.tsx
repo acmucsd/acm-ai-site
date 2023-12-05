@@ -10,19 +10,28 @@ const { Content } = Layout;
 function RegisterPage() {
   const history = useHistory();
   const { handleSubmit, watch, errors, control } = useForm();
-  const [checked, setChecked] = useState(true);
+  const [ UCSDChecked, UCSDSetChecked] = useState(true);
+  const [ adminChecked, adminSetChecked] = useState(true);
+
   const onSubmit = (values: any) => {
     if (errors.confirmPassword) {
       handlePasswordErrors(errors);
     }
-    registerUser({ ...values, isUCSD: checked }).then((res) => {
+    registerUser({ ...values, isUCSD: UCSDChecked, isAdmin: adminChecked }).then((res) => {
       message.success('Registered! Redirecting to login page');
       history.push('/login');
     });
   };
-  const onCheckChange = (e: any) => {
-    setChecked(e.target.checked);
+
+  const onUCSDCheckChange = (e: any) => {
+    UCSDSetChecked(e.target.checked);
   };
+
+  const onAdminCheckChange = (e: any) => {
+    adminSetChecked(e.target.checked);
+  };
+
+
   return (
     <DefaultLayout>
       <div className="RegisterPage">
@@ -110,8 +119,8 @@ function RegisterPage() {
             />
             <Controller
               as={
-                <Form.Item>
-                  <Checkbox value={checked} onChange={onCheckChange}>
+                <Form.Item style={{ marginBottom: '12px' }}>
+                  <Checkbox value={UCSDChecked} onChange={onUCSDCheckChange}>
                     <p>From UCSD</p>
                   </Checkbox>
                 </Form.Item>
@@ -119,6 +128,18 @@ function RegisterPage() {
               name="isUCSD"
               control={control}
             />
+
+            <Controller
+              as={
+                <Form.Item>
+                  <Checkbox value={adminChecked} onChange={onAdminCheckChange}>
+                    <p>Admin</p>
+                  </Checkbox>
+                </Form.Item>
+              }
+              name="isAdmin"
+              control={control}
+            />    
 
             <div className="errorBox">
               {errors.username && <p className="danger">Missing username</p>}

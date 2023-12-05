@@ -45,6 +45,7 @@ import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionTeamPag
 import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/AllTeamsPage';
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
 import CompetitionSubmissionDetailsPage from './pages/Competitions/CompetitionTeamPages/SubmissionDetailsPage';
+import CompetitionPortalPage from './pages/Competitions/CompetitionPortalPage';
 
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
@@ -128,6 +129,13 @@ function App() {
                 exact
                 component={nnRanksPage}
               />
+
+              <Route
+                path="/competitionPortal"
+                exact
+                component={CompetitionPortalPage}
+              />  
+
               <Route
                 path="/competitions/:id"
                 exact
