@@ -2,13 +2,44 @@
 @import '../../../newStyles/components.less';
 @import '../../../newStyles/index.less';
 
+
 .CompetitionPortalPage {
   .noContainer();
+
+  
+  // prevents layout shifts caused by scrollbar 
+  overflow-y: hidden;
+  background: @white;
+
 
   #portalHeader{
     .generic-section();
     .constrained-bounds();
     margin-top: 4rem;
+  }
+
+  #portalStatsContent {
+
+
+    p#noTeamMessage {
+      margin-top: 2rem;
+      text-align: left;
+      background: @gray;
+      border-radius: @radius-base4;
+      padding: @padding-base3;
+      max-width: @sm;
+
+    }
+    
+  }
+
+  #portalTabContent {
+    .generic-section();
+    .constrained-bounds();
+
+    .ant-tabs-ink-bar {
+      display: none;
+    }
   }
 
 
