@@ -23,19 +23,26 @@ const { Content } = Layout;
 const teamCard = (team: any): React.ReactNode => {
     return (
         <div id = {team.teamID} className = "teamPreviewCard">
-            <h3>{team.teamName}</h3>
+            <h3><strong>{team.teamName}</strong></h3>
             <p>{team.teamMembers.length} members</p>
             {/* {team.teamMembers.map((member: string, index: number) => (
                 <p key={index}>{member}</p>
             ))} */}
+
+
+            {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}
+            <Button size="large" shape="round">
+                
+                <p>View</p>
+            </Button>
         </div>
     );
 };
 
 
 const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
-    const [position, setPosition] = useState<PaginationPosition>('bottom');
-    const [align, setAlign] = useState<PaginationAlign>('center');
+    const [position] = useState<PaginationPosition>('bottom');
+    const [align] = useState<PaginationAlign>('center');
   
     return (
       <Content id="findTeamsContainer" className = "portalTabContent">
