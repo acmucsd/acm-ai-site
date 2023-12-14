@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Avatar, List, Tabs, message } from "antd";
-import { Layout, Space, Button } from 'antd';
+import { AutoComplete, Avatar, List, Tabs, message } from "antd";
+import { Layout, Space, Button, Input } from 'antd';
 import UserContext from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
 import {
@@ -41,26 +41,74 @@ const teamCard = (team: any): React.ReactNode => {
 
 
 const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
+
     const [position] = useState<PaginationPosition>('bottom');
     const [align] = useState<PaginationAlign>('center');
-  
+    const [searchTerm, setSearchTerm] = useState("");
+
+    // dropdown options for search bar
+    const [options, setOptions] = useState<Array<Object>>(data);
+
+    // data for the list
+
+
+    useEffect(() => {
+        if(data) {
+            setOptions(data);
+        }
+    }, [data])
+
+    const handleSearch = (value: string) => {
+        setSearchTerm(value);
+
+        // Reset options back to the original data if the value is an empty string
+        if (value === "") {
+          setOptions(data);
+        }
+    }
+
+
+    const handleSelect = (value: string) => {
+
+        const filteredOptions = data.filter((item: any) =>
+            item.teamName.toLowerCase().includes(value.toLowerCase())
+        );
+        
+        setOptions(filteredOptions)
+
+    }
+
     return (
       <Content id="findTeamsContainer" className = "portalTabContent">
+        <AutoComplete
+            id = "teamSearchBar"
+            onSearch={(text) => handleSearch(text)}
+            onSelect = {handleSelect}
+            options={options.map((item: any) => ({ value: item.teamName }))}
+            filterOption = {(inputValue, option) => 
+                option?.value.toLowerCase().includes(inputValue.toLowerCase())
+            }
+            size = "large"
+            style = {{width: "100%", fontSize: 1.4}}
+        >
+            <Input.Search size="large" placeholder="Look up a team name" enterButton />
+
+        </AutoComplete>
+
         <List
             split = {false}
             pagination={{ position, align}}
-            dataSource={data}
+            dataSource={options}
             renderItem={(item: any) => (
             <List.Item key = {item.competitionName}>
                 {teamCard(item)}
-
             </List.Item>
             )}
         />
 
       </Content>
     );
-  };
+};
 
   
 const LeaderBoardTab = (): React.ReactNode => {
@@ -89,6 +137,7 @@ function CompetitionPortalPage ()  {
     const [allTeams, setAllTeams] = useState<Array<Object>>([]);
 
 
+    {/** Might save for later when we need to edit the tab Items */}
     const tabItems= [
         {
             label: <p>Leaderboard</p>,
@@ -107,6 +156,8 @@ function CompetitionPortalPage ()  {
         }
     ];
 
+
+
     useEffect(() => {
         if (!user.loggedIn) {
           message.info('You need to login to upload predictions and participate');
@@ -114,7 +165,8 @@ function CompetitionPortalPage ()  {
         }
 
         else {
-            
+            // Grab all the teams for the current competitions
+            // Note: I am using the test competition name from mongoDB
             getTeams("TestCompetition2").then(res => {
                 if(res.data) {
                     setAllTeams(Array.from(res.data))
@@ -139,15 +191,17 @@ function CompetitionPortalPage ()  {
                         <h4>Welcome the the AI Portal</h4>
                     </section>
 
+                    {/** This section will display the stats for the user's team otherwise shows default message telling them to find a team */}
                     <section id = "portalStatsContent">
-                        <p id = "noTeamMessage">Uh oh! You’re not in a team yet. Ask your friends to share their invite code, then navigate to Find Teams below to join their group!</p>
-
+                        <p id = "noTeamMessage">
+                            Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code, 
+                            then navigate to Find Teams below to join their group!
+                        </p>
                     </section>
                 </Content>
 
             
                 <Content id = "portalTabContent">
-                    {/* If the user is not part of a team yet, then */}
                     <Tabs
                         size="small"
                         animated={true}
