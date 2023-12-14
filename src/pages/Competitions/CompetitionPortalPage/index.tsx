@@ -42,25 +42,22 @@ const teamCard = (team: any): React.ReactNode => {
 
 const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
 
+    // constants to align the pagination options for the teams list
     const [position] = useState<PaginationPosition>('bottom');
     const [align] = useState<PaginationAlign>('center');
-    const [searchTerm, setSearchTerm] = useState("");
 
     // dropdown options for search bar
     const [options, setOptions] = useState<Array<Object>>(data);
 
-    // data for the list
-
-
+    // Initialize the teams data once that data defined
     useEffect(() => {
         if(data) {
             setOptions(data);
         }
     }, [data])
 
-    const handleSearch = (value: string) => {
-        setSearchTerm(value);
 
+    const handleSearch = (value: string) => {
         // Reset options back to the original data if the value is an empty string
         if (value === "") {
           setOptions(data);
@@ -70,12 +67,11 @@ const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
 
     const handleSelect = (value: string) => {
 
+        // filter the list items
         const filteredOptions = data.filter((item: any) =>
-            item.teamName.toLowerCase().includes(value.toLowerCase())
+            item.teamName.toUpperCase().includes(value.toUpperCase())
         );
-        
         setOptions(filteredOptions)
-
     }
 
     return (
@@ -84,17 +80,21 @@ const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
             id = "teamSearchBar"
             onSearch={(text) => handleSearch(text)}
             onSelect = {handleSelect}
+
+            // list of all possible options for dropdown
             options={options.map((item: any) => ({ value: item.teamName }))}
+
+            // filterOption to handle filtered dropdown items 
             filterOption = {(inputValue, option) => 
-                option?.value.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
+                option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
             }
             size = "large"
             style = {{width: "100%", fontSize: 1.4}}
         >
             <Input.Search size="large" placeholder="Look up a team name" enterButton />
-
         </AutoComplete>
 
+        {/** List to preview all the teams based on the user's query */}
         <List
             split = {false}
             pagination={{ position, align}}
@@ -115,7 +115,6 @@ const LeaderBoardTab = (): React.ReactNode => {
     return (
       <Content id="leaderBoardContainer" className = "portalTabContent">
             <h2>Leaderboard</h2>
-
       </Content>
     );
 };
@@ -165,8 +164,9 @@ function CompetitionPortalPage ()  {
         }
 
         else {
-            // Grab all the teams for the current competitions
-            // Note: I am using the test competition name from mongoDB
+            /* Grab all the teams for the current competitions
+             * Note: I am using the test competition 2 name from mongoDB
+             */
             getTeams("TestCompetition2").then(res => {
                 if(res.data) {
                     setAllTeams(Array.from(res.data))
@@ -183,7 +183,6 @@ function CompetitionPortalPage ()  {
     
     return (
         <DefaultLayout>
-
             <Content className="CompetitionPortalPage">
                 <Content id = "portalHeader">
                     <section>
@@ -201,6 +200,7 @@ function CompetitionPortalPage ()  {
                 </Content>
 
             
+
                 <Content id = "portalTabContent">
                     <Tabs
                         size="small"
@@ -227,9 +227,7 @@ function CompetitionPortalPage ()  {
                         }
                     ></Tabs>
                 </Content>
-
             </Content>
-
         </DefaultLayout>
     );
 

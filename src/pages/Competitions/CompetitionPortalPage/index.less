@@ -6,7 +6,6 @@
 .CompetitionPortalPage {
   .noContainer();
 
-  
   // prevents layout shifts caused by scrollbar 
   overflow-y: hidden;
   background: @white;
@@ -15,6 +14,8 @@
   #portalHeader{
     .generic-section();
     .constrained-bounds();
+    max-width: 1200px !important;
+
     margin-top: 4rem;
   }
 
@@ -37,6 +38,8 @@
   #portalTabContent {
     .generic-section();
     .constrained-bounds();
+    max-width: 1200px !important;
+
 
     .ant-tabs-ink-bar {
       display: none;
