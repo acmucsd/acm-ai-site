@@ -86,7 +86,7 @@ const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
             onSelect = {handleSelect}
             options={options.map((item: any) => ({ value: item.teamName }))}
             filterOption = {(inputValue, option) => 
-                option?.value.toLowerCase().includes(inputValue.toLowerCase())
+                option?.value.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
             }
             size = "large"
             style = {{width: "100%", fontSize: 1.4}}
