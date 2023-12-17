@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AutoComplete, Avatar, List, Tabs, message } from "antd";
-import { Layout, Space, Button, Input } from 'antd';
-import UserContext from "../../../UserContext";
+import { AutoComplete, Avatar, Col, Form, List, Tabs, message } from "antd";
+import { Layout, Space, Button, Input, Modal } from 'antd';
+import UserContext, { User } from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
 import {
     getTeamInfo,
@@ -9,38 +9,20 @@ import {
     getCompetitionUser,
     getTeams,
   } from '../../../actions/teams/utils';
-
+import TeamCard from '../../../components/TeamCard/index';
 import './index.less';
 import path from 'path';
-
 import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
-import { all } from "axios";
-
+import { registerCompetitionUser } from "../../../actions/competition";
+import { useForm } from "react-hook-form";
 const { Content } = Layout;
 
 
-const teamCard = (team: any): React.ReactNode => {
-    return (
-        <div id = {team.teamID} className = "teamPreviewCard">
-            <h3><strong>{team.teamName}</strong></h3>
-            <p>{team.teamMembers.length} members</p>
-            {/* {team.teamMembers.map((member: string, index: number) => (
-                <p key={index}>{member}</p>
-            ))} */}
-
-
-            {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}
-            <Button size="large" shape="round">
-                
-                <p>View</p>
-            </Button>
-        </div>
-    );
-};
-
-
-const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
+const FindTeamsTab = (
+    { data, user, compUser, registered, fetchTeams }: 
+    { data: Object[], user: User, compUser: any, registered: Boolean, fetchTeams: () => void }
+)  => {
 
     // constants to align the pagination options for the teams list
     const [position] = useState<PaginationPosition>('bottom');
@@ -49,12 +31,13 @@ const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
     // dropdown options for search bar
     const [options, setOptions] = useState<Array<Object>>(data);
 
+
     // Initialize the teams data once that data defined
     useEffect(() => {
         if(data) {
             setOptions(data);
         }
-    }, [data])
+    }, [data, registered])
 
 
     const handleSearch = (value: string) => {
@@ -99,9 +82,9 @@ const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
             split = {false}
             pagination={{ position, align}}
             dataSource={options}
-            renderItem={(item: any) => (
-            <List.Item key = {item.competitionName}>
-                {teamCard(item)}
+            renderItem={(team: any) => (
+            <List.Item key = {team.competitionName}>
+                {<TeamCard team = {team} user = {user} compUser = {compUser} fetchTeamCallback = {fetchTeams} />}
             </List.Item>
             )}
         />
@@ -111,7 +94,7 @@ const FindTeamsTab = (data: Array<Object>): React.ReactNode => {
 };
 
   
-const LeaderBoardTab = (): React.ReactNode => {
+const LeaderBoardTab = () => {
     return (
       <Content id="leaderBoardContainer" className = "portalTabContent">
             <h2>Leaderboard</h2>
@@ -120,7 +103,7 @@ const LeaderBoardTab = (): React.ReactNode => {
 };
 
 
-  const MyTeamTab = (): React.ReactNode => {
+  const MyTeamTab = () => {
     return (
       <Content id="myTeamContainer" className = "portalTabContent">
         <h2>My Team</h2>
@@ -133,29 +116,56 @@ const LeaderBoardTab = (): React.ReactNode => {
 function CompetitionPortalPage ()  {
     const history = useHistory();
     const { user } = useContext(UserContext);
+    const [compUser, setCompUser] = useState<any>({});
+
     const [allTeams, setAllTeams] = useState<Array<Object>>([]);
+    const [activeTab, setActiveTab] = useState('1'); // Set the default active tab key
+    const [isRegistered, setIsRegistered] = useState<any>(false);
+
+    const competitionName  = "TestCompetition2";
 
 
-    {/** Might save for later when we need to edit the tab Items */}
-    const tabItems= [
-        {
-            label: <p>Leaderboard</p>,
-            key: '1',
-            children: LeaderBoardTab(),
-        },
-        {
-            label: <p>Find Teams</p>,
-            key: '2',
-            children: FindTeamsTab(allTeams),
-        },
-        {
-            label: <p>My Team</p>,
-            key: '3',
-            children: MyTeamTab(),
-        }
-    ];
+    // callback function to trigger manual tab focus from elsewhere in the UI
+    const switchActiveTab = (key: string) => {
+        setActiveTab(key);
+    }
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { handleSubmit } = useForm();
 
+     // Modal props
+     const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    // Function to directly fetch all the teams
+    const fetchTeams = () => {
+          
+        getCompetitionUser(competitionName, user.username).then((res) =>  {
+            console.log(res.data)
+            if(!res.data.registered) {
+                message.info("you are not registered!");
+                showModal();
+            }
+            else {
+                setCompUser(res.data);
+                console.log(compUser)
+                getTeams(competitionName).then(res => {
+                    if(res.data) {
+                        setAllTeams(Array.from(res.data))
+                        console.log(Array.from(res.data));
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+            }
+        })
+    }
 
     useEffect(() => {
         if (!user.loggedIn) {
@@ -164,25 +174,58 @@ function CompetitionPortalPage ()  {
         }
 
         else {
-            /* Grab all the teams for the current competitions
-             * Note: I am using the test competition 2 name from mongoDB
-             */
-            getTeams("TestCompetition2").then(res => {
-                if(res.data) {
-                    setAllTeams(Array.from(res.data))
-                    console.log(Array.from(res.data));
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            fetchTeams();
+        
         }
         
-      }, []);
+      }, [user]);
+
+    
+      const onSubmit = () => {
+        registerCompetitionUser(competitionName, user.username).then((res) =>  {
+            if (res.data.msg == "Success") {
+                window.location.reload();
+                setIsRegistered(true);
+            }
+            else {
+                message.info(res.data.msg);
+            }
+        })
+
+      }
 
     
     return (
         <DefaultLayout>
+
+            {/** Register Modal */}
+            <Modal
+                 className="registerUserModal"
+                 width={800}
+                 centered
+                 closeIcon = {false}
+                 open={isModalOpen}
+                 maskClosable = {false}
+                 onCancel={handleCancel}
+                 title={<h3 style={{ fontWeight: '700' }}>Register</h3>}
+                 footer = {null}
+             >
+                <p>
+                    Looks like we don't have you registered for {competitionName} yet. Click register below to get started. The page will 
+                    reload once we confirm your registration. Otherwise, feel free to leave this page.
+                </p>
+                <Button onClick = {onSubmit} >
+                    Register
+                </Button>
+
+                <Button
+                    onClick={() => {
+                        history.push(path.join(history.location.pathname, '../competitions'));
+                    }}
+                >Go Back</Button>
+            </Modal> 
+
+
             <Content className="CompetitionPortalPage">
                 <Content id = "portalHeader">
                     <section>
@@ -206,6 +249,7 @@ function CompetitionPortalPage ()  {
                         size="small"
                         animated={true}
                         tabPosition="top"
+                        activeKey={activeTab} onChange={(key) => setActiveTab(key)}
                         items={
                             [
                                 {
@@ -216,13 +260,18 @@ function CompetitionPortalPage ()  {
                                 {
                                     label: <p>Find Teams</p>,
                                     key: '2',
-                                    children: FindTeamsTab(allTeams),
+                                    children: <FindTeamsTab 
+                                        data = {allTeams} 
+                                        user = {user} 
+                                        compUser={compUser}
+                                        registered = {isRegistered} 
+                                        fetchTeams={fetchTeams}/>
                                 },
                                 {
                                     label: <p>My Team</p>,
                                     key: '3',
                                     children: MyTeamTab(),
-                                }
+                                },
                             ]
                         }
                     ></Tabs>
