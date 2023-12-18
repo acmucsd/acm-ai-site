@@ -91,6 +91,9 @@ const FindTeamsTab = (
     );
 };
 
+
+
+
   
 const LeaderBoardTab = ( ) => {
     return (
@@ -99,6 +102,10 @@ const LeaderBoardTab = ( ) => {
       </Content>
     );
 };
+
+
+
+
 
 
   const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsCallback: () => void}) => {
@@ -120,12 +127,12 @@ const LeaderBoardTab = ( ) => {
         createTeam(compUser.competitionName, compUser.username, newTeamName).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
+            console.log(compUser)
         
         })
         .catch((error) => {
             message.error(error.message);
         });
-        setIsLoading(false);
 
     }
 
@@ -173,6 +180,8 @@ function CompetitionPortalPage ()  {
     const [activeTab, setActiveTab] = useState('1'); // Set the default active tab key
     const [isRegistered, setIsRegistered] = useState<any>(false);
 
+    const [isLoadingTeamInfo, setIsLoadingTeamInfo] = useState(false);
+    const [teamInfo, setTeamInfo] = useState<any>({});
     const competitionName  = "TestCompetition2";
 
 
@@ -225,13 +234,29 @@ function CompetitionPortalPage ()  {
 
         else {
             fetchTeams();
-        
         }
         
-      }, [user]);
+    }, [user]);
+
+    // only grab team info when user is in a team
+    useEffect(() => {
+        if(Object.keys(compUser).length !== 0){
+
+            if(compUser.competitionTeam != null){ 
+                console.log(compUser)
+                setIsLoadingTeamInfo(true);
+                getTeamInfo(competitionName, compUser.competitionTeam.teamName).then((res) => {
+                    setTeamInfo(res.data);
+                    setIsLoadingTeamInfo(false);
+
+                })  
+            }
+        }
+       
+    }, [compUser])
 
     
-      const onSubmit = () => {
+    const onSubmit = () => {
         registerCompetitionUser(competitionName, user.username).then((res) =>  {
             if (res.data.msg == "Success") {
                 window.location.reload();
@@ -284,11 +309,28 @@ function CompetitionPortalPage ()  {
                     </section>
 
                     {/** This section will display the stats for the user's team otherwise shows default message telling them to find a team */}
+                    
                     <section id = "portalStatsContent">
-                        <p id = "noTeamMessage">
-                            Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code, 
-                            then navigate to Find Teams below to join their group!
-                        </p>
+                        {compUser.competitionTeam == null ? (
+                            <p id = "noTeamMessage">
+                                Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code, 
+                                then navigate to Find Teams below to join their group!
+                           </p>
+                        )
+                        :
+                        <>
+                         {isLoadingTeamInfo ? (
+                            <Skeleton active></Skeleton>
+                         ):
+                         <div>
+                         <p>Team Name: {teamInfo.teamName}</p>
+                       </div>
+                         }
+                        </>
+                            
+                        
+                        }
+                        
                     </section>
                 </Content>
 
