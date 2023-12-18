@@ -1,0 +1,51 @@
+@import '../../styles/base.less';
+@import '../../newStyles/variables.less';
+@import '../../newStyles/components.less';
+
+
+#teamModalContent {
+
+    section#teamMembersContainer {
+        background: @gray;
+        padding: @padding-base2;
+        border-radius: @radius-base4;
+        margin-top: 2rem;
+    }
+
+
+}
+
+#joinCodeInput {
+    max-width: 300px;
+    margin-right: 1rem;
+}
+
+div.teamPreviewCard {
+    
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: @gray;
+    padding: @padding-base2;
+    border-radius: @radius-base4;
+    box-shadow: @bx3;
+
+
+    h3 {
+        max-width: 300px;
+        font-weight: @semi-bold;
+    }
+
+}
+
+#teamViewButton {
+    .button-black();
+
+}
+
+
+#teamJoinButton {
+    .button-black-square();
+}

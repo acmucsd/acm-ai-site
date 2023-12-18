@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AutoComplete, Avatar, Col, Form, List, Tabs, message } from "antd";
+import { AutoComplete, Avatar, Col, Drawer, Form, List, Row, Skeleton, Tabs, message } from "antd";
 import { Layout, Space, Button, Input, Modal } from 'antd';
 import UserContext, { User } from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
@@ -15,7 +15,6 @@ import path from 'path';
 import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
 import { registerCompetitionUser } from "../../../actions/competition";
-import { useForm } from "react-hook-form";
 const { Content } = Layout;
 
 
@@ -30,7 +29,6 @@ const FindTeamsTab = (
 
     // dropdown options for search bar
     const [options, setOptions] = useState<Array<Object>>(data);
-
 
     // Initialize the teams data once that data defined
     useEffect(() => {
@@ -94,7 +92,7 @@ const FindTeamsTab = (
 };
 
   
-const LeaderBoardTab = () => {
+const LeaderBoardTab = ( ) => {
     return (
       <Content id="leaderBoardContainer" className = "portalTabContent">
             <h2>Leaderboard</h2>
@@ -103,10 +101,63 @@ const LeaderBoardTab = () => {
 };
 
 
-  const MyTeamTab = () => {
+  const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsCallback: () => void}) => {
+
+    const [isLoading, setIsLoading] =  useState<boolean>(false);
+    const [newTeamName, setNewTeamName] = useState("");
+    useEffect(() => {
+
+    }, []);
+
+    const handleClick = () => {
+
+        if(newTeamName.length == 0) {
+            message.info('Name cannot be empty');
+            return;
+        }
+
+        setIsLoading(true);
+        createTeam(compUser.competitionName, compUser.username, newTeamName).then((res) => {
+            message.success('Successfully made a new team!');
+            fetchTeamsCallback();
+        
+        })
+        .catch((error) => {
+            message.error(error.message);
+        });
+        setIsLoading(false);
+
+    }
+
     return (
       <Content id="myTeamContainer" className = "portalTabContent">
-        <h2>My Team</h2>
+        {compUser.competitionTeam == null && (
+
+            <section>
+                <Input 
+                    id = "teamNameInput" 
+                    placeholder="New Team Name" 
+                    size = "large"
+                    onChange={(e) => setNewTeamName(e.target.value)}
+                    >
+                </Input><br/>
+                <Button 
+                    type = "primary" 
+                    size = "large" id = "makeTeamButton" 
+                    loading = {isLoading} 
+                    onClick={handleClick} 
+                >
+                    Make Team
+                </Button>
+            </section>
+
+        ) }
+
+        {compUser.competitionTeam !== null && (
+            <section>
+                <h3>{compUser.competitionTeam.teamName}</h3>
+            </section>
+        )}
       </Content>
     );
   };
@@ -131,7 +182,6 @@ function CompetitionPortalPage ()  {
     }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { handleSubmit } = useForm();
 
      // Modal props
      const showModal = () => {
@@ -270,13 +320,16 @@ function CompetitionPortalPage ()  {
                                 {
                                     label: <p>My Team</p>,
                                     key: '3',
-                                    children: MyTeamTab(),
+                                    children: <MyTeamTab 
+                                        compUser={compUser} 
+                                        fetchTeamsCallback={fetchTeams} />,
                                 },
                             ]
                         }
                     ></Tabs>
                 </Content>
             </Content>
+
         </DefaultLayout>
     );
 

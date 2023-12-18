@@ -2,7 +2,7 @@ import { Modal, Col, Button, Form, Input, message } from "antd";
 import { useState } from "react";
 import { User } from "../../UserContext";
 import { addToTeam, leaveTeam } from '../../actions/teams/utils';
-
+import './index.less';
 import React from "react";
 import { useForm } from "react-hook-form";
 import { error } from "console";
@@ -86,10 +86,21 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
                         )}
 
                         {!team.teamMembers.includes(user.username) && (
-                           
-                        <Button size= "large" type = "primary" loading = {confirmLoading} onClick = {onSubmit} >
-                            Join
-                        </Button>
+                            <>
+
+                                <Input
+                                    id = "joinCodeInput"
+                                    size = "large"
+                                    value={code}
+                                    onChange={(e) => setCode(e.target.value)}
+                                    placeholder="Code"
+                                />
+                             
+                            
+                                <Button id = "teamJoinButton" size= "large" type = "primary" loading = {confirmLoading} onClick = {onSubmit} >
+                                    Join
+                                </Button>
+                            </>
                         )}
 
                     </>    
@@ -97,36 +108,27 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
              >
                  <Col id = "teamModalContent">
  
-                     <section>
-                         <h4>Members</h4>
+                     <section id = "teamMembersContainer">
                          {team.teamMembers.map((member: string, index: number) => (
                              <p key={index}>{member}</p>
                          ))} 
                      </section>
 
-                     {!team.teamMembers.includes(user.username) && (
-
-                        <Input
-                            size = "large"
-                            value={code}
-                            onChange={(e) => setCode(e.target.value)}
-                            placeholder="Code"
-                        />
-                     )}
+        
                      
                  </Col>
              </Modal>
  
              {/* If user is in not in team, show option to join team */}
              <div id = {team.teamID} className = "teamPreviewCard">
-                 <h3><strong>{team.teamName}</strong></h3>
+                 <h3><b>{team.teamName}</b></h3>
                  <span>
                      <p>{team.teamMembers.length} members</p>
                      {team.teamMembers.includes(user.username) && (<p>your team</p>)}
                  </span>
          
                  {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}
-                 <Button size="large" shape="round" onClick={() => showModal()}>
+                 <Button id = "teamViewButton" size="large" shape="round" onClick={() => showModal()}>
                      <p>View</p>
                  </Button>
              </div>
