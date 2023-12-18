@@ -23,10 +23,9 @@
 div.teamPreviewCard {
     
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
     align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
     background: @gray;
     padding: @padding-base2;
     border-radius: @radius-base4;
@@ -38,10 +37,23 @@ div.teamPreviewCard {
         font-weight: @semi-bold;
     }
 
+    span:first-of-type{
+        text-align: center;
+    }
+
+    span:last-child {
+        width: 100%;
+        display:flex;
+        justify-content: end;
+    }
+
+
 }
 
 #teamViewButton {
     .button-black();
+    width:fit-content;
+
 
 }
 

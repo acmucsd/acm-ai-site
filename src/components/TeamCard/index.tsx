@@ -113,9 +113,6 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
                              <p key={index}>{member}</p>
                          ))} 
                      </section>
-
-        
-                     
                  </Col>
              </Modal>
  
@@ -128,9 +125,12 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
                  </span>
          
                  {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}
-                 <Button id = "teamViewButton" size="large" shape="round" onClick={() => showModal()}>
-                     <p>View</p>
-                 </Button>
+                 <span>
+                    <Button id = "teamViewButton" size="large" shape="round" onClick={() => showModal()}>
+                        <p>View</p>
+                    </Button>
+                 </span>
+                 
              </div>
          </>
  

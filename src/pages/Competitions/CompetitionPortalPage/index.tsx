@@ -134,6 +134,9 @@ const LeaderBoardTab = ( ) => {
             message.error(error.message);
         });
 
+        setIsLoading(false);
+
+
     }
 
     return (
@@ -180,6 +183,8 @@ function CompetitionPortalPage ()  {
     const [activeTab, setActiveTab] = useState('1'); // Set the default active tab key
     const [isRegistered, setIsRegistered] = useState<any>(false);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const [isLoadingTeamInfo, setIsLoadingTeamInfo] = useState(false);
     const [teamInfo, setTeamInfo] = useState<any>({});
     const competitionName  = "TestCompetition2";
@@ -190,7 +195,6 @@ function CompetitionPortalPage ()  {
         setActiveTab(key);
     }
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
      // Modal props
      const showModal = () => {
@@ -221,7 +225,6 @@ function CompetitionPortalPage ()  {
                 .catch(error => {
                     console.log(error);
                 });
-
             }
         })
     }
@@ -240,19 +243,22 @@ function CompetitionPortalPage ()  {
 
     // only grab team info when user is in a team
     useEffect(() => {
-        if(Object.keys(compUser).length !== 0){
+        setIsLoadingTeamInfo(true);
 
+        if(Object.keys(compUser).length !== 0){
             if(compUser.competitionTeam != null){ 
                 console.log(compUser)
-                setIsLoadingTeamInfo(true);
                 getTeamInfo(competitionName, compUser.competitionTeam.teamName).then((res) => {
                     setTeamInfo(res.data);
-                    setIsLoadingTeamInfo(false);
 
                 })  
             }
+            setIsLoadingTeamInfo(false);
+
+
         }
-       
+        
+
     }, [compUser])
 
     
@@ -311,26 +317,26 @@ function CompetitionPortalPage ()  {
                     {/** This section will display the stats for the user's team otherwise shows default message telling them to find a team */}
                     
                     <section id = "portalStatsContent">
-                        {compUser.competitionTeam == null ? (
-                            <p id = "noTeamMessage">
-                                Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code, 
-                                then navigate to Find Teams below to join their group!
-                           </p>
-                        )
-                        :
-                        <>
+
                          {isLoadingTeamInfo ? (
                             <Skeleton active></Skeleton>
                          ):
-                         <div>
-                         <p>Team Name: {teamInfo.teamName}</p>
-                       </div>
-                         }
-                        </>
-                            
+                          (  <>
+                                {compUser.competitionTeam == null ? (
+                                    <p id = "noTeamMessage">
+                                        Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code, 
+                                        then navigate to Find Teams below to join their group!
+                                    </p>
+                                )
+                                : 
+                                    <div>
+                                        <p>Team Name: {teamInfo.teamName}</p>
+                                    </div>
+                                }
+                            </>
+                         )}
                         
-                        }
-                        
+
                     </section>
                 </Content>
 
