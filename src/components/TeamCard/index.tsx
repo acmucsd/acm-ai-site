@@ -121,7 +121,7 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
                  <h3><b>{team.teamName}</b></h3>
                  <span>
                      <p>{team.teamMembers.length} members</p>
-                     {team.teamMembers.includes(user.username) && (<p>your team</p>)}
+                     {team.teamMembers.includes(user.username) && (<p>you</p>)}
                  </span>
          
                  {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}

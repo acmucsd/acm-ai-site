@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AutoComplete, Avatar, Col, Drawer, Form, List, Row, Skeleton, Tabs, message } from "antd";
+import { Affix, AutoComplete, Avatar, Col, Drawer, Form, List, Row, Skeleton, Tabs, message } from "antd";
 import { Layout, Space, Button, Input, Modal } from 'antd';
 import UserContext, { User } from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
@@ -15,6 +15,7 @@ import path from 'path';
 import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
 import { registerCompetitionUser } from "../../../actions/competition";
+import { genColor } from "../../../utils/colors";
 const { Content } = Layout;
 
 
@@ -112,9 +113,32 @@ const LeaderBoardTab = ( ) => {
 
     const [isLoading, setIsLoading] =  useState<boolean>(false);
     const [newTeamName, setNewTeamName] = useState("");
+    
     useEffect(() => {
 
     }, []);
+
+
+
+    const generateTeamPicture = () => {
+
+        const color1 = genColor(compUser.competitionTeam.teamName);
+        const color2 = genColor(`${compUser.competitionTeam.teamName}_additional_seed`);
+
+        return (
+            <div 
+            style={{
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                borderRadius: '50%',
+                width: '4rem',
+                height:'4rem',
+                background: `linear-gradient(30deg, ${color1}, ${color2})`,
+                marginRight: '0.75rem',
+              }}>
+            </div>
+        )
+    }
 
     const handleClick = () => {
 
@@ -135,8 +159,6 @@ const LeaderBoardTab = ( ) => {
         });
 
         setIsLoading(false);
-
-
     }
 
     return (
@@ -160,12 +182,25 @@ const LeaderBoardTab = ( ) => {
                     Make Team
                 </Button>
             </section>
+            
 
         ) }
 
         {compUser.competitionTeam !== null && (
             <section>
-                <h3>{compUser.competitionTeam.teamName}</h3>
+                <span>
+                    {generateTeamPicture()}
+                        <h3>{compUser.competitionTeam.teamName}</h3>
+
+                </span>
+                
+                <Affix style={{ position: 'absolute', top: 10, right: 0 }} offsetTop={100}>
+                    <div id = "teamAffix">
+
+                    <h3>Members</h3>
+                    <p>Description</p>
+                    </div>
+                </Affix>
             </section>
         )}
       </Content>

@@ -52,7 +52,9 @@
   }
 
   #findTeamsContainer {
-    AutoComplete#teamSearchBar {
+    height: 100vh;
+
+    #teamSearchBar {
       font-size: 1.2rem;
       width: 100%;
     } 
@@ -61,11 +63,19 @@
 }
 
 #myTeamContainer {
+  height: 100vh;
   #teamNameInput {
     max-width: 300px;
   }
 
   #makeTeamButton {
     margin-top: 1rem;
+  }
+
+  #teamAffix {
+    box-sizing: border-box;
+    box-shadow: @bx2;
+    border-radius: @radius-base4;
+    padding: @padding-base3;
   }
 }

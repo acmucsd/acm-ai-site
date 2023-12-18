@@ -25,7 +25,7 @@ div.teamPreviewCard {
     width: 100%;
     display: grid;
     align-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr;
     background: @gray;
     padding: @padding-base2;
     border-radius: @radius-base4;
@@ -38,7 +38,19 @@ div.teamPreviewCard {
     }
 
     span:first-of-type{
-        text-align: center;
+        width: 70%;
+        display: flex;
+        align-items: center;
+        p:nth-child(2){
+            margin-left: 8px;
+            display: inline;
+            background: rgb(33, 94, 247);
+            width: fit-content;
+            padding: 6px 20px;
+            border-radius: @radius-base6;
+            color: white;
+        }
+        
     }
 
     span:last-child {
