@@ -188,17 +188,18 @@ const LeaderBoardTab = ( ) => {
 
         {compUser.competitionTeam !== null && (
             <section>
-                <span>
+                <span id = "team">
                     {generateTeamPicture()}
+                    <div>
                         <h3>{compUser.competitionTeam.teamName}</h3>
+                    </div>
 
                 </span>
                 
                 <Affix style={{ position: 'absolute', top: 10, right: 0 }} offsetTop={100}>
                     <div id = "teamAffix">
 
-                    <h3>Members</h3>
-                    <p>Description</p>
+                    <h3>Team Members</h3>
                     </div>
                 </Affix>
             </section>

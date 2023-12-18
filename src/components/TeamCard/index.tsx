@@ -1,4 +1,4 @@
-import { Modal, Col, Button, Form, Input, message } from "antd";
+import { Modal, Col, Button, Form, Input, message, Badge } from "antd";
 import { useState } from "react";
 import { User } from "../../UserContext";
 import { addToTeam, leaveTeam } from '../../actions/teams/utils';
@@ -117,11 +117,11 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
              </Modal>
  
              {/* If user is in not in team, show option to join team */}
-             <div id = {team.teamID} className = "teamPreviewCard">
+             <div id = {team.teamID} className = "teamPreviewCard" style = {{ background: team.teamMembers.includes(user.username) ? '#F1F1F1': 'white'}}
+>
                  <h3><b>{team.teamName}</b></h3>
                  <span>
-                     <p>{team.teamMembers.length} members</p>
-                     {team.teamMembers.includes(user.username) && (<p>you</p>)}
+                    <p>{team.teamMembers.length} members</p>
                  </span>
          
                  {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}
