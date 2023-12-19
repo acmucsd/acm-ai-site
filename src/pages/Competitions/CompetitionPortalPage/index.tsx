@@ -199,7 +199,7 @@ const LeaderBoardTab = ( ) => {
                 <Affix style={{ position: 'absolute', top: 10, right: 0 }} offsetTop={100}>
                     <div id = "teamAffix">
 
-                    <h3>Team Members</h3>
+                    <h4>Team Members</h4>
                     </div>
                 </Affix>
             </section>
