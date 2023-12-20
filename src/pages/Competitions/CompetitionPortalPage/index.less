@@ -2,15 +2,80 @@
 @import '../../../newStyles/components.less';
 @import '../../../newStyles/index.less';
 
+
 .CompetitionPortalPage {
   .noContainer();
+
+  // prevents layout shifts caused by scrollbar 
+  overflow-y: hidden;
+  background: @white;
+
 
   #portalHeader{
     .generic-section();
     .constrained-bounds();
+    max-width: 1200px !important;
+
     margin-top: 4rem;
   }
 
 
 
+
+  #portalStatsContent {
+
+
+    p#noTeamMessage {
+      margin-top: 2rem;
+      text-align: left;
+      background: @black;
+      border-radius: @radius-base4;
+      padding: @padding-base3;
+      max-width: @sm;
+      color: @white;
+
+    }
+    
+  }
+
+
+
+  #portalTabContent {
+    .generic-section();
+    .constrained-bounds();
+    height: 100vh;
+    max-width: 1200px !important;
+
+
+    .ant-tabs-ink-bar {
+      display: none;
+    }
+  }
+
+  #findTeamsContainer {
+    height: 100vh;
+
+    #teamSearchBar {
+      font-size: 1.2rem;
+      width: 100%;
+    } 
+  }
+
+}
+
+#myTeamContainer {
+  #teamNameInput {
+    max-width: 300px;
+  }
+
+  #makeTeamButton {
+    margin-top: 1rem;
+  }
+
+  #teamAffix {
+    box-sizing: border-box;
+    box-shadow: @bx2;
+    border-radius: @radius-base4;
+    padding: @padding-base3;
+  }
 }
