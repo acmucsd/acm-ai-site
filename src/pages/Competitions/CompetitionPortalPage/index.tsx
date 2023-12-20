@@ -70,8 +70,8 @@ const FindTeamsTab = (
             filterOption = {(inputValue, option) => 
                 option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
             }
-            size = "large"
-            style = {{width: "100%", fontSize: 1.4}}
+            size="large"
+            style = {{width: "100%"}}
         >
             <Input.Search size="large" placeholder="Look up a team name" enterButton />
         </AutoComplete>
@@ -79,7 +79,7 @@ const FindTeamsTab = (
         {/** List to preview all the teams based on the user's query */}
         <List
             split = {false}
-            pagination={{ position, align}}
+            pagination={{ position, align, pageSize: 6}}
             dataSource={options}
             renderItem={(team: any) => (
             <List.Item key = {team.competitionName}>

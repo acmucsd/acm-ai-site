@@ -1,11 +1,16 @@
-import { Modal, Col, Button, Form, Input, message, Badge } from "antd";
+import { Modal, Col, Button, Form, Input, message, Badge, Avatar } from "antd";
 import { useState } from "react";
 import { User } from "../../UserContext";
 import { addToTeam, leaveTeam } from '../../actions/teams/utils';
+import { BsPeopleFill } from "react-icons/bs";
+import { IoMdPerson } from "react-icons/io";
+
 import './index.less';
 import React from "react";
+
 import { useForm } from "react-hook-form";
 import { error } from "console";
+import { genColor } from "../../utils/colors";
 
 
 const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user:User, compUser: any, fetchTeamCallback: () => void })    => {
@@ -65,8 +70,10 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
     const handleCancel = () => {
         setIsModalOpen(false);
     };
- 
- 
+
+    const color1 = genColor(team.teamName);
+    const color2 = genColor(`${team.teamName}_additional_seed`);
+
      return (
          <>
              <Modal
@@ -95,42 +102,58 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
                                     onChange={(e) => setCode(e.target.value)}
                                     placeholder="Code"
                                 />
-                             
-                            
                                 <Button id = "teamJoinButton" size= "large" type = "primary" loading = {confirmLoading} onClick = {onSubmit} >
                                     Join
                                 </Button>
                             </>
                         )}
-
                     </>    
                 }
              >
                  <Col id = "teamModalContent">
  
                      <section id = "teamMembersContainer">
-                         {team.teamMembers.map((member: string, index: number) => (
-                             <p key={index}>{member}</p>
-                         ))} 
+                        
+                        {team.teamMembers.length !== 0 ? 
+                            team.teamMembers.map((member: string, index: number) => (
+                                <p key={index}>{member}</p>
+                            ))
+                        
+                        : <p>no members</p>}          
                      </section>
                  </Col>
              </Modal>
  
              {/* If user is in not in team, show option to join team */}
-             <div id = {team.teamID} className = "teamPreviewCard" style = {{ background: team.teamMembers.includes(user.username) ? '#F1F1F1': 'white'}}
->
-                 <h3><b>{team.teamName}</b></h3>
+             <div id = {team.teamID} className = "teamPreviewCard" style = {{ background: team.teamMembers.includes(user.username) ? '#F1F1F1': 'white'}}  onClick={() => showModal()}>
                  <span>
-                    <p>{team.teamMembers.length} members</p>
+                    <div 
+                        style={{
+                            display: 'inline-flex',
+                            verticalAlign: 'middle',
+                            borderRadius: '100px',
+                            width: '32px',
+                            height:'32px',
+                            background: `linear-gradient(30deg, ${color1}, ${color2})`,
+                            marginRight: '1rem',
+                        }}>
+                    </div>
+                    <h4>{team.teamName}</h4>
+                 </span>
+
+                 <span>
+                    {/* <p>{team.teamMembers.length} members</p> */}
+                    <Badge count = {team.teamMembers.length} color = "blue" style = {{outline: 'none'}} showZero>
+                        <Avatar style={{background: 'none'}}  shape = "square" icon = {<IoMdPerson id = "memberCountIcon" size={28} style={{color: 'grey'}}/>} />
+                    </Badge>
                  </span>
          
                  {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}
-                 <span>
+                 <span id = "teamViewButtonSpan" >
                     <Button id = "teamViewButton" size="large" shape="round" onClick={() => showModal()}>
                         <p>View</p>
                     </Button>
                  </span>
-                 
              </div>
          </>
  
