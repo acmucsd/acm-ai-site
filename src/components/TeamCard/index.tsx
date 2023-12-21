@@ -13,7 +13,10 @@ import { error } from "console";
 import { genColor } from "../../utils/colors";
 
 
-const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user:User, compUser: any, fetchTeamCallback: () => void })    => {
+const TeamCard = (
+    { team, user, compUser, fetchTeamCallback, updateRankings }: 
+    { team: any, user:User, compUser: any, fetchTeamCallback: () => void, updateRankings: () => void }
+)    => {
     // Modal state to trigger a team's details
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [code, setCode] = useState<string>("");
@@ -40,6 +43,9 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
 
             // trigger a refresh to refetch all the team data
             fetchTeamCallback();
+
+            // update the leaderboard with the new team
+            updateRankings();
           }
         )
         .catch((error) => {
@@ -55,13 +61,12 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
             setIsModalOpen(false);
 
             fetchTeamCallback();
+            updateRankings();
         })
         .catch((error) => (
             message.error(error)
         ));
     }
-
-
 
     // Modal props
     const showModal = () => {
@@ -144,7 +149,7 @@ const TeamCard = ({ team, user, compUser, fetchTeamCallback }: { team: any, user
                  <span>
                     {/* <p>{team.teamMembers.length} members</p> */}
                     <Badge count = {team.teamMembers.length} color = "blue" style = {{outline: 'none'}} showZero>
-                        <Avatar style={{background: 'none'}}  shape = "square" icon = {<IoMdPerson id = "memberCountIcon" size={28} style={{color: 'grey'}}/>} />
+                        <Avatar style={{background: 'none'}}  shape = "square" icon = {<IoMdPerson id = "memberCountIcon" size={28} style={{color: 'lightgrey'}}/>} />
                     </Badge>
                  </span>
          

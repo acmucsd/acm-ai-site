@@ -5,9 +5,9 @@
 
 .CompetitionPortalPage {
   .noContainer();
+  height: 100vh;
 
   // prevents layout shifts caused by scrollbar 
-  overflow-y: hidden;
   background: @white;
 
 
@@ -15,7 +15,6 @@
     .generic-section();
     .constrained-bounds();
     max-width: 1200px !important;
-
     margin-top: 4rem;
   }
 
@@ -23,7 +22,6 @@
 
 
   #portalStatsContent {
-
 
     p#noTeamMessage {
       margin-top: 2rem;
@@ -44,23 +42,38 @@
     .generic-section();
     .constrained-bounds();
     height: 100vh;
+
     max-width: 1200px !important;
-
-
     .ant-tabs-ink-bar {
       display: none;
     }
   }
 
-  #findTeamsContainer {
-    height: 100vh;
 
-    #teamSearchBar {
-      font-size: 1.2rem;
-      width: 100%;
-    } 
+  #findTeamsContainer {
+
+
+    Input {
+      line-height: 2.5rem ;
+      font-size: @font3;
+    }
   }
 
+}
+
+
+#leaderBoardContainer {
+
+  section {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    
+    Button {
+      .button-black-square();
+    }
+  }
 }
 
 #myTeamContainer {
@@ -79,3 +92,4 @@
     padding: @padding-base3;
   }
 }
+

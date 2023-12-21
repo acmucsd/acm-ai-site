@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Affix, AutoComplete, Avatar, Col, Drawer, Form, List, Row, Skeleton, Tabs, message } from "antd";
-import { Layout, Space, Button, Input, Modal } from 'antd';
+import { Affix, AutoComplete, Avatar, Col, Drawer, List, Row, Skeleton, Tabs, message } from "antd";
+import { Layout, Button, Input, Modal } from 'antd';
 import UserContext, { User } from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
 import {
@@ -14,14 +14,15 @@ import './index.less';
 import path from 'path';
 import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
-import { registerCompetitionUser } from "../../../actions/competition";
+import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
+import Table, { ColumnsType } from "antd/es/table";
 const { Content } = Layout;
 
 
 const FindTeamsTab = (
-    { data, user, compUser, registered, fetchTeams }: 
-    { data: Object[], user: User, compUser: any, registered: Boolean, fetchTeams: () => void }
+    { data, user, compUser, registered, fetchTeams, updateRankings }: 
+    { data: Object[], user: User, compUser: any, registered: Boolean, fetchTeams: () => void, updateRankings: () => void }
 )  => {
 
     // constants to align the pagination options for the teams list
@@ -38,14 +39,12 @@ const FindTeamsTab = (
         }
     }, [data, registered])
 
-
     const handleSearch = (value: string) => {
         // Reset options back to the original data if the value is an empty string
         if (value === "") {
           setOptions(data);
         }
     }
-
 
     const handleSelect = (value: string) => {
 
@@ -57,7 +56,7 @@ const FindTeamsTab = (
     }
 
     return (
-      <Content id="findTeamsContainer" className = "portalTabContent">
+      <Content id="findTeamsContainer">
         <AutoComplete
             id = "teamSearchBar"
             onSearch={(text) => handleSearch(text)}
@@ -73,7 +72,7 @@ const FindTeamsTab = (
             size="large"
             style = {{width: "100%"}}
         >
-            <Input.Search size="large" placeholder="Look up a team name" enterButton />
+            <Input size="large" placeholder="Look up a team name"/>
         </AutoComplete>
 
         {/** List to preview all the teams based on the user's query */}
@@ -83,7 +82,7 @@ const FindTeamsTab = (
             dataSource={options}
             renderItem={(team: any) => (
             <List.Item key = {team.competitionName}>
-                {<TeamCard team = {team} user = {user} compUser = {compUser} fetchTeamCallback = {fetchTeams} />}
+                {<TeamCard team = {team} user = {user} compUser = {compUser} fetchTeamCallback = {fetchTeams} updateRankings = {updateRankings}/>}
             </List.Item>
             )}
         />
@@ -92,14 +91,79 @@ const FindTeamsTab = (
     );
 };
 
-
-
-
-  
-const LeaderBoardTab = ( ) => {
+const LeaderBoardTab = (
+    {rankData, lastRefresh, updateRankingsCallback, isLoading}: 
+    {   
+        rankData: any,
+        lastRefresh: Date | null, 
+        updateRankingsCallback: () => void, 
+        isLoading: boolean
+    }
+) => {
+    const columns: ColumnsType<CompetitionData> = [
+        {
+          title: 'Rank',
+          dataIndex: 'rank',
+          sorter: (a, b) => a.rank - b.rank,
+          defaultSortOrder: 'ascend',
+        },
+        {
+          title: 'Team',
+          dataIndex: 'team',
+          sorter: (a, b) => a.team.length - b.team.length,
+          render(value, record, index) {
+            const color1 = genColor(record.team);
+            const color2 = genColor(`${record.team}_abcs`);
+            return (
+              <span>
+                <div
+                  style={{
+                    display: 'inline-block',
+                    verticalAlign: 'middle',
+                    borderRadius: '50%',
+                    width: '2rem',
+                    height: '2rem',
+                    background: `linear-gradient(30deg, ${color1}, ${color2})`,
+                    marginRight: '0.75rem',
+                  }}
+                ></div>
+                {value.length > 28 ? (
+                  <span>{value.substring(0, 28)}...</span>
+                ) : (
+                  <span>{value.substring(0, 28)}</span>
+                )}
+              </span>
+            );
+          },
+        },
+        {
+          title: 'Score',
+          dataIndex: 'score',
+          sorter: (a, b) => a.score - b.score,
+        },
+    ];
+    
     return (
-      <Content id="leaderBoardContainer" className = "portalTabContent">
-            <h2>Leaderboard</h2>
+      <Content id="leaderBoardContainer">
+            <section>
+
+                <p style={{ marginBottom: '12px', fontWeight: 600 }}>
+                    (Table last refreshed{': '}
+                    {lastRefresh ? lastRefresh.toLocaleString() : ''})
+                </p>
+                <Button
+                    size="large"
+                    className="refresh-btn"
+                    onClick={() => {
+                        updateRankingsCallback();
+                    }}
+                    >
+                        Refresh
+                    </Button> 
+            </section>
+
+            
+            <Table loading={isLoading} columns={columns} dataSource={rankData} />
       </Content>
     );
 };
@@ -109,7 +173,7 @@ const LeaderBoardTab = ( ) => {
 
 
 
-  const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsCallback: () => void}) => {
+const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsCallback: () => void}) => {
 
     const [isLoading, setIsLoading] =  useState<boolean>(false);
     const [newTeamName, setNewTeamName] = useState("");
@@ -162,7 +226,7 @@ const LeaderBoardTab = ( ) => {
     }
 
     return (
-      <Content id="myTeamContainer" className = "portalTabContent">
+      <Content id="myTeamContainer" >
         {compUser.competitionTeam == null && (
 
             <section>
@@ -211,28 +275,39 @@ const LeaderBoardTab = ( ) => {
   
 
 function CompetitionPortalPage ()  {
+
+    const competitionName  = "TestCompetition2";
+
     const history = useHistory();
     const { user } = useContext(UserContext);
     const [compUser, setCompUser] = useState<any>({});
-
-    const [allTeams, setAllTeams] = useState<Array<Object>>([]);
-    const [activeTab, setActiveTab] = useState('1'); // Set the default active tab key
     const [isRegistered, setIsRegistered] = useState<any>(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [allTeams, setAllTeams] = useState<Array<Object>>([]);
+    const [teamInfo, setTeamInfo] = useState<any>({});
 
     const [isLoadingTeamInfo, setIsLoadingTeamInfo] = useState(false);
-    const [teamInfo, setTeamInfo] = useState<any>({});
-    const competitionName  = "TestCompetition2";
+    const [isLoadingLeaderBoard, setIsLoadingLeaderBoard] = useState(false);
+    const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
 
-    // callback function to trigger manual tab focus from elsewhere in the UI
-    const switchActiveTab = (key: string) => {
-        setActiveTab(key);
-    }
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState('1'); // Set the default active tab key
+
+    const [rankData, setRankData] = useState<CompetitionData[]>([]);
+
+    // meta data for current competition
+    const [meta, setMeta] = useState<{
+        competitionName: string;
+        description: string;
+        startDate: string;
+        endDate: string;
+        submissionsEnabled: boolean;
+    } | null>(null);
 
 
-     // Modal props
+
+     // Modal callback to show modal to register user for competition
      const showModal = () => {
         setIsModalOpen(true);
     };
@@ -251,11 +326,9 @@ function CompetitionPortalPage ()  {
             }
             else {
                 setCompUser(res.data);
-                console.log(compUser)
                 getTeams(competitionName).then(res => {
                     if(res.data) {
                         setAllTeams(Array.from(res.data))
-                        console.log(Array.from(res.data));
                     }
                 })
                 .catch(error => {
@@ -265,6 +338,34 @@ function CompetitionPortalPage ()  {
         })
     }
 
+    const getCompMetaData = () => {
+        getMetaData(competitionName).then((res) => {
+            setMeta(res.data);
+        });
+    }
+
+
+    const updateRankings = () => {
+
+        setIsLoadingLeaderBoard(true);
+        getLeaderboard(competitionName).then((res) => {
+        
+            let newData = res.data.map((d: any, index: number) => {
+                return {
+                    rank: index + 1,
+                    team: d.teamName,
+                    score: d.bestScore,
+                    submitHistory: d.submitHistory,
+                };
+            });
+            setLastRefresh(new Date());
+            setRankData(newData);
+            setIsLoadingLeaderBoard(false);
+        });
+       
+      };
+
+
     useEffect(() => {
         if (!user.loggedIn) {
           message.info('You need to login to upload predictions and participate');
@@ -273,9 +374,12 @@ function CompetitionPortalPage ()  {
 
         else {
             fetchTeams();
+            getCompMetaData();
+            updateRankings();
         }
         
     }, [user]);
+
 
     // only grab team info when user is in a team
     useEffect(() => {
@@ -286,15 +390,10 @@ function CompetitionPortalPage ()  {
                 console.log(compUser)
                 getTeamInfo(competitionName, compUser.competitionTeam.teamName).then((res) => {
                     setTeamInfo(res.data);
-
                 })  
             }
             setIsLoadingTeamInfo(false);
-
-
         }
-        
-
     }, [compUser])
 
     
@@ -308,10 +407,9 @@ function CompetitionPortalPage ()  {
                 message.info(res.data.msg);
             }
         })
+    }
 
-      }
 
-    
     return (
         <DefaultLayout>
 
@@ -350,33 +448,26 @@ function CompetitionPortalPage ()  {
                         <h4>Welcome the the AI Portal</h4>
                     </section>
 
-                    {/** This section will display the stats for the user's team otherwise shows default message telling them to find a team */}
-                    
+            
                     <section id = "portalStatsContent">
 
                          {isLoadingTeamInfo ? (
                             <Skeleton active></Skeleton>
                          ):
                           (  <>
-                                {compUser.competitionTeam == null ? (
+                                {compUser.competitionTeam == null ? 
                                     <p id = "noTeamMessage">
                                         Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code, 
                                         then navigate to Find Teams below to join their group!
                                     </p>
-                                )
+                                
                                 : 
-                                    <div>
-                                        <p>Team Name: {teamInfo.teamName}</p>
-                                    </div>
+                                    <div><p>Team Name: {teamInfo.teamName}</p></div>
                                 }
                             </>
                          )}
-                        
-
                     </section>
                 </Content>
-
-            
 
                 <Content id = "portalTabContent">
                     <Tabs
@@ -389,7 +480,11 @@ function CompetitionPortalPage ()  {
                                 {
                                     label: <p>Leaderboard</p>,
                                     key: '1',
-                                    children: LeaderBoardTab(),
+                                    children: <LeaderBoardTab 
+                                        rankData = {rankData}
+                                        lastRefresh = {lastRefresh}
+                                        updateRankingsCallback={updateRankings} 
+                                        isLoading={isLoadingLeaderBoard}/>
                                 },
                                 {
                                     label: <p>Find Teams</p>,
@@ -399,7 +494,8 @@ function CompetitionPortalPage ()  {
                                         user = {user} 
                                         compUser={compUser}
                                         registered = {isRegistered} 
-                                        fetchTeams={fetchTeams}/>
+                                        fetchTeams={fetchTeams}
+                                        updateRankings={updateRankings}/>
                                 },
                                 {
                                     label: <p>My Team</p>,
@@ -416,8 +512,6 @@ function CompetitionPortalPage ()  {
 
         </DefaultLayout>
     );
-
 }
-
 
 export default CompetitionPortalPage;
