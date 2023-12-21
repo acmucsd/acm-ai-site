@@ -17,6 +17,7 @@ import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Paginati
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import Table, { ColumnsType } from "antd/es/table";
+import MainFooter from "../../../components/MainFooter";
 const { Content } = Layout;
 
 
@@ -270,6 +271,7 @@ const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsC
                 </Affix>
             </section>
         )}
+        
       </Content>
     );
   };
@@ -484,28 +486,30 @@ function CompetitionPortalPage ()  {
                          ):
                           (  <>
                                 {compUser.competitionTeam == null ? 
-                                    <p id = "noTeamMessage">
+                                    <section id = "noTeamMessage">
+                                        <p>
                                         Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code, 
                                         then navigate to Find Teams below to join their group!
-                                    </p>
-                                
+                                        </p>
+                                    </section>
+                                    
                                 : 
-                                <section>
-                                    <div className = "portalStatsBox">
-                                        <h3>Your Total Submissions</h3>
-                                    </div>
+                                    <section id = "portalStatsRow">
+                                        <div className = "portalStatsBox">
+                                            <h3>Your Total Submissions</h3>
+                                        </div>
 
-                                    <div className = "portalStatsBox">
-                                        <h3>Team Score</h3>
-                                        <p>{userRankData.score}</p>
-                                    </div>
+                                        <div className = "portalStatsBox">
+                                            <h3>Team Score</h3>
+                                            <p>{userRankData.score}</p>
+                                        </div>
 
-                                    <div className = "portalStatsBox">
-                                        <h3>Ranking</h3>
-                                        <p>{userRankData.rank}</p>
-                                    </div>
+                                        <div className = "portalStatsBox">
+                                            <h3>Ranking</h3>
+                                            <p>{userRankData.rank}</p>
+                                        </div>
 
-                                </section>
+                                    </section>
                                 }
                             </>
                          )}
