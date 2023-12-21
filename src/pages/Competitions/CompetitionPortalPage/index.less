@@ -22,16 +22,54 @@
 
 
   #portalStatsContent {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
     p#noTeamMessage {
       margin-top: 2rem;
+      min-height: 100px;
       text-align: left;
+      align-items: center;
       background: @black;
       border-radius: @radius-base4;
-      padding: @padding-base3;
+      padding: @padding-base2;
       max-width: @sm;
       color: @white;
+    }
 
+    section {
+      display: inline-flex;
+    }
+    .portalStatsBox {
+      min-height: 100px;
+      width: 100%;
+      padding:  @padding-base2;
+      border-radius: @radius-base4;
+      display: flex;
+      flex-direction: column;
+
+      h3, p {
+        color: white;
+      }
+    }
+
+
+    .portalStatsBox:first-child {
+      background-color: @p3;
+    }
+
+    .portalStatsBox:not(:first-child) {
+      background-color: @light-gray;
+      h3, p {
+        color: black;
+      }
+    }
+
+    .portalStatsBox:not(:last-child) {
+      margin-right: 2rem;
     }
     
   }
@@ -69,6 +107,13 @@
     width: 100%;
     justify-content: space-between;
     margin-bottom: 1rem;
+
+    p#lastRefreshedText {
+      background: @light-gray;
+      border-radius: @radius-base4;
+      padding: @padding-base;
+      margin-right: 2rem;
+    }
 
     Button {
       .button-black-square();

@@ -104,7 +104,7 @@ const LeaderBoardTab = (
         {
           title: 'Rank',
           dataIndex: 'rank',
-          sorter: (a, b) => a.rank - b.rank,
+          sorter: (a, b) => b.score - a.score,
           defaultSortOrder: 'ascend',
         },
         {
@@ -113,7 +113,8 @@ const LeaderBoardTab = (
           sorter: (a, b) => a.team.length - b.team.length,
           render(value, record, index) {
             const color1 = genColor(record.team);
-            const color2 = genColor(`${record.team}_abcs`);
+            const color2 = genColor(`${record.team}_additional_seed`);
+
             return (
               <span>
                 <div
@@ -142,12 +143,16 @@ const LeaderBoardTab = (
           sorter: (a, b) => a.score - b.score,
         },
     ];
+
+    useEffect(() => {
+        updateRankingsCallback();
+    }, []);
     
     return (
       <Content id="leaderBoardContainer">
             <section>
 
-                <p style={{ marginRight: '24px'}}>
+                <p id = "lastRefreshedText">
                     Last refreshed{': '}
                     {lastRefresh ? lastRefresh.toLocaleString() : ''}
                 </p>
@@ -161,8 +166,6 @@ const LeaderBoardTab = (
                         Refresh
                     </Button> 
             </section>
-
-            
             <Table loading={isLoading} columns={columns} dataSource={rankData} />
       </Content>
     );
@@ -181,7 +184,6 @@ const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsC
     useEffect(() => {
 
     }, []);
-
 
 
     const generateTeamPicture = () => {
@@ -277,24 +279,37 @@ const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsC
 function CompetitionPortalPage ()  {
 
     const competitionName  = "TestCompetition2";
-
     const history = useHistory();
+
+    // User profile data
     const { user } = useContext(UserContext);
     const [compUser, setCompUser] = useState<any>({});
     const [isRegistered, setIsRegistered] = useState<any>(false);
 
+    // array for all teams
     const [allTeams, setAllTeams] = useState<Array<Object>>([]);
+
+    // Competition Team Data
     const [teamInfo, setTeamInfo] = useState<any>({});
-
     const [isLoadingTeamInfo, setIsLoadingTeamInfo] = useState(false);
-    const [isLoadingLeaderBoard, setIsLoadingLeaderBoard] = useState(false);
-    const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
-
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('1'); // Set the default active tab key
 
-    const [rankData, setRankData] = useState<CompetitionData[]>([]);
+    // Rank data for all teams
+    const [rankingsData, setRankingsData] = useState<CompetitionData[]>([]);
+
+    // Rank data for user's current team
+    const [userRankData, setUserRankData] = useState<CompetitionData>({rank: 0,
+        team: "",
+        score: 0,
+        submitHistory: []}
+    );
+
+    // Loading states for leaderboard data fetching status
+    const [isLoadingLeaderBoard, setIsLoadingLeaderBoard] = useState(false);
+    const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
+
 
     // meta data for current competition
     const [meta, setMeta] = useState<{
@@ -349,8 +364,21 @@ function CompetitionPortalPage ()  {
 
         setIsLoadingLeaderBoard(true);
         getLeaderboard(competitionName).then((res) => {
-        
-            let newData = res.data.map((d: any, index: number) => {
+            console.log(res.data)
+          
+
+            let newData = res.data.sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
+            .map((d: any, index: number) => {
+
+                if(d.teamName === teamInfo.teamName) {
+                    setUserRankData( {
+                        rank: index + 1,
+                        team: d.teamName,
+                        score: d.bestScore,
+                        submitHistory: d.submitHistory,
+                    });
+                }
+
                 return {
                     rank: index + 1,
                     team: d.teamName,
@@ -358,11 +386,11 @@ function CompetitionPortalPage ()  {
                     submitHistory: d.submitHistory,
                 };
             });
+
             setLastRefresh(new Date());
-            setRankData(newData);
+            setRankingsData(newData);
             setIsLoadingLeaderBoard(false);
         });
-       
       };
 
 
@@ -375,10 +403,10 @@ function CompetitionPortalPage ()  {
         else {
             fetchTeams();
             getCompMetaData();
-            updateRankings();
         }
         
     }, [user]);
+
 
 
     // only grab team info when user is in a team
@@ -462,7 +490,22 @@ function CompetitionPortalPage ()  {
                                     </p>
                                 
                                 : 
-                                    <div><p>Team Name: {teamInfo.teamName}</p></div>
+                                <section>
+                                    <div className = "portalStatsBox">
+                                        <h3>Your Total Submissions</h3>
+                                    </div>
+
+                                    <div className = "portalStatsBox">
+                                        <h3>Team Score</h3>
+                                        <p>{userRankData.score}</p>
+                                    </div>
+
+                                    <div className = "portalStatsBox">
+                                        <h3>Ranking</h3>
+                                        <p>{userRankData.rank}</p>
+                                    </div>
+
+                                </section>
                                 }
                             </>
                          )}
@@ -481,7 +524,7 @@ function CompetitionPortalPage ()  {
                                     label: <p>Leaderboard</p>,
                                     key: '1',
                                     children: <LeaderBoardTab 
-                                        rankData = {rankData}
+                                        rankData = {rankingsData}
                                         lastRefresh = {lastRefresh}
                                         updateRankingsCallback={updateRankings} 
                                         isLoading={isLoadingLeaderBoard}/>
