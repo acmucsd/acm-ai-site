@@ -147,9 +147,9 @@ const LeaderBoardTab = (
       <Content id="leaderBoardContainer">
             <section>
 
-                <p style={{ marginBottom: '12px', fontWeight: 600 }}>
-                    (Table last refreshed{': '}
-                    {lastRefresh ? lastRefresh.toLocaleString() : ''})
+                <p style={{ marginRight: '24px'}}>
+                    Last refreshed{': '}
+                    {lastRefresh ? lastRefresh.toLocaleString() : ''}
                 </p>
                 <Button
                     size="large"
@@ -260,7 +260,7 @@ const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsC
 
                 </span>
                 
-                <Affix style={{ position: 'absolute', top: 10, right: 0 }} offsetTop={100}>
+                <Affix style={{ position: 'absolute', right: 0, top: 10}} offsetTop={20}>
                     <div id = "teamAffix">
 
                     <h4>Team Members</h4>
