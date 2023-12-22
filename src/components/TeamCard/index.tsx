@@ -45,7 +45,7 @@ const TeamCard = (
             fetchTeamCallback();
 
             // update the leaderboard with the new team
-            updateRankings();
+            // updateRankings();
           }
         )
         .catch((error) => {
@@ -61,7 +61,7 @@ const TeamCard = (
             setIsModalOpen(false);
 
             fetchTeamCallback();
-            updateRankings();
+            // updateRankings();
         })
         .catch((error) => (
             message.error(error)

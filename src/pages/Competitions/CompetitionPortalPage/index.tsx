@@ -18,6 +18,7 @@ import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompeti
 import { genColor } from "../../../utils/colors";
 import Table, { ColumnsType } from "antd/es/table";
 import MainFooter from "../../../components/MainFooter";
+import { AxiosResponse } from "axios";
 const { Content } = Layout;
 
 
@@ -145,9 +146,7 @@ const LeaderBoardTab = (
         },
     ];
 
-    useEffect(() => {
-        updateRankingsCallback();
-    }, []);
+
     
     return (
       <Content id="leaderBoardContainer">
@@ -323,7 +322,6 @@ function CompetitionPortalPage ()  {
     } | null>(null);
 
 
-
      // Modal callback to show modal to register user for competition
      const showModal = () => {
         setIsModalOpen(true);
@@ -336,13 +334,13 @@ function CompetitionPortalPage ()  {
     const fetchTeams = () => {
           
         getCompetitionUser(competitionName, user.username).then((res) =>  {
-            console.log(res.data)
             if(!res.data.registered) {
                 message.info("you are not registered!");
                 showModal();
             }
             else {
                 setCompUser(res.data);
+
                 getTeams(competitionName).then(res => {
                     if(res.data) {
                         setAllTeams(Array.from(res.data))
@@ -355,20 +353,24 @@ function CompetitionPortalPage ()  {
         })
     }
 
-    const getCompMetaData = () => {
+    // Function to get compeitition meta data
+    const getCompMetaData = async () =>  {
+
         getMetaData(competitionName).then((res) => {
             setMeta(res.data);
-        });
+        })
     }
 
+    // Function to get ranking of user's team and all teams
+    function updateRankings() {
 
-    const updateRankings = () => {
+        console.log("updating ranks for team: ", teamInfo.teamName);
 
         setIsLoadingLeaderBoard(true);
+
         getLeaderboard(competitionName).then((res) => {
             console.log(res.data)
           
-
             let newData = res.data.sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
             .map((d: any, index: number) => {
 
@@ -379,6 +381,8 @@ function CompetitionPortalPage ()  {
                         score: d.bestScore,
                         submitHistory: d.submitHistory,
                     });
+
+                    console.log("user rank data: ", userRankData);
                 }
 
                 return {
@@ -392,10 +396,13 @@ function CompetitionPortalPage ()  {
             setLastRefresh(new Date());
             setRankingsData(newData);
             setIsLoadingLeaderBoard(false);
+            setIsLoadingTeamInfo(false);
+
         });
       };
 
 
+    // If user is not logged in, navigate to auth 
     useEffect(() => {
         if (!user.loggedIn) {
           message.info('You need to login to upload predictions and participate');
@@ -410,7 +417,6 @@ function CompetitionPortalPage ()  {
     }, [user]);
 
 
-
     // only grab team info when user is in a team
     useEffect(() => {
         setIsLoadingTeamInfo(true);
@@ -422,11 +428,31 @@ function CompetitionPortalPage ()  {
                     setTeamInfo(res.data);
                 })  
             }
+            else {
+                setIsLoadingTeamInfo(false);
+            }
+        }
+        else {
             setIsLoadingTeamInfo(false);
         }
+            
+        
+
     }, [compUser])
 
-    
+
+
+    // Get the updated rankings based on the state of the user's membership to a team
+    useEffect(() => {
+
+            updateRankings();
+        
+
+    }, [teamInfo]);
+
+
+
+    // When user registers for compeititons, allow access to portal
     const onSubmit = () => {
         registerCompetitionUser(competitionName, user.username).then((res) =>  {
             if (res.data.msg == "Success") {
@@ -501,6 +527,7 @@ function CompetitionPortalPage ()  {
 
                                         <div className = "portalStatsBox">
                                             <h3>Team Score</h3>
+                                            {}
                                             <p>{userRankData.score}</p>
                                         </div>
 
