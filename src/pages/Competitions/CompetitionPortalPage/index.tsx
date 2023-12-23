@@ -601,7 +601,7 @@ function CompetitionPortalPage ()  {
                                     <section id = "portalStatsRow">
                                         <div className = "portalStatsBox">
                                             <span>
-                                                <FaCheck size = {20} style = {{padding: "6px", borderRadius: "8px", color: "blue", background: "lightblue", marginRight: "1rem"}}/>
+                                                <FaCheck size = {20} style = {{padding: "6px", borderRadius: "8px", color: "#ff6f6f", background: "pink", marginRight: "1rem"}}/>
                                                 <p>Your Submissions</p>
                                             </span>
 
@@ -611,7 +611,7 @@ function CompetitionPortalPage ()  {
 
                                         <div className = "portalStatsBox">
                                             <span>
-                                                <BiStats size = {24} style = {{padding: "4px", borderRadius: "8px", color: "green", background: "lightgreen", marginRight: "1rem"}}/>
+                                                <BiStats size = {24} style = {{padding: "4px", borderRadius: "8px", color: "#fe8019", background: "#FCC777", marginRight: "1rem"}}/>
                                                 <p>Best Score</p>
                                             </span>
                                             

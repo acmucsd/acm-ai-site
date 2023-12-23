@@ -79,11 +79,12 @@
       border-radius: @radius-base4;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       transition: background-color 0.2s ease-in;
       margin-bottom: 2rem;
 
       flex: 1 0 20%;
-      min-width: 0; /* Ensure items can shrink */
+      min-width: 100px; /* Ensure items can shrink */
       box-sizing: border-box;
 
       span {
@@ -106,13 +107,22 @@
       } 
     }
 
+
     @media screen and (max-width: @md) {
       .portalStatsBox {
         flex: 1 0 45%;
         margin-bottom: 2rem;
       }
-  
     }
+      
+
+    @media screen and (max-width: @lg) {
+        span p {
+            width: 100%;
+        }
+    }
+  
+    
 
  
     .portalStatsBox:not(:last-child) {
@@ -137,7 +147,7 @@
   
         .scoreBar {
           border-radius: @radius-base1;
-          background-color: darkgray;
+          background-color: @b2;
           width: 2rem;
           transition: all 0.2s ease-in;
           
@@ -193,6 +203,12 @@
       border-radius: @radius-base4;
       padding: @padding-base;
       margin-right: 2rem;
+    }
+
+    @media screen and (max-width: @sm) {
+      p#lastRefreshedText {
+        display: none;
+      }
     }
 
     Button {
