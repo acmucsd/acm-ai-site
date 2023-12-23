@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Affix, AutoComplete, Avatar, Col, Drawer, List, Row, Skeleton, Tabs, message } from "antd";
+import { Affix, AutoComplete, Avatar, Col, Drawer, List, Row, Skeleton, Tabs, Tooltip, message } from "antd";
 import { Layout, Button, Input, Modal } from 'antd';
 import UserContext, { User } from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
@@ -16,9 +16,11 @@ import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
+import { IoHelp } from "react-icons/io5";
 import Table, { ColumnsType } from "antd/es/table";
 import MainFooter from "../../../components/MainFooter";
 import { AxiosResponse } from "axios";
+
 const { Content } = Layout;
 
 
@@ -312,6 +314,9 @@ function CompetitionPortalPage ()  {
     const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
 
+    const [barHeights, setBarHeights] = useState<number[]>([]);
+    const [scale, setScale] = useState<number>(1);
+
     // meta data for current competition
     const [meta, setMeta] = useState<{
         competitionName: string;
@@ -436,6 +441,18 @@ function CompetitionPortalPage ()  {
     }, []);
 
 
+
+    /**
+     * Function to directly get the udpated team information without any 
+     * use effect dependencies. Useful whenever the user makes bot 
+     * submissions
+     */
+    const updateTeamInformation = () => {
+        getTeamInfo(competitionName, compUser.competitionTeam.teamName).then((res) => {
+            setTeamInfo(res.data);
+        })  
+    }
+
     /**
      * Whenever the user calls fetchTeams(), the compUser state
      * will usually change. This useEffect will capture 
@@ -451,9 +468,7 @@ function CompetitionPortalPage ()  {
         if(Object.keys(compUser).length !== 0){
             if(compUser.competitionTeam != null){ 
                 console.log(compUser)
-                getTeamInfo(competitionName, compUser.competitionTeam.teamName).then((res) => {
-                    setTeamInfo(res.data);
-                })  
+                updateTeamInformation();
             }
             else {
                 setTeamInfo(null)
@@ -475,7 +490,30 @@ function CompetitionPortalPage ()  {
      */
     useEffect(() => {
         updateRankings();
-        
+
+        if(teamInfo !== null) {
+            console.log("setting bar chart")
+            // update the score history chart here
+            if(teamInfo.scoreHistory) {
+                let scores = teamInfo.scoreHistory.slice(-7);
+                scores = scores.map(Number);
+                setBarHeights(scores);
+    
+                // Find the maximum score
+                const maxScore = Math.max(...scores);
+    
+                 // Set your desired maximum height for the bars
+                const maxBarHeight = 92;
+    
+                // Calculate the scaling factor
+                const scalingFactor = maxBarHeight / maxScore;
+                setScale(scalingFactor);
+                console.log(teamInfo.scoreHistory);
+
+            }
+         
+        }
+                
     }, [teamInfo]);
 
 
@@ -528,8 +566,15 @@ function CompetitionPortalPage ()  {
             <Content className="CompetitionPortalPage">
                 <Content id = "portalHeader">
                     <section>
-                        <h1 className="title2">Hello, {user.username}</h1>
-                        <h4>Welcome the the AI Portal</h4>
+                        <span>
+                            <h1 className="title2">Hello, {user.username}</h1>
+                            <Button icon = {<IoHelp size = {20}/>}></Button>
+
+                        </span>
+                        <div id = "portalBanner">
+                            <p>Welcome the the AI Portal for {competitionName}</p>
+                        </div>
+                            
                     </section>
 
             
@@ -550,18 +595,35 @@ function CompetitionPortalPage ()  {
                                 : 
                                     <section id = "portalStatsRow">
                                         <div className = "portalStatsBox">
-                                            <h3>Your Total Submissions</h3>
+                                            <p>Your Total Submissions</p>
                                         </div>
 
                                         <div className = "portalStatsBox">
-                                            <h3>Team Score</h3>
-                                            {}
+                                            <p>Best Score</p>
+                                        
                                             <p>{userRankData.score}</p>
                                         </div>
 
                                         <div className = "portalStatsBox">
-                                            <h3>Ranking</h3>
+                                            <p>Ranking</p>
                                             <p>{userRankData.rank}</p>
+                                        </div>
+
+                                        <div className = "portalStatsBox">
+                                            <p>Score History</p>
+                                            <div id = "scoreHistoryChart">
+                                                {barHeights.map((height:number, index:any) => (
+                                                    <Tooltip title={height}>
+                                                        <div
+                                                            key={index}
+                                                            className="scoreBar"
+                                                            style={{ height: `${height * scale}px`}}
+                                                        ></div>
+
+                                                    </Tooltip>
+                                                ))}
+                                            </div>
+            
                                         </div>
 
                                     </section>

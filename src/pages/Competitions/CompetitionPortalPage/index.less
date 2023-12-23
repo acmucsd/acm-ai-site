@@ -16,62 +16,137 @@
     .constrained-bounds();
     max-width: 1200px !important;
     margin-top: 4rem;
+
+    span {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      Button {
+        .button-black-square();
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    #portalBanner {
+      .gradient();
+      border-radius: @radius-base4;
+      padding: @padding-base2;
+      margin-top: 1rem;
+      box-sizing: border-box;
+
+      p {
+        color: white;
+      }
+    }
   }
 
 
 
 
   #portalStatsContent {
+    
     width: 100%;
+    min-height: 120px;
     margin-top: 2rem;
 
 
     section#noTeamMessage {
-      min-height: 100px;
+      height: 108px;
       text-align: left;
-      align-items: center;
-      background: @black;
-      border-radius: @radius-base4;
+      align-items: start;
       padding: @padding-base2;
       max-width: @sm;
-      color: @white;
+      color: @black;
     }
 
-    section {
-      display: inline-flex;
-    }
-    .portalStatsBox {
-      min-height: 100px;
+
+    #portalStatsRow {
+      display: flex;
+      flex-wrap: wrap;
       width: 100%;
+      justify-content: space-between;
+    }
+
+    .portalStatsBox {
+      background-color: @light-gray;
+      box-shadow: @bx3;
+      box-sizing: border-box;
+      height: 140px;
       padding:  @padding-base2;
       border-radius: @radius-base4;
       display: flex;
       flex-direction: column;
+      transition: background-color 0.2s ease-in;
+      margin-bottom: 2rem;
 
-      h3, p {
-        color: white;
+      flex: 1 0 20%;
+      min-width: 0; /* Ensure items can shrink */
+      box-sizing: border-box;
+
+      p {
+        color: @black;
       }
+
+      p:nth-of-type(2) {
+        font-size: 2.8rem;
+        font-weight: @semi-bold;
+        margin-top: 1rem;
+      } 
     }
 
-
-    .portalStatsBox:first-child {
-      background-color: @p3;
-    }
-
-    .portalStatsBox:not(:first-child) {
-      background-color: @light-gray;
-      h3, p {
-        color: black;
+    @media screen and (max-width: @md) {
+      .portalStatsBox {
+        flex: 1 0 45%;
+        margin-bottom: 2rem;
       }
+  
     }
 
+ 
     .portalStatsBox:not(:last-child) {
       margin-right: 2rem;
     }
+
+    .portalStatsBox:last-child {
+      background: none;
+      box-shadow: none;
+      padding: 0;
+      margin-left: 2rem;
+
+      p {
+        margin-bottom: 2rem;
+        font-weight: @semi-bold;
+      }
+
+      #scoreHistoryChart {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+  
+        .scoreBar {
+          border-radius: @radius-base1;
+          background-color: darkgray;
+          width: 2rem;
+          transition: all 0.2s ease-in;
+          
+        }
+        .scoreBar:hover{
+          background-color: @mainred;
+        }
+
+  
+        .scoreBar:not(:last-child) {
+          margin-right: 1rem;
+        }
+      }
+    }
+
     
   }
-
-
 
   #portalTabContent {
     .generic-section();
