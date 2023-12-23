@@ -292,7 +292,7 @@ function CompetitionPortalPage ()  {
 
     // Competition Team Data
     const [teamInfo, setTeamInfo] = useState<any>({});
-    const [isLoadingTeamInfo, setIsLoadingTeamInfo] = useState(false);
+    const [isLoadingTeamInfo, setIsLoadingTeamInfo] = useState(true);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('1'); // Set the default active tab key
@@ -330,17 +330,27 @@ function CompetitionPortalPage ()  {
         setIsModalOpen(false);
     };
 
-    // Function to directly fetch all the teams
+    /** 
+     * Fetches the comp user first to handle cases where the user
+     * may have joined or left a team prior to this, so we need to get their most up to date
+     * competition profile data.
+     * More importantly, we need to check if the user is registered before we fetch 
+     * any other data.
+     **/
     const fetchTeams = () => {
           
         getCompetitionUser(competitionName, user.username).then((res) =>  {
             if(!res.data.registered) {
                 message.info("you are not registered!");
+
+                // Expose the register modal. When user registers, the page will reload
                 showModal();
             }
-            else {
+            else {  
+                // update the compeition user state
                 setCompUser(res.data);
 
+                // fetch all the teams
                 getTeams(competitionName).then(res => {
                     if(res.data) {
                         setAllTeams(Array.from(res.data))
@@ -364,7 +374,7 @@ function CompetitionPortalPage ()  {
     // Function to get ranking of user's team and all teams
     function updateRankings() {
 
-        console.log("updating ranks for team: ", teamInfo.teamName);
+        // console.log("updating ranks for team: ", teamInfo.teamName);
 
         setIsLoadingLeaderBoard(true);
 
@@ -374,16 +384,19 @@ function CompetitionPortalPage ()  {
             let newData = res.data.sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
             .map((d: any, index: number) => {
 
-                if(d.teamName === teamInfo.teamName) {
-                    setUserRankData( {
-                        rank: index + 1,
-                        team: d.teamName,
-                        score: d.bestScore,
-                        submitHistory: d.submitHistory,
-                    });
-
-                    console.log("user rank data: ", userRankData);
+                if(teamInfo != null) {
+                    if(d.teamName === teamInfo.teamName) {
+                        setUserRankData( {
+                            rank: index + 1,
+                            team: d.teamName,
+                            score: d.bestScore,
+                            submitHistory: d.submitHistory,
+                        });
+    
+                        console.log("user rank data: ", userRankData);
+                    }
                 }
+            
 
                 return {
                     rank: index + 1,
@@ -402,7 +415,10 @@ function CompetitionPortalPage ()  {
       };
 
 
-    // If user is not logged in, navigate to auth 
+    /**
+     * On first page load, check if user is logged in.
+     * Otherwise, fetch all the teams and competition metadata
+     */
     useEffect(() => {
         if (!user.loggedIn) {
           message.info('You need to login to upload predictions and participate');
@@ -410,17 +426,28 @@ function CompetitionPortalPage ()  {
         }
 
         else {
+            // Fetch teams will set the comp user state and grab all teams
+            setIsLoadingTeamInfo(true);
+
             fetchTeams();
             getCompMetaData();
         }
         
-    }, [user]);
+    }, []);
 
 
-    // only grab team info when user is in a team
+    /**
+     * Whenever the user calls fetchTeams(), the compUser state
+     * will usually change. This useEffect will capture 
+     * those state transitions and check the comp user
+     * details. Here we use the compUser's team property
+     * to update the current teamInfo (Object)
+     * 
+     */
     useEffect(() => {
         setIsLoadingTeamInfo(true);
 
+        // If comp user is in a team, grab the team information
         if(Object.keys(compUser).length !== 0){
             if(compUser.competitionTeam != null){ 
                 console.log(compUser)
@@ -429,25 +456,26 @@ function CompetitionPortalPage ()  {
                 })  
             }
             else {
+                setTeamInfo(null)
                 setIsLoadingTeamInfo(false);
             }
         }
         else {
+            setTeamInfo(null)
             setIsLoadingTeamInfo(false);
         }
             
-        
-
     }, [compUser])
 
 
 
-    // Get the updated rankings based on the state of the user's membership to a team
+    /** 
+     * Gets the updated rankings on first page load and 
+     * based on the state of the user's membership to a team
+     */
     useEffect(() => {
-
-            updateRankings();
+        updateRankings();
         
-
     }, [teamInfo]);
 
 
