@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Affix, AutoComplete, Avatar, Col, Drawer, List, Row, Skeleton, Tabs, Tooltip, message } from "antd";
+import { Affix, AutoComplete, Statistic, Drawer, List, Skeleton, Tabs, Tooltip, message } from "antd";
+import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Modal } from 'antd';
 import UserContext, { User } from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
@@ -320,6 +321,7 @@ function CompetitionPortalPage ()  {
 
 
     const [barHeights, setBarHeights] = useState<number[]>([]);
+    const [scoreHistoryPercentage, setScoreHistoryPercentage] = useState<number>(0);
     const [scale, setScale] = useState<number>(1);
 
     // meta data for current competition
@@ -506,6 +508,12 @@ function CompetitionPortalPage ()  {
     
                 // Find the maximum score
                 const maxScore = Math.max(...scores);
+
+                // Find relative growth of scores
+                let lastTwo = scores.slice(-2);
+                const diff = lastTwo[1] - lastTwo[0];
+                const percent = diff / lastTwo[0];
+                setScoreHistoryPercentage(percent);
     
                  // Set your desired maximum height for the bars
                 const maxBarHeight = 92;
@@ -573,7 +581,10 @@ function CompetitionPortalPage ()  {
                     <section>
                         <span>
                             <h1 className="title2">Hello, {user.username}</h1>
-                            <Button icon = {<IoHelp size = {20}/>}></Button>
+                            <Tooltip title="Help">
+                                <Button icon = {<IoHelp size = {20}/>}></Button>
+
+                            </Tooltip>
 
                         </span>
                         <div id = "portalBanner">
@@ -627,7 +638,16 @@ function CompetitionPortalPage ()  {
                                         </div>
 
                                         <div className = "portalStatsBox">
-                                            <p>Score History</p>
+                                            <span>
+                                                <p>Score History</p>
+                                                <Statistic
+                                                    value={Math.abs(scoreHistoryPercentage)}
+                                                    precision={2}
+                                                    valueStyle={{ color: scoreHistoryPercentage < 0 ? '#cf1322' : '#3f8600', fontSize: "1.2rem", display:"inline" }}
+                                                    prefix={ scoreHistoryPercentage < 0 ?  <ArrowDownOutlined /> : <ArrowUpOutlined /> }
+                                                    suffix="%"
+                                                />
+                                            </span>
                                             <div id = "scoreHistoryChart">
                                                 {barHeights.map((height:number, index:any) => (
                                                     <Tooltip title={height}>
