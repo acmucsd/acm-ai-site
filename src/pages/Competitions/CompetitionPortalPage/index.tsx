@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Affix, AutoComplete, Statistic, Drawer, List, Skeleton, Tabs, Tooltip, message } from "antd";
+import { Affix, AutoComplete, Statistic, Drawer, List, Skeleton, Tabs, Tooltip, message, Empty } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Modal } from 'antd';
 import UserContext, { User } from "../../../UserContext";
@@ -640,25 +640,43 @@ function CompetitionPortalPage ()  {
                                         <div className = "portalStatsBox">
                                             <span>
                                                 <p>Score History</p>
-                                                <Statistic
-                                                    value={Math.abs(scoreHistoryPercentage)}
-                                                    precision={2}
-                                                    valueStyle={{ color: scoreHistoryPercentage < 0 ? '#cf1322' : '#3f8600', fontSize: "1.2rem", display:"inline" }}
-                                                    prefix={ scoreHistoryPercentage < 0 ?  <ArrowDownOutlined /> : <ArrowUpOutlined /> }
-                                                    suffix="%"
-                                                />
+                                                {scoreHistoryPercentage  ? 
+                                                    <Statistic
+                                                        value={Math.abs(scoreHistoryPercentage)}
+                                                        precision={2}
+                                                        valueStyle={{ color: scoreHistoryPercentage < 0 ? '#cf1322' : '#3f8600', fontSize: "1.2rem", display:"inline" }}
+                                                        prefix={ scoreHistoryPercentage < 0 ?  <ArrowDownOutlined /> : <ArrowUpOutlined /> }
+                                                        suffix="%"
+                                                    />
+                                                    :
+                                                   <></>
+                                                }
                                             </span>
                                             <div id = "scoreHistoryChart">
-                                                {barHeights.map((height:number, index:any) => (
-                                                    <Tooltip title={height}>
+                                                {barHeights.length > 0 ?
+                                                    <>
+                                                    {barHeights.map((height:number, index:any) => (
+                                                        <Tooltip title={height}>
+                                                            <div
+                                                                key={index}
+                                                                className="scoreBar"
+                                                                style={{ height: `${height * scale}px`}}
+                                                            ></div>
+
+                                                        </Tooltip>
+                                                    ))}
+                                                    {Array.from({ length: 7 - barHeights.length }, (index : any) => (
                                                         <div
                                                             key={index}
                                                             className="scoreBar"
-                                                            style={{ height: `${height * scale}px`}}
+                                                            style={{ height: `92px`, backgroundColor: "lightgrey"}}
                                                         ></div>
 
-                                                    </Tooltip>
-                                                ))}
+                                                    ))}
+                                                    </>
+                                                    :
+                                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                                }
                                             </div>
             
                                         </div>
