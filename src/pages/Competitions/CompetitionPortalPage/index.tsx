@@ -17,9 +17,14 @@ import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Paginati
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import { IoHelp } from "react-icons/io5";
+import { BsPatchCheckFill } from "react-icons/bs";
+import { FaCheck, FaStar } from "react-icons/fa";
+import { GrScorecard } from "react-icons/gr";
+
 import Table, { ColumnsType } from "antd/es/table";
 import MainFooter from "../../../components/MainFooter";
 import { AxiosResponse } from "axios";
+import { BiStats } from "react-icons/bi";
 
 const { Content } = Layout;
 
@@ -595,18 +600,30 @@ function CompetitionPortalPage ()  {
                                 : 
                                     <section id = "portalStatsRow">
                                         <div className = "portalStatsBox">
-                                            <p>Your Total Submissions</p>
+                                            <span>
+                                                <FaCheck size = {20} style = {{padding: "6px", borderRadius: "8px", color: "blue", background: "lightblue", marginRight: "1rem"}}/>
+                                                <p>Your Submissions</p>
+                                            </span>
+
+                                            <p className = "stat">0</p>
+                                            
                                         </div>
 
                                         <div className = "portalStatsBox">
-                                            <p>Best Score</p>
-                                        
-                                            <p>{userRankData.score}</p>
+                                            <span>
+                                                <BiStats size = {24} style = {{padding: "4px", borderRadius: "8px", color: "green", background: "lightgreen", marginRight: "1rem"}}/>
+                                                <p>Best Score</p>
+                                            </span>
+                                            
+                                            <p className = "stat">{userRankData.score}</p>
                                         </div>
 
                                         <div className = "portalStatsBox">
-                                            <p>Ranking</p>
-                                            <p>{userRankData.rank}</p>
+                                            <span>
+                                                <FaStar size = {20} style = {{padding: "6px", borderRadius: "8px", color: "red", background: "pink",  marginRight: "1rem"}}/>
+                                                <p>Ranking</p>
+                                            </span>
+                                            <p className = "stat">{userRankData.rank}</p>
                                         </div>
 
                                         <div className = "portalStatsBox">

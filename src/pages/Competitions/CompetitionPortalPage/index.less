@@ -74,8 +74,7 @@
     .portalStatsBox {
       background-color: @light-gray;
       box-shadow: @bx3;
-      box-sizing: border-box;
-      height: 140px;
+      min-height: 140px;
       padding:  @padding-base2;
       border-radius: @radius-base4;
       display: flex;
@@ -87,11 +86,20 @@
       min-width: 0; /* Ensure items can shrink */
       box-sizing: border-box;
 
-      p {
-        color: @black;
+      span {
+        display: flex;
+        justify-content: start;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        
+        p {
+          color: @text-gray3;
+        }
+
       }
 
-      p:nth-of-type(2) {
+      p.stat {
         font-size: 2.8rem;
         font-weight: @semi-bold;
         margin-top: 1rem;
