@@ -225,6 +225,14 @@
 
 #myTeamContainer {
 
+  section {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .mainHeader {
+    margin: 2rem auto;
+  }
 
   #teamNameInput {
     max-width: 300px;
@@ -234,10 +242,61 @@
     margin-top: 1rem;
   }
 
-  #teamAffix {
+  #teamScoreOverview {
     box-shadow: @bx2;
     border-radius: @radius-base4;
     padding: @padding-base3;
+    background-color: @black;
+
+    .statHeader {
+      color: gray;
+      margin-bottom: 0.6rem;;
+    }
+
+    .stat {
+      font-size: 2.5rem;
+      color: @white;
+    }
+
+    .score {
+      font-size: 3.5rem;
+      color: @white;
+    }
+
+    #teamScoreSpecifics {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-top: 2rem;
+    }
+  }
+
+  #teamAffix {
+    margin-left: 2rem;
+
+    .teamMemberName {
+      font-weight: bold;
+    }
+
+    #teamMembersHeader {
+      display: flex;
+      justify-content: space-between;
+      // background-color: aqua;
+
+      .heading {
+        margin: 0.6rem;
+        // background-color: greenyellow;
+      }
+    }
+
+    #teamMember {
+      display: flex;
+      margin: 1.5rem 1rem;
+    }
+  }
+
+  #teamHeader {
+    display: flex;
+    margin-bottom: 2rem;
   }
 }
 

@@ -262,20 +262,59 @@ const MyTeamTab = ( { compUser, fetchTeamsCallback}: {compUser: any, fetchTeamsC
 
         {compUser.competitionTeam !== null && (
             <section>
-                <span id = "team">
-                    {generateTeamPicture()}
-                    <div>
-                        <h3>{compUser.competitionTeam.teamName}</h3>
-                    </div>
-
-                </span>
+                <div id = "teamMainContent">
+                        <div id = "teamHeader">
+                            {generateTeamPicture()}
+                            <div>
+                                <h3>{compUser.competitionTeam.teamName}</h3>
+                                <p>nth place</p>
+                            </div>
+                        </div>
+                        
+                        <div id = "teamScoreOverview">
+                            <p className = "statHeader">score</p>
+                            <p className = "score">0</p>
+                            <div id = "teamScoreSpecifics">
+                                <div>
+                                    <p className = "statHeader">Sigma</p>
+                                    <p className = "stat">0.78</p>
+                                </div>
+                                <div>
+                                    <p className = "statHeader">Mu</p>
+                                    <p className = "stat">0.78</p>
+                                </div>
+                                <div>
+                                    <p className = "statHeader">MSE</p>
+                                    <p className = "stat">0.78</p>
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <h3 className="mainHeader">Upload File</h3>
+                            <input type="file" />
+                            <button type="submit">Upload</button>
+                        </form>
+                        <h3 className="mainHeader">Submission Log</h3>
+                        {/* <p id = "teamDescription">fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds jdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfdsjdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj fsdfdsfds dfsdf sfh jkkdjhk jdshfk kkjkj </p> */}
+                </div>
                 
-                <Affix style={{ position: 'absolute', right: 0, top: 10}} offsetTop={20}>
+                {/* <Affix style={{ position: 'absolute', right: 0, top: 10,}} offsetTop={20}> */}
                     <div id = "teamAffix">
-
-                    <h4>Team Members</h4>
+                        <div id = "teamMembersHeader">
+                            <h3 className= "heading">Team Members</h3>
+                            <Button id = "inviteButton">Invite</Button>
+                        </div>
+                        {compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
+                            <div id = "teamMember" key={index}>
+                                {generateTeamPicture()}
+                                <div>
+                                    <p className="teamMemberName">{member}</p>
+                                    <p>0 submissions</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                </Affix>
+                {/* </Affix> */}
             </section>
         )}
         
