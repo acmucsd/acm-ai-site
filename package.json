@@ -2,6 +2,8 @@
   "name": "@acmucsd/acm-ai-site",
   "version": "2.0.0",
   "dependencies": {
+    "@dicebear/collection": "^7.0.1",
+    "@dicebear/core": "^7.0.1",
     "@types/aos": "^3.0.3",
     "@types/chart.js": "^2.9.27",
     "aos": "^3.0.0-beta.6",

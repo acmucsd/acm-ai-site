@@ -28,6 +28,9 @@ import MainFooter from "../../../components/MainFooter";
 import { AxiosResponse } from "axios";
 import { BiStats } from "react-icons/bi";
 
+import { createAvatar } from '@dicebear/core';
+import { botttsNeutral } from '@dicebear/collection';
+
 const { Content } = Layout;
 
 
@@ -198,20 +201,51 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
         // TODO: replace placeholder link with actual file uploading logic
         action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
         onChange(info) {
-          const { status } = info.file;
-          if (status !== 'uploading') {
-            console.log(info.file, info.fileList);
-          }
-          if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
-          } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-          }
+            const { status } = info.file;
+            if (status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully.`);
+            } else if (status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
         },
         onDrop(e) {
           console.log('Dropped files', e.dataTransfer.files);
         },
-      };
+    };
+
+    const TeamMemberAvatar: React.FC<{ username: string }> = ({ username }) => {
+        const [avatarUrl, setAvatarUrl] = useState('');
+        useEffect(() => {
+            // Generate avatar based on username using DiceBear
+            const svg = createAvatar(botttsNeutral, {
+              seed: username,
+              radius: 50,
+              backgroundType: ["gradientLinear"]
+            });
+        
+            // Convert the SVG string to a data URL
+            const dataUrl = `data:image/svg+xml;base64,${btoa(svg.toString())}`;
+        
+            // Set the avatar URL
+            setAvatarUrl(dataUrl);
+        }, [username]);
+        return (
+            <img
+                src={avatarUrl} 
+                style={
+                    {
+                        width: '4rem',
+                        height: '4rem',
+                        marginRight: '0.75rem'
+                    }
+                }
+                alt={`Avatar for ${username}`} 
+            />
+        );
+    }
 
     const generateTeamPicture = () => {
 
@@ -321,7 +355,6 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                         </form>
                         
                         <h3 className="mainHeader">Submission Log</h3>
-
                     </div>
 
                     {/* <Affix style={{ position: 'absolute', right: 0, top: 10,}} offsetTop={20}> */}
@@ -332,8 +365,8 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                         </div>
                         {compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
                             <div id="teamMember" key={index}>
-                                {generateTeamPicture()}
-                                <div>
+                                <TeamMemberAvatar username={member}></TeamMemberAvatar>
+                                <div className="teamMemberTextWrapper">
                                     <p className="teamMemberName">{member}</p>
                                     <p>0 submissions</p>
                                 </div>
