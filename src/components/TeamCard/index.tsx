@@ -57,7 +57,7 @@ const TeamCard = (
 
     const onLeaveTeam = () => {
         leaveTeam(team.competitionName, user.username, team.teamName).then( (res) => {
-            message.success(res.data.msg);
+            message.success('Successfully left team.');
             setIsModalOpen(false);
 
             fetchTeamCallback();

@@ -10,6 +10,7 @@ import {
     createTeam,
     getCompetitionUser,
     getTeams,
+    leaveTeam
 } from '../../../actions/teams/utils';
 import TeamCard from '../../../components/TeamCard/index';
 import './index.less';
@@ -193,6 +194,16 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [newTeamName, setNewTeamName] = useState<string>("");
     const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
+    const [isLeaveModalVisible, setIsLeaveModalVisible] = useState<boolean>(false);
+
+    // Leave button modal
+    const showLeaveModal = () => {
+        setIsLeaveModalVisible(true);
+    };
+
+    const handleLeaveModalClose = () => {
+        setIsLeaveModalVisible(false);
+    };
 
     // Invite button modal
     const showInviteModal = () => {
@@ -222,7 +233,7 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
             }
         },
         onDrop(e) {
-          console.log('Dropped files', e.dataTransfer.files);
+            console.log('Dropped files', e.dataTransfer.files);
         },
     };
 
@@ -231,20 +242,20 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
         useEffect(() => {
             // Generate avatar based on username using DiceBear
             const svg = createAvatar(botttsNeutral, {
-              seed: username,
-              radius: 50,
-              backgroundType: ["gradientLinear"]
+                seed: username,
+                radius: 50,
+                backgroundType: ["gradientLinear"]
             });
-        
+
             // Convert the SVG string to a data URL
             const dataUrl = `data:image/svg+xml;base64,${btoa(svg.toString())}`;
-        
+
             // Set the avatar URL
             setAvatarUrl(dataUrl);
         }, [username]);
         return (
             <img
-                src={avatarUrl} 
+                src={avatarUrl}
                 style={
                     {
                         width: '4rem',
@@ -252,7 +263,7 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                         marginRight: '0.75rem'
                     }
                 }
-                alt={`Avatar for ${username}`} 
+                alt={`Avatar for ${username}`}
             />
         );
     }
@@ -275,6 +286,17 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                 }}>
             </div>
         )
+    }
+
+    const handleLeaveTeam = () => {
+        leaveTeam(compUser.competitionName, compUser.username, compUser.competitionTeam.teamName).then((res) => {
+            message.success('Successfully left team.');
+            handleLeaveModalClose();
+            fetchTeamsCallback();
+        })
+            .catch((error) => (
+                message.error(error)
+            ));
     }
 
     const handleClick = () => {
@@ -325,8 +347,20 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                 <section>
                     <div id="teamMainContent">
                         <div id="teamHeader">
-                            {generateTeamPicture()}
-                            <h3>{compUser.competitionTeam.teamName}</h3>
+                            <div>{generateTeamPicture()}</div>
+                            <div id="teamNameWrapper">
+                                <h3>{compUser.competitionTeam.teamName}</h3>
+                                <Button size="large" onClick={showLeaveModal}>Leave</Button>
+                                <Modal
+                                    title="Are you sure you want to leave this team?"
+                                    okText="Yes"
+                                    cancelText="No"
+                                    open={isLeaveModalVisible}
+                                    onOk={handleLeaveTeam}
+                                    onCancel={handleLeaveModalClose}
+                                >
+                                </Modal>
+                            </div>
                         </div>
 
                         <div id="teamScoreOverview">
@@ -348,30 +382,30 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                             </div>
                         </div>
                         <h3 className="mainHeader">Upload Submission</h3>
-                        
+
                         <form>
                             <Dragger height={150} {...uploadProps}>
                                 <p className="antUploadDragIcon">
-                                <InboxOutlined />
+                                    <InboxOutlined />
                                 </p>
                                 <p className="antUploadText">Click or drag file to this area to upload</p>
                             </Dragger>
                             <Button
                                 htmlType="submit"
                                 className="submitButton"
-                                >
+                            >
                                 Submit
                             </Button>
                         </form>
-                        
+
                         <h3 className="mainHeader">Submission Log</h3>
                     </div>
 
                     {/* <Affix style={{ position: 'absolute', right: 0, top: 10,}} offsetTop={20}> */}
                     <div id="teamAffix">
                         <div id="teamMembersHeader">
-                            <h3 className="heading">Team Members</h3>
-                            <Button size = "large" id="inviteButton" onClick={showInviteModal}>Invite</Button>
+                            <h3 className="heading">Members</h3>
+                            <Button size="large" id="inviteButton" onClick={showInviteModal}>Invite</Button>
                             <Modal cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
                                 <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
                                 {/* TODO: For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}
