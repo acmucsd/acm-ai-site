@@ -191,7 +191,17 @@ const LeaderBoardTab = (
 const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeamsCallback: () => void }) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [newTeamName, setNewTeamName] = useState("");
+    const [newTeamName, setNewTeamName] = useState<string>("");
+    const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
+
+    // Invite button modal
+    const showInviteModal = () => {
+        setIsInviteModalVisible(true);
+    };
+
+    const handleInviteModalClose = () => {
+        setIsInviteModalVisible(false);
+    };
 
     // Upload submission
     const { Dragger } = Upload;
@@ -361,7 +371,17 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                     <div id="teamAffix">
                         <div id="teamMembersHeader">
                             <h3 className="heading">Team Members</h3>
-                            <Button id="inviteButton">Invite</Button>
+                            <Button id="inviteButton" onClick={showInviteModal}>Invite</Button>
+                            <Modal cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
+                                <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
+                                {/* TODO: For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}
+                                <h3 style={{
+                                    fontWeight: 'bold',
+                                    marginTop: '5px'
+                                }}>
+                                    {compUser.competitionTeam.joinCode}
+                                </h3>
+                            </Modal>
                         </div>
                         {compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
                             <div id="teamMember" key={index}>
