@@ -371,7 +371,7 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                     <div id="teamAffix">
                         <div id="teamMembersHeader">
                             <h3 className="heading">Team Members</h3>
-                            <Button id="inviteButton" onClick={showInviteModal}>Invite</Button>
+                            <Button size = "large" id="inviteButton" onClick={showInviteModal}>Invite</Button>
                             <Modal cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
                                 <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
                                 {/* TODO: For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}

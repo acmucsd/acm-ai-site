@@ -11,7 +11,7 @@
   background: @white;
 
 
-  #portalHeader{
+  #portalHeader {
     .generic-section();
     .constrained-bounds();
     max-width: 1200px !important;
@@ -48,7 +48,7 @@
 
 
   #portalStatsContent {
-    
+
     width: 100%;
     min-height: 120px;
     margin-top: 2rem;
@@ -75,7 +75,7 @@
       background-color: @light-gray;
       box-shadow: @bx3;
       min-height: 140px;
-      padding:  @padding-base2;
+      padding: @padding-base2;
       border-radius: @radius-base4;
       display: flex;
       flex-direction: column;
@@ -84,7 +84,8 @@
       margin-bottom: 2rem;
 
       flex: 1 0 20%;
-      min-width: 100px; /* Ensure items can shrink */
+      min-width: 100px;
+      /* Ensure items can shrink */
       box-sizing: border-box;
 
       span {
@@ -93,7 +94,7 @@
         flex-direction: row;
         align-items: center;
         flex-wrap: wrap;
-        
+
         p {
           color: @text-gray3;
         }
@@ -104,7 +105,7 @@
         font-size: 2.8rem;
         font-weight: @semi-bold;
         margin-top: 1rem;
-      } 
+      }
     }
 
 
@@ -114,17 +115,17 @@
         margin-bottom: 2rem;
       }
     }
-      
+
 
     @media screen and (max-width: @lg) {
-        span p {
-            width: 100%;
-        }
+      span p {
+        width: 100%;
+      }
     }
-  
-    
 
- 
+
+
+
     .portalStatsBox:not(:last-child) {
       margin-right: 2rem;
     }
@@ -135,41 +136,43 @@
       padding: 0;
       margin-left: 2rem;
 
-     span {
+      span {
         display: inline-flex;
         flex-direction: row;
         margin-bottom: 1rem;
+
         p {
           font-weight: @semi-bold;
           width: 100%;
         }
-       
+
       }
 
       #scoreHistoryChart {
         display: flex;
         flex-direction: row;
         align-items: flex-end;
-  
+
         .scoreBar {
           border-radius: @radius-base1;
           background-color: @b2;
           width: 2rem;
           transition: all 0.2s ease-in;
-          
+
         }
-        .scoreBar:hover{
+
+        .scoreBar:hover {
           background-color: @mainred;
         }
 
-  
+
         .scoreBar:not(:last-child) {
           margin-right: 1rem;
         }
       }
     }
 
-    
+
   }
 
   #portalTabContent {
@@ -178,6 +181,7 @@
     height: 100vh;
 
     max-width: 1200px !important;
+
     .ant-tabs-ink-bar {
       display: none;
     }
@@ -188,7 +192,7 @@
     margin-bottom: 5rem;
 
     Input {
-      line-height: 2.5rem ;
+      line-height: 2.5rem;
       font-size: @font3;
     }
   }
@@ -254,7 +258,8 @@
 
     .statHeader {
       color: gray;
-      margin-bottom: 0.6rem;;
+      margin-bottom: 0.6rem;
+      ;
     }
 
     .stat {
@@ -288,12 +293,7 @@
     #teamMembersHeader {
       display: flex;
       justify-content: space-between;
-      // background-color: aqua;
-
-      .heading {
-        margin: 0.6rem;
-        // background-color: greenyellow;
-      }
+      align-items: center;
     }
 
     #teamMember {
@@ -301,10 +301,20 @@
       margin: 1.5rem 1rem;
     }
   }
+
   #teamHeader {
     display: flex;
     margin-bottom: 2rem;
     align-items: center;
   }
-}
 
+  @media screen and (max-width: @sm) {
+    section {
+      display: block
+    }
+
+    #teamAffix {
+      margin-left: 0;
+    }
+  }
+}
