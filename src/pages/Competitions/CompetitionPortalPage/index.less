@@ -7,10 +7,6 @@
   .noContainer();
   height: 100vh;
 
-  // prevents layout shifts caused by scrollbar 
-  background: @white;
-
-
   #portalHeader {
     .generic-section();
     .constrained-bounds();
@@ -72,7 +68,7 @@
     }
 
     .portalStatsBox {
-      background-color: @light-gray;
+      background-color: white;
       box-shadow: @bx3;
       min-height: 140px;
       padding: @padding-base2;
@@ -81,7 +77,6 @@
       flex-direction: column;
       justify-content: space-between;
       transition: background-color 0.2s ease-in;
-      margin-bottom: 2rem;
 
       flex: 1 0 20%;
       min-width: 100px;
@@ -155,10 +150,10 @@
 
         .scoreBar {
           border-radius: @radius-base1;
-          background-color: @b2;
+          background-color: @black;
           width: 2rem;
           transition: all 0.2s ease-in;
-
+          cursor: pointer;
         }
 
         .scoreBar:hover {
@@ -179,12 +174,13 @@
     .generic-section();
     .constrained-bounds();
     height: 100vh;
-
     max-width: 1200px !important;
 
     .ant-tabs-ink-bar {
       display: none;
     }
+
+  
   }
 
 
@@ -238,8 +234,17 @@
     margin: 2rem auto;
   }
 
-  .submitButton {
+  #submitFileButton  {
     margin-top: 1rem;
+    .button-black-square();
+  }
+
+  #makeTeamButton {
+    margin-top: 1rem;
+    width: fit-content;
+  }
+  #leaveTeamButton {
+    border: none;
   }
 
   #teamNameWrapper {
@@ -247,22 +252,29 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+
+    #rankingTag {
+      border-radius: @radius-base4;
+      background-color: rgb(18, 113, 255);
+      padding: 4px 8px;
+      width: fit-content;
+      color: white;
+      transform: translateY(4px);
+      box-sizing: border-box;
+      font-weight: @semi-bold;
+    }
   }
 
   #teamNameInput {
     max-width: 300px;
   }
 
-  #makeTeamButton {
-    margin-top: 1rem;
-  }
-
+  
   #teamScoreOverview {
     box-shadow: @bx2;
     border-radius: @radius-base4;
     padding: @padding-base3;
-    background-color: @black;
-
+    background-color: rgb(21, 19, 19);
     .statHeader {
       color: gray;
       margin-bottom: 0.6rem;
@@ -286,36 +298,75 @@
     }
   }
 
+  #teamHeader {
+    display: flex;
+    margin-bottom: 2rem;
+    align-items: center;
+
+    h3 {
+      font-weight: @semi-bold;
+    }
+  }
+
+  #uploadFileSection, #submissionLogSection {
+    display: block;
+    margin-top: 5rem;
+  }
+
+  #submissionCountDown {
+    background-color: @light-gray;
+    border-radius: @radius-base3;
+    padding: 10px;
+    display: inline-block;
+    margin-left: 1rem;
+  }
+
   #teamAffix {
+    margin-top: 1rem;
+    height: fit-content;
+    box-sizing: border-box;
+    padding: @padding-base3;
+    background-color: @light-gray;
     margin-left: 2rem;
-
-    .teamMemberName {
-      font-weight: bold;
-    }
-
-    .inviteCode {
-      background-color: red;
-    }
+    border-radius: @radius-base4;
 
     #teamMembersHeader {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+        
+      #inviteButton {
+        .button-black-square();
+      }
+
+      .inviteCode {
+        background-color: red;
+      }
+
+
     }
 
-    #teamMember {
+    div.teamMember {
       display: flex;
-      margin: 1.5rem 1rem;
+      padding: 8px;
+      background: none;
+      border-radius: @radius-base4;
+      margin: 1rem 0rem 1rem 0;
+      transition: 0.2s ease-in;
+
+      .teamMemberName {
+        font-weight: bold;
+      }
+    }
+
+    div.teamMember:hover {
+        background-color: white !important;
+        cursor: pointer;
     }
   }
 
-  #teamHeader {
-    display: flex;
-    margin-bottom: 2rem;
-    align-items: center;
-  }
-
-  @media screen and (max-width: @sm) {
+  @media screen and (max-width: @md) {
     section {
       display: block
     }

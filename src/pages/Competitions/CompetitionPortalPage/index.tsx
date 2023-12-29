@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Affix, AutoComplete, Statistic, Drawer, List, Skeleton, Tabs, Tooltip, message, Empty } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined, PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import { Form, Layout, Button, Input, Modal, Upload } from 'antd';
@@ -15,22 +15,22 @@ import {
 import TeamCard from '../../../components/TeamCard/index';
 import './index.less';
 import path from 'path';
+import moment from 'moment';
 import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
-import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser } from "../../../actions/competition";
+import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import { IoHelp } from "react-icons/io5";
-import { BsPatchCheckFill } from "react-icons/bs";
+import { IoEllipsisVertical , IoPersonAdd} from "react-icons/io5";
 import { FaCheck, FaStar } from "react-icons/fa";
-import { GrScorecard } from "react-icons/gr";
-
 import Table, { ColumnsType } from "antd/es/table";
-import MainFooter from "../../../components/MainFooter";
 import { AxiosResponse } from "axios";
 import { BiStats } from "react-icons/bi";
 
 import { createAvatar } from '@dicebear/core';
-import { botttsNeutral } from '@dicebear/collection';
+import { botttsNeutral, identicon } from '@dicebear/collection';
+import CountdownTimer from "./CountDownTimer";
+import TextArea from "antd/es/input/TextArea";
 
 const { Content } = Layout;
 
@@ -189,13 +189,19 @@ const LeaderBoardTab = (
 
 
 
-const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeamsCallback: () => void }) => {
+const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeamsCallback}: { isLoadingTeamInfo: boolean, compUser: any, rankData: any, metaData: any, fetchTeamsCallback: () => void }) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [newTeamName, setNewTeamName] = useState<string>("");
     const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
     const [isLeaveModalVisible, setIsLeaveModalVisible] = useState<boolean>(false);
+    
+    const [submissionFile, setFile] = useState<any>();
+    const [desc, setDesc] = useState<string>('');
+    const [tags, setTags] = useState<Array<string>>([]); // not being used for now
+    const [uploading, setUploading] = useState<boolean>(false);
 
+  
     // Leave button modal
     const showLeaveModal = () => {
         setIsLeaveModalVisible(true);
@@ -220,7 +226,7 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
         name: 'file',
         multiple: false,
         // TODO: replace placeholder link with actual file uploading logic
-        action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
+        // action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
         onChange(info) {
             const { status } = info.file;
             if (status !== 'uploading') {
@@ -228,6 +234,7 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
             }
             if (status === 'done') {
                 message.success(`${info.file.name} file uploaded successfully.`);
+                setFile(info.file)
             } else if (status === 'error') {
                 message.error(`${info.file.name} file upload failed.`);
             }
@@ -237,9 +244,33 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
         },
     };
 
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        setUploading(true);
+        uploadSubmission(
+          submissionFile,
+          tags,
+          desc,
+          compUser.competitionName,
+          compUser.username as string
+        )
+          .then((res) => {
+            message.success('Submission Uploaded Succesfully');
+          })
+          .catch((err) => {
+            message.error(`${err}`);
+          })
+          .finally(() => {
+            setUploading(false);
+          });
+      };
+
     const TeamMemberAvatar: React.FC<{ username: string }> = ({ username }) => {
         const [avatarUrl, setAvatarUrl] = useState('');
+        const [loadingImage, setLoadingImage] = useState(false);
+        
         useEffect(() => {
+            setLoadingImage(true);
             // Generate avatar based on username using DiceBear
             const svg = createAvatar(botttsNeutral, {
                 seed: username,
@@ -252,20 +283,28 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
 
             // Set the avatar URL
             setAvatarUrl(dataUrl);
+
+            setLoadingImage(false);
         }, [username]);
+
         return (
-            <img
-                src={avatarUrl}
-                style={
-                    {
-                        width: '4rem',
-                        height: '4rem',
+            
+            <>
+            {loadingImage ? (
+               <Skeleton active avatar = {true} /> 
+            ) : (
+                <img
+                    src={avatarUrl}
+                    style={{
+                        width: '3.5rem',
+                        height: '3.5rem',
                         marginRight: '0.75rem'
-                    }
-                }
-                alt={`Avatar for ${username}`}
-            />
-        );
+                    }}
+                    alt={`Avatar for ${username}`}
+                />
+            )}
+        </>
+        )
     }
 
     const generateTeamPicture = () => {
@@ -286,6 +325,14 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                 }}>
             </div>
         )
+    }
+
+
+    function getOrdinal(number: any) {
+        const suffixes = ['th', 'st', 'nd', 'rd'];
+        const v = number % 100;
+      
+        return number + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
     }
 
     const handleLeaveTeam = () => {
@@ -321,6 +368,10 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
     }
 
     return (
+        <>
+        {isLoadingTeamInfo ?
+        <Skeleton active avatar = {true}  paragraph={{ rows: 6 }} />
+        :
         <Content id="myTeamContainer" >
             {compUser.competitionTeam == null && (
 
@@ -346,12 +397,18 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
             {compUser.competitionTeam !== null && (
                 <section>
                     <div id="teamMainContent">
+
                         <div id="teamHeader">
-                            <div>{generateTeamPicture()}</div>
+                            <span>{generateTeamPicture()}</span>
                             <div id="teamNameWrapper">
-                                <h3>{compUser.competitionTeam.teamName}</h3>
-                                <Button size="large" onClick={showLeaveModal}>Leave</Button>
+                                <article>
+                                    <h3>{compUser.competitionTeam.teamName}</h3>
+                                    <div id = "rankingTag">{getOrdinal(rankData.rank)} place</div>
+                                </article>
+                            
+                                <Button size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28}/>}></Button>
                                 <Modal
+                                    centered
                                     title="Are you sure you want to leave this team?"
                                     okText="Yes"
                                     cancelText="No"
@@ -363,6 +420,7 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                             </div>
                         </div>
 
+                        {/** TODO: Lowkey don't know what stats would work best here as everything besides the score is not finalized */}
                         <div id="teamScoreOverview">
                             <p className="statHeader">score</p>
                             <p className="score">0</p>
@@ -381,32 +439,62 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                                 </div>
                             </div>
                         </div>
-                        <h3 className="mainHeader">Upload Submission</h3>
 
-                        <form>
-                            <Dragger height={150} {...uploadProps}>
+                        <form id = "uploadFileSection">
+                            <h3 className="mainHeader" style = {{fontWeight: 800}}>Upload Submission</h3>
+                            <TextArea
+                                id ="desc"
+                                rows={1}
+                                size="large"
+                                placeholder="Add a description"
+                                value={desc}
+                                style = {{borderRadius: "16px", marginBottom: "1rem", minHeight: "48px"}}
+                                onChange={(evt) => setDesc(evt.target.value)}
+                            />
+                            <Dragger style = {{borderRadius: "20px"}}height={150} {...uploadProps}>
                                 <p className="antUploadDragIcon">
                                     <InboxOutlined />
                                 </p>
                                 <p className="antUploadText">Click or drag file to this area to upload</p>
                             </Dragger>
-                            <Button
-                                htmlType="submit"
-                                className="submitButton"
-                            >
-                                Submit
-                            </Button>
+
+
+                            <span>
+                                <Button
+                                    size = "large"
+                                    htmlType="submit"
+                                    id ="submitFileButton"
+                                    onClick = {(event) => handleSubmit(event)}
+                                    disabled = {metaData.submissionsEnabled ? false : true}
+                                >
+                                    Submit
+                                </Button>
+                                {/** TODO: Need to disable submissions when countdown reaches 0. Using the metadata would mean fetching constantly. Instead, might need a callback function to 
+                                 *   passed to countdowntimer so it can manipulate UI state here 
+                                 */}
+                                <p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p>
+                            </span>
+                           
                         </form>
 
-                        <h3 className="mainHeader">Submission Log</h3>
+                        {/** TODO: This might have to be its own component
+                         *  Requirements to do this: The submissionLog component will have to utilize some prop drilling (yeah ik it sucks) to access callback functions
+                         *  to update the team information whenever the user deletes their own submissions. Also the whenever the user uploads a file
+                         *  from the myTeam tab, it should trigger an update for the team info and the submission log.
+                         */}
+                        <div id = "submissionLogSection">
+                            <h3 className="mainHeader" style = {{fontWeight: 800}}>Submission Log</h3>
+
+                        </div>
+
+
                     </div>
 
-                    {/* <Affix style={{ position: 'absolute', right: 0, top: 10,}} offsetTop={20}> */}
                     <div id="teamAffix">
                         <div id="teamMembersHeader">
-                            <h3 className="heading">Members</h3>
-                            <Button size="large" id="inviteButton" onClick={showInviteModal}>Invite</Button>
-                            <Modal cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
+                            <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800}}>Members</h3>
+                            <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
+                            <Modal centered cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
                                 <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
                                 {/* TODO: For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}
                                 <h3 style={{
@@ -418,7 +506,7 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                             </Modal>
                         </div>
                         {compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
-                            <div id="teamMember" key={index}>
+                            <div className="teamMember" key={index}>
                                 <TeamMemberAvatar username={member}></TeamMemberAvatar>
                                 <div className="teamMemberTextWrapper">
                                     <p className="teamMemberName">{member}</p>
@@ -427,12 +515,13 @@ const MyTeamTab = ({ compUser, fetchTeamsCallback }: { compUser: any, fetchTeams
                             </div>
                         ))}
                     </div>
-                    {/* </Affix> */}
                 </section>
             )}
-
         </Content>
+         }
+        </>
     );
+    
 };
 
 
@@ -479,7 +568,7 @@ function CompetitionPortalPage() {
     const [scale, setScale] = useState<number>(1);
 
     // meta data for current competition
-    const [meta, setMeta] = useState<{
+    const [metaData, setMetaData] = useState<{
         competitionName: string;
         description: string;
         startDate: string;
@@ -533,7 +622,7 @@ function CompetitionPortalPage() {
     const getCompMetaData = async () => {
 
         getMetaData(competitionName).then((res) => {
-            setMeta(res.data);
+            setMetaData(res.data);
         })
     }
 
@@ -751,7 +840,7 @@ function CompetitionPortalPage() {
                     <section id="portalStatsContent">
 
                         {isLoadingTeamInfo ? (
-                            <Skeleton active></Skeleton>
+                            <Skeleton active  paragraph={{ rows: 4 }} ></Skeleton>
                         ) :
                             (<>
                                 {compUser.competitionTeam == null ?
@@ -766,7 +855,8 @@ function CompetitionPortalPage() {
                                     <section id="portalStatsRow">
                                         <div className="portalStatsBox">
                                             <span>
-                                                <FaCheck size={20} style={{ padding: "6px", borderRadius: "8px", color: "#ff6f6f", background: "pink", marginRight: "1rem" }} />
+                                                {/* <FaCheck size={20} style={{ padding: "6px", borderRadius: "8px", color: "#ff6f6f", background: "pink", marginRight: "1rem" }} /> */}
+                                                <FaCheck size={20} style={{ padding: "6px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
                                                 <p>Your Submissions</p>
                                             </span>
 
@@ -776,7 +866,8 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
-                                                <BiStats size={24} style={{ padding: "4px", borderRadius: "8px", color: "#fe8019", background: "#FCC777", marginRight: "1rem" }} />
+                                                {/* <BiStats size={24} style={{ padding: "4px", borderRadius: "8px", color: "#fe8019", background: "#FCC777", marginRight: "1rem" }} /> */}
+                                                <BiStats size={24} style={{ padding: "4px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
                                                 <p>Best Score</p>
                                             </span>
 
@@ -785,7 +876,8 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
-                                                <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "red", background: "pink", marginRight: "1rem" }} />
+                                                {/* <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "red", background: "pink", marginRight: "1rem" }} /> */}
+                                                <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
                                                 <p>Ranking</p>
                                             </span>
                                             <p className="stat">{userRankData.rank}</p>
@@ -874,7 +966,10 @@ function CompetitionPortalPage() {
                                     label: <p>My Team</p>,
                                     key: '3',
                                     children: <MyTeamTab
+                                        isLoadingTeamInfo = {isLoadingTeamInfo}
                                         compUser={compUser}
+                                        rankData={userRankData}
+                                        metaData={metaData}
                                         fetchTeamsCallback={fetchTeams} />,
                                 },
                             ]
