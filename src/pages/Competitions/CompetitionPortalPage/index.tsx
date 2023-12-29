@@ -20,7 +20,7 @@ import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
-import { IoHelp } from "react-icons/io5";
+import { IoHelp, IoSearch } from "react-icons/io5";
 import { IoEllipsisVertical , IoPersonAdd} from "react-icons/io5";
 import { FaCheck, FaStar } from "react-icons/fa";
 import Table, { ColumnsType } from "antd/es/table";
@@ -87,7 +87,7 @@ const FindTeamsTab = (
                 size="large"
                 style={{ width: "100%" }}
             >
-                <Input size="large" placeholder="Look up a team name" />
+                <Input prefix={<IoSearch size = {20} style = {{marginRight: "0.5rem", color: "lightgrey"}} />}  size="large" placeholder="Look up a team name"  />
             </AutoComplete>
 
             {/** List to preview all the teams based on the user's query */}
@@ -403,7 +403,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
                             <div id="teamNameWrapper">
                                 <article>
                                     <h3>{compUser.competitionTeam.teamName}</h3>
-                                    <div id = "rankingTag">{getOrdinal(rankData.rank)} place</div>
+                                    <p id = "rankingTag">{getOrdinal(rankData.rank)} place</p>
                                 </article>
                             
                                 <Button size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28}/>}></Button>
@@ -423,7 +423,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
                         {/** TODO: Lowkey don't know what stats would work best here as everything besides the score is not finalized */}
                         <div id="teamScoreOverview">
                             <p className="statHeader">score</p>
-                            <p className="score">0</p>
+                            <p className="score">{rankData.score}</p>
                             <div id="teamScoreSpecifics">
                                 <div>
                                     <p className="statHeader">Sigma</p>
@@ -824,11 +824,7 @@ function CompetitionPortalPage() {
                     <section>
                         <span>
                             <h1 className="title2">Hello, {user.username}</h1>
-                            <Tooltip title="Help">
-                                <Button icon={<IoHelp size={20} />}></Button>
-
-                            </Tooltip>
-
+                            <Button size = "large"><p>Help</p></Button>
                         </span>
                         <div id="portalBanner">
                             <p>Welcome the the AI Portal for {competitionName}</p>

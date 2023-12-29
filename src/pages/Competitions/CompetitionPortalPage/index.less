@@ -80,7 +80,6 @@
 
       flex: 1 0 20%;
       min-width: 100px;
-      /* Ensure items can shrink */
       box-sizing: border-box;
 
       span {
@@ -177,7 +176,8 @@
     max-width: 1200px !important;
 
     .ant-tabs-ink-bar {
-      display: none;
+      display: block;
+      background-color: @mainred;
     }
 
   
@@ -185,6 +185,8 @@
 
 
   #findTeamsContainer {
+    margin-top: 1rem;
+
     margin-bottom: 5rem;
 
     Input {
@@ -197,7 +199,7 @@
 
 
 #leaderBoardContainer {
-
+  margin-top: 1rem;
   section {
     display: inline-flex;
     width: 100%;
@@ -224,7 +226,7 @@
 }
 
 #myTeamContainer {
-
+  margin-top: 1rem;
   section {
     display: grid;
     grid-template-columns: 3fr 2fr;
@@ -254,9 +256,9 @@
     width: 100%;
 
     #rankingTag {
-      border-radius: @radius-base4;
+      border-radius: @radius-base5;
       background-color: rgb(18, 113, 255);
-      padding: 4px 8px;
+      padding: 4px 12px;
       width: fit-content;
       color: white;
       transform: translateY(4px);
@@ -272,9 +274,10 @@
   
   #teamScoreOverview {
     box-shadow: @bx2;
-    border-radius: @radius-base4;
+    border-radius: @radius-base5;
     padding: @padding-base3;
     background-color: rgb(21, 19, 19);
+    
     .statHeader {
       color: gray;
       margin-bottom: 0.6rem;
