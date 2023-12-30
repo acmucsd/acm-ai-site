@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Affix, AutoComplete, Statistic, Drawer, List, Skeleton, Tabs, Tooltip, message, Empty } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined, PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import { Form, Layout, Button, Input, Modal, Upload } from 'antd';
@@ -16,6 +16,7 @@ import TeamCard from '../../../components/TeamCard/index';
 import './index.less';
 import path from 'path';
 import moment from 'moment';
+import ChartJS from 'chart.js';
 import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
@@ -31,6 +32,7 @@ import { createAvatar } from '@dicebear/core';
 import { botttsNeutral, identicon } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
 import TextArea from "antd/es/input/TextArea";
+import LineChart from "./LineChart";
 
 const { Content } = Layout;
 
@@ -189,7 +191,7 @@ const LeaderBoardTab = (
 
 
 
-const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeamsCallback}: { isLoadingTeamInfo: boolean, compUser: any, rankData: any, metaData: any, fetchTeamsCallback: () => void }) => {
+const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData , fetchTeamsCallback}: { isLoadingTeamInfo: boolean, compUser: any, rankData: any, teamInfo: any, metaData: any, fetchTeamsCallback: () => void }) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [newTeamName, setNewTeamName] = useState<string>("");
@@ -198,7 +200,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
     
     const [submissionFile, setFile] = useState<any>();
     const [desc, setDesc] = useState<string>('');
-    const [tags, setTags] = useState<Array<string>>([]); // not being used for now
+    // const [tags, setTags] = useState<Array<string>>([]); // not being used for now
     const [uploading, setUploading] = useState<boolean>(false);
 
   
@@ -249,7 +251,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
         setUploading(true);
         uploadSubmission(
           submissionFile,
-          tags,
+          [compUser.username],
           desc,
           compUser.competitionName,
           compUser.username as string
@@ -263,7 +265,8 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
           .finally(() => {
             setUploading(false);
           });
-      };
+    };
+
 
     const TeamMemberAvatar: React.FC<{ username: string }> = ({ username }) => {
         const [avatarUrl, setAvatarUrl] = useState('');
@@ -335,6 +338,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
         return number + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
     }
 
+
     const handleLeaveTeam = () => {
         leaveTeam(compUser.competitionName, compUser.username, compUser.competitionTeam.teamName).then((res) => {
             message.success('Successfully left team.');
@@ -366,6 +370,8 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
 
         setIsLoading(false);
     }
+
+
 
     return (
         <>
@@ -421,23 +427,10 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
                         </div>
 
                         {/** TODO: Lowkey don't know what stats would work best here as everything besides the score is not finalized */}
-                        <div id="teamScoreOverview">
-                            <p className="statHeader">score</p>
-                            <p className="score">{rankData.score}</p>
-                            <div id="teamScoreSpecifics">
-                                <div>
-                                    <p className="statHeader">Sigma</p>
-                                    <p className="stat">0.78</p>
-                                </div>
-                                <div>
-                                    <p className="statHeader">Mu</p>
-                                    <p className="stat">0.78</p>
-                                </div>
-                                <div>
-                                    <p className="statHeader">MSE</p>
-                                    <p className="stat">0.78</p>
-                                </div>
-                            </div>
+
+                        <div id="teamScoreHistorySection">
+                            <h3>Score History</h3>
+                            <LineChart scoreHistory={teamInfo.scoreHistory.map(Number)}/>
                         </div>
 
                         <form id = "uploadFileSection">
@@ -484,37 +477,48 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, metaData , fetchTeam
                          */}
                         <div id = "submissionLogSection">
                             <h3 className="mainHeader" style = {{fontWeight: 800}}>Submission Log</h3>
-
                         </div>
 
 
                     </div>
 
-                    <div id="teamAffix">
-                        <div id="teamMembersHeader">
-                            <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800}}>Members</h3>
-                            <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
-                            <Modal centered cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
-                                <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
-                                {/* TODO: For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}
-                                <h3 style={{
-                                    fontWeight: 'bold',
-                                    marginTop: '5px'
-                                }}>
-                                    {compUser.competitionTeam.joinCode}
-                                </h3>
-                            </Modal>
-                        </div>
-                        {compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
-                            <div className="teamMember" key={index}>
-                                <TeamMemberAvatar username={member}></TeamMemberAvatar>
-                                <div className="teamMemberTextWrapper">
-                                    <p className="teamMemberName">{member}</p>
-                                    <p>0 submissions</p>
-                                </div>
+                    <div id ="sideContent">
+
+                        <div id = "membersBox">
+                            <div id="teamMembersHeader">
+                                <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800}}>Members</h3>
+                                <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
+                                <Modal centered cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
+                                    <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
+                                    {/* TODO: For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}
+                                    <h3 style={{
+                                        fontWeight: 'bold',
+                                        marginTop: '5px'
+                                    }}>
+                                        {compUser.competitionTeam.joinCode}
+                                    </h3>
+                                </Modal>
                             </div>
-                        ))}
+                            {compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
+                                <div className="teamMember" key={index}>
+                                    <TeamMemberAvatar username={member}></TeamMemberAvatar>
+                                    <div className="teamMemberTextWrapper">
+                                        <p className="teamMemberName">{member}</p>
+                                        <p>0 submissions</p>
+                                    </div>
+                                </div>
+                            ))}
+
+                        </div>
+
+                        <div>
+                            <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800}}>Matches</h3>
+                        </div>
                     </div>
+
+                  
+
+                    
                 </section>
             )}
         </Content>
@@ -754,6 +758,7 @@ function CompetitionPortalPage() {
 
                 // Find relative growth of scores
                 let lastTwo = scores.slice(-2);
+                
                 const diff = lastTwo[1] - lastTwo[0];
                 const percent = diff / lastTwo[0];
                 setScoreHistoryPercentage(percent);
@@ -881,6 +886,15 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
+                                                {/* <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "red", background: "pink", marginRight: "1rem" }} /> */}
+                                                <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
+                                                <p>Matches Played</p>
+                                            </span>
+                                            <p className="stat">0</p>
+                                        </div>
+
+                                        {/* <div className="portalStatsBox">
+                                            <span>
                                                 <p>Score History</p>
                                                 {scoreHistoryPercentage ?
                                                     <Statistic
@@ -921,7 +935,7 @@ function CompetitionPortalPage() {
                                                 }
                                             </div>
 
-                                        </div>
+                                        </div> */}
 
                                     </section>
                                 }
@@ -965,6 +979,7 @@ function CompetitionPortalPage() {
                                         isLoadingTeamInfo = {isLoadingTeamInfo}
                                         compUser={compUser}
                                         rankData={userRankData}
+                                        teamInfo={teamInfo}
                                         metaData={metaData}
                                         fetchTeamsCallback={fetchTeams} />,
                                 },
