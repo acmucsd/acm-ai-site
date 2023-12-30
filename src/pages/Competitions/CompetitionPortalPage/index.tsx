@@ -829,7 +829,6 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
-                                                {/* <BiStats size={24} style={{ padding: "4px", borderRadius: "8px", color: "#fe8019", background: "#FCC777", marginRight: "1rem" }} /> */}
                                                 <BiStats size={24} style={{ padding: "4px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
                                                 <p>Best Score</p>
                                             </span>
@@ -839,7 +838,6 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
-                                                {/* <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "red", background: "pink", marginRight: "1rem" }} /> */}
                                                 <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
                                                 <p>Ranking</p>
                                             </span>
@@ -848,57 +846,11 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
-                                                {/* <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "red", background: "pink", marginRight: "1rem" }} /> */}
                                                 <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
                                                 <p>Matches Played</p>
                                             </span>
                                             <p className="stat">0</p>
                                         </div>
-
-                                        {/* <div className="portalStatsBox">
-                                            <span>
-                                                <p>Score History</p>
-                                                {scoreHistoryPercentage ?
-                                                    <Statistic
-                                                        value={Math.abs(scoreHistoryPercentage)}
-                                                        precision={2}
-                                                        valueStyle={{ color: scoreHistoryPercentage < 0 ? '#cf1322' : '#3f8600', fontSize: "1.2rem", display: "inline" }}
-                                                        prefix={scoreHistoryPercentage < 0 ? <ArrowDownOutlined /> : <ArrowUpOutlined />}
-                                                        suffix="%"
-                                                    />
-                                                    :
-                                                    <></>
-                                                }
-                                            </span>
-                                            <div id="scoreHistoryChart">
-                                                {barHeights.length > 0 ?
-                                                    <>
-                                                        {barHeights.map((height: number, index: any) => (
-                                                            <Tooltip title={height}>
-                                                                <div
-                                                                    key={index}
-                                                                    className="scoreBar"
-                                                                    style={{ height: `${height * scale}px` }}
-                                                                ></div>
-
-                                                            </Tooltip>
-                                                        ))}
-                                                        {Array.from({ length: 7 - barHeights.length }, (index: any) => (
-                                                            <div
-                                                                key={index}
-                                                                className="scoreBar"
-                                                                style={{ height: `92px`, backgroundColor: "lightgrey" }}
-                                                            ></div>
-
-                                                        ))}
-                                                    </>
-                                                    :
-                                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                                                }
-                                            </div>
-
-                                        </div> */}
-
                                     </section>
                                 }
                             </>
