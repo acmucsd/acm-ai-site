@@ -511,7 +511,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
 
                         </div>
 
-                        <div>
+                        <div id = "matchesBox">
                             <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800}}>Matches</h3>
                         </div>
                     </div>
