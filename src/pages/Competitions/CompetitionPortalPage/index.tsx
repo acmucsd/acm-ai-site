@@ -345,9 +345,9 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
             handleLeaveModalClose();
             fetchTeamsCallback();
         })
-            .catch((error) => (
-                message.error(error)
-            ));
+        .catch((error) => (
+            message.error(error)
+        ));
     }
 
     const handleClick = () => {
@@ -430,7 +430,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
 
                         <div id="teamScoreHistorySection">
                             <h3>Score History</h3>
-                            <LineChart scoreHistory={teamInfo.scoreHistory.map(Number)}/>
+                            <LineChart scoreHistory={(teamInfo != null) ? teamInfo.scoreHistory.map(Number) : []}/>
                         </div>
 
                         <form id = "uploadFileSection">

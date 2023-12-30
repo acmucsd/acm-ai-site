@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ChartJS from 'chart.js';
+import { Empty } from 'antd';
 
 const chartConfig = {
   type: 'line',
@@ -73,7 +74,7 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
 
   console.log(scoreHistory)
   useEffect(() => {
-    if (chartContainer && chartContainer.current) {
+    if (chartContainer && chartContainer.current && scoreHistory.length != 0) {
       const myChartRef = chartContainer!.current!.getContext('2d');
       const newchart = new ChartJS(myChartRef!, chartConfig);
       setChart(newchart);
@@ -89,11 +90,23 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
    // uses a second hook to address bug where chartContainer ref does not update in time nor triggers callback
    useEffect(() => {
     setTrigger(true);
-  }, []);
+  }, [scoreHistory]);
 
 
-  return <canvas style = {{ width: "100%", marginTop: "3rem", marginBottom: "1.5rem"}} ref={chartContainer} />;
-
+  return (
+    <>
+    {scoreHistory.length == 0 ? 
+      <Empty />
+      : 
+    /* WARNING: DO NOT remove the max height. ChartJS has a bug where changing the scorehistory
+     * causes the line graph to grow down infinitely. This can happen whenever the user leaves and 
+     * joins another team. 
+     */
+    <canvas style = {{ width: "100%", margin: "3rem 0", maxHeight: "400px"}} ref={chartContainer} />
+    }
+    </>
+    )
+      
 };
 
 
