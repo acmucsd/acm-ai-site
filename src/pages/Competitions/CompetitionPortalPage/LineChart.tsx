@@ -73,23 +73,48 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
   const [chartTrigger, setTrigger] = useState(false);
 
   console.log(scoreHistory)
+
   useEffect(() => {
-    if (chartContainer && chartContainer.current && scoreHistory.length != 0) {
-      const myChartRef = chartContainer!.current!.getContext('2d');
-      const newchart = new ChartJS(myChartRef!, chartConfig);
-      setChart(newchart);
-      chartConfig.data.labels = [];
-      for (let i = 0; i < scoreHistory.length; i++) {
-        chartConfig.data.labels.push(i + 1);
+    if (chartContainer.current && scoreHistory.length !== 0) {
+      const myChartRef = chartContainer.current.getContext('2d');
+  
+      if (!chart) {
+        // Create the chart instance only once during the component mount
+        const newChart = new ChartJS(myChartRef!, chartConfig);
+        setChart(newChart);
       }
+  
+      // Update chart data and labels
+      chartConfig.data.labels = Array.from({ length: scoreHistory.length }, (_, i) => i + 1);
       chartConfig.data.datasets[0].data = scoreHistory;
+  
+      // Update the chart
       chart?.update();
     }
   }, [chartTrigger]);
+  // useEffect(() => {
+    
+  //   if (chartContainer && chartContainer.current && scoreHistory.length != 0) {
+     
+  //     const myChartRef = chartContainer!.current!.getContext('2d');
+      
+  //     const newchart = new ChartJS(myChartRef!, chartConfig);
+  //     setChart(newchart);
+      
+  //     chartConfig.data.labels = [];
+  //     for (let i = 0; i < scoreHistory.length; i++) {
+  //       chartConfig.data.labels.push(i + 1);
+  //     }
+      
+  //     chartConfig.data.datasets[0].data = scoreHistory;
+  //     chart?.update();
+  //   }
+  // }, [chartTrigger]);
 
-   // uses a second hook to address bug where chartContainer ref does not update in time nor triggers callback
+  //  // uses a second hook to address bug where chartContainer ref does not update in time nor triggers callback
    useEffect(() => {
     setTrigger(true);
+    
   }, [scoreHistory]);
 
 
