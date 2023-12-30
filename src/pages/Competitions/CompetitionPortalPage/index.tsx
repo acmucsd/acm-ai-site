@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Affix, AutoComplete, Statistic, Drawer, List, Skeleton, Tabs, Tooltip, message, Empty } from "antd";
-import { ArrowDownOutlined, ArrowUpOutlined, PlusOutlined, InboxOutlined } from '@ant-design/icons';
-import { Form, Layout, Button, Input, Modal, Upload } from 'antd';
+import React, { useContext, useEffect, useState } from "react";
+import { AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty } from "antd";
+import { InboxOutlined } from '@ant-design/icons';
+import { Layout, Button, Input, Modal, Upload } from 'antd';
 import type { UploadProps } from 'antd';
 import UserContext, { User } from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
@@ -15,8 +15,6 @@ import {
 import TeamCard from '../../../components/TeamCard/index';
 import './index.less';
 import path from 'path';
-import moment from 'moment';
-import ChartJS from 'chart.js';
 import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
@@ -25,7 +23,6 @@ import { IoHelp, IoSearch } from "react-icons/io5";
 import { IoEllipsisVertical , IoPersonAdd} from "react-icons/io5";
 import { FaCheck, FaStar } from "react-icons/fa";
 import Table, { ColumnsType } from "antd/es/table";
-import { AxiosResponse } from "axios";
 import { BiStats } from "react-icons/bi";
 
 import { createAvatar } from '@dicebear/core';
@@ -566,11 +563,6 @@ function CompetitionPortalPage() {
     const [isLoadingLeaderBoard, setIsLoadingLeaderBoard] = useState(false);
     const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
-
-    const [barHeights, setBarHeights] = useState<number[]>([]);
-    const [scoreHistoryPercentage, setScoreHistoryPercentage] = useState<number>(0);
-    const [scale, setScale] = useState<number>(1);
-
     // meta data for current competition
     const [metaData, setMetaData] = useState<{
         competitionName: string;
@@ -744,36 +736,6 @@ function CompetitionPortalPage() {
      */
     useEffect(() => {
         updateRankings();
-
-        if (teamInfo !== null) {
-            console.log("setting bar chart")
-            // update the score history chart here
-            if (teamInfo.scoreHistory) {
-                let scores = teamInfo.scoreHistory.slice(-7);
-                scores = scores.map(Number);
-                setBarHeights(scores);
-
-                // Find the maximum score
-                const maxScore = Math.max(...scores);
-
-                // Find relative growth of scores
-                let lastTwo = scores.slice(-2);
-                
-                const diff = lastTwo[1] - lastTwo[0];
-                const percent = diff / lastTwo[0];
-                setScoreHistoryPercentage(percent);
-
-                // Set your desired maximum height for the bars
-                const maxBarHeight = 92;
-
-                // Calculate the scaling factor
-                const scalingFactor = maxBarHeight / maxScore;
-                setScale(scalingFactor);
-                console.log(teamInfo.scoreHistory);
-
-            }
-
-        }
 
     }, [teamInfo]);
 

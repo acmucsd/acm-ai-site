@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ChartJS from 'chart.js';
-import { Empty } from 'antd';
+import { Empty, Statistic } from 'antd';
+import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 const chartConfig = {
   type: 'line',
@@ -71,10 +72,21 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
   const chartContainer = useRef<HTMLCanvasElement>(null);
   const [chart, setChart] = useState<ChartJS | null>(null);
   const [chartTrigger, setTrigger] = useState(false);
+  const [scoreHistoryPercentage, setScoreHistoryPercentage] = useState<number>(0);
 
   console.log(scoreHistory)
 
   useEffect(() => {
+    if(scoreHistory.length != 0) {
+
+        // Find relative growth of scores
+        let lastTwo = scoreHistory.slice(-2);
+        
+        const diff = lastTwo[1] - lastTwo[0];
+        const percent = diff / lastTwo[0];
+        setScoreHistoryPercentage(percent);
+    }
+    
     if (chartContainer.current && scoreHistory.length !== 0) {
       const myChartRef = chartContainer.current.getContext('2d');
   
@@ -92,24 +104,7 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
       chart?.update();
     }
   }, [chartTrigger]);
-  // useEffect(() => {
-    
-  //   if (chartContainer && chartContainer.current && scoreHistory.length != 0) {
-     
-  //     const myChartRef = chartContainer!.current!.getContext('2d');
-      
-  //     const newchart = new ChartJS(myChartRef!, chartConfig);
-  //     setChart(newchart);
-      
-  //     chartConfig.data.labels = [];
-  //     for (let i = 0; i < scoreHistory.length; i++) {
-  //       chartConfig.data.labels.push(i + 1);
-  //     }
-      
-  //     chartConfig.data.datasets[0].data = scoreHistory;
-  //     chart?.update();
-  //   }
-  // }, [chartTrigger]);
+
 
   //  // uses a second hook to address bug where chartContainer ref does not update in time nor triggers callback
    useEffect(() => {
@@ -123,14 +118,29 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
     {scoreHistory.length == 0 ? 
       <Empty />
       : 
-    /* WARNING: DO NOT remove the max height. ChartJS has a bug where changing the scorehistory
-     * causes the line graph to grow down infinitely. This can happen whenever the user leaves and 
-     * joins another team. 
-     */
-    <canvas style = {{ width: "100%", margin: "3rem 0", maxHeight: "400px"}} ref={chartContainer} />
-    }
+      /* WARNING: DO NOT remove the max height. ChartJS has a bug where changing the scorehistory
+      * causes the line graph to grow down infinitely. This can happen whenever the user leaves and 
+      * joins another team. 
+      */
+      <div>
+        {scoreHistoryPercentage ?
+          <Statistic
+              value={Math.abs(scoreHistoryPercentage)}
+              precision={2}
+              valueStyle={{ color: scoreHistoryPercentage < 0 ? '#cf1322' : '#3f8600', fontSize: "1.2rem", display: "inline" }}
+              prefix={scoreHistoryPercentage < 0 ? <ArrowDownOutlined /> : <ArrowUpOutlined />}
+              suffix="%"
+          />
+          :
+          <></>
+        }
+        <canvas style = {{ width: "100%", margin: "3rem 0", maxHeight: "400px"}} ref={chartContainer} />
+      </div>
+
+      }
     </>
-    )
+    
+  )
       
 };
 
