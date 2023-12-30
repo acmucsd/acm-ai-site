@@ -127,7 +127,7 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
           <Statistic
               value={Math.abs(scoreHistoryPercentage)}
               precision={2}
-              valueStyle={{ color: scoreHistoryPercentage < 0 ? '#cf1322' : '#3f8600', fontSize: "1.2rem", display: "inline" }}
+              valueStyle={{ color: scoreHistoryPercentage < 0 ? '#cf1322' : '#3f8600', fontSize: "16px", display: "inline" }}
               prefix={scoreHistoryPercentage < 0 ? <ArrowDownOutlined /> : <ArrowUpOutlined />}
               suffix="%"
           />

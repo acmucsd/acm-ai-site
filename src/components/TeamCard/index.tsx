@@ -11,6 +11,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { error } from "console";
 import { genColor } from "../../utils/colors";
+import { FaEllipsisV } from "react-icons/fa";
 
 
 const TeamCard = (
@@ -130,34 +131,30 @@ const TeamCard = (
              </Modal>
  
              {/* If user is in not in team, show option to join team */}
-             <div id = {team.teamID} className = "teamPreviewCard" style = {{ background: team.teamMembers.includes(user.username) ? '#F1F1F1': 'white'}}  onClick={() => showModal()}>
+             <div id = {team.teamID} className = "teamPreviewCard" style = {{ background: team.teamMembers.includes(user.username) ? '#f0f0f0': 'white'}}  onClick={() => showModal()}>
                  <span>
                     <div 
                         style={{
                             display: 'inline-flex',
                             verticalAlign: 'middle',
                             borderRadius: '100px',
-                            width: '32px',
-                            height:'32px',
+                            width: '40px',
+                            height:'40px',
                             background: `linear-gradient(30deg, ${color1}, ${color2})`,
                             marginRight: '1rem',
                         }}>
                     </div>
-                    <h4>{team.teamName}</h4>
+
+                    <div>
+                        <h4>{team.teamName}</h4>
+                        <p style = {{color: "grey", fontSize: "14px"}}>{team.teamMembers.length} members</p>
+                    </div>
+                    
                  </span>
 
-                 <span>
-                    {/* <p>{team.teamMembers.length} members</p> */}
-                    <Badge count = {team.teamMembers.length} color = "blue" style = {{outline: 'none'}} showZero>
-                        <Avatar style={{background: 'none'}}  shape = "square" icon = {<IoMdPerson id = "memberCountIcon" size={28} style={{color: 'lightgrey'}}/>} />
-                    </Badge>
-                 </span>
-         
                  {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}
                  <span id = "teamViewButtonSpan" >
-                    <Button id = "teamViewButton" size="large" shape="round" onClick={() => showModal()}>
-                        <p>View</p>
-                    </Button>
+                    <Button type = "text" ghost id = "teamViewButton" onClick={() => showModal()}><p>view</p></Button>
                  </span>
              </div>
          </>

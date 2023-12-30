@@ -25,7 +25,7 @@ div.teamPreviewCard {
     width: 100%;
     display: grid;
     align-items: center;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr;
     background: @gray;
     padding: @padding-base2;
     border-radius: @radius-base4;
@@ -57,29 +57,16 @@ div.teamPreviewCard {
         justify-content: end;
     }
 
-    @media screen and (max-width: 480px){
-        span#teamViewButtonSpan{
-            display: none;
-        }
-
-        span:nth-of-type(2) {
-            justify-content: end;
-        }
-    }
-}
-
-@media screen and (max-width: 480px){
-    div.teamPreviewCard {
-        grid-template-columns: 1fr 1fr;
-    }
-    
+   
 }
 
 
 
 #teamViewButton {
-    .button-black();
-    width:fit-content;
+    background-color: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
