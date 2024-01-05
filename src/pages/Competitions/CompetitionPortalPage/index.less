@@ -173,9 +173,6 @@
   }
 
   div#teamMainContent {
-    .mainHeader {
-      margin: 2rem auto;
-    }
 
     #submitFileButton {
       margin-top: 1rem;
@@ -231,12 +228,42 @@
       margin-top: 5rem;
     }
 
+    #uploadFileSection {
+      background-color: @light-gray;
+      padding: @padding-base2;
+      border-radius: @radius-base4;
+
+      #uploadFileHeader {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        margin-bottom: 2rem;
+      }
+
+      #uploadDescription { 
+        color: @text-gray;
+        border-radius: @radius-base3;
+      }
+
+      #antUploadText {
+        color: @text-gray;
+      }
+    }
+
     #teamScoreHistorySection {
       
       h3 {
         font-weight: @semi-bold;
       }
     }
+
+    #submissionLogSection {
+      background-color: @light-gray;
+      padding: @padding-base2;
+      border-radius: @radius-base4;
+      margin-bottom: 10rem;
+    }
+
 
     #submissionCountDown {
       background-color: @light-gray;
@@ -298,10 +325,10 @@
     }
 
     div#matchesBox {
+      .gradient();
       height: fit-content;
       box-sizing: border-box;
       padding: @padding-base3;
-      background-color: @light-gray;
       border-radius: @radius-base4;
       margin-top: 3rem;
     }

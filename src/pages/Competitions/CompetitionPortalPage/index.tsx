@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty } from "antd";
+import { AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip } from "antd";
 import { InboxOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Modal, Upload } from 'antd';
 import type { UploadProps } from 'antd';
@@ -19,7 +19,7 @@ import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
-import { IoHelp, IoSearch } from "react-icons/io5";
+import { IoHelp, IoSearch, IoTime } from "react-icons/io5";
 import { IoEllipsisVertical , IoPersonAdd} from "react-icons/io5";
 import { FaCheck, FaStar } from "react-icons/fa";
 import Table, { ColumnsType } from "antd/es/table";
@@ -431,21 +431,30 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                         </div>
 
                         <form id = "uploadFileSection">
-                            <h3 className="mainHeader" style = {{fontWeight: 800}}>Upload Submission</h3>
+                            <span id = "uploadFileHeader">
+                                <h3  style = {{fontWeight: 800}}>Upload Submission</h3>
+                                <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
+                                    <IoTime size = {28} />
+                                </Tooltip>
+                            
+                            </span>
                             <TextArea
-                                id ="desc"
+                                showCount
+                                id ="uploadDescription"
                                 rows={1}
+                                autoSize
+                                maxLength={300}
                                 size="large"
                                 placeholder="Add a description"
                                 value={desc}
-                                style = {{borderRadius: "16px", marginBottom: "1rem", minHeight: "48px"}}
+                                style = {{marginBottom: "2rem", height: "100px", border: "none", resize: "none"}}
                                 onChange={(evt) => setDesc(evt.target.value)}
                             />
-                            <Dragger style = {{borderRadius: "20px"}}height={150} {...uploadProps}>
-                                <p className="antUploadDragIcon">
-                                    <InboxOutlined />
+                            <Dragger style = {{borderRadius: "20px", background: "white", border: "none"}}height={150} {...uploadProps}>
+                                <p id="antUploadDragIcon">
+                                    <InboxOutlined style={{color: "darkgray"}}/>
                                 </p>
-                                <p className="antUploadText">Click or drag file to this area to upload</p>
+                                <p id="antUploadText">Click or drag file to this area to upload</p>
                             </Dragger>
 
 
@@ -462,7 +471,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                                 {/** TODO: Need to disable submissions when countdown reaches 0. Using the metadata would mean fetching constantly. Instead, might need a callback function to 
                                  *   passed to countdowntimer so it can manipulate UI state here 
                                  */}
-                                <p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p>
+                                {/* <p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> */}
                             </span>
                            
                         </form>
@@ -509,7 +518,8 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                         </div>
 
                         <div id = "matchesBox">
-                            <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800}}>Matches</h3>
+                            <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800, color: "white", marginBottom: "1rem"}}>Matches</h3>
+                            <p style = {{color: "white"}}>Check out your team's match replays to see how well youre performing!</p>
                         </div>
                     </div>
 
