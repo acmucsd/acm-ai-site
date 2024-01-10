@@ -258,7 +258,7 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
 }
 
 
-const TeamMemberAvatar: React.FC<{ username: string }> = ({ username }) => {
+export const TeamMemberAvatar = ( {username}:{username: string}) => {
     const [avatarUrl, setAvatarUrl] = useState('');
     const [loadingImage, setLoadingImage] = useState(false);
     

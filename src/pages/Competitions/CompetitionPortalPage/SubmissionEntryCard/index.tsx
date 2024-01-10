@@ -4,6 +4,7 @@ import { IoEllipse, IoEllipsisVertical, IoTime } from "react-icons/io5";
 import moment from "moment";
 import { FaEllipsisH, FaLink, FaPaperclip } from "react-icons/fa";
 import { Button } from "antd";
+import { TeamMemberAvatar } from "../../CompetitionPortalPage";
 
 // export interface competitionEntry {
 //     _id: mongoose.Types.ObjectId,
@@ -71,8 +72,12 @@ const SubmissionEntryCard = (data: any) => {
                   icon = {<FaEllipsisH className = "submissionModalButton" size = {20} onClick={() => openModal()} />}/>
 
             </span>
-            
-            <h3 className = "submissionUserName">{data.entry.tags.split(',')[0]}</h3>
+            <span  style={{display: "inline-flex", alignItems: "center", marginTop:"2rem"}}>
+              <TeamMemberAvatar username={data.entry.tags.split(',')[0]} />
+              <h3 className = "submissionUserName">{data.entry.tags.split(',')[0]}</h3>
+
+            </span>
+
             <p className ="submissionDescription">{data.entry.description}</p>
             <span className = "submissionFileRow">
                 <FaLink  size = {20} style ={{marginRight: "1rem"}}/>
