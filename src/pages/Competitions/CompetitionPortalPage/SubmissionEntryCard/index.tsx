@@ -71,7 +71,8 @@ const SubmissionEntryCard = (data: any) => {
                   icon = {<FaEllipsisH className = "submissionModalButton" size = {20} onClick={() => openModal()} />}/>
 
             </span>
-            {/* <h3 id = "submissionUser">{entry.tags[0]}</h3> */}
+            
+            <h3 className = "submissionUserName">{data.entry.tags.split(',')[0]}</h3>
             <p className ="submissionDescription">{data.entry.description}</p>
             <span className = "submissionFileRow">
                 <FaLink  size = {20} style ={{marginRight: "1rem"}}/>

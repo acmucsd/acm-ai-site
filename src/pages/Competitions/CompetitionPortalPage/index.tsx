@@ -200,7 +200,7 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
 
     const fetchRecents = () => {
 
-        if (teamInfo.submitHistory) {
+        if (teamInfo) {
             teamInfo.submitHistory.slice(0, 3).map((id: any) => {
                 getSubmissionDetails(competitionName, id).then((res) => {
                 let submission = res.data[0];
@@ -221,9 +221,10 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
                     submissionDetails,
                 ]);
 
-                console.log(submissions)
                 });
             });
+
+
         }
     }
     
@@ -375,25 +376,29 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
     };
 
     const handleSubmit = (event: React.FormEvent) => {
+
         event.preventDefault();
-        setUploading(true);
-        uploadSubmission(
-          submissionFile,
-          [compUser.username],
-          desc,
-          compUser.competitionName,
-          compUser.username as string
-        )
-          .then((res) => {
-            message.success('Submission Uploaded Succesfully');
-            fetchTeamsCallback();
-          })
-          .catch((err) => {
-            message.error(`${err}`);
-          })
-          .finally(() => {
-            setUploading(false);
-          });
+        fetchTeamsCallback();
+
+        // TODO: When eval servers are up, uncomment this portion
+        // setUploading(true);
+        // uploadSubmission(
+        //   submissionFile,
+        //   [compUser.username],
+        //   desc,
+        //   compUser.competitionName,
+        //   compUser.username as string
+        // )
+        //   .then((res) => {
+        //     message.success('Submission Uploaded Succesfully');
+        //     fetchTeamsCallback();
+        //   })
+        //   .catch((err) => {
+        //     message.error(`${err}`);
+        //   })
+        //   .finally(() => {
+        //     setUploading(false);
+        //   });
     };
 
 
