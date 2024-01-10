@@ -1,0 +1,40 @@
+@import '../../../../newStyles/text.less';
+@import '../../../../newStyles/components.less';
+@import '../../../../newStyles/index.less';
+
+.submissionPreviewCard {
+    background: white;
+    width: 100%;
+    border-radius: @radius-base4;
+    padding: @padding-base2;
+
+    span.submissionCardHeader {
+        display: inline-flex;
+        justify-content: space-between;
+        width: 100%;
+        p.submissionStatus {
+            padding: 4px 12px;
+            background: @p3;
+            align-self: center;
+            width: fit-content;
+            border-radius: @radius-base5;
+            color: white;
+            margin-right: 1rem;
+        }
+        p.submissionTimeStamp {
+            padding-left: 4px;
+        }
+
+       
+    }
+
+    p.submissionDescription {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    span.submissionFileRow {
+        display: inline-flex;
+        align-items: center;
+    }
+}

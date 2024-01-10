@@ -10,7 +10,8 @@ import {
     createTeam,
     getCompetitionUser,
     getTeams,
-    leaveTeam
+    leaveTeam,
+    getSubmissionDetails
 } from '../../../actions/teams/utils';
 import TeamCard from '../../../components/TeamCard/index';
 import './index.less';
@@ -21,7 +22,7 @@ import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompeti
 import { genColor } from "../../../utils/colors";
 import { IoHelp, IoSearch, IoTime } from "react-icons/io5";
 import { IoEllipsisVertical , IoPersonAdd} from "react-icons/io5";
-import { FaCheck, FaStar } from "react-icons/fa";
+import { FaCheck, FaClock, FaStar } from "react-icons/fa";
 import Table, { ColumnsType } from "antd/es/table";
 import { BiStats } from "react-icons/bi";
 
@@ -30,6 +31,7 @@ import { botttsNeutral, identicon } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
 import TextArea from "antd/es/input/TextArea";
 import LineChart from "./LineChart";
+import SubmissionEntryCard from "./SubmissionEntryCard";
 
 const { Content } = Layout;
 
@@ -185,7 +187,136 @@ const LeaderBoardTab = (
 
 
 
+const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competitionName: string}) => {
 
+    const [submissions, setSubmissions] = useState<any[]>([]);
+
+    // The actual data inside the teamInfo.submitHistory will be a list of mongoose object ids
+    // that point to each competition entry object. This component will query the top three
+    // recent entries and display them in a list view
+    const dummyData = [
+        "63c396f9671b14068b17f681"
+    ];
+
+    const fetchRecents = () => {
+
+        if (teamInfo.submitHistory) {
+            teamInfo.submitHistory.slice(0, 3).map((id: any) => {
+                getSubmissionDetails(competitionName, id).then((res) => {
+                let submission = res.data[0];
+                if (!submission) return;
+                let date = new Date(submission.submissionDate);
+                let submissionDetails = {
+                    date: date,
+                    status: submission.status,
+                    dateString:
+                    date.toLocaleDateString() + ' at ' + date.toLocaleTimeString(),
+                    description: submission.description,
+                    tags: submission.tags.join(', '),
+                    score: submission.score,
+                    key: id,
+                };
+                setSubmissions((submissionData: any) => [
+                    ...submissionData,
+                    submissionDetails,
+                ]);
+
+                console.log(submissions)
+                });
+            });
+        }
+    }
+    
+
+    useEffect(() => {
+        fetchRecents();
+    }, []);
+
+    return (
+        // TODO: display preview of teamInfo submitHistory field with hyperlink to view all submissions
+        <div id = "submissionsPreviewSection">
+            <span id = "submissionsPreviewHeader">
+                <h3 style = {{fontWeight: 800}}>Submission Log</h3>
+                <Button type="text" id = "viewAllSubmissionsButton"><p>view all</p></Button>
+            </span>
+
+            <section id = "submissionsPreviewColumn">
+                <List
+                split={false}
+                dataSource={submissions}
+                renderItem={(data: any) => (
+                    <List.Item>
+                        <SubmissionEntryCard entry = {data}  />
+                    </List.Item>
+                )}
+            />
+                
+            </section>
+        </div>
+    );
+}
+
+
+const TeamMemberAvatar: React.FC<{ username: string }> = ({ username }) => {
+    const [avatarUrl, setAvatarUrl] = useState('');
+    const [loadingImage, setLoadingImage] = useState(false);
+    
+    useEffect(() => {
+        setLoadingImage(true);
+        // Generate avatar based on username using DiceBear
+        const svg = createAvatar(botttsNeutral, {
+            seed: username,
+            radius: 50,
+            backgroundType: ["gradientLinear"]
+        });
+
+        // Convert the SVG string to a data URL
+        const dataUrl = `data:image/svg+xml;base64,${btoa(svg.toString())}`;
+
+        // Set the avatar URL
+        setAvatarUrl(dataUrl);
+
+        setLoadingImage(false);
+    }, [username]);
+
+    return (
+        <>
+        {loadingImage ? (
+           <Skeleton active avatar = {true} /> 
+        ) : (
+            <img
+                src={avatarUrl}
+                style={{
+                    width: '3.5rem',
+                    height: '3.5rem',
+                    marginRight: '0.75rem'
+                }}
+                alt={`Avatar for ${username}`}
+            />
+        )}
+    </>
+    )
+}
+
+const generateTeamPicture = (compUser: any) => {
+
+    const color1 = genColor(compUser.competitionTeam.teamName);
+    const color2 = genColor(`${compUser.competitionTeam.teamName}_additional_seed`);
+
+    return (
+        <div
+            style={{
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                borderRadius: '50%',
+                width: '4rem',
+                height: '4rem',
+                background: `linear-gradient(30deg, ${color1}, ${color2})`,
+                marginRight: '0.75rem',
+            }}>
+        </div>
+    )
+}
 
 
 const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData , fetchTeamsCallback}: { isLoadingTeamInfo: boolean, compUser: any, rankData: any, teamInfo: any, metaData: any, fetchTeamsCallback: () => void }) => {
@@ -255,6 +386,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
         )
           .then((res) => {
             message.success('Submission Uploaded Succesfully');
+            fetchTeamsCallback();
           })
           .catch((err) => {
             message.error(`${err}`);
@@ -265,73 +397,9 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
     };
 
 
-    const TeamMemberAvatar: React.FC<{ username: string }> = ({ username }) => {
-        const [avatarUrl, setAvatarUrl] = useState('');
-        const [loadingImage, setLoadingImage] = useState(false);
-        
-        useEffect(() => {
-            setLoadingImage(true);
-            // Generate avatar based on username using DiceBear
-            const svg = createAvatar(botttsNeutral, {
-                seed: username,
-                radius: 50,
-                backgroundType: ["gradientLinear"]
-            });
-
-            // Convert the SVG string to a data URL
-            const dataUrl = `data:image/svg+xml;base64,${btoa(svg.toString())}`;
-
-            // Set the avatar URL
-            setAvatarUrl(dataUrl);
-
-            setLoadingImage(false);
-        }, [username]);
-
-        return (
-            
-            <>
-            {loadingImage ? (
-               <Skeleton active avatar = {true} /> 
-            ) : (
-                <img
-                    src={avatarUrl}
-                    style={{
-                        width: '3.5rem',
-                        height: '3.5rem',
-                        marginRight: '0.75rem'
-                    }}
-                    alt={`Avatar for ${username}`}
-                />
-            )}
-        </>
-        )
-    }
-
-    const generateTeamPicture = () => {
-
-        const color1 = genColor(compUser.competitionTeam.teamName);
-        const color2 = genColor(`${compUser.competitionTeam.teamName}_additional_seed`);
-
-        return (
-            <div
-                style={{
-                    display: 'inline-block',
-                    verticalAlign: 'middle',
-                    borderRadius: '50%',
-                    width: '4rem',
-                    height: '4rem',
-                    background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                    marginRight: '0.75rem',
-                }}>
-            </div>
-        )
-    }
-
-
     function getOrdinal(number: any) {
         const suffixes = ['th', 'st', 'nd', 'rd'];
         const v = number % 100;
-      
         return number + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
     }
 
@@ -402,14 +470,14 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                     <div id="teamMainContent">
 
                         <div id="teamHeader">
-                            <span>{generateTeamPicture()}</span>
+                            <span>{generateTeamPicture(compUser)}</span>
                             <div id="teamNameWrapper">
                                 <article>
                                     <h3>{compUser.competitionTeam.teamName}</h3>
                                     <p id = "rankingTag">{getOrdinal(rankData.rank)} place</p>
                                 </article>
                             
-                                <Button size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28}/>}></Button>
+                                <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28}/>}></Button>
                                 <Modal
                                     centered
                                     title="Are you sure you want to leave this team?"
@@ -434,18 +502,18 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                             <span id = "uploadFileHeader">
                                 <h3  style = {{fontWeight: 800}}>Upload Submission</h3>
                                 <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
-                                    <IoTime size = {28} />
+                                    <FaClock size = {28} />
                                 </Tooltip>
                             
                             </span>
                             <TextArea
-                                showCount
+                                // showCount
                                 id ="uploadDescription"
                                 rows={1}
                                 autoSize
                                 maxLength={300}
                                 size="large"
-                                placeholder="Add a description"
+                                placeholder="Add a description. Max character limit of 300"
                                 value={desc}
                                 style = {{marginBottom: "2rem", height: "100px", border: "none", resize: "none"}}
                                 onChange={(evt) => setDesc(evt.target.value)}
@@ -458,21 +526,17 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                             </Dragger>
 
 
-                            <span>
-                                <Button
-                                    size = "large"
-                                    htmlType="submit"
-                                    id ="submitFileButton"
-                                    onClick = {(event) => handleSubmit(event)}
-                                    disabled = {metaData.submissionsEnabled ? false : true}
-                                >
-                                    Submit
-                                </Button>
-                                {/** TODO: Need to disable submissions when countdown reaches 0. Using the metadata would mean fetching constantly. Instead, might need a callback function to 
-                                 *   passed to countdowntimer so it can manipulate UI state here 
-                                 */}
-                                {/* <p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> */}
-                            </span>
+                        
+                            <Button
+                                size = "large"
+                                htmlType="submit"
+                                id ="submitFileButton"
+                                onClick = {(event) => handleSubmit(event)}
+                                disabled = {metaData.submissionsEnabled ? false : true}
+                            >
+                                Submit
+                            </Button>
+                            
                            
                         </form>
 
@@ -481,9 +545,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                          *  to update the team information whenever the user deletes their own submissions. Also the whenever the user uploads a file
                          *  from the myTeam tab, it should trigger an update for the team info and the submission log.
                          */}
-                        <div id = "submissionLogSection">
-                            <h3 className="mainHeader" style = {{fontWeight: 800}}>Submission Log</h3>
-                        </div>
+                        <SubmissionsPreview  teamInfo={teamInfo} competitionName= {metaData.competitionName} />
 
 
                     </div>
@@ -522,10 +584,6 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                             <p style = {{color: "white"}}>Check out your team's match replays to see how well youre performing!</p>
                         </div>
                     </div>
-
-                  
-
-                    
                 </section>
             )}
         </Content>
@@ -878,6 +936,7 @@ function CompetitionPortalPage() {
                             [
                                 {
                                     label: <p>Leaderboard</p>,
+                                    disabled: isLoadingTeamInfo,
                                     key: '1',
                                     children: <LeaderBoardTab
                                         rankData={rankingsData}
@@ -887,6 +946,7 @@ function CompetitionPortalPage() {
                                 },
                                 {
                                     label: <p>Find Teams</p>,
+                                    disabled: isLoadingTeamInfo,
                                     key: '2',
                                     children: <FindTeamsTab
                                         data={allTeams}
@@ -898,6 +958,7 @@ function CompetitionPortalPage() {
                                 },
                                 {
                                     label: <p>My Team</p>,
+                                    disabled: isLoadingTeamInfo,
                                     key: '3',
                                     children: <MyTeamTab
                                         isLoadingTeamInfo = {isLoadingTeamInfo}

@@ -175,7 +175,7 @@
   div#teamMainContent {
 
     #submitFileButton {
-      margin-top: 1rem;
+      margin-top: 2rem;
       .button-black-square();
     }
 
@@ -197,7 +197,7 @@
       #rankingTag {
         border-radius: @radius-base5;
         background-color: rgb(18, 113, 255);
-        padding: 4px 10px;
+        padding: 4px 12px;
         width: fit-content;
         color: white;
         transform: translateY(4px);
@@ -222,7 +222,7 @@
     }
 
     #uploadFileSection,
-    #submissionLogSection,
+    #submissionsPreviewSection,
     #teamScoreHistorySection {
       display: block;
       margin-top: 5rem;
@@ -241,7 +241,7 @@
       }
 
       #uploadDescription { 
-        color: @text-gray;
+        color: @black;
         border-radius: @radius-base3;
       }
 
@@ -257,11 +257,30 @@
       }
     }
 
-    #submissionLogSection {
+    #submissionsPreviewSection {
       background-color: @light-gray;
       padding: @padding-base2;
       border-radius: @radius-base4;
       margin-bottom: 10rem;
+
+      span#submissionsPreviewHeader {
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      Button#viewAllSubmissionsButton {
+        display: flex;
+        align-items: center;
+      }
+
+      section#submissionsPreviewColumn {
+        width: 100%;
+        display: block;
+        margin-top: @margin-base2;
+      }
+
     }
 
 
