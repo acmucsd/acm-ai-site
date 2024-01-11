@@ -286,6 +286,7 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
            <Skeleton active avatar = {true} /> 
         ) : (
             <img
+                className="teamMemberImage"
                 src={avatarUrl}
                 style={{
                     width: '3.5rem',
@@ -475,7 +476,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                     <div id="teamMainContent">
 
                         <div id="teamHeader">
-                            <span>{generateTeamPicture(compUser)}</span>
+                            {compUser && <span>{generateTeamPicture(compUser)}</span>}
                             <div id="teamNameWrapper">
                                 <article>
                                     <h3>{compUser.competitionTeam.teamName}</h3>

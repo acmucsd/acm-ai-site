@@ -12,20 +12,7 @@
         display: inline-flex;
         justify-content: space-between;
         width: 100%;
-        p.submissionStatus {
-            padding: 4px 12px;
-            background: @p3;
-            align-self: center;
-            width: fit-content;
-            border-radius: @radius-base5;
-            color: white;
-            margin-right: 1rem;
-        }
-        p.submissionTimeStamp {
-            padding-left: 4px;
-        }
-
-       
+     
     }
 
     h3.submissionUserName {
@@ -42,4 +29,95 @@
         display: inline-flex;
         align-items: center;
     }
+}
+
+
+section.submissionDetailsSection {
+    margin-top: 2rem;
+
+    div.submissionDetailsRow {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 400px;
+        margin-bottom: 12px;
+
+        span {
+            display: inline-flex;
+            align-items: center;
+
+        }
+
+        span > div {
+
+            display: flex;
+            justify-content: center;
+            background-color: @gray;
+            border-radius: @radius-base5;
+            padding: 8px;
+            height:fit-content;
+            margin-right: 1rem;
+
+            .submissionDetailsIcon {
+                color: @text-gray2;
+            }
+
+            p {
+                color: @text-gray2;
+            }
+
+        }
+        
+        span .teamMemberImage {
+            height: 2rem !important;
+            width: 2rem !important;
+        }
+
+    }
+}
+
+section.submissionDescriptionSection, section.submissionErrorLogsSection {
+    margin-top: 2.5rem;
+    h4 {
+        font-weight: @semi-bold;
+    }
+
+    p {
+        margin-top: 1rem;
+    }
+}
+
+
+section.submissionErrorLogsSection {
+
+    margin-bottom: 2rem;
+
+    p {
+        background: @gray;
+        border-radius: @radius-base4;
+        padding: @padding-base2;
+    }
+}
+
+
+p.submissionStatus {
+    padding: 4px 12px;
+    background: @p3;
+    align-self: center;
+    width: fit-content;
+    border-radius: @radius-base5;
+    color: white;
+}
+
+
+span.submissionTimeStamp {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1rem;
+
+    p {
+        padding-left: 4px;
+    }
+
 }
