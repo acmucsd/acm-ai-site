@@ -4,7 +4,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Modal, Upload } from 'antd';
 import type { UploadProps } from 'antd';
 import UserContext, { User } from "../../../UserContext";
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
     getTeamInfo,
     createTeam,
@@ -20,7 +20,7 @@ import DefaultLayout from "../../../components/layouts/default";
 import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
-import { IoHelp, IoSearch, IoTime } from "react-icons/io5";
+import { IoHelp, IoRefresh, IoSearch, IoTime } from "react-icons/io5";
 import { IoEllipsisVertical , IoPersonAdd} from "react-icons/io5";
 import { FaCheck, FaClock, FaStar } from "react-icons/fa";
 import Table, { ColumnsType } from "antd/es/table";
@@ -190,7 +190,7 @@ const LeaderBoardTab = (
 const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competitionName: string}) => {
 
     const [submissions, setSubmissions] = useState<any[]>([]);
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     // The actual data inside the teamInfo.submitHistory will be a list of mongoose object ids
     // that point to each competition entry object. This component will query the top three
     // recent entries and display them in a list view
@@ -198,7 +198,9 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
         "63c396f9671b14068b17f681"
     ];
 
-    const fetchRecents = () => {
+    const fetchRecents = async() => {
+        setSubmissions([]);
+        setIsLoading(true);
 
         if (teamInfo) {
             teamInfo.submitHistory.slice(0, 3).map((id: any) => {
@@ -221,16 +223,30 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
                     submissionDetails,
                 ]);
 
+                setTimeout(() => {
+                    // Your code to be executed after the delay
+                    console.log("Delayed code executed!");
+                    setIsLoading(false);
+                  }, 500);
+
                 });
             });
 
 
+        }
+        else {
+            setTimeout(() => {
+                // Your code to be executed after the delay
+                console.log("Delayed code executed!");
+                setIsLoading(false);
+              }, 500);
         }
     }
     
 
     useEffect(() => {
         fetchRecents();
+        // window.scrollTo(0, 0);
     }, []);
 
     return (
@@ -238,19 +254,29 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
         <div id = "submissionsPreviewSection">
             <span id = "submissionsPreviewHeader">
                 <h3 style = {{fontWeight: 800}}>Submission Log</h3>
-                <Button type="text" id = "viewAllSubmissionsButton"><p>view all</p></Button>
+                <span style = {{display: "inline-flex"}}>
+                    <Button type = "link" icon = {<IoRefresh size = {20} style = {{color: "black"}} />} onClick={()=> fetchRecents()}/>
+
+                    <Link to={`/submissionLog/${teamInfo.teamName}`} rel="noopener noreferrer">
+                        <Button type="text" id = "viewAllSubmissionsButton"><p>view all</p></Button>
+                    </Link>
+                </span>
             </span>
 
             <section id = "submissionsPreviewColumn">
-                <List
-                split={false}
-                dataSource={submissions}
-                renderItem={(data: any) => (
-                    <List.Item>
-                        <SubmissionEntryCard entry = {data}  />
-                    </List.Item>
-                )}
-            />
+                {isLoading ? <Skeleton active   paragraph={{ rows: 10 }}/> :
+                    <List
+                        split={false}
+                        // loading = {isLoading}
+                        dataSource={submissions}
+                        renderItem={(data: any) => (
+                            <List.Item>
+                                <SubmissionEntryCard entry = {data}  />
+                            </List.Item>
+                        )}
+                    />
+                }
+                
                 
             </section>
         </div>
@@ -283,7 +309,7 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
     return (
         <>
         {loadingImage ? (
-           <Skeleton active avatar = {true} /> 
+           <Skeleton active = {true}  /> 
         ) : (
             <img
                 className="teamMemberImage"
@@ -300,17 +326,18 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
     )
 }
 
-const generateTeamPicture = (compUser: any) => {
+const generateTeamPicture = (teamName: any) => {
 
-    const color1 = genColor(compUser.competitionTeam.teamName);
-    const color2 = genColor(`${compUser.competitionTeam.teamName}_additional_seed`);
+    const color1 = genColor(teamName);
+    const color2 = genColor(`${teamName}_additional_seed`);
+    
 
     return (
         <div
             style={{
                 display: 'inline-block',
                 verticalAlign: 'middle',
-                borderRadius: '50%',
+                borderRadius: '100%',
                 width: '4rem',
                 height: '4rem',
                 background: `linear-gradient(30deg, ${color1}, ${color2})`,
@@ -446,44 +473,24 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
 
     return (
         <>
-        {isLoadingTeamInfo ?
+        {isLoadingTeamInfo  ?
         <Skeleton active avatar = {true}  paragraph={{ rows: 6 }} />
         :
         <Content id="myTeamContainer" >
-            {compUser.competitionTeam == null && (
-
-                <section>
-                    <Input
-                        id="teamNameInput"
-                        placeholder="New Team Name"
-                        size="large"
-                        onChange={(e) => setNewTeamName(e.target.value)}
-                    >
-                    </Input><br />
-                    <Button
-                        type="primary"
-                        size="large" id="makeTeamButton"
-                        loading={isLoading}
-                        onClick={handleClick}
-                    >
-                        Make Team
-                    </Button>
-                </section>
-            )}
-
-            {compUser.competitionTeam !== null && (
+            
+            {teamInfo !== null && teamInfo.teamName && (
                 <section>
                     <div id="teamMainContent">
 
                         <div id="teamHeader">
-                            {compUser && <span>{generateTeamPicture(compUser)}</span>}
+                            {generateTeamPicture(teamInfo.teamName)}
                             <div id="teamNameWrapper">
                                 <article>
-                                    <h3>{compUser.competitionTeam.teamName}</h3>
+                                    <h3>{teamInfo.teamName}</h3>
                                     <p id = "rankingTag">{getOrdinal(rankData.rank)} place</p>
                                 </article>
                             
-                                <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28}/>}></Button>
+                                <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28} style = {{color: "black"}}/>}></Button>
                                 <Modal
                                     centered
                                     title="Are you sure you want to leave this team?"
@@ -588,12 +595,38 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                         <div id = "matchesBox">
                             <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800, color: "white", marginBottom: "1rem"}}>Matches</h3>
                             <p style = {{color: "white"}}>Check out your team's match replays to see how well youre performing!</p>
+                            <Link to={`/matches/${teamInfo.teamName}`} rel="noopener noreferrer">
+                                <p style = {{color: "white", marginTop: "1rem"}}>view all &gt;</p>
+                            </Link>
                         </div>
                     </div>
                 </section>
             )}
+
+            {teamInfo == null && (
+
+                <section>
+                    <Input
+                        id="teamNameInput"
+                        placeholder="New Team Name"
+                        size="large"
+                        onChange={(e) => setNewTeamName(e.target.value)}
+                    >
+                    </Input><br />
+                    <Button
+                        type="primary"
+                        size="large" id="makeTeamButton"
+                        loading={isLoading}
+                        onClick={handleClick}
+                    >
+                        Make Team
+                    </Button>
+                </section>
+            )}
         </Content>
          }
+
+         
         </>
     );
     
@@ -647,6 +680,7 @@ function CompetitionPortalPage() {
     } | null>(null);
 
 
+    
     // Modal callback to show modal to register user for competition
     const showModal = () => {
         setIsModalOpen(true);
@@ -681,9 +715,9 @@ function CompetitionPortalPage() {
                         setAllTeams(Array.from(res.data))
                     }
                 })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                .catch(error => {
+                    console.log(error);
+                });
             }
         })
     }
@@ -734,8 +768,11 @@ function CompetitionPortalPage() {
             setLastRefresh(new Date());
             setRankingsData(newData);
             setIsLoadingLeaderBoard(false);
-            setIsLoadingTeamInfo(false);
-
+            setTimeout(() => {
+                // Your code to be executed after the delay
+                console.log("Delayed code executed!");
+                setIsLoadingTeamInfo(false);
+              }, 800);
         });
     };
 
@@ -751,6 +788,13 @@ function CompetitionPortalPage() {
         }
 
         else {
+
+            // Set the selected tab
+            const storedActiveTab = localStorage.getItem("activeTab");
+            if (storedActiveTab) {
+                setActiveTab(JSON.parse(storedActiveTab));
+            }
+
             // Fetch teams will set the comp user state and grab all teams
             setIsLoadingTeamInfo(true);
 
@@ -792,12 +836,20 @@ function CompetitionPortalPage() {
             }
             else {
                 setTeamInfo(null)
-                setIsLoadingTeamInfo(false);
+                setTimeout(() => {
+                    // Your code to be executed after the delay
+                    console.log("Delayed code executed!");
+                    setIsLoadingTeamInfo(false);
+                  }, 800);
             }
         }
         else {
             setTeamInfo(null)
-            setIsLoadingTeamInfo(false);
+            setTimeout(() => {
+                // Your code to be executed after the delay
+                console.log("Delayed code executed!");
+                setIsLoadingTeamInfo(false);
+              }, 800);
         }
 
     }, [compUser])
@@ -937,6 +989,9 @@ function CompetitionPortalPage() {
                         size="small"
                         animated={true}
                         tabPosition="top"
+                        onTabClick={(key: string) => {
+                            localStorage.setItem("activeTab", JSON.stringify(key));
+                        }}
                         activeKey={activeTab} onChange={(key) => setActiveTab(key)}
                         items={
                             [

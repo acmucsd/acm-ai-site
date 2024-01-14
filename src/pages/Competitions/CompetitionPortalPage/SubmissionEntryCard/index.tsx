@@ -81,7 +81,7 @@ const SubmissionEntryCard = (data: any) => {
             <div className = "submissionDetailsRow">
               <span>
                 <div>
-                  <FaLink className = "submissionDetailsIcon" size = {20} />
+                  <FaLink className = "submissionDetailsIcon" size = {14} />
                 </div>
                 <p>File</p>
               </span>
@@ -91,7 +91,7 @@ const SubmissionEntryCard = (data: any) => {
             <div className = "submissionDetailsRow">
               <span>
                 <div>
-                  <IoPerson className = "submissionDetailsIcon" size = {20} />
+                  <IoPerson className = "submissionDetailsIcon" size = {16}   />
                 </div>
                 <p>Uploader</p>
               </span>
@@ -166,7 +166,7 @@ const SubmissionEntryCard = (data: any) => {
                 </span>
                 <Button 
                   type="link" 
-                  icon = {<FaEllipsisH className = "submissionModalButton" size = {20} onClick={() => openModal()} />}/>
+                  icon = {<FaEllipsisH className = "submissionModalButton" size = {20} style ={{color: "black"}} onClick={() => openModal()} />}/>
 
             </span>
             <span  style={{display: "inline-flex", alignItems: "center", marginTop:"2rem"}}>
