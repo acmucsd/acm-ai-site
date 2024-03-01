@@ -246,7 +246,6 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
 
     useEffect(() => {
         fetchRecents();
-        // window.scrollTo(0, 0);
     }, []);
 
     return (
@@ -576,7 +575,8 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                                         fontWeight: 'bold',
                                         marginTop: '5px'
                                     }}>
-                                        {compUser.competitionTeam.joinCode}
+
+                                        {compUser.competitionTeam && compUser.competitionTeam.joinCode}
                                     </h3>
                                 </Modal>
                             </div>
