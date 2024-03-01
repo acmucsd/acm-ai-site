@@ -222,25 +222,17 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
                     ...submissionData,
                     submissionDetails,
                 ]);
-
-                setTimeout(() => {
-                    // Your code to be executed after the delay
-                    console.log("Delayed code executed!");
-                    setIsLoading(false);
-                  }, 500);
-
-                });
             });
+        })
 
+        setTimeout(() => {
+            // Your code to be executed after the delay
+            console.log("Delayed code executed!");
+            setIsLoading(false);
+        }, 500);
 
-        }
-        else {
-            setTimeout(() => {
-                // Your code to be executed after the delay
-                console.log("Delayed code executed!");
-                setIsLoading(false);
-              }, 500);
-        }
+      }
+
     }
     
 
@@ -580,7 +572,7 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                                     </h3>
                                 </Modal>
                             </div>
-                            {compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
+                            {compUser.competitionTeam && compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
                                 <div className="teamMember" key={index}>
                                     <TeamMemberAvatar username={member}></TeamMemberAvatar>
                                     <div className="teamMemberTextWrapper">
