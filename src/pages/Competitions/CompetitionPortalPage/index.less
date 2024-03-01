@@ -5,7 +5,6 @@
 
 .CompetitionPortalPage {
   .noContainer();
-  height: 100vh;
 
   #portalHeader {
     .generic-section();
@@ -70,8 +69,7 @@
       }
 
       .portalStatsBox {
-        background-color: white;
-        box-shadow: @bx3;
+        background-color: @light-gray;
         min-height: 140px;
         padding: @padding-base2;
         border-radius: @radius-base4;
@@ -109,7 +107,7 @@
   #portalTabContent {
     .generic-section();
     .constrained-bounds();
-    height: 100vh;
+    overflow-y: hidden; // prevents layout shifts when user switches tabs
     max-width: 1200px !important;
 
     .ant-tabs-ink-bar {

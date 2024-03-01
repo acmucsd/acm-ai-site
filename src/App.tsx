@@ -139,7 +139,7 @@ function App() {
               />  
 
               <Route
-                path="/submissionLog/:id"
+                path="/:competitionName/submissionLog/:id"
                 exact
                 component={SubmissionLogPage}
               />  

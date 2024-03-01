@@ -257,7 +257,7 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
                 <span style = {{display: "inline-flex"}}>
                     <Button type = "link" icon = {<IoRefresh size = {20} style = {{color: "black"}} />} onClick={()=> fetchRecents()}/>
 
-                    <Link to={`/submissionLog/${teamInfo.teamName}`} rel="noopener noreferrer">
+                    <Link to={`/${competitionName}/submissionLog/${teamInfo.teamName}`} rel="noopener noreferrer">
                         <Button type="text" id = "viewAllSubmissionsButton"><p>view all</p></Button>
                     </Link>
                 </span>
@@ -326,7 +326,7 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
     )
 }
 
-const generateTeamPicture = (teamName: any) => {
+export const generateTeamPicture = (teamName: any) => {
 
     const color1 = genColor(teamName);
     const color2 = genColor(`${teamName}_additional_seed`);
