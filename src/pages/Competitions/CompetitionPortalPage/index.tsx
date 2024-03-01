@@ -32,20 +32,28 @@ import CountdownTimer from "./CountDownTimer";
 import TextArea from "antd/es/input/TextArea";
 import LineChart from "./LineChart";
 import SubmissionEntryCard from "./SubmissionEntryCard";
-
 const { Content } = Layout;
 
-
+/**
+ * Renders the tab to view all available teams to join or leave
+ * 
+ * @param {any} data Holds the array of all teams
+ * @param {User} user 
+ * @param {any} compUser The competition user
+ * @param fetchTeamsCallback Function that refetches all team data
+ * @param updateRankings Function that retreives the new rankings of teams
+ * 
+ */
 const FindTeamsTab = (
-    { data, user, compUser, registered, fetchTeams, updateRankings }:
-        { data: Object[], user: User, compUser: any, registered: Boolean, fetchTeams: () => void, updateRankings: () => void }
+    { data, user, compUser, registered, fetchTeamsCallback, updateRankings }:
+    { data: Object[], user: User, compUser: any, registered: Boolean, fetchTeamsCallback: () => void, updateRankings: () => void }
 ) => {
 
-    // constants to align the pagination options for the teams list
+    // Constants to align the pagination options for the teams list
     const [position] = useState<PaginationPosition>('bottom');
     const [align] = useState<PaginationAlign>('center');
 
-    // dropdown options for search bar
+    // Dropdown options for search bar
     const [options, setOptions] = useState<Array<Object>>(data);
 
     // Initialize the teams data once that data defined
@@ -56,7 +64,7 @@ const FindTeamsTab = (
     }, [data, registered])
 
     const handleSearch = (value: string) => {
-        // Reset options back to the original data if the value is an empty string
+        // Resets search options back to the original data if the value is an empty string
         if (value === "") {
             setOptions(data);
         }
@@ -64,7 +72,7 @@ const FindTeamsTab = (
 
     const handleSelect = (value: string) => {
 
-        // filter the list items
+        // Filter the list items
         const filteredOptions = data.filter((item: any) =>
             item.teamName.toUpperCase().includes(value.toUpperCase())
         );
@@ -98,7 +106,7 @@ const FindTeamsTab = (
                 dataSource={options}
                 renderItem={(team: any) => (
                     <List.Item key={team.competitionName}>
-                        {<TeamCard team={team} user={user} compUser={compUser} fetchTeamCallback={fetchTeams} updateRankings={updateRankings} />}
+                        {<TeamCard team={team} user={user} compUser={compUser} fetchTeamCallback={fetchTeamsCallback} updateRankings={updateRankings} />}
                     </List.Item>
                 )}
             />
@@ -107,15 +115,28 @@ const FindTeamsTab = (
     );
 };
 
+
+
+
+/**
+ * Renders the leaderboard of all teams based on their ranking
+ * 
+ * @param {any} rankData The ranking data of all teams
+ * @param {Date} lastRefresh The last time when the leaderboard was refreshed
+ * @param updateRankingsCallback Function that refetches the rankings for all teams
+ * @param {boolean} isLoading Indicates if all the competitions teams info is being fetched
+ * 
+ */
 const LeaderBoardTab = (
-    { rankData, lastRefresh, updateRankingsCallback, isLoading }:
-        {
-            rankData: any,
-            lastRefresh: Date | null,
-            updateRankingsCallback: () => void,
-            isLoading: boolean
-        }
+    {rankData, lastRefresh, updateRankingsCallback, isLoading}:
+    { rankData: any,
+      lastRefresh: Date | null,
+      updateRankingsCallback: () => void,
+      isLoading: boolean
+    }
 ) => {
+
+    // Formats how the columns should be arranged and styled
     const columns: ColumnsType<CompetitionData> = [
         {
             title: 'Rank',
@@ -161,7 +182,6 @@ const LeaderBoardTab = (
     ];
 
 
-
     return (
         <Content id="leaderBoardContainer">
             <section>
@@ -186,14 +206,22 @@ const LeaderBoardTab = (
 };
 
 
-
+/**
+ * Renders the submission preview list for the user's team
+ * 
+ * @param {any} teamInfo The team's general information
+ * @param {string} competitionName The name of the current competition
+ *
+ */
 const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competitionName: string}) => {
 
     const [submissions, setSubmissions] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    // The actual data inside the teamInfo.submitHistory will be a list of mongoose object ids
-    // that point to each competition entry object. This component will query the top three
-    // recent entries and display them in a list view
+
+    /* The actual data inside the teamInfo.submitHistory will be a list of mongoose object ids
+       that point to each competition entry object. This component will query the
+       recent entries and display them in a list view */
+
     const dummyData = [
         "63c396f9671b14068b17f681"
     ];
@@ -234,14 +262,13 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
       }
 
     }
-    
+
 
     useEffect(() => {
         fetchRecents();
     }, []);
 
     return (
-        // TODO: display preview of teamInfo submitHistory field with hyperlink to view all submissions
         <div id = "submissionsPreviewSection">
             <span id = "submissionsPreviewHeader">
                 <h3 style = {{fontWeight: 800}}>Submission Log</h3>
@@ -266,15 +293,22 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
                             </List.Item>
                         )}
                     />
-                }
-                
-                
+                }     
             </section>
         </div>
     );
 }
 
 
+
+
+/**
+ * Generates a unique avatar for each team member 
+ * using a third party avatar library 
+ * 
+ * @param {string} username A team member's name
+ *
+ */
 export const TeamMemberAvatar = ( {username}:{username: string}) => {
     const [avatarUrl, setAvatarUrl] = useState('');
     const [loadingImage, setLoadingImage] = useState(false);
@@ -339,20 +373,42 @@ export const generateTeamPicture = (teamName: any) => {
 }
 
 
-const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData , fetchTeamsCallback}: { isLoadingTeamInfo: boolean, compUser: any, rankData: any, teamInfo: any, metaData: any, fetchTeamsCallback: () => void }) => {
+
+
+/**
+ * Component that displays a team's data. Contains several components 
+ * to create a team, view team members, upload submissions, view submission previews, 
+ * and navigate to the matches page. 
+ * 
+ * @param {boolean} isLoadingTeamInfo    the current team the user is viewing
+ * @param {any} compUser    schema that holds user's competition profile data
+ * @param {any} rankData    schema that holds the team's ranking data
+ * @param {any} teamInfo    schema that holds the team's general information
+ * @param fetchTeamCallback callback function to update the team data and the competition user 
+ * 
+ */
+const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData , fetchTeamsCallback}: 
+                    { isLoadingTeamInfo: boolean, compUser: any, rankData: any, teamInfo: any, metaData: any, fetchTeamsCallback: () => void }
+) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    
+    // Form field to create a new etam with a name
     const [newTeamName, setNewTeamName] = useState<string>("");
+
+    // Modal states 
     const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
     const [isLeaveModalVisible, setIsLeaveModalVisible] = useState<boolean>(false);
     
-    const [submissionFile, setFile] = useState<any>();
+    // Submission description input
     const [desc, setDesc] = useState<string>('');
-    // const [tags, setTags] = useState<Array<string>>([]); // not being used for now
+
+    // Submission tags input (not being used for now as there isn't UI to add tags yet)
+    // const [tags, setTags] = useState<Array<string>>([]); 
+
+    const [submissionFile, setFile] = useState<any>();
     const [uploading, setUploading] = useState<boolean>(false);
 
-  
-    // Leave button modal
     const showLeaveModal = () => {
         setIsLeaveModalVisible(true);
     };
@@ -361,7 +417,6 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
         setIsLeaveModalVisible(false);
     };
 
-    // Invite button modal
     const showInviteModal = () => {
         setIsInviteModalVisible(true);
     };
@@ -394,40 +449,58 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
         },
     };
 
+    /**
+     * Helper function to refresh the submission history or log
+     * when the user successfully uploads a submission. Also
+     * performs a refresh of the team data in case the eval server
+     * updates the team's ranking, score, etc.
+     * 
+     * @param event A react form event
+     */
     const handleSubmit = (event: React.FormEvent) => {
 
         event.preventDefault();
         fetchTeamsCallback();
 
-        // TODO: When eval servers are up, uncomment this portion
-        // setUploading(true);
-        // uploadSubmission(
-        //   submissionFile,
-        //   [compUser.username],
-        //   desc,
-        //   compUser.competitionName,
-        //   compUser.username as string
-        // )
-        //   .then((res) => {
-        //     message.success('Submission Uploaded Succesfully');
-        //     fetchTeamsCallback();
-        //   })
-        //   .catch((err) => {
-        //     message.error(`${err}`);
-        //   })
-        //   .finally(() => {
-        //     setUploading(false);
-        //   });
+        /* TODO: When eval servers are up, uncomment this portion
+        event.preventDefault();
+        setUploading(true);
+        uploadSubmission(
+          submissionFile,
+          [compUser.username],
+          desc,
+          compUser.competitionName,
+          compUser.username as string
+        )
+          .then((res) => {
+            message.success('Submission Uploaded Succesfully');
+            fetchTeamsCallback();
+          })
+          .catch((err) => {
+            message.error(`${err}`);
+          })
+          .finally(() => {
+            setUploading(false);
+          }); */
     };
 
-
+    /**
+     * Converts a numeric rankinginto a ordinal label 
+     * e.g. 1 = 1st, 2 = 2nd, 3 = 3rd, 4 = 4th...
+     * 
+     * @param number Represents the team's ranking
+     * @returns {string} 
+     */
     function getOrdinal(number: any) {
         const suffixes = ['th', 'st', 'nd', 'rd'];
         const v = number % 100;
         return number + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
     }
 
-
+    /**
+     * Helper function that removes the user from the team.
+     * Invokes callback to update the dashboard data and competition user info
+     */
     const handleLeaveTeam = () => {
         leaveTeam(compUser.competitionName, compUser.username, compUser.competitionTeam.teamName).then((res) => {
             message.success('Successfully left team.');
@@ -439,27 +512,30 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
         ));
     }
 
+    /**
+     * Helper function that calls API to create a new team
+     * for the user upon submission of a new name
+     * 
+     */
     const handleClick = () => {
 
         if (newTeamName.length == 0) {
             message.info('Name cannot be empty');
             return;
         }
-
         setIsLoading(true);
+
         createTeam(compUser.competitionName, compUser.username, newTeamName).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
             console.log(compUser)
 
         })
-            .catch((error) => {
-                message.error(error.message);
-            });
-
+        .catch((error) => {
+            message.error(error.message);
+        });
         setIsLoading(false);
     }
-
 
 
     return (
@@ -495,8 +571,6 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                             </div>
                         </div>
 
-                        {/** TODO: Lowkey don't know what stats would work best here as everything besides the score is not finalized */}
-
                         <div id="teamScoreHistorySection">
                             <h3>Score History</h3>
                             <LineChart scoreHistory={(teamInfo != null) ? teamInfo.scoreHistory.map(Number) : []}/>
@@ -510,8 +584,8 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                                 </Tooltip>
                             
                             </span>
+
                             <TextArea
-                                // showCount
                                 id ="uploadDescription"
                                 rows={1}
                                 autoSize
@@ -528,8 +602,6 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                                 </p>
                                 <p id="antUploadText">Click or drag file to this area to upload</p>
                             </Dragger>
-
-
                         
                             <Button
                                 size = "large"
@@ -539,19 +611,10 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                                 disabled = {metaData.submissionsEnabled ? false : true}
                             >
                                 Submit
-                            </Button>
-                            
-                           
+                            </Button>   
                         </form>
 
-                        {/** TODO: This might have to be its own component
-                         *  Requirements to do this: The submissionLog component will have to utilize some prop drilling (yeah ik it sucks) to access callback functions
-                         *  to update the team information whenever the user deletes their own submissions. Also the whenever the user uploads a file
-                         *  from the myTeam tab, it should trigger an update for the team info and the submission log.
-                         */}
                         <SubmissionsPreview  teamInfo={teamInfo} competitionName= {metaData.competitionName} />
-
-
                     </div>
 
                     <div id ="sideContent">
@@ -562,16 +625,17 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                                 <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
                                 <Modal centered cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
                                     <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
-                                    {/* TODO: For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}
+
+                                    {/* NOTE:For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}
                                     <h3 style={{
                                         fontWeight: 'bold',
                                         marginTop: '5px'
                                     }}>
-
                                         {compUser.competitionTeam && compUser.competitionTeam.joinCode}
                                     </h3>
                                 </Modal>
                             </div>
+
                             {compUser.competitionTeam && compUser.competitionTeam.teamMembers.map((member: string, index: number) => (
                                 <div className="teamMember" key={index}>
                                     <TeamMemberAvatar username={member}></TeamMemberAvatar>
@@ -616,18 +680,18 @@ const MyTeamTab = ({ isLoadingTeamInfo, compUser, rankData, teamInfo, metaData ,
                 </section>
             )}
         </Content>
-         }
-
-         
-        </>
+        }
+    </>
     );
-    
 };
 
 
-
+/**
+ * Renders the entire dashboard for the competition portal.
+ */
 function CompetitionPortalPage() {
 
+    // This enables us to specify the most current competition
     const competitionName = "TestCompetition2";
     const history = useHistory();
 
@@ -644,7 +708,9 @@ function CompetitionPortalPage() {
     const [isLoadingTeamInfo, setIsLoadingTeamInfo] = useState(true);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState('1'); // Set the default active tab key
+
+    // Tab state when navigating between different sections(Leaderboard, Find Teams, My Team)
+    const [activeTab, setActiveTab] = useState('1'); 
 
     // Rank data for all teams
     const [rankingsData, setRankingsData] = useState<CompetitionData[]>([]);
@@ -672,7 +738,6 @@ function CompetitionPortalPage() {
     } | null>(null);
 
 
-    
     // Modal callback to show modal to register user for competition
     const showModal = () => {
         setIsModalOpen(true);
@@ -714,55 +779,50 @@ function CompetitionPortalPage() {
         })
     }
 
-    // Function to get compeitition meta data
+    // Function to get competition meta data
     const getCompMetaData = async () => {
-
         getMetaData(competitionName).then((res) => {
             setMetaData(res.data);
         })
     }
 
+
     // Function to get ranking of user's team and all teams
     function updateRankings() {
-
-        // console.log("updating ranks for team: ", teamInfo.teamName);
 
         setIsLoadingLeaderBoard(true);
 
         getLeaderboard(competitionName).then((res) => {
             console.log(res.data)
 
-            let newData = res.data.sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
+            let newData = res.data
+                .sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
                 .map((d: any, index: number) => {
 
-                    if (teamInfo != null) {
-                        if (d.teamName === teamInfo.teamName) {
-                            setUserRankData({
-                                rank: index + 1,
-                                team: d.teamName,
-                                score: d.bestScore,
-                                submitHistory: d.submitHistory,
-                            });
+                        if (teamInfo != null) {
+                            if (d.teamName === teamInfo.teamName) {
+                                setUserRankData({
+                                    rank: index + 1,
+                                    team: d.teamName,
+                                    score: d.bestScore,
+                                    submitHistory: d.submitHistory,
+                                });
 
-                            console.log("user rank data: ", userRankData);
+                                console.log("user rank data: ", userRankData);
+                            }
                         }
-                    }
-
-
-                    return {
-                        rank: index + 1,
-                        team: d.teamName,
-                        score: d.bestScore,
-                        submitHistory: d.submitHistory,
-                    };
+                        return {
+                            rank: index + 1,
+                            team: d.teamName,
+                            score: d.bestScore,
+                            submitHistory: d.submitHistory,
+                        };
                 });
 
             setLastRefresh(new Date());
             setRankingsData(newData);
             setIsLoadingLeaderBoard(false);
             setTimeout(() => {
-                // Your code to be executed after the delay
-                console.log("Delayed code executed!");
                 setIsLoadingTeamInfo(false);
               }, 800);
         });
@@ -781,7 +841,7 @@ function CompetitionPortalPage() {
 
         else {
 
-            // Set the selected tab
+            // Set the selected tab and persist it local storage
             const storedActiveTab = localStorage.getItem("activeTab");
             if (storedActiveTab) {
                 setActiveTab(JSON.parse(storedActiveTab));
@@ -800,7 +860,7 @@ function CompetitionPortalPage() {
 
     /**
      * Function to directly get the udpated team information without any 
-     * use effect dependencies. Useful whenever the user makes bot 
+     * use effect dependencies. Useful whenever the user uploads  
      * submissions
      */
     const updateTeamInformation = () => {
@@ -811,10 +871,10 @@ function CompetitionPortalPage() {
 
     /**
      * Whenever the user calls fetchTeams(), the compUser state
-     * will usually change. This useEffect will capture 
+     * will sometimes change. This useEffect will capture 
      * those state transitions and check the comp user
      * details. Here we use the compUser's team property
-     * to update the current teamInfo (Object)
+     * to update the current teamInfo object
      * 
      */
     useEffect(() => {
@@ -829,8 +889,6 @@ function CompetitionPortalPage() {
             else {
                 setTeamInfo(null)
                 setTimeout(() => {
-                    // Your code to be executed after the delay
-                    console.log("Delayed code executed!");
                     setIsLoadingTeamInfo(false);
                   }, 800);
             }
@@ -838,8 +896,6 @@ function CompetitionPortalPage() {
         else {
             setTeamInfo(null)
             setTimeout(() => {
-                // Your code to be executed after the delay
-                console.log("Delayed code executed!");
                 setIsLoadingTeamInfo(false);
               }, 800);
         }
@@ -856,7 +912,6 @@ function CompetitionPortalPage() {
         updateRankings();
 
     }, [teamInfo]);
-
 
 
     // When user registers for compeititons, allow access to portal
@@ -903,7 +958,7 @@ function CompetitionPortalPage() {
                 >Go Back</Button>
             </Modal>
 
-
+            {/** Main Content */}
             <Content className="CompetitionPortalPage">
                 <Content id="portalHeader">
                     <section>
@@ -917,7 +972,7 @@ function CompetitionPortalPage() {
 
                     </section>
 
-
+                    {/** Header for displaying the user's team stats */}
                     <section id="portalStatsContent">
 
                         {isLoadingTeamInfo ? (
@@ -976,6 +1031,8 @@ function CompetitionPortalPage() {
                     </section>
                 </Content>
 
+                {/* Tab for switching between different sections */}
+
                 <Content id="portalTabContent">
                     <Tabs
                         size="small"
@@ -1006,7 +1063,7 @@ function CompetitionPortalPage() {
                                         user={user}
                                         compUser={compUser}
                                         registered={isRegistered}
-                                        fetchTeams={fetchTeams}
+                                        fetchTeamsCallback={fetchTeams}
                                         updateRankings={updateRankings} />
                                 },
                                 {

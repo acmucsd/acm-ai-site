@@ -13,18 +13,43 @@ import { error } from "console";
 import { genColor } from "../../utils/colors";
 import { FaEllipsisV } from "react-icons/fa";
 
-
+/**
+ * Modular component that displays a team's data. This is used in the 
+ * competitions portal page in the 'Find Teams' tab and provides 
+ * functionality to view the team members, join the team via a modal, 
+ * and the ability to leave the team. 
+ * 
+ * @param {object} team     the current team the user is viewing
+ * @param {object} user     schema that holds the user's data 
+ * @param {object} compUser schema that holds user's competition profile data
+ * @param {object} compUser schema that holds user's competition profile data
+ * @param fetchTeamCallback callback function to update the team data and the competition user 
+ * 
+ * @ignore updateRankings REMOVE this function as it is no longer called
+ */
 const TeamCard = (
     { team, user, compUser, fetchTeamCallback, updateRankings }: 
     { team: any, user:User, compUser: any, fetchTeamCallback: () => void, updateRankings: () => void }
 )    => {
+
     // Modal state to trigger a team's details
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // User input when prompted for a join code
     const [code, setCode] = useState<string>("");
+
+    // Loading status for join and leave buttons
     const [confirmLoading, setConfirmLoading] = useState(false);
 
- 
-    const onSubmit = () => {
+    /*
+     * Handler that checks if the user join code is valid 
+     * to join a team. If so, the function invokes a callback
+     * to update the team data for the portal dashboard and 
+     * the competition user data with a success message. Otherwise, 
+     * it throws an error message.
+     * 
+     */
+     const onSubmit = () => {
         setConfirmLoading(true);
 
         console.log("Comp user", compUser)
@@ -42,34 +67,34 @@ const TeamCard = (
             setConfirmLoading(false);
             setIsModalOpen(false);
 
-            // trigger a refresh to refetch all the team data
+            // Trigger a refresh to refetch all the team data and update the compUser
             fetchTeamCallback();
-
-            // update the leaderboard with the new team
-            // updateRankings();
           }
         )
         .catch((error) => {
             console.log(error);
+            message.error("An error occurred: ", error);
         });
         setConfirmLoading(false);
-
     };
 
+    /*
+     * Handler that removes the user from a specific team.
+     * Invokes the callback to update the the team data and 
+     * competition user data
+     * 
+     */
     const onLeaveTeam = () => {
         leaveTeam(team.competitionName, user.username, team.teamName).then( (res) => {
             message.success('Successfully left team.');
             setIsModalOpen(false);
-
             fetchTeamCallback();
-            // updateRankings();
         })
         .catch((error) => (
             message.error(error)
         ));
     }
 
-    // Modal props
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -77,11 +102,13 @@ const TeamCard = (
         setIsModalOpen(false);
     };
 
+    // Generate colors for team avatar
     const color1 = genColor(team.teamName);
     const color2 = genColor(`${team.teamName}_additional_seed`);
 
      return (
          <>
+             {/* Modal to view the team members and UI to join or leave team */}
              <Modal
                  className="teamDetailsModal"
                  width={800}
@@ -89,18 +116,25 @@ const TeamCard = (
                  open={isModalOpen}
                  onCancel={handleCancel}
                  title={<h3 style={{ fontWeight: '700' }}>{team.teamName}</h3>}
-                 footer = {
 
+                 // Dynamically display join leave/join buttons based on user team membership status
+                 footer = {
                     <>
                         {team.teamMembers.includes(user.username) && (
-                            <Button  loading = {confirmLoading} size="large" shape="round" type="primary" onClick = {onLeaveTeam}>
+                            <Button  
+                                loading = {confirmLoading} 
+                                size="large" 
+                                shape="round" 
+                                type="primary" 
+                                onClick = {onLeaveTeam}
+                            >
                                 <p>leave</p>
                             </Button>
                         )}
 
+                        
                         {!team.teamMembers.includes(user.username) && (
                             <>
-
                                 <Input
                                     id = "joinCodeInput"
                                     size = "large"
@@ -108,7 +142,13 @@ const TeamCard = (
                                     onChange={(e) => setCode(e.target.value)}
                                     placeholder="Code"
                                 />
-                                <Button id = "teamJoinButton" size= "large" type = "primary" loading = {confirmLoading} onClick = {onSubmit} >
+                                <Button 
+                                    id = "teamJoinButton" 
+                                    size= "large" 
+                                    type = "primary" 
+                                    loading = {confirmLoading} 
+                                    onClick = {onSubmit}
+                                >
                                     Join
                                 </Button>
                             </>
@@ -117,21 +157,27 @@ const TeamCard = (
                 }
              >
                  <Col id = "teamModalContent">
- 
                      <section id = "teamMembersContainer">
-                        
+
+                        {/* Display team member names */}
                         {team.teamMembers.length !== 0 ? 
                             team.teamMembers.map((member: string, index: number) => (
                                 <p key={index}>{member}</p>
                             ))
-                        
                         : <p>no members</p>}          
                      </section>
                  </Col>
              </Modal>
  
-             {/* If user is in not in team, show option to join team */}
-             <div id = {team.teamID} className = "teamPreviewCard" style = {{ background: team.teamMembers.includes(user.username) ? '#f0f0f0': 'white'}}  onClick={() => showModal()}>
+
+
+             {/* If user is in not in team, make card white otherwise make it grey*/}
+             <div 
+                id = {team.teamID} 
+                className = "teamPreviewCard" 
+                style = {{ background: team.teamMembers.includes(user.username) ? '#f0f0f0': 'white'}}  
+                onClick={() => showModal()}
+            >
                  <span>
                     <div 
                         style={{
@@ -152,13 +198,20 @@ const TeamCard = (
                     
                  </span>
 
-                 {/** Clicking the button should open a modal to display team details and the option to join if user isn't part of team yet */}
+                 {/* Clicking the button should open a modal to display team details 
+                   * and the option to join if user isn't part of team yet */}
                  <span id = "teamViewButtonSpan" >
-                    <Button type = "text" ghost id = "teamViewButton" onClick={() => showModal()}><p>view</p></Button>
+                    <Button 
+                        type = "text" 
+                        ghost 
+                        id = "teamViewButton" 
+                        onClick={() => showModal()}
+                    >
+                        <p>view</p>
+                    </Button>
                  </span>
              </div>
          </>
- 
      );
  };
  

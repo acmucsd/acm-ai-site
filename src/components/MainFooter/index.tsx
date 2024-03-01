@@ -5,6 +5,11 @@ import { AiOutlineLink } from 'react-icons/ai';
 import { BiLogoInstagram, BiLogoDiscord } from 'react-icons/bi';
 const { Footer } = Layout;
 
+/**
+ * Component that displays additional info about 
+ * ACM AI. Typically placed at the bottom of all pages 
+ * 
+ */
 const MainFooter = () => {
   return (
     <Footer className="mainFooter">
