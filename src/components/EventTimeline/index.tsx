@@ -1,3 +1,9 @@
+/*
+ * Component that displays EventCards in an AntDesign Timeline 
+ * 
+ * @param {ACMEvent[]} eventData an array of ACMEvents
+ * 
+ */
 import React from 'react';
 import { Empty, Timeline, Button } from 'antd';
 import { Link } from 'react-router-dom';
@@ -10,6 +16,7 @@ const EventTimeline = ({ eventData }: { eventData: ACMEvent[] }) => {
     <div className="EventTimeline">
       {eventData.length > 0 ? (
         <Timeline>
+
           {/* Show at most 2 events as a preview */}
           {eventData.slice(0, 2).map((event) => (
             <Timeline.Item
@@ -68,20 +75,3 @@ export const formatTime = (time: string | number | Date): string => {
 };
 
 export default EventTimeline;
-
-// {
-//   /* <div className="timeline-item">
-//                 <Badge className="timeline-badge" size="default" count={<CalendarOutlined className="timeline-icon" style={{ color: '#2e3036', backgroundColor: '#ececec'}}/>}>
-//                   <div className="timeline-date">
-//                     <h2>{formatMonthDate(event.start).month}</h2>
-//                     <h3>{formatMonthDate(event.start).day}</h3>
-//                   </div>
-//                 </Badge>
-
-//                 <div className="timeline-content">
-//                   <h2>{event.title}</h2>
-//                   <h3>{event.location}</h3>
-//                   <h3>{formatTime(event.start)} - {formatTime(event.end)}</h3>
-//                 </div>
-//               </div> */
-// }

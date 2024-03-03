@@ -142,7 +142,8 @@ export const addToTeam = async (
   let body = {
     username,
     teamName,
-    code,
+    competitionName,
+    code
   };
 
   return new Promise((resolve, reject) => {
@@ -155,7 +156,7 @@ export const addToTeam = async (
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
-          },
+          }
         }
       )
       .then((res: AxiosResponse) => {
@@ -168,3 +169,46 @@ export const addToTeam = async (
       });
   });
 };
+
+
+
+export const leaveTeam = async(
+  competitionName: string,
+  username: string,
+  teamName: string
+): Promise<AxiosResponse> => {
+  let token = getToken(COOKIE_NAME);
+
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(
+        process.env.REACT_APP_API + 
+        `/v1/competitions/teams/${competitionName}/remove-member`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            username: username,
+            teamName: teamName,
+          }
+          
+
+        }
+       
+
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error(error.response.data);
+        reject(error);
+      });
+  });
+
+
+
+};
+
+

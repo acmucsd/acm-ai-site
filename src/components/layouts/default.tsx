@@ -7,7 +7,7 @@ function DefaultLayout(props: any) {
   return (
     <div>
       <Header></Header>
-      <Container style={{ width: '100%' }}>{props.children}</Container>
+      <Container>{props.children}</Container>
     </div>
   );
 }

@@ -67,8 +67,15 @@ function CompetitionsPage(props: any) {
               All skill levels are welcome!
             </h4>
 
-            <div className="noCompetitionsBox">
+            {/* <div className="noCompetitionsBox">
               <p>No upcoming competitions yet!</p>
+            </div> */}
+            <div className="compsPortalBox">
+                <Link to={`/competitionPortal`} rel="noopener noreferrer">
+                  <Button size="large" shape="round">
+                    <p>Competitions Portal</p>
+                  </Button>
+                </Link>
             </div>
           </div>
         </Content>

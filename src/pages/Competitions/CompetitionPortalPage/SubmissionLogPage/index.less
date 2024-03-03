@@ -1,0 +1,51 @@
+@import '../../../../newStyles/text.less';
+@import '../../../../newStyles/components.less';
+@import '../../../../newStyles/index.less';
+
+
+
+#SubmissionLogPage {
+    .noContainer();
+
+    #submissionLogHeader {
+        .generic-section();
+        .constrained-bounds();
+        max-width: 1200px !important;
+        margin-top: 4rem;
+        margin-bottom: -2rem !important;
+
+        span {
+            margin-top: 2rem;
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+
+            #submissionLogSearch {
+                background-color: @light-gray;
+                border: none;
+                border-radius: @radius-base3;
+                max-width: @xxs;
+                margin-right: 1rem;
+            }
+
+            #refreshButton {
+                .button-black-square();
+            }
+
+        }
+        
+    }
+
+    #submissionLogColumn {
+        max-width: 1200px !important;
+        .generic-section();
+        .constrained-bounds();
+        
+
+        .submissionPreviewCard {
+            box-shadow: @bx2 !important;
+            border-radius: @radius-base5;
+        }
+    }
+
+}

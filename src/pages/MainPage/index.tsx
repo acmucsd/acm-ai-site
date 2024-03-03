@@ -119,9 +119,7 @@ function MainPage() {
                 innovation and expertise in artificial intelligence.
               </h4>
               <Link to={`/projects`} rel="noopener noreferrer">
-                <p
-                  style={{ marginTop: '1rem', marginBottom: '1rem' }}
-                >{`learn more >`}</p>
+                <p>{`learn more >`}</p>
               </Link>
             </Card>
 
@@ -136,9 +134,7 @@ function MainPage() {
               </h4>
 
               <Link to={`/competitions`} rel="noopener noreferrer">
-                <p
-                  style={{ marginTop: '1rem', marginBottom: '1rem' }}
-                >{`learn more >`}</p>
+                <p>{`learn more >`}</p>
               </Link>
             </Card>
           </div>
@@ -168,8 +164,8 @@ function MainPage() {
             <p>
               We will be launching our Sponsorship Packet with information on
               how to sponsor our competitions soon! In the meantime, if you
-              would like to contact us about sponsorship, please email us at
-              <a href="mailto: ai@acmucsd.org"> ai@acmucsd.org</a>
+              would like to contact us about sponsorship, please email us at 
+              <a href="mailto:ai@acmucsd.org"> ai@acmucsd.org</a>
             </p>
             {/*             <Collapse ghost bordered={false} >
               <Panel className="panel" header={<h4 style = {{color: "white", fontWeight: "600"}}>What do we offer?</h4>} key="1">
