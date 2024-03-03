@@ -96,7 +96,7 @@ const FindTeamsTab = (
                 size="large"
                 style={{ width: "100%" }}
             >
-                <Input allowClear bordered ={false} prefix={<IoSearch size = {20} style = {{marginRight: "0.5rem", color: "lightgrey"}} />}  size="large" placeholder="Look up a team name"  />
+                <Input allowClear bordered ={false} prefix={<IoSearch size = {20} id = "searchIcon" style = {{marginRight: "0.5rem", color: "lightgrey"}} />}  size="large" placeholder="Look up a team name"  />
             </AutoComplete>
 
             {/** List to preview all the teams based on the user's query */}
@@ -271,10 +271,9 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
     return (
         <div id = "submissionsPreviewSection">
             <span id = "submissionsPreviewHeader">
-                <h3 style = {{fontWeight: 800}}>Submission Log</h3>
-                <span style = {{display: "inline-flex"}}>
-                    <Button type = "link" icon = {<IoRefresh size = {20} style = {{color: "black"}} />} onClick={()=> fetchRecents()}/>
-
+                <h3>Submission Log</h3>
+                <span>
+                    <Button id = "viewSubmissionsButton" type = "link" icon = {<IoRefresh size = {20} />} onClick={()=> fetchRecents()}/>
                     <Link to={`/${competitionName}/submissionLog/${teamInfo.teamName}`} rel="noopener noreferrer">
                         <Button type="text" id = "viewAllSubmissionsButton"><p>view all</p></Button>
                     </Link>
@@ -467,6 +466,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         setUploading(true);
         uploadSubmission(
           submissionFile,
+          // use the username as first tag value
           [compUser.username],
           desc,
           compUser.competitionName,
@@ -578,7 +578,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
                         <form id = "uploadFileSection">
                             <span id = "uploadFileHeader">
-                                <h3  style = {{fontWeight: 800}}>Upload Submission</h3>
+                                <h3>Upload Submission</h3>
                                 <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
                                     <FaClock size = {28} />
                                 </Tooltip>
@@ -593,10 +593,11 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 size="large"
                                 placeholder="Add a description. Max character limit of 300"
                                 value={desc}
-                                style = {{marginBottom: "2rem", height: "100px", border: "none", resize: "none"}}
                                 onChange={(evt) => setDesc(evt.target.value)}
                             />
-                            <Dragger style = {{borderRadius: "20px", background: "white", border: "none"}}height={150} {...uploadProps}>
+
+                            {/*Inline style needed here */}
+                            <Dragger id = "uploadDragArea" style = {{borderRadius: "20px", background: "white", border: "none"}}height={150} {...uploadProps}>
                                 <p id="antUploadDragIcon">
                                     <InboxOutlined style={{color: "darkgray"}}/>
                                 </p>
@@ -621,15 +622,23 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
                         <div id = "membersBox">
                             <div id="teamMembersHeader">
-                                <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800}}>Members</h3>
+                                <h3  className="heading">Members</h3>
                                 <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
-                                <Modal centered cancelButtonProps={{ style: { display: 'none' } }} title="Invite friends to your team" open={isInviteModalVisible} onOk={handleInviteModalClose}>
+                                <Modal 
+                                    className = "inviteCodeModal"
+                                    centered 
+                                    cancelButtonProps={{ style: { display: 'none' } }} 
+                                    title="Invite friends to your team" 
+                                    open={isInviteModalVisible} 
+                                    onOk={handleInviteModalClose}
+                                    onCancel={handleInviteModalClose}
+                                >
                                     <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
 
-                                    {/* NOTE:For some reason, I couldn't get the CSS to show up when I put it in the CSS file */}
-                                    <h3 style={{
+                                    {/* inline style here needed */}
+                                    <h3 id = "inviteCode" style={{
                                         fontWeight: 'bold',
-                                        marginTop: '5px'
+                                        marginTop: '12px'
                                     }}>
                                         {compUser.competitionTeam && compUser.competitionTeam.joinCode}
                                     </h3>
@@ -649,13 +658,14 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         </div>
 
                         <div id = "matchesBox">
-                            <h3  className="heading" style = {{marginRight: "1rem", fontWeight: 800, color: "white", marginBottom: "1rem"}}>Matches</h3>
-                            <p style = {{color: "white"}}>Check out your team's match replays to see how well youre performing!</p>
+                            <h3>Matches</h3>
+                            <p>Check out your team's match replays to see how well youre performing!</p>
                             <Link to={`/matches/${teamInfo.teamName}`} rel="noopener noreferrer">
                                 <p style = {{color: "white", marginTop: "1rem"}}>view all &gt;</p>
                             </Link>
                         </div>
                     </div>
+                    
                 </section>
             )}
 
@@ -991,8 +1001,7 @@ function CompetitionPortalPage() {
                                     <section id="portalStatsRow">
                                         <div className="portalStatsBox">
                                             <span>
-                                                {/* <FaCheck size={20} style={{ padding: "6px", borderRadius: "8px", color: "#ff6f6f", background: "pink", marginRight: "1rem" }} /> */}
-                                                <FaCheck size={20} style={{ padding: "6px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
+                                                <FaCheck className = "statsIcon" size={20} />
                                                 <p>Your Submissions</p>
                                             </span>
 
@@ -1002,7 +1011,7 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
-                                                <BiStats size={24} style={{ padding: "4px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
+                                                <BiStats className = "statsIcon" size={24} />
                                                 <p>Best Score</p>
                                             </span>
 
@@ -1011,7 +1020,7 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
-                                                <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
+                                                <FaStar className = "statsIcon" size={20}/>
                                                 <p>Ranking</p>
                                             </span>
                                             <p className="stat">{userRankData.rank}</p>
@@ -1019,7 +1028,7 @@ function CompetitionPortalPage() {
 
                                         <div className="portalStatsBox">
                                             <span>
-                                                <FaStar size={20} style={{ padding: "6px", borderRadius: "8px", color: "white", background: "black", marginRight: "1rem" }} />
+                                                <FaStar className = "statsIcon" size={20}/>
                                                 <p>Matches Played</p>
                                             </span>
                                             <p className="stat">0</p>

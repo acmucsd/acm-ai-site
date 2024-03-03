@@ -99,7 +99,7 @@ function SubmissionLogPage() {
             <Content id="SubmissionLogPage">
 
                 <Content id="submissionLogHeader">
-                    <span style = {{display: "inline-flex", alignItems: "center"}}>
+                    <span>
                         {generateTeamPicture(id)}
                         <h3>{id}</h3>
                     </span>
@@ -107,9 +107,9 @@ function SubmissionLogPage() {
                     <h1 className="title2">Submission Log</h1>
                     <p>View your previous submissions to gauge the performance of your bots!</p>
 
-                    <span style = {{display: "inline-flex"}}>
+                    <span>
                         <Input type="search" size = "large" id = "submissionLogSearch" placeholder="search by uploader"></Input>
-                        <Button size = "large" onClick={() => fetchRecents()}><p>Refresh</p></Button>
+                        <Button id = "refreshButton" size = "large" onClick={() => fetchRecents()}><p>Refresh</p></Button>
                     </span>
                 </Content>
                 

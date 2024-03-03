@@ -266,16 +266,8 @@ function AboutPage() {
           <div className="drawerContent">
             <Col>
               <Row className="drawerHeader">
-                <img
-                  style={{
-                    marginRight: '1rem',
-                    height: '100px',
-                    width: '100px',
-                    objectFit: 'cover',
-                    objectPosition: 'center top',
-                    borderRadius: '100%',
-                  }}
-                  className="image"
+                <img 
+                  className="boardMemberPhoto"
                   src={selectedPerson!!.picture}
                   alt={`profile of ${selectedPerson!!.name}`}
                 />
