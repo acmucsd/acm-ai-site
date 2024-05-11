@@ -123,8 +123,9 @@ function Header() {
           {isMobile ? (
             // Mobile menu button
             <Button
+              ghost
               className="menuButton"
-              icon={<HiOutlineMenu size={35} />}
+              icon={<HiOutlineMenu size={35} style = {{color: "black"}} />}
               onClick={() => toggleMenu()}
             />
           ) : (
