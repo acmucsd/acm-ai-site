@@ -21,14 +21,14 @@ const MainFooter = () => {
         <Col className="boardPositions">
           <Row className="position">
             <h4>
-              <a href="https://acmurl.com/ai-events">Marketing/Sponsorship</a>
+              <a href="https://acmurl.com/apply-ai">Marketing/Sponsorship</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/ai-marketing-sponsorship-app">
+                <a href="https://acmurl.com/apply-ai">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
@@ -36,14 +36,14 @@ const MainFooter = () => {
           </Row>
           <Row className="position">
             <h4>
-              <a href="https://acmurl.com/ai-events">Event Lead</a>
+              <a href="https://acmurl.com/apply-ai">Event Lead</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/ai-events">
+                <a href="https://acmurl.com/apply-ai">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
@@ -52,14 +52,14 @@ const MainFooter = () => {
           <Row className="position">
             <h4>
               {' '}
-              <a href="https://acmurl.com/ai-dev">Developer</a>
+              <a href="https://acmurl.com/apply-ai">Developer</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/ai-dev">
+                <a href="https://acmurl.com/apply-ai">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
