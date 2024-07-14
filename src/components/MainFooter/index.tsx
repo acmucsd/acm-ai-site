@@ -12,23 +12,25 @@ const MainFooter = () => {
         <Col className="infoText">
           <h2 className="title2">Join the board</h2>
           <p>
-            We are always looking for more people to join our mission and build
-            the growing AI community at UCSD. The following roles are open to
-            all undergraduate UCSD students:
+            Recruitment to join the ACM AI board opens in the Spring. We are
+            always looking for more people to join our mission and build the
+            growing AI community at UCSD. The following teams are open to all
+            undergraduate UCSD students: Marketing/Sponsorship, Events, and
+            Development.
           </p>
         </Col>
 
         <Col className="boardPositions">
           <Row className="position">
             <h4>
-              <a href="https://acmurl.com/ai-events">Marketing/Sponsorship</a>
+              <a href="https://acmurl.com/ai-elections">Role Descriptions</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/ai-marketing-sponsorship-app">
+                <a href="https://acmurl.com/ai-elections">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
@@ -36,30 +38,14 @@ const MainFooter = () => {
           </Row>
           <Row className="position">
             <h4>
-              <a href="https://acmurl.com/ai-events">Event Lead</a>
+              <a href="https://acmurl.com/apply-ai">Application</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/ai-events">
-                  <AiOutlineLink size={20} className="linkIcon" />
-                </a>
-              }
-            />
-          </Row>
-          <Row className="position">
-            <h4>
-              {' '}
-              <a href="https://acmurl.com/ai-dev">Developer</a>
-            </h4>
-            <Avatar
-              size="default"
-              shape="square"
-              className="linkBox"
-              icon={
-                <a href="https://acmurl.com/ai-dev">
+                <a href="https://acmurl.com/apply-ai">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
