@@ -241,7 +241,7 @@ function AboutPage() {
           />
         </Content>
 
-        <MainFooter />
+        <MainFooter isMainPage={false}/>
       </Content>
 
       {isDrawerVisible && (
@@ -265,7 +265,7 @@ function AboutPage() {
         >
           <div className="drawerContent">
             <Col>
-              <Row className="drawerHeader">
+              <Row className="drawerHeader" gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
                 <img
                   style={{
                     marginRight: '1rem',
@@ -280,7 +280,7 @@ function AboutPage() {
                   alt={`profile of ${selectedPerson!!.name}`}
                 />
                 <Col className="titleBox">
-                  <Tag bordered={false} color={'error'}>
+                  <Tag bordered={false} color={'error'} >
                     {selectedPerson!!.role}
                   </Tag>
                   <h4>{selectedPerson!!.name}</h4>
