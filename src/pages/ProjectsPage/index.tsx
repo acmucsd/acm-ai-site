@@ -184,7 +184,7 @@ function ProjectsPage() {
           </Content>
         </Content>
 
-        <MainFooter />
+        <MainFooter isMainPage={false}/>
       </Content>
     </DefaultLayout>
   );

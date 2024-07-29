@@ -33,7 +33,7 @@ function MainPage() {
 
         <Content className="homeHeader">
           <div className="homeHeaderContent">
-            <h1 className="homeTitle">ACM AI</h1>
+            <h1 className="homeTitle">ACM AI<br></br>at UC San Diego</h1>
             <h4>
               We aspire to inspire the next generation of AI advocates,
               engineers, and scientists.
@@ -185,11 +185,9 @@ function MainPage() {
           </div>
         </Content>
 
-        <Content>
-          <div className="homeBottomBar"></div>
-        </Content>
+        
 
-        <MainFooter />
+        <MainFooter isMainPage={true} />
       </Content>
     </DefaultLayout>
   );

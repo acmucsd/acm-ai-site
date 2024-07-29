@@ -87,6 +87,10 @@ function EventsPage(props: any) {
           ></Tabs>
         </Content>
 
+        <Content>
+          <div className=" gradient-bar"></div>
+        </Content>
+
         <Footer className="eventsFooter">
           <Row className="row">
             <Col>
