@@ -1,0 +1,46 @@
+@import '../../newStyles/components.less';
+
+.errorHeader {
+    padding-top: 24rem;
+    padding-bottom: 16rem; 
+    min-width: 180px;
+    background: @mainred;
+    .center-both-ways();
+
+    @media screen and (max-width: @sm) {
+      padding-top: 14rem;
+      padding-bottom: 16rem;
+    }
+
+
+    .errorHeaderContent {
+      width: 100%;
+      .center-both-ways();
+        
+      // Main title "acm ai"
+      .errorTitle {
+        color: @white;
+        text-align: center;
+        .title1();
+      }
+
+      h4 {
+        width: 60%;
+        color: @white;
+        max-width: @max-width1;
+        color: @white;
+        text-align: center;
+      }
+
+    }
+
+    .homeBottomBar {
+        .gradient();
+        box-sizing: border-box;
+        text-align: center;
+        padding: 3rem;
+        margin-top: 10rem;
+      }
+    
+
+  }
