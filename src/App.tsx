@@ -118,17 +118,13 @@ function App() {
               />
               <Route path="/events" exact component={EventsPage} />
 
-              <Router>
-                <AdminBooleanProvider currAdminStatus={false}> 
-                  <Route path="/register" exact component={RegisterPage} />
-                </AdminBooleanProvider>
-              </Router>
+              <AdminBooleanProvider currAdminStatus={false}> 
+                <Route path="/register" exact component={RegisterPage} />
+              </AdminBooleanProvider>
 
-              <Router>
-                <AdminBooleanProvider currAdminStatus={true}> 
-                  <Route path="/admin/register" exact component={RegisterPage} />
-                </AdminBooleanProvider>
-              </Router>
+              <AdminBooleanProvider currAdminStatus={true}> 
+                <Route path="/admin/register" exact component={RegisterPage} />
+              </AdminBooleanProvider>
 
               <Route
                 path="/eventhasnotstarted"
