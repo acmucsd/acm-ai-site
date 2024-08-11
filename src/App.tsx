@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import { TournamentProvider } from './contexts/tournament';
+import {AdminBooleanProvider} from './contexts/admin';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -116,7 +117,19 @@ function App() {
                 component={HideAndSeek2020Page}
               />
               <Route path="/events" exact component={EventsPage} />
-              <Route path="/register" exact component={RegisterPage} />
+
+              <Router>
+                <AdminBooleanProvider currAdminStatus={false}> 
+                  <Route path="/register" exact component={RegisterPage} />
+                </AdminBooleanProvider>
+              </Router>
+
+              <Router>
+                <AdminBooleanProvider currAdminStatus={true}> 
+                  <Route path="/admin/register" exact component={RegisterPage} />
+                </AdminBooleanProvider>
+              </Router>
+
               <Route
                 path="/eventhasnotstarted"
                 exact
