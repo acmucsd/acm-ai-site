@@ -19,9 +19,6 @@ function RegisterPage() {
 
   const {isAdmin}  = context;
 
-  console.log("isAdmin: ", isAdmin)
-  // const isAdmin = true
-
   const history = useHistory();
   const { handleSubmit, watch, errors, control } = useForm();
   const [checked, setChecked] = useState(true);
@@ -47,10 +44,10 @@ function RegisterPage() {
     setChecked(e.target.checked);
   };
 
-  const handleChangeAdmin = () => {
-    const {setIsAdmin} = context
-    setIsAdmin(!isAdmin)
-  }
+  // const handleChangeAdmin = () => {
+  //   const {setIsAdmin} = context
+  //   setIsAdmin(!isAdmin)
+  // }
 
   return (
     <DefaultLayout>
