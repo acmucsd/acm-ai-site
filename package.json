@@ -5,10 +5,12 @@
     "@types/aos": "^3.0.3",
     "@types/chart.js": "^2.9.27",
     "aos": "^3.0.0-beta.6",
-    "axios": "^1.4.0",
+    "axios": "^1.7.5",
     "chart.js": "^2.9.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "papaparse": "^5.4.1",
     "path-browserify": "^1.0.1",
     "postcss-loader": "^7.3.3",
     "prettier": "^2.1.2",
@@ -23,7 +25,8 @@
     "react-icons": "^4.10.1",
     "react-remark": "^2.1.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^5.0.0"
+    "react-scripts": "^5.0.0",
+    "request": "^2.88.2"
   },
   "scripts": {
     "start": "react-app-rewired start",
