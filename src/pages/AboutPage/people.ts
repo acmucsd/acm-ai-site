@@ -12,7 +12,7 @@ export interface Person {
   readonly name: string;
   readonly major: string;
   readonly bio: string;
-  readonly picture?: string;
+  picture?: string;
   readonly socials?: Socials;
 }
 /*
@@ -78,7 +78,9 @@ const processCSVFile = (filePath: string): void => {
           directors.length = 0;
 
           results.data.forEach(row => {
-            console.log('Row Data:', row);
+            if (row.picture === "") {
+              row.picture = "/logo512.png";
+            }
 
             if (row.section === 'dev') {
               dev.push(row);
