@@ -1,3 +1,5 @@
+import Papa from 'papaparse';
+
 export interface Socials {
   readonly website?: string;
   readonly github?: string;
@@ -5,6 +7,7 @@ export interface Socials {
 }
 
 export interface Person {
+  readonly section: string;
   readonly role: string;
   readonly name: string;
   readonly major: string;
@@ -12,10 +15,11 @@ export interface Person {
   readonly picture?: string;
   readonly socials?: Socials;
 }
+/*
 export const directors: Person[] = [
   {'role': 'President', 'name': 'Jackie Piepkorn', 'major': 'Computer Science', 'bio': 'Hi everyone, my name is Jackie and I am a Computer Science major interested in the intersection of AI and Software Engineering, especially related to Natural Language Processing. My favorite part about ACM AI is our goal of making AI education more accessible to students. Outside of coding, I enjoy live music and learning languages.', 'picture': 'https://i.imgur.com/wIlvoSY.png', 'socials': {'github': 'https://github.com/jackiepiepkorn', 'linkedin': 'https://linkedin.com/in/jackie-piepkorn', 'website': ''}},
   {'role': 'Director of Development', 'name': 'Samantha Prestrelski', 'major': 'Mathematics-Computer Science', 'bio': "Hello! I'm Sam, a Math-CS major interested in software engineering, machine learning, and computer vision. I'm currently doing research in Prof. Curt Schurgers and Ryan Kastner's lab. Outside of AI, I like to listen to podcasts and play Tetris.", 'picture': 'https://sprestrel.ski/assets/sprestrelski.jpg', 'socials': {'github': 'https://github.com/sprestrelski', 'linkedin': 'https://linkedin.com/in/samanthaprestrelski', 'website': 'https://sprestrel.ski'}},
-  {'role': 'Director of Events', 'name': 'Kevin Chan', 'major': 'Computer Science', 'bio': "Hi!!! I'm Kevin, a CS major in Warren with a passion for innovative AI applications. I work on various research projects in Prof. Hao Su's lab and the Qualcomm Institute. In my free time, I enjoy table tennis, Tetris, movies, animes, and hanging out with friends. I’d love to get to know you, so feel free to reach out and chat!", 'picture': 'https://i.imgur.com/UghaWk8.jpg', 'socials': {'github': 'https://github.com/t-sekai', 'linkedin': 'https://www.linkedin.com/in/tsekaichan/', 'website': 'https://tsekai.com'}},
+  {'role': 'Director of Events', 'name': 'Kevin Chan', 'major': 'Computer Science', 'bio': "Hi!!! I'm Kevin, a CS major in Warren with a passion for innovative AI applications. I work on various research projects in Prof. Hao Su's lab and the Qualcomm Institute. In my free time, I enjoy table tennis, Tetris, movies, animes, and hanging out with friends. Iï¿½d love to get to know you, so feel free to reach out and chat!", 'picture': 'https://i.imgur.com/UghaWk8.jpg', 'socials': {'github': 'https://github.com/t-sekai', 'linkedin': 'https://www.linkedin.com/in/tsekaichan/', 'website': 'https://tsekai.com'}},
   {'role': 'Director of Marketing', 'name': 'Anchit Kumar', 'major': 'Computer Science', 'bio': "Hey, I'm Anchit and I'm a CS major in Sixth. I'm interested in AI's intersection with creativity and using AI to aid exploration, especially Computer Vision. Outside of CS, I enjoy playing the guitar, running, writing and travelling!", 'picture': 'https://i.imgur.com/yua26Fq.jpg', 'socials': {'github': 'https://github.com/Anchit-Kumar', 'linkedin': 'https://www.linkedin.com/in/anchitk/', 'website': ''}},
   {'role': 'Director of Marketing', 'name': 'Kyla Park', 'major': 'Data Science', 'bio': "Hi, I'm Kyla, a Data Science major in Marshall. I'm interested in Natural Language Processing and Deep Neural Network. Outside of school, I love fashion, art, and exploring new food places!", 'picture': 'https://i.imgur.com/Ubc0heo.png', 'socials': {'github': 'https://github.com/kyladawon', 'linkedin': 'https://www.linkedin.com/in/kyla-park-936219260/', 'website': ''}},
 ];
@@ -46,5 +50,58 @@ export const marketing: Person[] = [
 
 export const socials: Person[] = [
   {'role': 'Social Lead', 'name': 'Parinitha Anumula', 'major': 'Cognitive Science (ML)', 'bio': "Hello!! I'm Parinitha, a Cog Sci major in Seventh. I am interested in exploring diverse implementations of AI. In my free time, I enjoy reading webnovels, trying out new boardgames and drinking boba! I'm looking forward to meeting you all! If you have any questions, or just wanna chat, feel free to reach out!", 'picture': 'https://i.imgur.com/YqHEpJx.png', 'socials': {'github': '', 'linkedin': '', 'website': ''}},
-];
+];*/
 
+const directors: Person[] = [];
+const operations: Person[] = [];
+const dev: Person[] = [];
+const marketing: Person[] = [];
+const socials: Person[] = [];
+
+const processCSVFile = (filePath: string): void => {
+  fetch(filePath, { credentials: 'omit' })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(csvData => {
+      Papa.parse<Person>(csvData, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          dev.length = 0;
+          operations.length = 0;
+          marketing.length = 0; 
+          socials.length = 0;
+          directors.length = 0;
+
+          results.data.forEach(row => {
+            console.log('Row Data:', row);
+
+            if (row.section === 'dev') {
+              dev.push(row);
+            } else if (row.section === 'operations') {
+              operations.push(row);
+            } else if (row.section === 'marketing') {
+              marketing.push(row);
+            } else if (row.section === 'socials') {
+              socials.push(row);
+            } else if (row.section === 'directors') {
+              directors.push(row);
+            }
+          });
+        },
+        error: (error: any) => {
+          console.error('Error parsing CSV:', error);
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching CSV file:', error);
+    });
+};
+
+processCSVFile("/bios.csv");
+export { dev, marketing, directors, operations, socials };

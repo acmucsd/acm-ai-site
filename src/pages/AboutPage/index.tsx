@@ -134,7 +134,7 @@ const renderCards = (
 ) => (
   <>
     {people.map((card) => (
-      <Col xs={24} sm={12} xl={8} xxl={8}>
+      <Col xs={24} sm={12} xl={8} xxl={8} key={card.name}>
         <AboutCard
           card={card}
           onSelectPerson={onSelectPerson}
