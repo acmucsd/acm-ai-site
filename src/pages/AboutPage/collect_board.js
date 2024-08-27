@@ -2,7 +2,7 @@ const fs = require("fs");
 const papa = require("papaparse");
 const axios = require('axios');
 
-const csvUrl = 'https://docs.google.com/spreadsheets/d/1uT7Gd_OcTgO71i1OcQy2VFJlaw_5Qvxs8Jnh1rLXHLc/pub?output=csv';
+const csvUrl = 'https://docs.google.com/spreadsheets/d/1yaMCG13550I3hfh1xtNqfXeBGkGtuEACN58ycn6sOpQ/pub?output=csv';
 const outputPath = "../../../public/bios.csv";
 
 const fetchData = async(url, outputPath) => {
