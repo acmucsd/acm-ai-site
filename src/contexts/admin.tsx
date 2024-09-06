@@ -20,6 +20,4 @@ export const AdminBooleanProvider: React.FC<{ children: ReactNode; currAdminStat
   );
 };
 
-// Optionally define a Consumer if needed
-// export const AdminBooleanConsumer = AdminBooleanContext.Consumer;
 export default AdminBooleanContext;

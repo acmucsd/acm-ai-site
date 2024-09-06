@@ -44,18 +44,13 @@ function RegisterPage() {
     setChecked(e.target.checked);
   };
 
-  // const handleChangeAdmin = () => {
-  //   const {setIsAdmin} = context
-  //   setIsAdmin(!isAdmin)
-  // }
-
   return (
     <DefaultLayout>
       <div className="RegisterPage">
         <Content className="registerDetails">
           <div className="registerHeader">
             {
-              isAdmin ? <h2>Admin Register</h2> : 
+              isAdmin ? <h2>Register as Admin</h2> : 
               (<>
                 <h2>Register</h2>
                 <p>
@@ -185,13 +180,6 @@ function RegisterPage() {
             <Link to='./login'>
             <p>Already have an account? Log in</p>
             </Link>
-            {/* {
-              isAdmin ? 
-              <p onClick={handleChangeAdmin}>Register for general member account</p>
-               :
-              <p onClick={handleChangeAdmin}>Register for admin account</p>
-            } */}
-            
           </div>
 
         </Content>
