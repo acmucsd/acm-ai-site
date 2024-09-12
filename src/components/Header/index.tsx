@@ -157,7 +157,6 @@ function Header() {
                     onClick={() => {
                       logoutUser();
                       setUser(defaultUser);
-                      message.success('Logged out');
                       history.push('/');
                     }}
                   >
