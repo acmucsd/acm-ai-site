@@ -13,8 +13,6 @@ export const resetPassword = async (data: {
     password: data.password,
     resetPasswordKey: data.code,
   };
-  console.log(data);
-  console.log(body);
   return new Promise((resolve, reject) => {
     axios
       .post(
@@ -35,7 +33,6 @@ export const resetPassword = async (data: {
 };
 
 export const requestReset = async (username: string) => {
-  console.log(username);
   return new Promise((resolve, reject) => {
     axios
       .get(

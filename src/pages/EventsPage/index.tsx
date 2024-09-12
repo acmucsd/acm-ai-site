@@ -47,11 +47,9 @@ function EventsPage(props: any) {
   useEffect(() => {
     fetchFutureEvents().then((data) => {
       setFutureEventData(data);
-      console.log(data);
     });
     fetchPastEvents().then((data) => {
       setPastEventData(data);
-      console.log(data);
     });
   }, []);
 

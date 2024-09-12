@@ -10,7 +10,6 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
   // Modal props
   const showModal = () => {
     setIsModalOpen(true);
-    console.log(isModalOpen);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
