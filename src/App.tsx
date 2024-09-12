@@ -119,15 +119,6 @@ function App() {
                 component={HideAndSeek2020Page}
               />
               <Route path="/events" exact component={EventsPage} />
-
-              <AdminBooleanProvider currAdminStatus={false}> 
-                <Route path="/register" exact component={RegisterPage} />
-              </AdminBooleanProvider>
-
-              <AdminBooleanProvider currAdminStatus={true}> 
-                <Route path="/admin/register" exact component={RegisterPage} />
-              </AdminBooleanProvider>
-
               <Route
                 path="/eventhasnotstarted"
                 exact
@@ -196,6 +187,13 @@ function App() {
               >
                 <EnergiumRoutes />
               </TournamentProvider>
+              <AdminBooleanProvider currAdminStatus={false}> 
+                <Route path="/register" exact component={RegisterPage} />
+              </AdminBooleanProvider>
+
+              <AdminBooleanProvider currAdminStatus={true}> 
+                <Route path="/admin/register" exact component={RegisterPage} />
+              </AdminBooleanProvider>
             </UserProvider>
           ) : (
             <div
