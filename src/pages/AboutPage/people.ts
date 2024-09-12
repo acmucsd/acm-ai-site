@@ -23,7 +23,7 @@ const dev: Person[] = [];
 const marketing: Person[] = [];
 const socials: Person[] = [];
 
-const csvUrl = 'https://docs.google.com/spreadsheets/d/1yaMCG13550I3hfh1xtNqfXeBGkGtuEACN58ycn6sOpQ/pub?output=csv';
+const csvUrl = process.env["REACT_APP_BOARD_BIOS"] as string;
 
 const processCSVData = (data: string): void => {
   Papa.parse(data, {
