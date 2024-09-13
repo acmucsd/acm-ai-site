@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import { TournamentProvider } from './contexts/tournament';
-import {AdminBooleanProvider} from './contexts/admin';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -179,7 +178,9 @@ function App() {
                 }}
               />
               <Route path="/resetpassword" component={ForgotPasswordPage} />
-              <Route path="/requestreset" component={requestreset} />   
+              <Route path="/requestreset" component={requestreset} />  
+              <Route path="/register" exact component={RegisterPage} />
+              <Route path="/admin/register" exact component={RegisterPage} />
               <Route path="*" component={NotFoundPage} />
               </Switch>
               <TournamentProvider
@@ -187,13 +188,6 @@ function App() {
               >
                 <EnergiumRoutes />
               </TournamentProvider>
-              <AdminBooleanProvider currAdminStatus={false}> 
-                <Route path="/register" exact component={RegisterPage} />
-              </AdminBooleanProvider>
-
-              <AdminBooleanProvider currAdminStatus={true}> 
-                <Route path="/admin/register" exact component={RegisterPage} />
-              </AdminBooleanProvider>
             </UserProvider>
           ) : (
             <div

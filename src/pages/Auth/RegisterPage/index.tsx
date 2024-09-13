@@ -1,23 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
 import { Form, Input, message, Button, Checkbox, Layout } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { registerUser } from '../../../actions/auth';
-import { useHistory, Link } from 'react-router-dom';
-import AdminBooleanContext from '../../../contexts/admin';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 
 const { Content } = Layout;
 
 function RegisterPage() {
 
-  const context = useContext(AdminBooleanContext);
-
-  if (context === undefined) {
-    throw new Error('RegisterPage must be used within an AdminBooleanProvider');
-  }
-
-  const {isAdmin}  = context;
+  const location = useLocation();
+  const isAdmin  = location.pathname === '/admin/register';
 
   const history = useHistory();
   const { handleSubmit, watch, errors, control } = useForm();
@@ -26,19 +20,12 @@ function RegisterPage() {
     if (errors.confirmPassword) {
       handlePasswordErrors(errors);
     }
-
-    if( isAdmin ){
-      registerUser({ ...values, isUCSD: checked, admin: true }).then((res) => {
-        message.success('Admin registered! Redirecting to login page');
-        history.push('/login');
-      });
-
-    }else{
-      registerUser({ ...values, isUCSD: checked, admin: false }).then((res) => {
-        message.success('Registered! Redirecting to login page');
-        history.push('/login');
-      });
-    }
+    registerUser({ ...values, isUCSD: checked, admin: isAdmin }).then((res) => {
+      message.success(isAdmin ? 
+        'Admin registered! Redirecting to login page' : 
+        'Registered! Redirecting to login page');
+      history.push('/login');
+    });
   };
   const onCheckChange = (e: any) => {
     setChecked(e.target.checked);
