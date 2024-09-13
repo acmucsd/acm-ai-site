@@ -13,7 +13,6 @@ function MainPage() {
   const [eventData, setEventData] = useState<Array<ACMEvent>>([]);
   useEffect(() => {
     fetchFutureEvents().then((data) => {
-      console.log(data);
       setEventData(data);
     });
   }, []);

@@ -28,9 +28,7 @@ const csvUrl = process.env["REACT_APP_BOARD_BIOS"] as string;
 const processCSVData = (data: string): void => {
   Papa.parse(data, {
       header: true,
-      complete: (results) => {
-          console.log('Parsed CSV data:', results.data);
-      },
+      complete: () => {},
       error: (error: any) => {
           console.log('Error parsing CSV data:', error);
       }

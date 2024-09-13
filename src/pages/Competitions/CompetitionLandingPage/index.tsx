@@ -62,7 +62,6 @@ const CompetitionLandingPage = () => {
     if (user.loggedIn) {
       getCompetitionUser(competitionID, user.username)
         .then((res) => {
-          console.log(res);
           setIsRegistered(res.data.registered);
         })
         .catch((error) => {
