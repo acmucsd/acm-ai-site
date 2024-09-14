@@ -15,7 +15,7 @@ import './styles/index.less';
 import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
 
-import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
+// import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
 import RegisterPage from './pages/Auth/RegisterPage';
 import LoginPage from './pages/Auth/LoginPage';
 
@@ -28,9 +28,10 @@ import {
   defaultTournament,
 } from './configs';
 import { message } from 'antd';
-import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/HideAndSeek2020';
+// import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/HideAndSeek2020';
 import CompetitionsPage from './pages/CompetitionsPage';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
+import Energium2020Page from './pages/Competitions/Energium2020Page';
 import AboutPage from './pages/AboutPage';
 import AlumniPage from './pages/AlumniPage';
 import EventsPage from './pages/EventsPage';
@@ -117,6 +118,11 @@ function App() {
                 exact
                 component={HideAndSeek2020Page}
               />
+              <Route
+                path="/old-competitions/energium"
+                exact
+                render={() => <Energium2020Page />}
+              />
               <Route path="/events" exact component={EventsPage} />
               <Route
                 path="/eventhasnotstarted"
@@ -165,7 +171,7 @@ function App() {
                 component={JoinTeamsPage}
               />
               {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
-              <Route
+              {/* <Route
                 exact
                 path="/history/hide-and-seek2020"
                 component={() => {
@@ -176,7 +182,7 @@ function App() {
                     />
                   );
                 }}
-              />
+              /> */}
               <Route path="/resetpassword" component={ForgotPasswordPage} />
               <Route path="/requestreset" component={requestreset} />  
               <Route path="/register" exact component={RegisterPage} />
@@ -186,8 +192,9 @@ function App() {
               <TournamentProvider
                 value={{ tournament: tournament, setTournament: setTournament }}
               >
-                <EnergiumRoutes />
-              </TournamentProvider>
+                {/* <EnergiumRoutes /> */}   {/* delete? */}
+
+              </TournamentProvider> 
             </UserProvider>
           ) : (
             <div

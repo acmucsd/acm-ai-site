@@ -2,6 +2,7 @@ import React from 'react';
 
 import './index.less';
 
+
 const HideAndSeek2020 = () => {
   return (
     <div className="HideAndSeek2020">
