@@ -261,7 +261,7 @@ function CompetitionsPage(props: any) {
                 on their win.
               </p>
               <div>
-                <Link to="/old-competitions/energium/ranks">
+                <Link to="/old-competitions/energium/">
                   <Button
                     className="compButtonPrimary"
                     size="large"
@@ -326,7 +326,7 @@ function CompetitionsPage(props: any) {
                 as well!
               </p>
               <div>
-                <Link to="/history/hide-and-seek2020">
+                <Link to="/old-competitions/hide-and-seek2020">
                   <Button
                     className="compButtonPrimary"
                     size="large"

@@ -3,6 +3,9 @@ import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
 import { Link } from 'react-router-dom';
 
+import HideAndSeek2020 from '../../../components/HistoricalCompetitionDescriptions/HideAndSeek2020';
+import TournamentRankingsPageHistorical from '../../../pages/TournamentRankingsPageHistorical';
+
 function HideAndSeek2020Page() {
   return (
     <DefaultLayout>
@@ -72,8 +75,13 @@ function HideAndSeek2020Page() {
             </a>{' '}
             We also love open source, feel free to contribute anything!
           </p>
+
+          <TournamentRankingsPageHistorical
+            dataDir="2020summer"
+            description={HideAndSeek2020}
+          />
         </div>
-        <div className="main-section">
+        {/* <div className="main-section">
           <h1 style={{ color: 'white' }}>Competition Info</h1>
           <h1 className="statement">
             Ranking{' '}
@@ -160,7 +168,7 @@ function HideAndSeek2020Page() {
             </li>
             <li>Have fun!</li>
           </ol>
-        </div>
+        </div> */}
       </div>
     </DefaultLayout>
   );

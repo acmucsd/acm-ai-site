@@ -137,11 +137,11 @@ const TournamentRankingsPageHistorical = ({
   }, [dataDir]);
 
   return (
-    <DefaultLayout>
+    // <DefaultLayout> // This adds a header, but since its only usied for HideAndSeek2020Page,HideAndSeek2020 already has a header 
       <div className="TournamentRankingsPageHistorical">
         <Content>
           <div className="tournamentTitles">
-            <h2>{tournament?.name}</h2>
+            <h2>{tournament?.name} Final Rankings</h2>
             <p>{description && description()}</p>
           </div>
         </Content>
@@ -163,7 +163,7 @@ const TournamentRankingsPageHistorical = ({
           {updateTime && <p>Last updated: {updateTime?.toLocaleString()}</p>}
         </Content>
       </div>
-    </DefaultLayout>
+    // </DefaultLayout>
   );
 };
 

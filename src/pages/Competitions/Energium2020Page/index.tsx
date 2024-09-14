@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { Energium } from '../../../components/Text/Energium';
 import CompetitionDiscordLink from '../../../components/CompetitionDiscordLink';
+import TournamentRankingsPageHistorical from '../../TournamentRankingsPageHistorical';
 
 export const Energium2020Page = () => {
   // no longer used as competition is over
@@ -51,11 +52,12 @@ export const Energium2020Page = () => {
             Welcome to the Fall 2020 AI competition - <Energium />
           </h1>
           <div>
-            <Link to="/old-competitions/energium/ranks">
+            {/* <Link to="/old-competitions/energium/ranks">
               <Button className="tourney-btn" type="primary">
                 Final Rankings
               </Button>
-            </Link>
+            </Link> */}
+            {/* Rankings added to bottom */}
             <a
               href="https://github.com/acmucsd/energium-ai-2020/"
               target="_blank"
@@ -123,6 +125,10 @@ export const Energium2020Page = () => {
             We also love open source, so star the repository and feel free to
             contribute anything!
           </p>
+          <TournamentRankingsPageHistorical
+            dataDir="2020fall"
+            // description={HideAndSeek2020}
+          />
           <br />
           <p>
             Be sure to join our competition discord at{' '}
@@ -132,7 +138,7 @@ export const Energium2020Page = () => {
             rules
           </p>
         </div>
-        <div className="main-section">
+        {/* <div className="main-section">
           <h1 style={{ color: 'white' }}>Competition Info</h1>
           <h1 className="statement">
             Ranking{' '}
@@ -206,7 +212,7 @@ export const Energium2020Page = () => {
             </li>
             <li>Have fun!</li>
           </ol>
-        </div>
+        </div> */}
       </div>
     </DefaultLayout>
   );
