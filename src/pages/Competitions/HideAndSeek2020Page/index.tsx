@@ -2,6 +2,7 @@ import React from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 
 import HideAndSeek2020 from '../../../components/HistoricalCompetitionDescriptions/HideAndSeek2020';
 import TournamentRankingsPageHistorical from '../../../pages/TournamentRankingsPageHistorical';
@@ -17,6 +18,15 @@ function HideAndSeek2020Page() {
               🙈🏃
             </span>
           </h1>
+          <a
+              href="https://github.com/acmucsd/hide-and-seek-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="tourney-btn" type="primary">
+                View Github
+              </Button>
+            </a>
           <p>
             Congratulations to Joe Cai for winning the Hide and Seek AI
             Competition{' '}
@@ -64,7 +74,7 @@ function HideAndSeek2020Page() {
               <span className="hider">Hiders</span> and corner them
             </div>
           </div>
-          <p>
+          {/* <p>
             For details on specs, code, and how the game works, check out the{' '}
             <a
               href="https://github.com/acmucsd/hide-and-seek-ai"
@@ -74,7 +84,7 @@ function HideAndSeek2020Page() {
               github!
             </a>{' '}
             We also love open source, feel free to contribute anything!
-          </p>
+          </p> */}
 
           <TournamentRankingsPageHistorical
             dataDir="2020summer"
