@@ -2,7 +2,7 @@ import { Row, Col, Layout, Avatar, Tooltip } from 'antd';
 import React from 'react';
 import './index.less';
 import { AiOutlineLink } from 'react-icons/ai';
-import { BiLogoInstagram, BiLogoDiscord } from 'react-icons/bi';
+import { BiLogoInstagram, BiLogoDiscord, BiMailSend } from 'react-icons/bi';
 const { Footer } = Layout;
 
 const MainFooter = () => {
@@ -23,14 +23,14 @@ const MainFooter = () => {
         <Col className="boardPositions">
           <Row className="position">
             <h4>
-              <a href="https://acmurl.com/ai-elections">Role Descriptions</a>
+              <a href="https://acmurl.com/ai-elections" target="_blank" rel="noopener noreferrer">Role Descriptions</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/ai-elections">
+                <a href="https://acmurl.com/ai-elections" target="_blank" rel="noopener noreferrer">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
@@ -38,14 +38,14 @@ const MainFooter = () => {
           </Row>
           <Row className="position">
             <h4>
-              <a href="https://acmurl.com/apply-ai">Application</a>
+              <a href="https://acmurl.com/apply-ai" target="_blank" rel="noopener noreferrer">Application</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/apply-ai">
+                <a href="https://acmurl.com/apply-ai" target="_blank" rel="noopener noreferrer">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
@@ -58,23 +58,27 @@ const MainFooter = () => {
         <Col className="infoText">
           <h2 className="title2">Stay up to date</h2>
           <p>
-            We host many, many events through each quarter at UCSD. Best way to
-            be in the loop of new events, competitions etc. is to check out our
-            Discord and Instagram. We run workshops on introductory to advanced
-            neural network concepts and programming to workshops on the Kaggle
-            platform
+            We host many, many events through each quarter at UCSD. Stay
+            in the loop of new events, socials, and competitions by checking out our
+            Discord and Instagram as well as our newsletter! We run workshops on introductory to advanced
+            neural network concepts and programming to workshops on the Kaggle platform.
           </p>
         </Col>
 
         <Row className="socialMedia">
           <Tooltip title="@acm_ai_ucsd">
-            <a href="https://www.instagram.com/acm_ai_ucsd/">
+            <a href="https://www.instagram.com/acm_ai_ucsd/" target="_blank" rel="noopener noreferrer">
               <BiLogoInstagram size={72} />
             </a>
           </Tooltip>
-          <Tooltip title="https://discord.com/invite/4zKpm7U">
-            <a href="https://discord.com/invite/4zKpm7U">
+          <Tooltip title="Discord">
+            <a href="https://discord.com/invite/4zKpm7U" target="_blank" rel="noopener noreferrer">
               <BiLogoDiscord size={72} />
+            </a>
+          </Tooltip>
+          <Tooltip title="Newsletter">
+            <a href="https://acmurl.com/ai-newsletter" target="_blank" rel="noopener noreferrer">
+              <BiMailSend size={72} />
             </a>
           </Tooltip>
         </Row>
@@ -94,7 +98,7 @@ const MainFooter = () => {
         </Col>
       </Row>
 
-      <h3>ACM AI at UCSD 2023</h3>
+      <h3>ACM AI at UC San Diego</h3>
     </Footer>
   );
 };
