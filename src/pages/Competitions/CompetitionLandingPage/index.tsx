@@ -32,6 +32,7 @@ const CompetitionLandingPage = () => {
   const { user } = useContext(UserContext);
 
   const competitionID = params.id;
+  console.log("COMPID: ", competitionID)
 
   const update = () => {
     getMetaData(competitionID)
