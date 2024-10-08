@@ -4,8 +4,6 @@ import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
 import { ACMEvent, fetchFutureEvents } from '../../actions/events';
 import { Layout, Button, Collapse, Card } from 'antd';
-import { FaFireAlt, FaProjectDiagram } from 'react-icons/fa';
-import EventTimeline from '../../components/EventTimeline/index';
 import MainFooter from '../../components/MainFooter/index';
 import TeamImg from '../../../public/team.png';
 import ProjectIcon from '../../../public/project.png';
@@ -31,7 +29,7 @@ function NewHome() {
                 <h4>We aspire to inspire the next generation of AI advocates, engineers, and scientists.</h4>
                 <div className="homeButtons">
                 <Link to={`/register`} rel="noopener noreferrer">
-                <Button size="large" shape="round" className="getStartedButton">Sign Up
+                <Button size="large" shape="round" className="getStartedButton">Join Us
                     <svg width="7" height="13" viewBox="0 0 7 13" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '8px' }} >
                     <path d="M1 1.5L6 6.5L1 11.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -99,8 +97,9 @@ function NewHome() {
             <h4>We aim to foster a community of AI enthusiasts at UCSD, connecting them to the wider AI network. </h4>
             <h4>Our goals include making AI fun and accessible through workshops, competitions, networking events, and more, as you explore the complex AI landscape.</h4>
             <div className="homeButtons">
-            
-            <Link to={`/events`} rel="noopener noreferrer">
+
+
+            <Link to={{ pathname: "https://wiki.ai.acmucsd.com" }} target="_blank" >
                 <Button size="large" shape="round" className="teamButton">View Our Wiki!
                     <svg width="7" height="13" viewBox="0 0 7 13" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '8px' }} >
                     <path d="M1 1.5L6 6.5L1 11.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
