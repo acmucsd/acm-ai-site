@@ -14,7 +14,6 @@ import { LoadingOutlined } from '@ant-design/icons';
 import './styles/index.less';
 import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
-import NewHome from './pages/NewHome';
 
 import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
 import RegisterPage from './pages/Auth/RegisterPage';
@@ -108,7 +107,6 @@ function App() {
           {!verifying ? (
             <UserProvider value={{ user: user, setUser: setUser }}>
               <Switch>
-              <Route path="/newhome" exact component={NewHome} />
               <Route path="/" exact component={MainPage} />
               <Route path="/about" exact component={AboutPage} />
               <Route path="/competitions" exact component={CompetitionsPage} />
