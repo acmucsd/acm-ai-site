@@ -31,7 +31,13 @@ function MainPage() {
                 </div>
             </div>
             <img src={AILogo} alt="ACM AI Diamond Logo" className="ai-logo"/>
+            <div className="floatingShapes">
+                <div className="shape shapeTop"></div>
+                <div className="shape shapeBot"></div>
+            </div>
+            
         </div>
+        <div className="wavy"/>
         {/* <Row className="homeContentRow">
             <Col className="homeText">
                 <h1 className="homeTitle">ACM <span className="colorful">AI</span></h1>
