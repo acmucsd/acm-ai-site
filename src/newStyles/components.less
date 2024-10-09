@@ -87,9 +87,20 @@
 
 .button-colorful {
     background: linear-gradient(#F66161, #FF8130);
-    color: @white;
     border-style: none;
+    color: @white;
+
     &:hover {
+        color: @text-gray2;
+    }
+}
+
+.button-red-outline {
+    background-color: white;
+    border-color: @mainred;
+    color: @mainred;
+    &:hover {
+        border-color: @text-gray2;
         color: @text-gray2;
     }
 }
