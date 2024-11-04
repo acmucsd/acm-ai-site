@@ -203,7 +203,7 @@
 
           img {
               justify-self: center;
-              width: 10vw;
+              width: 12vw;
           }
 
           .knowledgeButton {
@@ -211,6 +211,87 @@
           }
         }
     }        
+}
+
+.communitySection {
+
+  .generic-section();
+  max-width: 80%;
+  text-align: center;
+  
+  h3 {
+    font-weight: bold;
+    line-height: 3rem;
+    margin-top: @margin-base2;
+  }
+
+  p{
+    margin-top: @margin-base2;
+  }
+
+  button {
+    justify-self: center;
+    margin-top: @margin-base2;
+  }
+
+
+  .mainWebsiteBtn {
+    .button-colorful();
+  }
+
+  .splitInfoRow {
+    margin-top: @margin-base2;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 4rem;
+    .constrained-bounds();
+
+    img {
+      flex: 0 1 50%;
+      max-width: @max-width1;
+      margin-top: 2rem;
+
+      @media screen and (max-width: @xs) {
+        flex: 0 1 100%;
+        max-width: 70%;
+        display: block;
+        margin: 0 auto;
+      }
+
+    }
+
+    .community {
+      display: flex;
+      align-items: center;
+      gap:  3rem;
+    }
+
+
+    .infoText {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      width: 100%;
+
+      .red {
+        color: @mainred;
+      }
+
+      .yellow {
+        color: @mainyellow;
+      }
+
+      .green {
+        color: @maingreen;
+      }
+
+      .purple {
+        color: #E981A0;
+      }
+    }
+  }
+
 }
 
 .colorful{

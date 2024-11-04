@@ -3,7 +3,11 @@ import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
 import { Layout, Button, Row, Col } from 'antd';
 import MainFooter from '../../components/MainFooter/index';
-import AILogo from '../../../public/logo512.png';
+import AIMainLogo from '../../../public/logo512.png';
+import AILogo from '../../../public/ai_diamond.svg';
+import CyberLogo from '../../../public/cyber_diamond.svg';
+import DesignLogo from '../../../public/design_diamond.svg';
+import HackLogo from '../../../public/hack_diamond.svg';
 import TeamImg from '../../../public/team.png';
 import AIMLImg from '../../../public/aimlpath.jpg';
 import ProjectIcon from '../../../public/project.png';
@@ -32,7 +36,7 @@ function MainPage() {
                 </div>
 
             </div>
-            <img src={AILogo} alt="ACM AI Diamond Logo" className="ai-logo"/>
+            <img src={AIMainLogo} alt="ACM AI Diamond Logo" className="ai-logo"/>
             <div className="floatingShapes">
                 <div className="shape shapeTop"></div>
                 <div className="shape shapeBot"></div>
@@ -90,7 +94,7 @@ function MainPage() {
 
             <div className='items'>
                 <div className='item'>
-                    <img src={ProjectIcon} alt="File folder in a diamond"/>
+                    <img src={ProjectIcon} alt="File folder in a diamond" />
                     <h3>Projects</h3>
                     <p>
                         Explore our club's cutting-edge AI projects, showcasing innovation and expertise in artificial intelligence.
