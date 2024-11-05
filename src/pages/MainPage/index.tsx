@@ -133,7 +133,7 @@ function MainPage() {
         <div className="communityContainer">
 
             <Row className="splitInfoRow">
-                <Col className="community">
+                <Col className="community" span={12}>
                     <img src={AILogo} /> 
 
                     <div className="infoText">
@@ -143,7 +143,7 @@ function MainPage() {
                     
                 </Col>
 
-                <Col className="community">
+                <Col className="community" span={12}>
                     <img src={CyberLogo} /> 
 
                     <div className="infoText">
@@ -154,9 +154,9 @@ function MainPage() {
 
             </Row>
 
-            <Row className="splitInfoRow">
+            <Row className="splitInfoRow" wrap>
                 
-                <Col className="community">
+                <Col className="community" span={12}>
 
                 
                     <img src={HackLogo} /> 
@@ -167,7 +167,7 @@ function MainPage() {
                     </div>
                 </Col>
 
-                <Col className="community">
+                <Col className="community" span={12}>
                     <img src={DesignLogo} /> 
 
                     <div className="infoText">
