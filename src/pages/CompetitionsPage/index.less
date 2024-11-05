@@ -1,6 +1,7 @@
 @import '../../newStyles/text.less';
 @import '../../newStyles/components.less';
 @import '../../newStyles/index.less';
+@import '../../newStyles/variables.less';
 
 .CompetitionsPage {
   .noContainer();
@@ -63,6 +64,8 @@
       padding: 4rem;
       background: #f7f7f7;
       border-radius: @radius-base5;
+      border: 2px solid @stat1;
+      background-color: #fffbfb;
 
       h3 {
         font-weight: @bold;
@@ -73,15 +76,26 @@
         border-radius: @radius-base5;      
       }
       .compButtonPrimary {
-        border: none;
-        background: @black;
-        margin-top: 1rem;
+        border-radius: 10vw;
+        margin-top: @margin-base;
+        margin-bottom: @margin-base;
+        .button-red-outline();
       }
 
-      .compButtonSecondary {
-        border:none;
-        
+      .pastCompetitions{
+        display:flex;
+        flex-direction: column;
+        gap: 3rem;
+
+        .description{
+          text-align: justify;
+        }
+
+        .year {
+          padding-right: 1rem;
+        }
       }
+
 
     }
   }
