@@ -61,6 +61,11 @@ function MainPage() {
         </Row>
 
         <Row className="splitInfoRow">
+
+            <Col>
+                <img src={AIMLImg} alt="Four people standing in behind laptops for ACM AI Projects"/>
+            </Col>
+
             <Col className="infoText">
                 <h3> Model Your <span className="colorful">AI/ML</span> Path</h3>
                 <p>
@@ -72,9 +77,7 @@ function MainPage() {
                     <Button size="large" shape="round" className="infoButton">View our wiki &gt;</Button>
                 </Link>
             </Col>
-            <Col>
-                <img src={AIMLImg} alt="Four people standing in behind laptops for ACM AI Projects"/>
-            </Col>
+            
         </Row>
     </Content>
 
