@@ -91,10 +91,10 @@ function CompetitionsPage(props: any) {
               <div className="pastCompetitions">
 
               <Row justify="space-between" align="middle" wrap>
-                <Col flex="0 0 3rem">
+                <Col flex="0 0 3rem" style={{ marginRight: '1rem' }}>
                   <img src={competition.icon} alt="icon"/>
                 </Col>
-                <Col flex="1 1 auto">
+                <Col flex="1 1 3rem">
                   <h3>{competition.competitionName}</h3>
                 </Col>
                 <Col flex="0 0 3rem" offset={2} className="year" >
@@ -107,7 +107,7 @@ function CompetitionsPage(props: any) {
               </Row>
 
 
-              <Row>
+              <Row className="competitionInfo">
                 <Col className="competitionStats" span={18}>
                 {Object.entries(competition.stats).map(([key, value], statIndex) => (
                   <Number
