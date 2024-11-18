@@ -216,6 +216,10 @@
   .generic-section();
   max-width: 80%;
   text-align: center;
+
+  .communityContainer {
+    margin-top: 4rem;
+  }
   
   h3 {
     font-weight: bold;
@@ -242,17 +246,23 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    column-gap: 3rem;
+    flex-wrap: true;
     margin-bottom: 4rem;
     .constrained-bounds();
 
+    @media screen and (max-width: @xs) {
+      column-gap: 5rem;
+    }
+
     img {
       flex: 0 1 50%;
-      max-width: @max-width1;
+      width: 30%;
       margin-top: 2rem;
 
       @media screen and (max-width: @xs) {
         flex: 0 1 100%;
-        max-width: 70%;
+        max-width: 30%;
         display: block;
         margin: 0 auto;
       }
@@ -263,6 +273,7 @@
       display: flex;
       align-items: center;
       gap:  3rem;
+
     }
 
 
@@ -270,7 +281,7 @@
       display: flex;
       flex-direction: column;
       text-align: left;
-      width: 100%;
+      width: 200px;
 
       .red {
         color: @mainred;
@@ -289,6 +300,7 @@
       }
     }
   }
+
 
 }
 

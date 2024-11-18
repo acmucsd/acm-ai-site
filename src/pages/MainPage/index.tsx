@@ -136,9 +136,8 @@ function MainPage() {
         <div className="communityContainer">
 
             <Row className="splitInfoRow">
-                <Col className="community" span={12}>
+                <Col className="community">
                     <img src={AILogo} /> 
-
                     <div className="infoText">
                     <h3><span className='red'>ACM AI</span></h3>
                     <p>Artificial Intelligence</p>
@@ -146,9 +145,8 @@ function MainPage() {
                     
                 </Col>
 
-                <Col className="community" span={12}>
+                <Col className="community">
                     <img src={CyberLogo} /> 
-
                     <div className="infoText">
                         <h3><span className='green'>ACM Cyber</span></h3>
                         <p>Cyber Security</p>
@@ -157,27 +155,22 @@ function MainPage() {
 
             </Row>
 
-            <Row className="splitInfoRow" wrap>
+            <Row className="splitInfoRow">
                 
-                <Col className="community" span={12}>
-
-                
+                <Col className="community">
                     <img src={HackLogo} /> 
-
                     <div className="infoText">
                         <h3><span className='yellow'>ACM Hack</span></h3>
                         <p>Software Engineering</p>
                     </div>
                 </Col>
 
-                <Col className="community" span={12}>
+                <Col className="community">
                     <img src={DesignLogo} /> 
-
                     <div className="infoText">
                         <h3><span className='purple'>ACM Design</span></h3>
                         <p>UI/UX</p>
                     </div>
-                    
                 </Col>
             </Row>
 

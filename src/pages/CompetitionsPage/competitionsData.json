@@ -13,7 +13,7 @@
     },
     {
       "competitionName": "Neural Network Modeling",
-      "icon": "../../../public/nnm.png",
+      "icon": "../../../nnm.png",
       "year": "2021",
       "stats": {
         "Teams": 10,
@@ -24,7 +24,7 @@
     },
     {
       "competitionName": "Energium AI",
-      "icon": "../../../public/element.png",
+      "icon": "../../../energium.png",
       "year": "2020",
       "stats": {
         "Teams": 14,
@@ -35,7 +35,7 @@
     },
     {
       "competitionName": "Hide and Seek",
-      "icon": ".../../../public/hns.png",
+      "icon": ".../../../hns.png",
       "year": "2020",
       "stats": {
         "Teams": 15,

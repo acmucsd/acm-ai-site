@@ -29,7 +29,7 @@
   .pastCompetitionsHeader {
     background: @orange;
     margin-top: 4rem;
-    padding: 4rem ;
+    padding: 5rem ;
     text-align: center;
     h1, h4 {
       color: white;
@@ -87,12 +87,23 @@
         flex-direction: column;
         gap: 3rem;
 
+        img {
+          width: 3.5rem;
+        }
+
         .description{
           text-align: justify;
         }
 
         .year {
           padding-right: 1rem;
+        }
+      }
+
+      .competitionInfo{
+        @media screen and (max-width: @sm) {
+          display: flex;
+          flex-direction: column;
         }
       }
 
