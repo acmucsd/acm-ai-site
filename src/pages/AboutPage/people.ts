@@ -94,5 +94,4 @@ const processCSVFile = (filePath: string): void => {
     });
 };
 
-processCSVFile("/bios.csv");
 export { dev, marketing, directors, operations, socials };
