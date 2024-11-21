@@ -23,14 +23,10 @@ const dev: Person[] = [];
 const marketing: Person[] = [];
 const socials: Person[] = [];
 
-const csvUrl = process.env.REACT_APP_BOARD_BIOS as string;
-const sheetId = process.env.SHEETS_ID as string;
-const apiKey = process.env.SHEETS_API as string;
-const range = process.env.SHEETS_RANGE as string;
-
-const fetchData = async (): Promise<void> => {
+const csvUrl = process.env["REACT_APP_BOARD_BIOS"] as string;
+const fetchData = async (url: string): Promise<void> => {
   try {
-    const response = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`);
+    const response = await axios.get(url);
     const rows = response.data.values;
     const people: Person[] = [];
 
@@ -79,5 +75,5 @@ const fetchData = async (): Promise<void> => {
   }
 };
 
-fetchData();
+fetchData(csvUrl);
 export { dev, marketing, directors, operations, socials };
