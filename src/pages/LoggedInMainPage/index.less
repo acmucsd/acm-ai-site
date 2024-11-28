@@ -1,0 +1,118 @@
+// Variables
+@primary-color: #ff6b6b;
+@highlight-color: #ff6b6b;
+
+// General Styling
+.logged-in-main-page {
+
+    h3 {
+        font-weight: bold;
+        line-height: 3rem;
+    }
+
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #333;
+
+  .welcome {
+    margin: 20px 0;
+
+    
+
+    .highlight {
+      color: @highlight-color;
+    }
+  }
+
+  .info-section {
+    margin: 30px 0;
+
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+    .info-card {
+      width: 100px; // Adjust width and height for smaller size
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border: 2px solid @primary-color;
+      position: relative;
+      transform: rotate(45deg); // Rotate to create a diamond shape
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: rotate(45deg) scale(1.1); // Keep diamond shape but scale on hover
+      }
+
+      p,
+      h2 {
+        transform: rotate(-45deg); // Rotate text back to normal
+        margin: 0;
+      }
+
+      p {
+        font-size: 12px;
+        color: #555;
+      }
+
+      h2 {
+        font-size: 16px;
+        color: @primary-color;
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .explore-section {
+    margin-top: 40px;
+
+    .highlight {
+      color: @highlight-color;
+    }
+
+    .explore-cards {
+      margin-top: 20px;
+
+      .explore-card {
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border: 2px solid @primary-color;
+        border-radius: 8px;
+        background: #f8f9fa;
+
+        h3 {
+          font-size: 18px;
+          margin: 10px 0;
+        }
+
+        .explore-button {
+          font-size: 16px;
+          color: #fff;
+          background: @primary-color;
+          border: none;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          cursor: pointer;
+          transition: background 0.3s;
+
+          &:hover {
+            background: darken(@primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
