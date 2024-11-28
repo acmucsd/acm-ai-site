@@ -8,6 +8,7 @@ import TeamImg from '../../../public/team.png';
 import AIMLImg from '../../../public/aimlpath.jpg';
 import ProjectIcon from '../../../public/project.png';
 import CompIcon from '../../../public/comp.png';
+import HomeIconMobile from '../../../public/home_icon_mobile.png'
 
 const { Content } = Layout;
 
@@ -17,6 +18,7 @@ function MainPage() {
 
     <Content className="homeHeader">
         <div className="homeContent"> 
+            <img src={HomeIconMobile} className="HomeIconMobile"/>
             <div className="homeText">
                 <h1 className="homeTitle">ACM <span className="colorful">AI</span></h1>
                 <h3>Making AI accessible.</h3>
@@ -27,7 +29,7 @@ function MainPage() {
                     </Link>
                     
                     <Link to={{ pathname: "https://acmurl.com/ai-newsletter" }} target="_blank" >
-                        <Button size="large" shape="round" className="aboutButton">Sign up for our newsletter &gt;</Button>
+                        <Button size="large" shape="round" className="aboutButton">Newsletter &gt;</Button>
                     </Link>
                 </div>
 
@@ -44,6 +46,11 @@ function MainPage() {
 
     <Content className="homeInfo">
         <Row className="splitInfoRow">
+
+            <Col>
+                <img src={TeamImg} alt="ACM AI board holding an AI diamond"/>
+            </Col>
+
             <Col className="infoText">
                 <h3> What is <span className="colorful">ACM AI</span> at UC San Diego?</h3>
                 <p>
@@ -55,16 +62,10 @@ function MainPage() {
                     <Button size="large" shape="round" className="infoButton">Meet the team &gt;</Button>
                 </Link>
             </Col>
-            <Col>
-                <img src={TeamImg} alt="ACM AI board holding an AI diamond"/>
-            </Col>
+            
         </Row>
 
         <Row className="splitInfoRow">
-
-            <Col>
-                <img src={AIMLImg} alt="Four people standing in behind laptops for ACM AI Projects"/>
-            </Col>
 
             <Col className="infoText">
                 <h3> Model Your <span className="colorful">AI/ML</span> Path</h3>
@@ -76,6 +77,10 @@ function MainPage() {
                 <Link to={{ pathname: "https://wiki.ai.acmucsd.com" }} target="_blank" >
                     <Button size="large" shape="round" className="infoButton">View our wiki &gt;</Button>
                 </Link>
+            </Col>
+
+            <Col>
+                <img src={AIMLImg} alt="Four people standing in behind laptops for ACM AI Projects"/>
             </Col>
             
         </Row>
