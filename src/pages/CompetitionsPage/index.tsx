@@ -6,42 +6,9 @@ import Number from '../../components/Statistic';
 import { Layout, Button, Row, Col } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import competitionsData from './competitionsData.json';
+import tempComp from '../../../public/temp_comp.png'
+import trophy from '../../../public/trophy_bg.png'
 const { Content } = Layout;
-
-// interface CompetitionButtonProps {
-//   link1: string | { pathname: string; };
-//   link1desc: string;
-//   link2: string | { pathname: string; };
-//   link2desc: string;
-//   link3: string | { pathname: string; };
-//   link3desc: string;
-// }
-
-// function CompetitionButtons({
-//   link1, link1desc, link2, link2desc, link3, link3desc
-//   } : CompetitionButtonProps ) {
-//   const buttonSize = 'large';
-
-//   return (
-//     <div>
-//       <Space wrap>
-//         <Link to={link1}>
-//           <Button className = "compButtonPrimary"size={buttonSize} type="primary" danger><p>{link1desc}</p></Button>
-//         </Link>
-//         {link2 && (
-//           <Link to={link2} target="_blank">
-//             <Button className = "compButtonSecondary" size={buttonSize}><p>{link2desc}</p></Button>
-//           </Link>
-//         )}
-//         {link3 && (
-//           <Link to={link3} target="_blank">
-//             <Button className = "compButtonSecondary" size={buttonSize}><p>{link3desc}</p></Button>
-//           </Link>
-//         )}
-//       </Space>
-//     </div>
-//   );
-// }
 
 function CompetitionsPage(props: any) {
   useEffect(() => {}, []);
@@ -51,37 +18,34 @@ function CompetitionsPage(props: any) {
   return (
     <DefaultLayout>
       <Content className="CompetitionsPage">
-        <Content>
-          <div className="competitionHeader">
-            <h1 className="title2">Competitions</h1>
-            <h4>
-              These are fun competitions (with prizes) where you employ some
-              aspect (or none at all) of AI to compete. We run standard AI
-              programming competitions as well as Reinforcement Learning (RL)
-              centric competitions using{' '}
-              <a
-                href="https://gymnasium.farama.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Gymnasium.{' '}
-              </a>
-              All skill levels are welcome!
-            </h4>
 
-            <div className="noCompetitionsBox">
-              <p>No upcoming competitions yet!</p>
-            </div>
-          </div>
-        </Content>
+      <img src={tempComp} className="mobileIcon"/>
 
-        <Content className="pastCompetitionsHeader">
-          <h1 className="title2">Looking Back</h1>
-          <h4>
-            Explore our previous endeavors into AI over the years. Each one
-            showcases the hard work and accomplishments of our participants.
-          </h4>
-        </Content>
+        <Row className="competitionMain">
+          <Col className="containerForImage">
+          <img src={tempComp} />
+          </Col>
+
+          <Col className="info">
+            <h1><span className="colorful">AI</span> Competitions</h1>
+            <h3>All skill levels are welcome!</h3>
+            <p>These are fun competitions (with prizes) where you employ some aspect (or none at all) of AI to compete. </p>
+
+            <Row className="buttons">
+              <Col>
+                  <Link to={{ pathname: "#" }} target="_blank" >
+                      <Button size="large" shape="round" className="interestButton">Interest Form &gt;</Button>
+                  </Link>
+              </Col>
+              <Col>
+                  <Link to={{ pathname: "#" }} target="_blank" >
+                      <Button size="large" shape="round" className="portalButton">Competitions Portal &gt;</Button>
+                  </Link>
+              </Col>
+            </Row>
+          </Col>
+
+        </Row>
 
         <Content className="competitionsSection">
           
