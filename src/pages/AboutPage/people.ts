@@ -22,6 +22,7 @@ const operations: Person[] = [];
 const dev: Person[] = [];
 const marketing: Person[] = [];
 const socials: Person[] = [];
+const staff: Person[] = [];
 
 const csvUrl = process.env["REACT_APP_BOARD_BIOS"] as string;
 const fetchData = async (url: string): Promise<void> => {
@@ -42,9 +43,9 @@ const fetchData = async (url: string): Promise<void> => {
           bio: row[4] || '',
           picture: row[5] || "/logo512.png", 
           socials: {
-            website: row[6] || '',
-            github: row[7] || '',
-            linkedin: row[8] || '',
+            github: row[6] || '',
+            linkedin: row[7] || '',
+            website: row[8] || '',
           }
         };
         
@@ -64,6 +65,9 @@ const fetchData = async (url: string): Promise<void> => {
           case 'directors':
             directors.push(person);
             break;
+          case 'staff':
+            staff.push(person);
+            break;
           default:
             break;
         }
@@ -76,4 +80,4 @@ const fetchData = async (url: string): Promise<void> => {
 };
 
 fetchData(csvUrl);
-export { dev, marketing, directors, operations, socials };
+export { dev, marketing, directors, operations, socials, staff, };
