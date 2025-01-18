@@ -24,75 +24,56 @@ const marketing: Person[] = [];
 const socials: Person[] = [];
 
 const csvUrl = process.env["REACT_APP_BOARD_BIOS"] as string;
-
-const processCSVData = (data: string): void => {
-  Papa.parse(data, {
-      header: true,
-      complete: () => {},
-      error: (error: any) => {
-          console.log('Error parsing CSV data:', error);
-      }
-  });
-};
-
 const fetchData = async (url: string): Promise<void> => {
   try {
-      const response = await axios.get<string>(url, { responseType: 'text' });
-      processCSVData(response.data);
-      
+    const response = await axios.get(url);
+    const rows = response.data.values;
+    const people: Person[] = [];
+
+    if (rows && rows.length > 0) {
+      const header = rows[0]; 
+
+      rows.slice(1).forEach((row: string[]) => {
+        const person: Person = {
+          section: row[0] || '',
+          role: row[1] || '',
+          name: row[2] || '',
+          major: row[3] || '',
+          bio: row[4] || '',
+          picture: row[5] || "/logo512.png", 
+          socials: {
+            website: row[6] || '',
+            github: row[7] || '',
+            linkedin: row[8] || '',
+          }
+        };
+        
+        switch (person.section) {
+          case 'dev':
+            dev.push(person);
+            break;
+          case 'operations':
+            operations.push(person);
+            break;
+          case 'marketing':
+            marketing.push(person);
+            break;
+          case 'socials':
+            socials.push(person);
+            break;
+          case 'directors':
+            directors.push(person);
+            break;
+          default:
+            break;
+        }
+      });
+    }
+
   } catch (error) {
-      console.log("Error fetching or processing CSV data: " + error);
+    console.error("Error fetching or processing Google Sheets data:", error);
   }
 };
 
 fetchData(csvUrl);
-
-const processCSVFile = (filePath: string): void => {
-  fetch(filePath, { credentials: 'omit' })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(csvData => {
-      Papa.parse<Person>(csvData, {
-        header: true,
-        skipEmptyLines: true,
-        complete: (results) => {
-          dev.length = 0;
-          operations.length = 0;
-          marketing.length = 0; 
-          socials.length = 0;
-          directors.length = 0;
-
-          results.data.forEach(row => {
-            if (row.picture === "") {
-              row.picture = "/logo512.png";
-            }
-
-            if (row.section === 'dev') {
-              dev.push(row);
-            } else if (row.section === 'operations') {
-              operations.push(row);
-            } else if (row.section === 'marketing') {
-              marketing.push(row);
-            } else if (row.section === 'socials') {
-              socials.push(row);
-            } else if (row.section === 'directors') {
-              directors.push(row);
-            }
-          });
-        },
-        error: (error: any) => {
-          console.error('Error parsing CSV:', error);
-        }
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching CSV file:', error);
-    });
-};
-
-processCSVFile("/bios.csv");
 export { dev, marketing, directors, operations, socials };
