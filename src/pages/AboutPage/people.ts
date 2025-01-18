@@ -24,7 +24,7 @@ const marketing: Person[] = [];
 const socials: Person[] = [];
 const staff: Person[] = [];
 
-const csvUrl = process.env.REACT_APP_BOARD_BIOS as string;
+const csvUrl = process.env["REACT_APP_BOARD_BIOS"] as string;
 const fetchData = async (url: string): Promise<void> => {
   try {
     const response = await axios.get(url);
