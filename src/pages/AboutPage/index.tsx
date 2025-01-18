@@ -9,6 +9,7 @@ import {
   FaLaptopCode,
   FaGithubSquare,
   FaLinkedin,
+  FaHandsHelping,
 } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
 import DefaultLayout from '../../components/layouts/default';
@@ -23,6 +24,7 @@ import {
   Person,
   Socials,
   socials,
+  staff,
 } from './people';
 import { Size, useWindowSize } from '../../components/Header/useWindowSize';
 const { Content } = Layout;
@@ -168,6 +170,7 @@ const Section = ({
         {team === 'socials' && <BsPeopleFill size={25} color={'#f5621e'} />}
         {team === 'marketing' && <FaBullhorn size={25} color={'#f5621e'} />}
         {team === 'developers' && <FaLaptopCode size={25} color={'#f5621e'} />}
+        {team === 'staff' && <FaHandsHelping size={25} color={'#f5621e'} />}
       </div>
       <h4 className="statement">{statement}</h4>
     </div>
@@ -236,6 +239,14 @@ function AboutPage() {
             people={dev}
             team="developers"
             statement="Our team of developers working tirelessly to keep everything running smoothly"
+            onSelectPerson={(person: Person) => setSelectedPerson(person)}
+            showDrawer={() => setIsDrawerVisible(true)}
+          />
+
+          <Section
+            people={staff}
+            team="staff"
+            statement="Our diamond staff bringing support to all of our teams"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
           />
