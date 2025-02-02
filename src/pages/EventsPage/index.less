@@ -20,6 +20,10 @@
     margin-top: 4rem;
     text-align: center;
 
+    h1 {
+      .text-colorful();
+    }
+
     h4 {
       text-align: center;
       max-width: @max-width2;
@@ -56,11 +60,10 @@
 
 
   // Custom Footer for Events Page
-  .eventsFooter {
+  .eventsFAQ {
     width: 100%;
     min-width: 180px;
-    background-color: @black;
-    color: @white;
+    margin-bottom: 6rem;
 
     padding-left: @padding-base2;
     padding-right: @padding-base2;
@@ -74,17 +77,15 @@
     .row {
       padding: @padding-base;
       margin-top: @margin-base;
-      margin-bottom: 4rem;
+      margin-bottom: 2rem;
       max-width: @lg;
-     
 
-      h4, h2, p{
-        color: @white;
+      .colorful {
+        .text-colorful();
       }
 
     }
     h3 {
-      @color: @white;
       text-align: center;
     }
   }

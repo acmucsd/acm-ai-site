@@ -8,6 +8,7 @@ import {
 } from '../../actions/events';
 import { Row, Col, Layout, Tabs } from 'antd';
 import EventCard from '../../components/EventCard/index';
+import MainFooter from '../../components/MainFooter';
 const { Content, Footer } = Layout;
 
 const newEvents = (eventData: ACMEvent[]): React.ReactNode => {
@@ -87,14 +88,25 @@ function EventsPage(props: any) {
           ></Tabs>
         </Content>
 
+<<<<<<< HEAD
         <Content>
           <div className=" gradient-bar"></div>
         </Content>
 
         <Footer className="eventsFooter">
+=======
+        <Content className="eventsFAQ">
+
+>>>>>>> 602d5d4 (Events footer adjusted)
           <Row className="row">
+            <h2 className="title2"><span className="colorful">Events FAQ</span></h2>
+          </Row>
+
+          <Row className="row">
+            
+          
             <Col>
-              <h2 className="title2">What events do we run?</h2>
+              <h2 className="title4">What events do we run?</h2>
               <p>
                 We run all kinds of events, from intro to deep learning
                 workshops to seminars from distinguished researchers and
@@ -109,7 +121,7 @@ function EventsPage(props: any) {
 
           <Row className="row">
             <Col>
-              <h2 className="title2">Where can I find past workshops?</h2>
+              <h2 className="title4">Where can I find past workshops?</h2>
               <p>
                 We post all of our workshop recordings on our YouTube at{' '}
                 <a
@@ -124,9 +136,11 @@ function EventsPage(props: any) {
             </Col>
           </Row>
 
-          <h3>ACM AI at UCSD 2023</h3>
-        </Footer>
+        </Content>
+
       </Content>
+
+      <MainFooter />
     </DefaultLayout>
   );
 }
