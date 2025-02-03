@@ -51,6 +51,7 @@ import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
+import VerifyEmailPage from './pages/Auth/VerifyEmail';
 
 let cookie = getCookie(COOKIE_NAME);
 
@@ -114,12 +115,12 @@ function App() {
               <Route path="/alumni" exact component={AlumniPage} />
               <Route path="/projects" exact component={ProjectPage} />
               <Route
-                path="/old-competitions/hide-and-seek2020"
+                path="/old-competitions/hide-and-seek2020" // TODO both energium and hide and seek store ranks in front end, but mongo has no data on it
                 exact
-                component={HideAndSeek2020Page}
+                component={HideAndSeek2020Page} //TODO standardize mongo?
               />
               <Route
-                path="/old-competitions/energium"
+                path="/old-competitions/energium" // TODO: Energium 2020 page is in componenets, standardize by moving to pages?
                 exact
                 render={() => <Energium2020Page />}
               />
@@ -129,7 +130,7 @@ function App() {
                 exact
                 component={EventHasNotStartedPage}
               />
-              <Route path="/login" exact component={LoginPage} />
+              <Route path="/login" exact component={LoginPage} /> // TODO standardize organizing nn to one file? nn leaderboard is a different file (getNNRanks)
               <Route
                 path="/old-competitions/nn"
                 exact
@@ -184,6 +185,7 @@ function App() {
                 }}
               /> */}
               <Route path="/resetpassword" component={ForgotPasswordPage} />
+              <Route path="/verifyemail" component={VerifyEmailPage} />
               <Route path="/requestreset" component={requestreset} />  
               <Route path="/register" exact component={RegisterPage} />
               <Route path="/admin/register" exact component={RegisterPage} />

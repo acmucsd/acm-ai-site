@@ -5,7 +5,7 @@ import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
 export const resetPassword = async (data: {
-  username: string;
+  userID: string;
   code: string;
   password: string;
 }) => {
@@ -18,7 +18,7 @@ export const resetPassword = async (data: {
       .post(
         process.env.REACT_APP_API +
           '/v1/users/' +
-          data.username +
+          data.userID +
           '/resetpassword',
         body
       )
@@ -27,10 +27,28 @@ export const resetPassword = async (data: {
       })
       .catch((error) => {
         message.error('Reset Failed');
+        console.log(error);
+        message.error(error.response.data.error.message);
         reject(error);
       });
   });
 };
+
+export const verifyEmail = async (data: { code: string }) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(process.env.REACT_APP_API + '/v1/users/verifyEmail', data)
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error('Verification Failed');
+        message.error('Please check your code and expiration time');
+        reject(error);
+      });
+  });
+}
+
 
 export const requestReset = async (username: string) => {
   return new Promise((resolve, reject) => {
@@ -43,7 +61,8 @@ export const requestReset = async (username: string) => {
       })
       .catch((error) => {
         message.error('Request Failed');
-        //reject(error);
+        message.error(error.response.data.error.message);
+        reject(error);
       });
   });
 };
@@ -66,9 +85,9 @@ export const registerUser = async (data: {
         resolve(res);
       })
       .catch((error) => {
-        //message.error(error.response.data.error.message);
+        message.error(error.response.data.error.message);
         console.error(error);
-        //reject(error);
+        reject(error);
       });
   });
 };

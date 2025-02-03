@@ -1,0 +1,82 @@
+@import '../../../newStyles/text.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/variables.less';
+
+.VerifyEmailPage {
+
+  .noContainer();
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .VerifyDetails {
+    .generic-centered-section();
+    .constrained-bounds();
+     
+    .VerifyHeader {
+      margin-top: 4rem;
+      width: 60%;
+      max-width: @max-width2;
+      text-align: center;
+      @media only screen and (max-width: @xxs) {
+        width: 90%;
+      }
+
+    }
+
+    form {
+      margin-top: 3rem;
+      width: 60%;
+      max-width: @max-width1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      @media only screen and (max-width: @xxs) {
+        width: 90%;
+      }
+      Input {
+        line-height: 2.5rem ;
+        font-size: @font3;
+    
+      }
+
+      #VerifyButton {
+        width: 100%;
+        height: 45px;
+        .button-black-square();
+        margin: auto;
+      }
+      
+    }
+  }
+
+  
+  .loginLink {
+    margin-top: @margin-base2;
+    text-align: center;
+  }
+}
+
+
+/*
+.LoginPage {
+
+  .danger {
+    color: @danger;
+  }
+  .loginButton {
+    margin-top: @margin-base;
+  }
+  .loginCard {
+    margin: auto;
+    .smack-center();
+    max-width: 90%;
+  }
+  .register-info {
+    margin-top: 12px;
+  }
+}
+*/
