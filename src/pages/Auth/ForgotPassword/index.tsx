@@ -10,7 +10,7 @@ import query from 'querystring';
 
 function ForgotPasswordPage({ location }: RouteComponentProps) {
   const history = useHistory();
-  const { handleSubmit, watch, errors, control } = useForm();
+  const { handleSubmit, watch, control, formState: { errors } } = useForm();
   const onSubmit = (values: any) => {
     let queries = query.parse(location.search);
 
@@ -38,29 +38,32 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
             <br />
             <form onSubmit={handleSubmit(onSubmit)}>
               <Controller
-                as={
+                render={({ field }) => (
                   <Form.Item>
                     <Input.Password
+                      {...field}
                       type="password"
                       placeholder="Password"
                       name="password"
                     />
                   </Form.Item>
-                }
+                )}
                 name="password"
                 control={control}
                 rules={{ required: true, minLength: 6 }}
+                
               />
               <Controller
-                as={
+                render={({ field }) => (
                   <Form.Item>
                     <Input.Password
+                      {...field}
                       type="password"
                       placeholder="Confirm Password"
                       name="confirmPassword"
                     />
                   </Form.Item>
-                }
+                )}
                 name="confirmPassword"
                 control={control}
                 rules={{
