@@ -11,7 +11,7 @@ const { Content } = Layout;
 
 function LoginPage() {
   let { setUser } = useContext(UserContext);
-  const { handleSubmit, errors, control } = useForm();
+  const { handleSubmit, control, formState: { errors } } = useForm();
   const onSubmit = (values: any) => {
     // update step
     // setRegisterStep('processing');
@@ -34,9 +34,10 @@ function LoginPage() {
             </div>
 
             <Controller
-              as={
+              render={({ field }) => (
                 <Form.Item style={{ marginBottom: '12px' }}>
                   <Input
+                    {...field}
                     size="large"
                     allowClear={true}
                     type="text"
@@ -45,15 +46,16 @@ function LoginPage() {
                     autoComplete="off"
                   />
                 </Form.Item>
-              }
+              )}
               control={control}
               rules={{ required: true }}
               name="username"
             />
             <Controller
-              as={
+              render={({ field }) => (
                 <Form.Item style={{ marginBottom: '12px' }}>
                   <Input.Password
+                    {...field}
                     size="large"
                     type="password"
                     placeholder="Password"
@@ -61,7 +63,7 @@ function LoginPage() {
                     autoComplete="off"
                   />
                 </Form.Item>
-              }
+              )}
               name="password"
               control={control}
               rules={{ required: true }}
@@ -91,56 +93,3 @@ function LoginPage() {
   );
 }
 export default LoginPage;
-
-/*
-    <DefaultLayout>
-      <div className="LoginPage">
-        <Card className="loginCard">
-          <div className="cardContent">
-            <h2>Login</h2>
-            <br />
-            <Form onSubmitCapture={handleSubmit(onSubmit)}>
-              <Controller
-                as={
-                  <Form.Item>
-                    <Input type="text" placeholder="Username" name="username" />
-                  </Form.Item>
-                }
-                control={control}
-                rules={{ required: true }}
-                name="username"
-              />
-              <Controller
-                as={
-                  <Form.Item>
-                    <Input.Password
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                    />
-                  </Form.Item>
-                }
-                name="password"
-                control={control}
-                rules={{ required: true }}
-              />
-
-              {errors.username && <p className="danger">Missing username</p>}
-              {errors.password && errors.password.type === 'required' && (
-                <p className="danger">Password is required</p>
-              )}
-              <Button htmlType="submit" className="loginButton">
-                Login
-              </Button>
-            </Form>
-            <div className="register-info">
-              <Link to="./register">Or Register an Account here</Link>
-            </div>
-            <div className="register-info">
-              <Link to="./requestreset">Forgot your password?</Link>
-            </div>
-          </div>
-        </Card>
-      </div>
-    </DefaultLayout>
-*/
