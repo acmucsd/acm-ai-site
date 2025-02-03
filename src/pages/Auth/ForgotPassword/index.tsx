@@ -86,7 +86,7 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
                 <p className="danger">Passwords need to match</p>
               )}
               <Button htmlType="submit" className="registerButton">
-                Send Reset Link
+                Reset
               </Button>
               <div className="authOptionsBox">
                 <Link to="./login">
