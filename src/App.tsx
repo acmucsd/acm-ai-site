@@ -46,6 +46,8 @@ import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/A
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
 import CompetitionSubmissionDetailsPage from './pages/Competitions/CompetitionTeamPages/SubmissionDetailsPage';
 
+import NotFoundPage from './pages/404Page';
+
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
 
@@ -102,9 +104,9 @@ function App() {
     <Router>
       <div>
         <ScrollToTop />
-        <Switch>
           {!verifying ? (
             <UserProvider value={{ user: user, setUser: setUser }}>
+              <Switch>
               <Route path="/" exact component={MainPage} />
               <Route path="/about" exact component={AboutPage} />
               <Route path="/competitions" exact component={CompetitionsPage} />
@@ -116,7 +118,6 @@ function App() {
                 component={HideAndSeek2020Page}
               />
               <Route path="/events" exact component={EventsPage} />
-              <Route path="/register" exact component={RegisterPage} />
               <Route
                 path="/eventhasnotstarted"
                 exact
@@ -176,13 +177,17 @@ function App() {
                   );
                 }}
               />
+              <Route path="/resetpassword" component={ForgotPasswordPage} />
+              <Route path="/requestreset" component={requestreset} />  
+              <Route path="/register" exact component={RegisterPage} />
+              <Route path="/admin/register" exact component={RegisterPage} />
+              <Route path="*" component={NotFoundPage} />
+              </Switch>
               <TournamentProvider
                 value={{ tournament: tournament, setTournament: setTournament }}
               >
                 <EnergiumRoutes />
               </TournamentProvider>
-              <Route path="/resetpassword" component={ForgotPasswordPage} />
-              <Route path="/requestreset" component={requestreset} />
             </UserProvider>
           ) : (
             <div
@@ -196,8 +201,7 @@ function App() {
             >
               Loading <Spin indicator={antIcon} />
             </div>
-          )}
-        </Switch>
+          )} 
       </div>
     </Router>
   );

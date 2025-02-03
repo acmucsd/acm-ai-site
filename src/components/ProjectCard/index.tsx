@@ -23,7 +23,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
   // Modal props
   const showModal = () => {
     setIsModalOpen(true);
-    console.log(isModalOpen);
   };
   const handleCancel = () => {
     setIsModalOpen(false);

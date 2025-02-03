@@ -23,23 +23,25 @@ const MainFooter: React.FC<MainFooterProps> = ({ isMainPage }) => {
         <Col className="infoText">
           <h2 className="title2">Join the board</h2>
           <p>
-            We are always looking for more people to join our mission and build
-            the growing AI community at UCSD. The following roles are open to
-            all undergraduate UCSD students:
+            Recruitment to join the ACM AI board opens in the Spring. We are
+            always looking for more people to join our mission and build the
+            growing AI community at UCSD. The following teams are open to all
+            undergraduate UCSD students: Marketing/Sponsorship, Events, and
+            Development.
           </p>
         </Col>
 
         <Col className="boardPositions">
           <Row className="position">
             <h4>
-              <a href="https://acmurl.com/ai-events">Marketing/Sponsorship</a>
+              <a href="https://acmurl.com/ai-elections" target="_blank" rel="noopener noreferrer">Role Descriptions</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/ai-marketing-sponsorship-app">
+                <a href="https://acmurl.com/ai-elections" target="_blank" rel="noopener noreferrer">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
@@ -47,30 +49,14 @@ const MainFooter: React.FC<MainFooterProps> = ({ isMainPage }) => {
           </Row>
           <Row className="position">
             <h4>
-              <a href="https://acmurl.com/ai-events">Event Lead</a>
+              <a href="https://acmurl.com/apply-ai" target="_blank" rel="noopener noreferrer">Application</a>
             </h4>
             <Avatar
               size="default"
               shape="square"
               className="linkBox"
               icon={
-                <a href="https://acmurl.com/ai-events">
-                  <AiOutlineLink size={20} className="linkIcon" />
-                </a>
-              }
-            />
-          </Row>
-          <Row className="position">
-            <h4>
-              {' '}
-              <a href="https://acmurl.com/ai-dev">Developer</a>
-            </h4>
-            <Avatar
-              size="default"
-              shape="square"
-              className="linkBox"
-              icon={
-                <a href="https://acmurl.com/ai-dev">
+                <a href="https://acmurl.com/apply-ai" target="_blank" rel="noopener noreferrer">
                   <AiOutlineLink size={20} className="linkIcon" />
                 </a>
               }
@@ -83,23 +69,27 @@ const MainFooter: React.FC<MainFooterProps> = ({ isMainPage }) => {
         <Col className="infoText">
           <h2 className="title2">Stay up to date</h2>
           <p>
-            We host many, many events through each quarter at UCSD. Best way to
-            be in the loop of new events, competitions etc. is to check out our
-            Discord and Instagram. We run workshops on introductory to advanced
-            neural network concepts and programming to workshops on the Kaggle
-            platform
+            We host many, many events through each quarter at UCSD. Stay
+            in the loop of new events, socials, and competitions by checking out our
+            Discord and Instagram as well as our newsletter! We run workshops on introductory to advanced
+            neural network concepts and programming to workshops on the Kaggle platform.
           </p>
         </Col>
 
         <Row className="socialMedia">
           <Tooltip title="@acm_ai_ucsd">
-            <a href="https://www.instagram.com/acm_ai_ucsd/">
+            <a href="https://www.instagram.com/acm_ai_ucsd/" target="_blank" rel="noopener noreferrer">
               <BiLogoInstagram size={72} />
             </a>
           </Tooltip>
-          <Tooltip title="https://discord.com/invite/4zKpm7U">
-            <a href="https://discord.com/invite/4zKpm7U">
+          <Tooltip title="Discord">
+            <a href="https://discord.com/invite/4zKpm7U" target="_blank" rel="noopener noreferrer">
               <BiLogoDiscord size={72} />
+            </a>
+          </Tooltip>
+          <Tooltip title="Newsletter">
+            <a href="https://acmurl.com/ai-newsletter" target="_blank" rel="noopener noreferrer">
+              <BiMailSend size={72} />
             </a>
           </Tooltip>
         </Row>
@@ -119,7 +109,7 @@ const MainFooter: React.FC<MainFooterProps> = ({ isMainPage }) => {
         </Col>
       </Row>
 
-      <h3>ACM AI at UCSD 2023</h3>
+      <h3>ACM AI at UC San Diego</h3>
     </Footer>
     </>
   );

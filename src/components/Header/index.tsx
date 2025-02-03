@@ -157,7 +157,6 @@ function Header() {
                     onClick={() => {
                       logoutUser();
                       setUser(defaultUser);
-                      
                       history.push('/');
                     }}
                   >

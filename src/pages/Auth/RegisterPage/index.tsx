@@ -4,10 +4,15 @@ import DefaultLayout from '../../../components/layouts/default';
 import { Form, Input, message, Button, Checkbox, Layout } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { registerUser } from '../../../actions/auth';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
+
 const { Content } = Layout;
 
 function RegisterPage() {
+
+  const location = useLocation();
+  const isAdmin  = location.pathname === '/admin/register';
+
   const history = useHistory();
   const { handleSubmit, watch, errors, control } = useForm();
   const [checked, setChecked] = useState(true);
@@ -15,25 +20,34 @@ function RegisterPage() {
     if (errors.confirmPassword) {
       handlePasswordErrors(errors);
     }
-    registerUser({ ...values, isUCSD: checked }).then((res) => {
-      message.success('Registered! Redirecting to login page');
+    registerUser({ ...values, isUCSD: checked, admin: isAdmin }).then((res) => {
+      message.success(isAdmin ? 
+        'Admin registered! Redirecting to login page' : 
+        'Registered! Redirecting to login page');
       history.push('/login');
     });
   };
   const onCheckChange = (e: any) => {
     setChecked(e.target.checked);
   };
+
   return (
     <DefaultLayout>
       <div className="RegisterPage">
         <Content className="registerDetails">
           <div className="registerHeader">
-            <h2>Register</h2>
-            <p>
-              An ACM AI account will help you get the most out of our events and
-              opportunities whether it be for awesome competitions or cool
-              networking events!
-            </p>
+            {
+              isAdmin ? <h2>Register as Admin</h2> : 
+              (<>
+                <h2>Register</h2>
+                <p>
+                An ACM AI account will help you get the most out of our events and
+                opportunities whether it be for awesome competitions or cool
+                networking events!
+                </p>
+              </>
+              )
+            }
           </div>
 
           <Form onSubmitCapture={handleSubmit(onSubmit)}>
@@ -108,7 +122,7 @@ function RegisterPage() {
                 validate: (value) => watch('password') === value,
               }}
             />
-            <Controller
+            { isAdmin ? <></>: <Controller
               as={
                 <Form.Item>
                   <Checkbox value={checked} onChange={onCheckChange}>
@@ -118,7 +132,7 @@ function RegisterPage() {
               }
               name="isUCSD"
               control={control}
-            />
+            />}
 
             <div className="errorBox">
               {errors.username && <p className="danger">Missing username</p>}
@@ -150,10 +164,11 @@ function RegisterPage() {
           </Form>
 
           <div className="loginLink">
-            <Link to="./login">
-              <p>Already have an account? Log in</p>
+            <Link to='./login'>
+            <p>Already have an account? Log in</p>
             </Link>
           </div>
+
         </Content>
       </div>
     </DefaultLayout>
