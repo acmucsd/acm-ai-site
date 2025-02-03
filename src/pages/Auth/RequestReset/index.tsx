@@ -31,9 +31,10 @@ const RequestResetPage = () => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
-              as={
+              render={({ field }) => (
                 <Form.Item>
                   <Input
+                    {...field}
                     size="large"
                     autoComplete="off"
                     type="text"
@@ -41,7 +42,7 @@ const RequestResetPage = () => {
                     name="username"
                   />
                 </Form.Item>
-              }
+              )}
               name="username"
               control={control}
               rules={{ required: true }}
@@ -64,29 +65,3 @@ const RequestResetPage = () => {
 };
 
 export default RequestResetPage;
-
-/*
-<Card className="registerCard">
-  <div className="cardContent">
-    <h2 style={{ margin: 0 }}>Forgot Password?</h2>
-    <p>Enter your username</p>
-    <br />
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        as={
-          <Form.Item>
-            <Input type="text" placeholder="Username" name="username" />
-          </Form.Item>
-        }
-        name="username"
-        control={control}
-        rules={{ required: true }}
-      />
-
-      <Button htmlType="submit" className="registerButton">
-        Request Reset Link
-      </Button>
-    </form>
-  </div>
-</Card>
-*/
