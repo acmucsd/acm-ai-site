@@ -20,10 +20,10 @@
   .homeText {
     width: 50vw;
     margin-right: 2rem;
-	p {
-		margin-top: 0.5rem;
-		font-size: 1.4rem;
-	}
+    p {
+      margin-top: 0.5rem;
+      font-size: 1.4rem;
+    }
   }
 
   .homeButtons {
@@ -52,20 +52,21 @@
     width: 15vw;
   }
 
-  @media screen and (max-width: @xs) {
+}
+
+@media screen and (max-width: @xs) {
+  .homeHeader {
     padding-bottom: 0rem;
     .homeContent {
-      flex-direction: column;
       align-items: center;
     }
 
     .ai-logo {
-      width: 40%;
+      display: none;
     }
 
     .homeButtons {
       flex-direction: column;
-      margin-bottom: 4rem;
     }
 
     .getStartedButton, .aboutButton {
@@ -73,18 +74,31 @@
       padding: 0.5rem 0.5rem;
     }
   }
-}
-
-@media screen and (max-width: @xs) {
   .infoButton, .knowledgeButton {
     font-size: @font3;
     padding: 0.5rem 0.5rem;
   }
 }
 
+@media only screen and (max-width: @md) {
+  .homeHeader {
+    padding-bottom: 0rem;
+  }
+
+  .floatingShapes {
+    padding-bottom: 0rem;
+    .shape {
+      display: none;
+    }
+  }
+  
+  .wavy {
+    display: none;
+  }
+}
+
 .ai-logo {
 	position: relative;
-	top: 6rem;
 }
 
 .floatingShapes {
@@ -113,13 +127,6 @@
       }
 
     }
-
-    @media only screen and (max-width: @md) {
-        padding-bottom: 0px;
-        .shape {
-          display: none;
-        }
-    }
   }
 
 .wavy {
@@ -131,9 +138,6 @@
   background-size: contain;
   background-position: bottom;
   bottom: 0;
-  @media only screen and (max-width: @md) {
-    display: none;
-  }
 }
 
 
@@ -203,8 +207,8 @@
       border-radius: @radius-base5;
       background-color: #FFF8F8;
       max-width: 80%;
-      padding: 3rem 5rem;
-      margin-bottom: 3rem;
+      padding: 3rem 4rem;
+      margin: 4rem 2rem;
       gap: 10rem;
 
         .items {
