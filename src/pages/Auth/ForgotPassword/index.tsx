@@ -15,7 +15,7 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
     let queries = query.parse(location.search);
 
     let body = {
-      username: String(queries['username']),
+      userID: String(queries['userID']),
       code: String(queries['?code']),
       password: values['password'],
     };
