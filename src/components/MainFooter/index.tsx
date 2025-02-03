@@ -2,23 +2,22 @@ import { Row, Col, Layout, Avatar, Tooltip } from 'antd';
 import React from 'react';
 import './index.less';
 import { AiOutlineLink } from 'react-icons/ai';
-import { BiLogoInstagram, BiLogoDiscord } from 'react-icons/bi';
+import { BiLogoInstagram, BiLogoDiscord, BiMailSend } from 'react-icons/bi';
 import '../../newStyles/components.less'
 const { Footer, Content } = Layout;
 
 interface MainFooterProps {
-  isMainPage: boolean;
+  isMainPage?: boolean;
 }
 
-// const MainFooter = (isMainPage: boolean) => {
-const MainFooter: React.FC<MainFooterProps> = ({ isMainPage }) => {
+const MainFooter: React.FC<MainFooterProps> = ({ isMainPage = false }) => {
   return (
     <>
     <Content>
       <div className=" gradient-bar"></div>
     </Content>
-    {/* <Footer className={`mainFooter ${isMainPage ? '' : 'gradient-bar'}`}> */}
     <Footer className="mainFooter">
+    {/* <Footer className={`mainFooter ${isMainPage ? '' : 'gradient-bar'}`}> */}
       <Row className="splitRow">
         <Col className="infoText">
           <h2 className="title2">Join the board</h2>
