@@ -1,12 +1,12 @@
-import React from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
-import Card from '../../../components/Card';
 import { Form, Input, message, Button } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { resetPassword } from '../../../actions/auth';
-import { useHistory, RouteComponentProps } from 'react-router-dom';
+import { useHistory, RouteComponentProps, Link } from 'react-router-dom';
 import query from 'querystring';
+import { Layout } from 'antd';
+const { Content } = Layout;
 
 function ForgotPasswordPage({ location }: RouteComponentProps) {
   const history = useHistory();
@@ -31,10 +31,13 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
   return (
     <DefaultLayout>
       <div className="RegisterPage">
-        <Card className="registerCard">
+        <Content className="registerContent">
           <div className="cardContent">
-            <h2 style={{ margin: 0 }}>Forgot Password?</h2>
-            <p>Enter your new password</p>
+            <div className='registerHeader'>
+              <h2 style={{ margin: 0 }}>Forgot Password?</h2>
+              <p>Enter your new password</p>
+            </div>
+            
             <br />
             <form onSubmit={handleSubmit(onSubmit)}>
               <Controller
@@ -85,9 +88,14 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
               <Button htmlType="submit" className="registerButton">
                 Reset
               </Button>
+              <div className="authOptionsBox">
+                <Link to="./login">
+                  <p className="option">Back to Login</p>
+                </Link>
+              </div>
             </form>
           </div>
-        </Card>
+        </Content>
       </div>
     </DefaultLayout>
   );
