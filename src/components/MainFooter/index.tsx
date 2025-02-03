@@ -3,11 +3,21 @@ import React from 'react';
 import './index.less';
 import { AiOutlineLink } from 'react-icons/ai';
 import { BiLogoInstagram, BiLogoDiscord, BiMailSend } from 'react-icons/bi';
-const { Footer } = Layout;
+import '../../newStyles/components.less'
+const { Footer, Content } = Layout;
 
-const MainFooter = () => {
+interface MainFooterProps {
+  isMainPage?: boolean;
+}
+
+const MainFooter: React.FC<MainFooterProps> = ({ isMainPage = false }) => {
   return (
+    <>
+    <Content>
+      <div className=" gradient-bar"></div>
+    </Content>
     <Footer className="mainFooter">
+    {/* <Footer className={`mainFooter ${isMainPage ? '' : 'gradient-bar'}`}> */}
       <Row className="splitRow">
         <Col className="infoText">
           <h2 className="title2">Join the board</h2>
@@ -100,6 +110,7 @@ const MainFooter = () => {
 
       <h3>ACM AI at UC San Diego</h3>
     </Footer>
+    </>
   );
 };
 
