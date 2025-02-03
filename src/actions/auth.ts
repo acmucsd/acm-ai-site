@@ -34,7 +34,7 @@ export const resetPassword = async (data: {
   });
 };
 
-export const verifyEmail = async (data: { code: string }) => {
+export const verifyEmail = async (data: { code: string, id : string}) => {
   return new Promise((resolve, reject) => {
     axios
       .post(process.env.REACT_APP_API + '/v1/users/verifyEmail', data)

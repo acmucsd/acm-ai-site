@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
 import { Form, Input, message, Button, Layout } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { verifyEmail } from '../../../actions/auth';
+import query from 'querystring';
+
 const { Content } = Layout;
 
 const VerifyEmailPage = () => {
   const { handleSubmit, control } = useForm();
   const history = useHistory();
+  
 
   const onSubmit = (values: any) => {
     console.log(values.code);
 
-    verifyEmail(values.code).then((res) => {
+    let queries = query.parse(location.search);
+
+    let body = {
+      code: values.code,
+      id: String(queries['id']),
+    };
+
+    verifyEmail(body).then((res) => {
       message.success('Email Verified! Redirecting to login page');
       history.push('/login'); // Redirect to login page
     });
