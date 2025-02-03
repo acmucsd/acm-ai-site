@@ -160,7 +160,7 @@ function Header() {
                       history.push('/');
                     }}
                   >
-                    <p>Login</p>
+                    <h4>Login</h4>
                   </Button>
                 </Link>
               )}

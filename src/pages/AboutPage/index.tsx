@@ -9,6 +9,7 @@ import {
   FaLaptopCode,
   FaGithubSquare,
   FaLinkedin,
+  FaHandsHelping,
 } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
 import DefaultLayout from '../../components/layouts/default';
@@ -23,6 +24,7 @@ import {
   Person,
   Socials,
   socials,
+  staff,
 } from './people';
 import { Size, useWindowSize } from '../../components/Header/useWindowSize';
 const { Content } = Layout;
@@ -168,6 +170,7 @@ const Section = ({
         {team === 'socials' && <BsPeopleFill size={25} color={'#f5621e'} />}
         {team === 'marketing' && <FaBullhorn size={25} color={'#f5621e'} />}
         {team === 'developers' && <FaLaptopCode size={25} color={'#f5621e'} />}
+        {team === 'staff' && <FaHandsHelping size={25} color={'#f5621e'} />}
       </div>
       <h4 className="statement">{statement}</h4>
     </div>
@@ -239,6 +242,14 @@ function AboutPage() {
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
           />
+
+          <Section
+            people={staff}
+            team="staff"
+            statement="Our diamond staff bringing support to all of our teams"
+            onSelectPerson={(person: Person) => setSelectedPerson(person)}
+            showDrawer={() => setIsDrawerVisible(true)}
+          />
         </Content>
 
         <MainFooter />
@@ -265,7 +276,7 @@ function AboutPage() {
         >
           <div className="drawerContent">
             <Col>
-              <Row className="drawerHeader">
+              <Row className="drawerHeader" gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
                 <img
                   style={{
                     marginRight: '1rem',
@@ -280,7 +291,7 @@ function AboutPage() {
                   alt={`profile of ${selectedPerson!!.name}`}
                 />
                 <Col className="titleBox">
-                  <Tag bordered={false} color={'error'}>
+                  <Tag bordered={false} color={'error'} >
                     {selectedPerson!!.role}
                   </Tag>
                   <h4>{selectedPerson!!.name}</h4>
