@@ -9,7 +9,7 @@ import {
 import { Row, Col, Layout, Tabs } from 'antd';
 import EventCard from '../../components/EventCard/index';
 import MainFooter from '../../components/MainFooter';
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 
 const newEvents = (eventData: ACMEvent[]): React.ReactNode => {
   return (
@@ -84,6 +84,34 @@ function EventsPage(props: any) {
               },
             ]}
           ></Tabs>
+        </Content>
+            
+        <Content className="eventsFAQ">
+          <Row className="splitInfoRow"> 
+            <Col className="infoText">
+              <h3> What events does <span className="colorful">ACM AI</span> run?</h3>
+              <p>
+              We run all kinds of events, from intro to deep learning workshops to fun socials or
+              seminars from distinguished researchers and professors. 
+              Events are a great way to engage with the AI community at UCSD and learn content 
+              you may not typically learn in class. 
+
+              Join the conversation on Discord to learn more!
+              </p>
+            </Col>
+          </Row>
+          <Row className="splitInfoRow">
+            <Col className="infoText">
+              <h3>Where can I find past events</h3>
+              <p>
+              We post all of our workshop recordings on our YouTube at {' '}
+              <a href="https://acmurl.com/youtube" target="_blank" rel="noopener noreferrer">
+                https://acmurl.com/youtube
+              </a>.
+              Stay tuned in our Discord for uploads!
+              </p>
+            </Col>
+          </Row>
         </Content>
       </Content>
 

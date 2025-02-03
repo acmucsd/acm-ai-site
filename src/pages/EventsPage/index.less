@@ -33,10 +33,8 @@
   }
 
   .eventsContent {
-
     .generic-section();
     .constrained-bounds();
-    margin-bottom: 10rem;
 
     .ant-tabs-ink-bar {
       display: none;
@@ -51,6 +49,35 @@
           font-weight: @semi-bold;
         }
       }
+    }
+  }
+
+  .eventsFAQ {
+    .generic-section();
+    h3 {
+      font-weight: bold;
+      line-height: 3rem;
+    }
+  
+    .splitInfoRow {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4rem;
+      max-width: 80%;
+      .constrained-bounds();
+
+      .infoText {
+        flex: 1 1 50%;
+        max-width: 80%;
+        padding: @padding-base2;
+  
+        .infoButton {
+          margin-top: @margin-base;
+          margin-bottom: @margin-base;
+          .button-colorful();
+        }
+      }
+  
     }
   }
 }
