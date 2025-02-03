@@ -33,10 +33,8 @@
   }
 
   .eventsContent {
-
     .generic-section();
     .constrained-bounds();
-    margin-bottom: 10rem;
 
     .ant-tabs-ink-bar {
       display: none;
@@ -54,39 +52,32 @@
     }
   }
 
-
-  // Custom Footer for Events Page
-  .eventsFooter {
-    width: 100%;
-    min-width: 180px;
-    background-color: @black;
-    color: @white;
-
-    padding-left: @padding-base2;
-    padding-right: @padding-base2;
-
-    @media screen and (max-width: @xs) {
-      padding-left: @padding-base !important;
-      padding-right: @padding-base !important;
-    }
-
-  
-    .row {
-      padding: @padding-base;
-      margin-top: @margin-base;
-      margin-bottom: 4rem;
-      max-width: @lg;
-     
-
-      h4, h2, p{
-        color: @white;
-      }
-
-    }
+  .eventsFAQ {
+    .generic-section();
     h3 {
-      @color: @white;
-      text-align: center;
+      font-weight: bold;
+      line-height: 3rem;
+    }
+  
+    .splitInfoRow {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4rem;
+      max-width: 80%;
+      .constrained-bounds();
+
+      .infoText {
+        flex: 1 1 50%;
+        max-width: 80%;
+        padding: @padding-base2;
+  
+        .infoButton {
+          margin-top: @margin-base;
+          margin-bottom: @margin-base;
+          .button-colorful();
+        }
+      }
+  
     }
   }
-
 }

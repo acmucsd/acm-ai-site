@@ -16,9 +16,6 @@ function NotFound() {
             </div>
             </Content>
 
-            <Content>
-                <div className="homeBottomBar"></div>
-            </Content>
             <MainFooter />
         </DefaultLayout>
        

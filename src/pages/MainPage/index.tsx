@@ -14,6 +14,7 @@ const { Content } = Layout;
 function MainPage() {
   return (
     <DefaultLayout>
+
     <Content className="homeHeader">
         <div className="homeContent"> 
             <div className="homeText">
@@ -29,6 +30,7 @@ function MainPage() {
                         <Button size="large" shape="round" className="aboutButton">Sign up for our newsletter &gt;</Button>
                     </Link>
                 </div>
+
             </div>
             <img src={AILogo} alt="ACM AI Diamond Logo" className="ai-logo"/>
             <div className="floatingShapes">
@@ -115,12 +117,7 @@ function MainPage() {
         </div>
     </Content>
 
-
-
-    <Content>
-        <div className="homeBottomBar"></div>
-    </Content>
-    <MainFooter />
+    <MainFooter isMainPage={true} />
 
     </DefaultLayout>
 )

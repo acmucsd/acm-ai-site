@@ -31,13 +31,12 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
   return (
     <>
       <div className="EventCard">
-        <Row>
+        <Row align="middle">
           <img
             src={event.cover}
             alt={event.title}
             style={{
-              marginBottom: '1.5rem',
-              marginRight: '1rem',
+              marginRight: '2rem',
               boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
               borderRadius: '16px',
               height: '88px',
