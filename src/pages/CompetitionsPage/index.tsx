@@ -349,7 +349,7 @@ function CompetitionsPage(props: any) {
           </div>
         </Content>
 
-        <MainFooter isMainPage={false}/>
+        <MainFooter />
       </Content>
     </DefaultLayout>
   );

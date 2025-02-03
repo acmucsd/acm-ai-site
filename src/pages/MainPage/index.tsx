@@ -117,8 +117,7 @@ function MainPage() {
         </div>
     </Content>
 
-        <MainFooter isMainPage={true} />
-      {/* </Content> */}
+    <MainFooter isMainPage={true} />
 
     </DefaultLayout>
 )

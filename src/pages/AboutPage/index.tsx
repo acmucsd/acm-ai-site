@@ -252,7 +252,7 @@ function AboutPage() {
           />
         </Content>
 
-        <MainFooter isMainPage={false}/>
+        <MainFooter />
       </Content>
 
       {isDrawerVisible && (
