@@ -185,7 +185,7 @@ function App() {
                 }}
               /> */}
               <Route path="/resetpassword" component={ForgotPasswordPage} />
-              <Route path="/verifyemail" component={VerifyEmailPage} />
+              <Route path="/verify" component={VerifyEmailPage} />
               <Route path="/requestreset" component={requestreset} />  
               <Route path="/register" exact component={RegisterPage} />
               <Route path="/admin/register" exact component={RegisterPage} />

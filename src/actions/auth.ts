@@ -144,13 +144,10 @@ export const loginUser = async (
         message.error(error.response.data.error.message);
         console.error(error);
         if (error.response.data.error.message === 'User not verified') {
-          const { username } = data; 
-          const new_data = { username }; 
 
           axios
-          .get(process.env.REACT_APP_API + '/v1/users/verifyEmail/' + new_data.username) 
+          .get(process.env.REACT_APP_API + '/v1/users/' + data.username + '/verifyEmail' ) 
           .then((res: AxiosResponse) => {
-            setCookie(COOKIE_NAME, res.data.token, 7);
             resolve(res.data.token);
           })
           .catch((error) => {
