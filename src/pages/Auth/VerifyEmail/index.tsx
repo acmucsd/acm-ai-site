@@ -10,14 +10,14 @@ import query from 'querystring';
 const { Content } = Layout;
 
 const VerifyEmailPage = () => {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, formState: { errors } } = useForm();
   const history = useHistory();
   
 
   const onSubmit = (values: any) => {
     console.log(values.code);
 
-    let queries = query.parse(location.search);
+    let queries = query.parse(window.location.search);
 
     let body = {
       code: values.code,
@@ -41,17 +41,19 @@ const VerifyEmailPage = () => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
-              as={
-                <Form.Item>
+              render={({ field }) => (
+                <Form.Item style={{ marginBottom: '12px' }}>
                   <Input
+                    {...field} // Ensure field props are spread
                     size="large"
                     autoComplete="off"
                     type="text"
                     placeholder="Verification Code"
                     name="code"
+                    allowClear={true}
                   />
                 </Form.Item>
-              }
+              )}
               name="code"
               control={control}
               rules={{ required: true }}
