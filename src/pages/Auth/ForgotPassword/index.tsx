@@ -15,7 +15,7 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
     let queries = query.parse(location.search);
 
     let body = {
-      userID: String(queries['userID']),
+      userID: String(queries['username']), // Update the property name to 'userID'
       code: String(queries['?code']),
       password: values['password'],
     };
