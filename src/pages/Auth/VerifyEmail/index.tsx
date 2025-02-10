@@ -5,7 +5,6 @@ import { Form, Input, message, Button, Layout } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { verifyEmail } from '../../../actions/auth';
-import query from 'querystring';
 
 const { Content } = Layout;
 
@@ -15,14 +14,19 @@ const VerifyEmailPage = () => {
   
 
   const onSubmit = (values: any) => {
-    console.log(values.code);
 
-    let queries = query.parse(window.location.search);
+    const queries = new URLSearchParams(window.location.search);
+    const id = queries.get('id');
+    if (!id) {
+      message.error('Invalid verification link');
+      return;
+    }
 
     let body = {
       code: values.code,
-      id: String(queries['id']),
+      id: id,
     };
+
 
     verifyEmail(body).then((res) => {
       message.success('Email Verified! Redirecting to login page');
