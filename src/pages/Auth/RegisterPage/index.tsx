@@ -21,10 +21,11 @@ function RegisterPage() {
       handlePasswordErrors(errors);
     }
     registerUser({ ...values, isUCSD: checked, admin: isAdmin }).then((res) => {
+      message.success('Please check your email to verify your account');
       message.success(isAdmin ? 
         'Admin registered! Redirecting to login page' : 
         'Registered! Redirecting to login page');
-      history.push('/login');
+      history.push('/verify/?id=' + res.id);
     });
   };
   const onCheckChange = (e: any) => {

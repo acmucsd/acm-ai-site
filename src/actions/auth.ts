@@ -4,6 +4,11 @@ import { setCookie, deleteCookie } from '../utils/cookie';
 import { User } from '../UserContext';
 import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
 
+interface RegisterResponse {
+  msg: string;
+  id: string;
+}
+
 export const resetPassword = async (data: {
   userID: string;
   code: string;
@@ -78,11 +83,11 @@ export const registerUser = async (data: {
     email: data.email,
     isUCSD: data.isUCSD,
   };
-  return new Promise((resolve, reject) => {
+  return new Promise<RegisterResponse>((resolve, reject) => {
     axios
       .post(process.env.REACT_APP_API + '/v1/users', body)
       .then((res: AxiosResponse) => {
-        resolve(res);
+        resolve(res.data);
       })
       .catch((error) => {
         message.error(error.response.data.error.message);
