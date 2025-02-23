@@ -1,161 +1,250 @@
-@import '../../newStyles/variables.less';
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
+@import "../../newStyles/components.less";
+@import "../../newStyles/variables.less";
 
-@primary-color: #e57373;
-@secondary-color: #ffccbc;
-@background-color: #fff;
-@border-radius: 8px;
-
-.competition-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding-top: 8rem;
-  
+.competition-portal {
   text-align: center;
-  background-color: @background-color;
-}
+  padding: 10rem;
+  margin-bottom: @margin-base4;
+  min-height: fit-content;
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  background: transparent;
-
-  .logo {
-    font-size: 20px;
+  h1 {
+    font-size: 32px;
     font-weight: bold;
-    color: black;
+    
   }
 
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  .highlight {
+    .text-colorful();
+  }
+/* Sta/* Stats Section */
+.stats-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: solid 2px @mainred;
+    
+    
+    overflow: hidden; 
+  
+    /* Titles Row */
+    .stats-row.titles {
+      font-size: @font8;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 10px;
+      padding: 3vh;
+      .gradient();
+    }
+  
+    /* Values Row */
+    .stats-row.values {
+      margin: @margin-base4;
 
-    a {
-      text-decoration: none;
-      color: black;
-      font-size: 16px;
+    }
 
-      &:hover {
-        color: @primary-color;
+    
+    /* Diamond-Shaped Cards */
+    .stat-card {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+
+      border: solid 2px @mainred;
+
+      transform: rotate(45deg);
+      box-shadow: @bx1;
+      margin: auto;
+  
+      .stat-value {
+        font-size: 22px;
+        font-weight: bold;
+        transform: rotate(-45deg);
       }
     }
   }
+  
+  
 
-  .login-btn {
-    background-color: @primary-color;
-    border: none;
-    color: white;
-    border-radius: @border-radius;
+  .tabs-container{
 
-    &:hover {
-      background-color: darken(@primary-color, 10%);
+    margin: @margin-base4 auto;
+    
+
+    border: 1px solid @mainred;
+    border-radius: 50px;
+    
+    width:fit-content;
+
+    overflow: hidden;
+
+    .tab {
+        padding: @padding-base @padding-base2;
+        text-align: center;
     }
-  }
+
+    .tab-left {
+        padding: @padding-base @padding-base2;
+        text-align: center;
+        margin-left: @margin-base2;
+
+    }
+
+    .tab-right {
+        padding: @padding-base @padding-base2;
+        text-align: center;
+        margin-right: @margin-base2;
+    }
+    
+    .selected {
+        .gradient();
+        color: white;
+        border-radius: 50px;
+
+        
+    }
+    
+
+    
 }
 
-.portal-title {
-  margin-top: 3rem;
-  font-size: 32px;
-
-  .highlight {
-    color: @primary-color;
-  }
-}
-
-.profile-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 20px;
-  margin: 20px auto;
-  border: 2px solid @primary-color;
-  border-radius: @border-radius;
-  width: 80%;
-
-  .profile-avatar {
-    background: #ddd;
-  }
-
-  .profile-info {
+  /* Team Section */
+  .team-section {
+    max-width: 500px;
+    margin: auto;
     text-align: left;
-  }
+    border-radius: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid @mainred;
 
-  .points-btn {
-    background-color: @primary-color;
-    color: white;
-    margin-top: 10px;
-    border-radius: @border-radius;
-    border: none;
+    .team-info {
+      font-size: 18px;
+      font-weight: bold;
 
-    &:hover {
-      background-color: darken(@primary-color, 10%);
+      .team-name {
+        font-size: 24px;
+        margin-top: 5px;
+      }
     }
-  }
+
+    .team-members {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+
+      .member-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        border-radius: 8px;
+        width: 100px;
+        text-align: center;
+      }
+    }
+
+    .one-btn {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+
+        .join-team {
+            .button-colorful();
+            border: none;
+    
+            &:hover {
+                color: @text-gray2;
+            }
+        }
+    }
+
+    .team-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+
+      .leave-group {
+        
+        .button-red-outline();
+    
+        &:hover {
+          color: @text-gray2;
+        }
+      }
+
+      .add-member {
+        .button-colorful();
+        border: none;
+
+        &:hover {
+            color: @text-gray2;
+        }
+      }
+    }
 }
 
-.stats-section {
-  margin-top: 40px;
+.search-tab{
+    margin: @margin-base2 @margin-base;
 
-  .stats-title {
-    background: linear-gradient(to right, @primary-color, @secondary-color);
-    -webkit-background-clip: text;
-    color: transparent;
-  }
+    display: grid;
+    place-items: center;  // Centers horizontally and vertically
+    height: 100vh; 
+    width: 100%;
 
-  .stats-grid {
-    margin-top: 20px;
-  }
 
-  .stats-card {
-    padding: 20px;
-    border: 2px solid @primary-color;
-    border-radius: @border-radius;
-    text-align: center;
-  }
+    .all-teams{
+        margin: @margin-base2 @margin-base;
+    }
+
+    .member-section{
+
+        margin: @margin-base2 @margin-base;
+        max-width: 500px;
+        width: 100%;
+        border: 1px solid @mainred;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+
+        .member-info {
+            display: flex;  // Arrange avatar and name on the same row
+            align-items: center;  // Vertically align the avatar and name
+            margin-bottom: @margin-base;
+        }
+        
+        .member-name {
+            margin-left: 12px;  // Space between avatar and name
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 0;
+        }
+
+        .one-btn {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+    
+            .join-team {
+                .button-colorful();
+                border: none;
+        
+                &:hover {
+                    color: @text-gray2;
+                }
+            }
+        }
+    
+    }
 }
 
-.gifts-section {
-  margin-top: 50px;
 
-  .gifts-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
 
-  .gifts-subtext {
-    font-size: 16px;
-    display: block;
-    margin-bottom: 20px;
-  }
 
-  .gifts-grid {
-    margin-top: 20px;
-  }
-
-  .gift-card {
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid @primary-color;
-    border-radius: @border-radius;
-  }
-
-  .redeem-btn {
-    background-color: @primary-color;
-    color: white;
-    border: none;
-    border-radius: @border-radius;
-    padding: 10px 15px;
-    font-size: 14px;
-
-    &:hover {
-      background-color: darken(@primary-color, 10%);
-    }
-  }
 }
