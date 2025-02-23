@@ -50,6 +50,8 @@ import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
+import LoggedInMainPage from './pages/LoggedInMainPage'
+import CompetitionPortal from './pages/CompPortal'
 
 let cookie = getCookie(COOKIE_NAME);
 
@@ -109,9 +111,11 @@ function App() {
               <Switch>
               <Route path="/" exact component={MainPage} />
               <Route path="/about" exact component={AboutPage} />
+              <Route path="/testlogin" exact component={LoggedInMainPage} />
               <Route path="/competitions" exact component={CompetitionsPage} />
               <Route path="/alumni" exact component={AlumniPage} />
               <Route path="/projects" exact component={ProjectPage} />
+              <Route path="/testportal" exact component={CompetitionPortal} />
               <Route
                 path="/old-competitions/hide-and-seek2020"
                 exact
