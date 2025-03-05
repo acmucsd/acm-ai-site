@@ -18,7 +18,7 @@ const CompetitionPortal: React.FC = () => {
     // need to fetch from backend
     let stats = ["12", "1260", "9th", "5"]
     let teamName = "I love cats <33"
-    let member = [1, 2, 3, 4]
+    let member = [1, 2, 3]
 
     return (
     <DefaultLayout>
