@@ -1,0 +1,83 @@
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
+.ProfilePage {
+  // removes any default white space margins
+  .noContainer();
+
+  // prevents layout shifts caused by scrollbar
+  overflow-y: hidden;
+  background: @white;
+
+
+  .profileHeader {
+    padding: 2rem;
+
+    display: flex;
+
+    h1 .profileName {
+      color: @orange;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+
+  .diamond {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 3px;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+    clip-path: inset(0 round 5px);
+    height: 300px;
+    width: 300px;
+    rotate: 45deg;
+    margin: 80px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      rotate: -45deg;
+    }
+
+  }
+
+  .pinkContainer {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid @mainred;
+    border-radius: @radius-base5;
+    background-color: #FFF8F8;
+    max-width: 80%;
+    padding: 2rem 2rem;
+    margin: 4rem 2rem;
+    gap: 1.5rem;
+
+    div:has(.editIcon) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    h3 {
+      font-weight: @semi-bold;
+    }
+
+    p {
+      font-size: 1.4rem;
+
+      i {
+        font-style: italic;
+      }
+    }
+  }
+
+  .editIcon > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

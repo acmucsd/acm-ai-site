@@ -50,6 +50,7 @@ import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
+import ProfilePage from './pages/ProfilePage';
 
 let cookie = getCookie(COOKIE_NAME);
 
@@ -181,6 +182,7 @@ function App() {
               <Route path="/requestreset" component={requestreset} />  
               <Route path="/register" exact component={RegisterPage} />
               <Route path="/admin/register" exact component={RegisterPage} />
+              <Route path="/profile" exact component={ProfilePage} />
               <Route path="*" component={NotFoundPage} />
               </Switch>
               <TournamentProvider
