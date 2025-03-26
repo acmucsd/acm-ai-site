@@ -1,12 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { profileData, UserProfile } from '../../actions/users';
-import { Row, Col, Layout, Tabs, Button, Modal, Flex } from 'antd';
+import { profileData, updateProfile, UserProfile } from '../../actions/users';
+import { Row, Col, Layout, Button, Modal, Flex, Select } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { EditOutlined } from '@ant-design/icons';
-const { Content, Footer } = Layout;
+import majors from './majors';
+const { Content } = Layout;
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  year: 'numeric',
+});
 
 export default function ProfilePage(props: any) {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -14,7 +20,7 @@ export default function ProfilePage(props: any) {
 
   const history = useHistory();
 
-  useEffect(() => {
+  const loadProfileData = useCallback(() => {
     profileData()
       .then((res) => {
         setUser(res);
@@ -23,7 +29,11 @@ export default function ProfilePage(props: any) {
       .catch(() => {
         history.push('/login');
       });
-  });
+  }, [history]);
+
+  useEffect(() => {
+    loadProfileData();
+  }, [loadProfileData]);
 
   return (
     <DefaultLayout>
@@ -44,44 +54,44 @@ export default function ProfilePage(props: any) {
                 <></>
               )}
             </h1>
-            <Button size="large" shape="round" className="button-colorful">
-              Profile Settings
-            </Button>
           </Flex>
-          <pre>{JSON.stringify(user)}</pre>
+
           <Row justify="space-evenly">
-            <Col span={7}>
+            <Col span={24} lg={7}>
               <div className="diamond">
                 <Flex align="center" vertical gap={4}>
                   <p>Member Since</p>
-                  <h3>????</h3>
+                  <h3>
+                    {user &&
+                      dateFormatter.format(Date.parse(user.creationDate))}
+                  </h3>
                 </Flex>
               </div>
             </Col>
 
-            <Col span={7} className="pinkContainer">
+            <Col span={24} lg={7} className="pinkContainer">
               <div>
                 <h3>About</h3>
-                <Button
-                  className="editIcon"
-                  shape="circle"
-                  type="text"
-                  size="large"
-                  icon={<EditOutlined />}
-                />
+                {user && (
+                  <AboutModal
+                    initial={{
+                      major: user?.major,
+                      graduationYear: user?.graduationYear,
+                    }}
+                    onSubmit={async (values) => {
+                      await updateProfile(values);
+                      loadProfileData();
+                    }}
+                  />
+                )}
               </div>
-              <p>
-                Major: <i>Unknown</i>
-              </p>
-              <p>
-                Graduation Year: <i>Unknown</i>
-              </p>
+              <p>Major: {user?.major ?? <i>Unknown</i>}</p>
+              <p>Graduation Year: {user?.graduationYear ?? <i>Unknown</i>}</p>
             </Col>
 
-            <Col span={7} className="pinkContainer">
+            <Col span={24} lg={7} className="pinkContainer">
               <div>
-                <h3>Bio</h3>
-                <BioModal initial={''} onSubmit={() => {}} />
+                <h3>Options</h3>
               </div>
               <p>
                 <i>Empty</i>
@@ -95,34 +105,63 @@ export default function ProfilePage(props: any) {
   );
 }
 
-function BioModal({
+function AboutModal({
   initial,
   onSubmit,
 }: {
-  initial: string;
-  onSubmit: (bio: string) => void;
+  initial: {
+    major?: string;
+    graduationYear?: number;
+  };
+  onSubmit: (values: {
+    major?: string;
+    graduationYear?: number;
+  }) => Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState('Content of the modal');
+  const [major, setMajor] = useState(initial.major);
+  const [graduationYear, setGraduationYear] = useState(initial.graduationYear);
 
   const showModal = () => {
     setOpen(true);
   };
 
   const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
+    onSubmit({ major, graduationYear: graduationYear })
+      .then(() => {
+        setOpen(false);
+        setConfirmLoading(false);
+      })
+      .catch(() => {
+        setConfirmLoading(false);
+      });
+
     setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
     setOpen(false);
   };
+
+  // Based on membership portal
+  const years = useMemo(() => {
+    const years: number[] = [];
+    const currentYear = new Date().getUTCFullYear();
+    // Ensure the user's graduation year is listed in the dropdown in case
+    // they're taking longer than expected to graduate
+    for (
+      let year = Math.min(
+        initial.graduationYear ?? currentYear,
+        currentYear - 2
+      );
+      year <= currentYear + 6;
+      year += 1
+    ) {
+      years.push(year);
+    }
+    return years;
+  }, [initial.graduationYear]);
 
   return (
     <>
@@ -141,10 +180,41 @@ function BioModal({
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
-        okButtonProps={{ className: "button-colorful", shape: "round"  }}
-        cancelButtonProps={{ className: "button-black", shape: "round"  }}
+        okText="Save"
+        okButtonProps={{ className: 'button-colorful', shape: 'round' }}
+        cancelButtonProps={{ className: 'button-black', shape: 'round' }}
       >
-        <p>{modalText}</p>
+        <Flex gap={16} vertical>
+          <div>
+            <p>Major</p>
+            <Select
+              style={{ width: '100%' }}
+              value={major}
+              onChange={(value) => {
+                setMajor(value);
+              }}
+              options={majors.map((major) => ({
+                label: major,
+                value: major,
+              }))}
+            />
+          </div>
+
+          <div>
+            <p>Graduation Year</p>
+            <Select
+              style={{ width: '100%' }}
+              value={graduationYear}
+              onChange={(value) => {
+                setGraduationYear(value);
+              }}
+              options={years.map((year) => ({
+                label: year,
+                value: year,
+              }))}
+            />
+          </div>
+        </Flex>
       </Modal>
     </>
   );

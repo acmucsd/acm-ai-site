@@ -26,15 +26,16 @@
   }
 
   .diamond {
-    border: 10px solid;
-    border-image-slice: 1;
-    border-width: 3px;
-    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
-    clip-path: inset(0 round 5px);
-    height: 300px;
-    width: 300px;
+    border: solid 2px @mainred;
+    border-radius: 12px;
+    aspect-ratio: 1;
+    max-width: 250px;
     rotate: 45deg;
     margin: 80px auto;
+
+    @media (min-width: @md) and (max-width: @lg) {
+      max-width: 200px;
+    }
 
     display: flex;
     justify-content: center;
@@ -42,6 +43,7 @@
 
     div {
       rotate: -45deg;
+      text-align: center;
     }
 
   }

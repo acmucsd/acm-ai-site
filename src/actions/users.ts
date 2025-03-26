@@ -11,6 +11,8 @@ export interface UserProfile {
   admin: boolean;
   primaryAdmin: boolean;
   creationDate: string;
+  major?: string;
+  graduationYear?: number;
 }
 
 export const profileData = async (): Promise<UserProfile> => {
@@ -26,6 +28,28 @@ export const profileData = async (): Promise<UserProfile> => {
       })
       .catch((error) => {
         message.error('Profile Fetch Failed');
+        reject(error);
+      });
+  });
+};
+
+export const updateProfile = async (values: {
+  major?: string;
+  graduationYear?: number;
+}): Promise<void> => {
+  const token = getToken();
+  const username = tokenGetClaims(token).username;
+  return new Promise((resolve, reject) => {
+    axios
+      .post(process.env.REACT_APP_API + '/v1/users/' + username + '/updateProfile', values, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        message.success('Profile Updated');
+        resolve();
+      })
+      .catch((error) => {
+        message.error('Profile Update Failed');
         reject(error);
       });
   });
