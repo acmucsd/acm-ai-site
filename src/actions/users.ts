@@ -11,6 +11,7 @@ export interface UserProfile {
   admin: boolean;
   primaryAdmin: boolean;
   creationDate: string;
+  newsletterOptedIn: boolean;
   major?: string;
   graduationYear?: number;
 }
@@ -41,15 +42,45 @@ export const updateProfile = async (values: {
   const username = tokenGetClaims(token).username;
   return new Promise((resolve, reject) => {
     axios
-      .post(process.env.REACT_APP_API + '/v1/users/' + username + '/updateProfile', values, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .post(
+        process.env.REACT_APP_API + '/v1/users/' + username + '/updateProfile',
+        values,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then(() => {
         message.success('Profile Updated');
         resolve();
       })
       .catch((error) => {
         message.error('Profile Update Failed');
+        reject(error);
+      });
+  });
+};
+
+export const newsletterOptIn = async (optIn: boolean): Promise<void> => {
+  const token = getToken();
+  const username = tokenGetClaims(token).username;
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        process.env.REACT_APP_API +
+          '/v1/users/' +
+          username +
+          (optIn ? '/newsletterOptIn' : '/newsletterOptOut'),
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then(() => {
+        message.success(optIn ? 'Opted In' : 'Opted Out');
+        resolve();
+      })
+      .catch((error) => {
+        message.error('Newsletter Status Update Failed');
         reject(error);
       });
   });

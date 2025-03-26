@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { profileData, updateProfile, UserProfile } from '../../actions/users';
+import {
+  newsletterOptIn,
+  profileData,
+  updateProfile,
+  UserProfile,
+} from '../../actions/users';
 import { Row, Col, Layout, Button, Modal, Flex, Select } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
@@ -93,9 +98,25 @@ export default function ProfilePage(props: any) {
               <div>
                 <h3>Options</h3>
               </div>
-              <p>
-                <i>Empty</i>
-              </p>
+              <p>ACM AI Newsletter</p>
+
+              {!user?.newsletterOptedIn ? (
+                <Button
+                  className="button-colorful"
+                  shape="round"
+                  onClick={() => newsletterOptIn(true).then(loadProfileData)}
+                >
+                  Opt In
+                </Button>
+              ) : (
+                <Button
+                  className="button-black"
+                  shape="round"
+                  onClick={() => newsletterOptIn(false).then(loadProfileData)}
+                >
+                  Opt Out
+                </Button>
+              )}
             </Col>
           </Row>
         </Content>
