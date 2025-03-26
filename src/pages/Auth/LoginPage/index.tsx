@@ -19,7 +19,7 @@ function LoginPage() {
     loginUser(DIMENSION_ID, values).then((res: any) => {
       setUser(getUserFromToken(res));
       message.success('Logged in!');
-      window.location.href = '/';
+      window.location.href = '/profile';
     });
   };
 
