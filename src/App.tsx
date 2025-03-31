@@ -28,17 +28,19 @@ import {
   defaultTournament,
 } from './configs';
 import { message } from 'antd';
-import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/HideAndSeek2020';
 import CompetitionsPage from './pages/CompetitionsPage';
-import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
 import AboutPage from './pages/AboutPage';
 import AlumniPage from './pages/AlumniPage';
 import EventsPage from './pages/EventsPage';
 import EventHasNotStartedPage from './pages/EventHasNotStarted';
-import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword';
-import nnRanksPage from './pages/Competitions/NNRankPage';
 import requestreset from './pages/Auth/RequestReset';
+
+import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/HideAndSeek2020';
+import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
+import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
+import NNRanksPage from './pages/Competitions/NNRankPage';
+
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
 import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionTeamPages/SpecificTeamPage';
@@ -111,23 +113,10 @@ function App() {
               <Route path="/competitions" exact component={CompetitionsPage} />
               <Route path="/alumni" exact component={AlumniPage} />
               <Route path="/projects" exact component={ProjectPage} />
-              <Route
-                path="/old-competitions/hide-and-seek2020"
-                exact
-                component={HideAndSeek2020Page}
-              />
               <Route path="/events" exact component={EventsPage} />
-              <Route
-                path="/eventhasnotstarted"
-                exact
-                component={EventHasNotStartedPage}
-              />
-              <Route path="/login" exact component={LoginPage} />
-              <Route
-                path="/old-competitions/nn"
-                exact
-                component={nnRanksPage}
-              />
+              <Route path="/eventhasnotstarted" exact component={EventHasNotStartedPage}/>
+              
+              {/* new competition format */}
               <Route
                 path="/competitions/:id"
                 exact
@@ -163,11 +152,19 @@ function App() {
                 exact
                 component={JoinTeamsPage}
               />
-              {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
+
+              {/* accounts */}
+              <Route path="/login" exact component={LoginPage} />
+              <Route path="/register" exact component={RegisterPage} />
+              <Route path="/requestreset" component={requestreset} /> 
+              <Route path="/resetpassword" component={ForgotPasswordPage} />
+              <Route path="/admin/register" exact component={RegisterPage} />
+
+              {/* old competitions */}
+              <Route  path="/old-competitions/hideandseek" exact component={HideAndSeek2020Page} />
               <Route
-                exact
-                path="/history/hide-and-seek2020"
-                component={() => {
+                path="/old-competitions/hideandseek/ranks"
+                exact component={() => {
                   return (
                     <TournamentRankingsPageHistorical
                       dataDir="2020summer"
@@ -176,17 +173,13 @@ function App() {
                   );
                 }}
               />
-              <Route path="/resetpassword" component={ForgotPasswordPage} />
-              <Route path="/requestreset" component={requestreset} />  
-              <Route path="/register" exact component={RegisterPage} />
-              <Route path="/admin/register" exact component={RegisterPage} />
+              <Route path="/old-competitions/nn" exact component={NNRanksPage} />
+              {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
+              <EnergiumRoutes />
+
               <Route path="*" component={NotFoundPage} />
               </Switch>
-              <TournamentProvider
-                value={{ tournament: tournament, setTournament: setTournament }}
-              >
-                <EnergiumRoutes />
-              </TournamentProvider>
+              
             </UserProvider>
           ) : (
             <div

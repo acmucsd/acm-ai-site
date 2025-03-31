@@ -78,7 +78,7 @@ function CompetitionsPage(props: any) {
                   color={color[statIndex]}
                   description={key}
                   prepend={key === 'In Prizes' ? "$" : "" }
-                  extension={key === "Matches Played" || key === "Submissions" ? "+" : ""}
+                  extension={key === "Matches" || key === "Submissions" ? "+" : ""}
                   number={value}
                   />
                 ))}

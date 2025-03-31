@@ -28,7 +28,7 @@
       "year": "2020",
       "stats": {
         "Teams": 14,
-        "Matches Played": 2400
+        "Matches": 2400
       },
       "description": "Upon the dawn of the new millennium, energy has become currency, the most precious resource after the majority of Earth's resources have been mined out. You are an energy corporation with the technology of Collectors, robots that can mine an energy-rich resource known as Energium on the asteroid belts of our solar system. Your goal is to build the best AI agent to control these collectors and get more energy than your competitors. This competition has concluded. Congratulations to programjames on their win.",
       "link": "/old-competitions/energium/ranks"
@@ -39,10 +39,10 @@
       "year": "2020",
       "stats": {
         "Teams": 15,
-        "Matches Played": "120000"
+        "Matches": "120000"
       },
       "description": "Welcome to ACM AI's first competition, and the first of its kind at UCSD. You must use your wits and strategies, along with knowledge of programming, to effectively hide and seek. Your AI must be able to play the Seeker and the Hider, and must either find and tag all hiders or hide from all seekers. Are you up for the challenge? The competition has concluded. Congratulations to Joe Cai for winning the Hide and Seek AI Competition and to Matei Gardus for winning the hacker award.",
-      "link": "/old-competitions/hideandseek"
+      "link": "/old-competitions/hideandseek/ranks"
     }
   ]
   
