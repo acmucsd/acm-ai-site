@@ -40,10 +40,25 @@
 
   .homeText {
     width: 50vw;
-
     @media screen and (max-width: @xs){
       width: 60vw;
+    margin-right: 2rem;
+  }
+
+  .homeButtons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+  
+    .getStartedButton {
+      .button-colorful();
     }
+  
+    .aboutButton {
+      .button-red-outline();
+      border: 2px solid @mainred;
+    }
+  }
 
     margin-right: 2rem;
 
@@ -72,8 +87,6 @@
     }
   }
 
-  
-
   img {
     justify-self: center;
     width: 15vw;
@@ -84,6 +97,10 @@
     .homeContent {
       flex-direction: column;
       align-items: center;
+    }
+
+    .ai-logo {
+      width: 40%;
     }
 
     .homeButtons {
@@ -97,6 +114,7 @@
     }
   }
 }
+
 
 @media screen and (max-width: @xs) {
   .infoButton, .knowledgeButton {
@@ -246,106 +264,12 @@
     }        
 }
 
-.communitySection {
-
-  .generic-section();
-  max-width: 80%;
-  text-align: center;
-
-  .communityContainer {
-    margin-top: 4rem;
-  }
-  
-  h3 {
-    font-weight: bold;
-    line-height: 3rem;
-    margin-top: @margin-base2;
-  }
-
-  p{
-    margin-top: @margin-base2;
-  }
-
-  button {
-    justify-self: center;
-    margin-top: @margin-base2;
-  }
-
-
-  .mainWebsiteBtn {
-    .button-colorful();
-  }
-
-  .splitInfoRow {
-    margin-top: @margin-base2;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    column-gap: 3rem;
-    flex-wrap: true;
-    margin-bottom: 4rem;
-    .constrained-bounds();
-
-    @media screen and (max-width: @sm) {
-      column-gap: 5rem;
-    }
-
-    img {
-      flex: 0 1 50%;
-      width: 30%;
-      margin-top: 2rem;
-
-      @media screen and (max-width: @sm) {
-        flex: 0 1 100%;
-        max-width: 30%;
-        display: block;
-        margin: 0 auto;
-      }
-
-    }
-
-    .community {
-      display: flex;
-      align-items: center;
-      gap:  3rem;
-
-    }
-
-
-    .infoText {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      text-align: left;
-      width: 200px;
-
-      p{
-        margin-top: 0;
-      }
-
-      .red {
-        color: @mainred;
-      }
-
-      .yellow {
-        color: @mainyellow;
-      }
-
-      .green {
-        color: @maingreen;
-      }
-
-      .purple {
-        color: #E981A0;
-      }
-    }
-  }
-
-
-}
-
 .colorful{
-  .text-colorful();
+  background: linear-gradient(#F66161, #FF8130);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;  /* For Firefox */
+  color: transparent;
 }
 
 .homeBottomBar {
