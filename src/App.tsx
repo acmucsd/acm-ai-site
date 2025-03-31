@@ -45,7 +45,6 @@ import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionTeamPag
 import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/AllTeamsPage';
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
 import CompetitionSubmissionDetailsPage from './pages/Competitions/CompetitionTeamPages/SubmissionDetailsPage';
-import LoggedInMainPage from './pages/LoggedInMainPage';
 import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
@@ -108,9 +107,6 @@ function App() {
             <UserProvider value={{ user: user, setUser: setUser }}>
               <Switch>
               <Route path="/" exact component={MainPage} />
-              <Route path="/testLoggedInMain" exact component={LoggedInMainPage} />
-
-              
               <Route path="/about" exact component={AboutPage} />
               <Route path="/competitions" exact component={CompetitionsPage} />
               <Route path="/alumni" exact component={AlumniPage} />
