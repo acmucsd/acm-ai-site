@@ -4,7 +4,7 @@
 
 
 .homeHeader {
-  padding-top: 14rem;
+  padding-top: 20rem;
   padding-bottom: 16rem;
 
   display: flex;
@@ -15,27 +15,40 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    
+
+    .HomeIconMobile{
+      width: 40rem;
+      margin-bottom: @margin-base4;
+
+      @media screen and (min-width: @xs){
+        display: none;
+      }
+
+    }
+
+    .ai-logo{
+      width: 25vw;
+
+      @media screen and (max-width: @xs){
+        display:none;
+      }
+
+
+    }
   }
 
   .homeText {
     width: 50vw;
+    @media screen and (max-width: @xs){
+      width: 60vw;
     margin-right: 2rem;
-    p {
-      margin-top: 0.5rem;
-      font-size: 1.4rem;
-    }
   }
 
   .homeButtons {
     margin-top: 2rem;
     display: flex;
     gap: 1rem;
-
-	button {
-		font-size: 1.5rem;
-		height: unset;
-		padding: 0.3rem 0;
-	}
   
     .getStartedButton {
       .button-colorful();
@@ -47,26 +60,52 @@
     }
   }
 
+    margin-right: 2rem;
+
+    .homeTitle{
+      font-size: @font8;
+      margin-bottom: @margin-base3;
+    }
+
+    h3{
+      font-weight: bold;
+      margin-bottom: @margin-base;
+    }
+
+    .homeButtons {
+      margin-top: @margin-base2;
+
+      .getStartedButton {
+        .button-colorful();
+        margin-right: @margin-base;
+      }
+    
+      .aboutButton {
+        .button-red-outline();
+        border: 2px solid @mainred;
+      }
+    }
+  }
+
   img {
     justify-self: center;
     width: 15vw;
   }
 
-}
-
-@media screen and (max-width: @xs) {
-  .homeHeader {
+  @media screen and (max-width: @xs) {
     padding-bottom: 0rem;
     .homeContent {
+      flex-direction: column;
       align-items: center;
     }
 
     .ai-logo {
-      display: none;
+      width: 40%;
     }
 
     .homeButtons {
       flex-direction: column;
+      margin-bottom: 4rem;
     }
 
     .getStartedButton, .aboutButton {
@@ -74,31 +113,14 @@
       padding: 0.5rem 0.5rem;
     }
   }
+}
+
+
+@media screen and (max-width: @xs) {
   .infoButton, .knowledgeButton {
     font-size: @font3;
     padding: 0.5rem 0.5rem;
   }
-}
-
-@media only screen and (max-width: @md) {
-  .homeHeader {
-    padding-bottom: 0rem;
-  }
-
-  .floatingShapes {
-    padding-bottom: 0rem;
-    .shape {
-      display: none;
-    }
-  }
-  
-  .wavy {
-    display: none;
-  }
-}
-
-.ai-logo {
-	position: relative;
 }
 
 .floatingShapes {
@@ -109,10 +131,10 @@
       opacity: 0.9;
 
       &.shapeTop {
-        width: 400px;
-        height: 400px;
-        top: 8%;
-        right: 3%;
+        width: 20rem;
+        height: 20rem;
+        top: 12%;
+        right: 3vw;
         background: url('../../../public/diamond_top_right.svg') no-repeat center center;
         background-size: 70%;
       }
@@ -127,6 +149,13 @@
       }
 
     }
+
+    @media only screen and (max-width: @md) {
+        padding-bottom: 0px;
+        .shape {
+          display: none;
+        }
+    }
   }
 
 .wavy {
@@ -138,6 +167,9 @@
   background-size: contain;
   background-position: bottom;
   bottom: 0;
+  // @media only screen and (max-width: @md) {
+  //   display: none;
+  // }
 }
 
 
@@ -161,6 +193,7 @@
       flex: 0 1 50%;
       max-width: @max-width1;
       margin-top: 2rem;
+      border-radius: 1rem;
 
       @media screen and (max-width: @xs) {
         flex: 0 1 100%;
@@ -190,7 +223,9 @@
     display: flex;
     flex-direction: column; 
     justify-content: center; 
-    align-items: center;     
+    align-items: center;    
+    margin-left: 2rem; 
+    margin-right: 2rem; 
 
     h3 {
       font-weight: bold;
@@ -207,10 +242,9 @@
       border-radius: @radius-base5;
       background-color: #FFF8F8;
       max-width: 80%;
-      padding: 3rem 4rem;
-      margin: 4rem 2rem;
+      padding: 3rem 5rem;
+      margin-bottom: 5rem;
       gap: 10rem;
-
         .items {
           margin-top: @margin-base2;
           display: flex;
@@ -220,13 +254,13 @@
 
           img {
               justify-self: center;
-              width: 10vw;
+              width: 12vw;
           }
 
           .knowledgeButton {
             .button-red-outline();
           }
-        }
+      }
     }        
 }
 
@@ -237,3 +271,14 @@
   background-clip: text;  /* For Firefox */
   color: transparent;
 }
+
+.homeBottomBar {
+    box-sizing: border-box;
+    background: linear-gradient(to right, #F66161, #FE7C37);
+    border: 0px solid transparent;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    padding: 3rem;
+    margin-top: 10rem;
+}
+  
