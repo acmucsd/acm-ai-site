@@ -6,15 +6,17 @@ import Number from '../../components/Statistic';
 import { Layout, Button, Row, Col } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import competitionsData from './competitionsData.json';
+import { Competition } from './competition';
 import tempComp from '../../../public/temp_comp.png'
-import trophy from '../../../public/trophy_bg.png'
 const { Content } = Layout;
+
 
 function CompetitionsPage(props: any) {
   useEffect(() => {}, []);
   const spaceSize = 10;
   const color = ['#ff4d4f','#ff8d8b','#fe8019']
-
+  const competitions: Competition[] = competitionsData;
+  
   return (
     <DefaultLayout>
       <Content className="CompetitionsPage">
@@ -33,15 +35,15 @@ function CompetitionsPage(props: any) {
 
             <Row className="buttons">
               <Col>
-                  <Link to={{ pathname: "#" }} target="_blank" >
+                  <a href="https://acmurl.com/ai-competition-signup-2025" target="_blank" rel="noopener noreferrer">
                       <Button size="large" shape="round" className="interestButton">Interest Form &gt;</Button>
-                  </Link>
+                  </a>
               </Col>
-              <Col>
+              {/* <Col>
                   <Link to={{ pathname: "#" }} target="_blank" >
                       <Button size="large" shape="round" className="portalButton">Competitions Portal &gt;</Button>
                   </Link>
-              </Col>
+              </Col> */}
             </Row>
           </Col>
 
@@ -49,7 +51,7 @@ function CompetitionsPage(props: any) {
 
         <Content className="competitionsSection">
           
-          {competitionsData.map((competition, index) => (
+          {competitions.map((competition, index) => (
             <div key={index} className="competitionDiv">
 
               <div className="pastCompetitions">
@@ -72,7 +74,6 @@ function CompetitionsPage(props: any) {
 
 
               <Row className="competitionInfo">
-                <Col className="competitionStats" span={18}>
                 {Object.entries(competition.stats).map(([key, value], statIndex) => (
                   <Number
                   color={color[statIndex]}
@@ -82,22 +83,29 @@ function CompetitionsPage(props: any) {
                   number={value}
                   />
                 ))}
-                  
-                </Col>
+              </Row>
 
-                <Col span={6}>
-                  <Link to={competition.link}>
-                    <Button
-                      className="compButtonPrimary"
-                      size="large"
-                      type="primary"
-                      danger
-                    >
-                      <p>Leaderboard &gt;</p>
-                    </Button>
-                  </Link>
-                  
-                </Col>
+              <Row className="competitionButtons">
+                <div className="homeButtons">
+                  {competition.link && (
+                    <Link to={competition.link}>
+                        <Button 
+                          size="large" type="primary" danger className="compButtonPrimary">
+                            More Info &gt;
+                        </Button>
+                    </Link>
+                  )}
+
+                  {competition.leaderboard && (
+                    <Link to={competition.leaderboard}>
+                      <Button
+                        size="large" type="primary" danger className="compButtonPrimary">
+                        Leaderboard &gt;
+                      </Button>
+                    </Link>
+                  )}
+                    
+                </div>
 
               </Row>
             </div>
