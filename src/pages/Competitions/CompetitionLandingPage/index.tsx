@@ -9,6 +9,9 @@ import { getMetaData } from '../../../actions/competition';
 import { getCompetitionUser } from '../../../actions/teams/utils';
 import { registerCompetitionUser } from '../../../actions/competition';
 import UserContext from '../../../UserContext';
+import competitionsData from '../../CompetitionsPage/competitionsData.json';
+import { Competition } from '../../CompetitionsPage/competition';
+
 const { Content } = Layout;
 
 // import BackLink from '../../../components/BackLink';
@@ -18,7 +21,7 @@ const CompetitionLandingPage = () => {
     Lines currently commented out will be added back in once backend is up again
     as deemed necessary
   */
-
+  const competitions: Competition[] = competitionsData;
   const [meta, setMeta] = useState<{
     competitionName: string;
     description: string;
@@ -26,6 +29,7 @@ const CompetitionLandingPage = () => {
     endDate: string;
     submissionsEnabled: boolean;
     leaderboardEnabled: boolean;
+    signup?: string | null;
   } | null>(null);
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
@@ -39,8 +43,19 @@ const CompetitionLandingPage = () => {
   const update = () => {
     getMetaData(competitionID)
       .then((res) => {
-        // console.log("METADATA", res.data);
-        setMeta(res.data);
+        const apiMeta = res.data;
+        const competition = competitions.find(
+          (comp) => comp.competitionName === apiMeta.competitionName  
+        );
+        setMeta({
+          competitionName: apiMeta.competitionName,
+          description: apiMeta.description,
+          startDate: apiMeta.startDate,
+          endDate: apiMeta.endDate,
+          submissionsEnabled: apiMeta.submissionsEnabled,
+          leaderboardEnabled: competition?.leaderboard ? true : false,
+          signup: competition?.signup || null,
+        });
       })
       .catch((error) => {
         message.info('No metadata');
@@ -81,7 +96,6 @@ const CompetitionLandingPage = () => {
     update();
   }, []);
   if (!meta) return <DefaultLayout>Nothing</DefaultLayout>;
-  console.log(meta);
 
   return (
     <DefaultLayout>
@@ -113,6 +127,16 @@ const CompetitionLandingPage = () => {
           </p>
 
           <Content className="competitionButtons">
+              {meta.signup && (
+                  <a
+                      href={meta.signup}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                  >
+                      <Button className="headerbtn">Sign Up</Button>
+                  </a>
+              )}
+              
               {meta.leaderboardEnabled && (
                 <Link to={`/competitions/${competitionID}/leaderboard`}>
                   <Button className="headerbtn">Leaderboard</Button>
