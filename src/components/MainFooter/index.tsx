@@ -6,11 +6,18 @@ import { BiLogoInstagram, BiLogoDiscord, BiMailSend } from 'react-icons/bi';
 import '../../newStyles/components.less'
 const { Footer, Content } = Layout;
 
+/**
+ * Component that displays additional info about 
+ * ACM AI. Typically placed at the bottom of all pages 
+ * 
+ */
+
 interface MainFooterProps {
   isMainPage?: boolean;
 }
 
 const MainFooter: React.FC<MainFooterProps> = ({ isMainPage = false }) => {
+
   return (
     <>
     <Content>

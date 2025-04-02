@@ -130,7 +130,7 @@ function RegisterPage() {
               <Checkbox checked={UCSDChecked} onChange={(e) => setUCSDChecked(e.target.checked)}>
                 <p>From UCSD</p>
               </Checkbox>
-            </Form.Item>
+            </Form.Item>  
 
             <div className="errorBox">
               {errors.username && <p className="danger">Missing username</p>}
