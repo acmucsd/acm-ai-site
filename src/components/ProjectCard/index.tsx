@@ -33,7 +33,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
   const showModal = () => {
     setIsModalOpen(true);
-    console.log(isModalOpen);
   };
 
   const handleCancel = () => {

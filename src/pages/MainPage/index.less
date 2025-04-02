@@ -2,219 +2,283 @@
 @import '../../newStyles/components.less';
 @import '../../newStyles/index.less';
 
-.Main {
 
-  // removes any default white space margins
-  .noContainer();
+.homeHeader {
+  padding-top: 20rem;
+  padding-bottom: 16rem;
 
-  // Gradient container that holds the main website title and subtitle
-  .homeHeader {
-    padding-top: 14rem;
-    padding-bottom: 16rem; 
-    min-width: 180px;
-    background: @mainred;
-    .center-both-ways();
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  .homeContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
 
-    @media screen and (max-width: @sm) {
-      padding-top: 14rem;
-      padding-bottom: 16rem;
-    }
+    .HomeIconMobile{
+      width: 40rem;
+      margin-bottom: @margin-base4;
 
-
-    .homeHeaderContent {
-      width: 100%;
-      .center-both-ways();
-        
-      // Main title "acm ai"
-      .homeTitle {
-        color: @white;
-        text-align: center;
-        .title1();
-      }
-
-      h4 {
-        width: 60%;
-        color: @white;
-        max-width: @max-width1;
-        color: @white;
-        text-align: center;
+      @media screen and (min-width: @xs){
+        display: none;
       }
 
     }
 
+    .ai-logo{
+      width: 25vw;
+
+      @media screen and (max-width: @xs){
+        display:none;
+      }
+
+
+    }
   }
 
-
-  // For titles like Events and Sponsor Us
-  .homeSubTitle {
-    width: 90%;
-    text-align: center;
-    max-width: @max-width2;
-    min-width: 150px;
-    color: @b1;
+  .homeText {
+    width: 50vw;
+    @media screen and (max-width: @xs){
+      width: 60vw;
+    margin-right: 2rem;
   }
 
-  .homeBox {
-    box-sizing: border-box;
-    .generic-section();
-    .constrained-bounds();
-    margin-top: @content-top-margin;
-    .homeInfo {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      max-width: @max-width3;
+  .homeButtons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+  
+    .getStartedButton {
+      .button-colorful();
+    }
+  
+    .aboutButton {
+      .button-red-outline();
+      border: 2px solid @mainred;
+    }
+  }
 
-      .info {
-        padding-bottom: 1.5rem;
-      
-        h3 {
-          font-weight: @bold;
-          font-size: @font4;
-          line-height: 3rem;
-        }
-      
-        Button {
-          margin-top: @margin-base;
-          margin-bottom: @margin-base;
-          .button-black();
-        }  
-      }
+    margin-right: 2rem;
+
+    .homeTitle{
+      font-size: @font8;
+      margin-bottom: @margin-base3;
     }
 
+    h3{
+      font-weight: bold;
+      margin-bottom: @margin-base;
+    }
 
-    // parent box just above the cardsBox
-    .projectCompsBox {
-      background-color: @orange;
-      border-radius: @radius-base4;
-      display: flex;
+    .homeButtons {
+      margin-top: @margin-base2;
+
+      .getStartedButton {
+        .button-colorful();
+        margin-right: @margin-base;
+      }
+    
+      .aboutButton {
+        .button-red-outline();
+        border: 2px solid @mainred;
+      }
+    }
+  }
+
+  img {
+    justify-self: center;
+    width: 15vw;
+  }
+
+  @media screen and (max-width: @xs) {
+    padding-bottom: 0rem;
+    .homeContent {
       flex-direction: column;
-      margin-top: @content-top-margin;
-      margin-bottom: 16px;
-      h3 {
-        color: white;
-        margin: 2rem 0 1rem 2rem;
-        font-weight: @semi-bold;
-      }
-      h4 {
-        width: 80%;
-        margin: 0 0 2rem 2rem;
-        color: @white;
-      }
+      align-items: center;
     }
 
-    // row that holds the two cards that converts to a column
-    // at an xtra small device width for responsiveness
-    .projectCompsCardsBox {
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: 100%;
+    .ai-logo {
+      width: 40%;
+    }
+
+    .homeButtons {
+      flex-direction: column;
+      margin-bottom: 4rem;
+    }
+
+    .getStartedButton, .aboutButton {
+      font-size: @font3;
+      padding: 0.5rem 0.5rem;
+    }
+  }
+}
+
+
+@media screen and (max-width: @xs) {
+  .infoButton, .knowledgeButton {
+    font-size: @font3;
+    padding: 0.5rem 0.5rem;
+  }
+}
+
+.floatingShapes {
+    padding-bottom: 300px;
+    .shape {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.9;
+
+      &.shapeTop {
+        width: 20rem;
+        height: 20rem;
+        top: 12%;
+        right: 3vw;
+        background: url('../../../public/diamond_top_right.svg') no-repeat center center;
+        background-size: 70%;
+      }
+
+      &.shapeBot {
+        width: 400px;
+        height: 400px;
+        top: 55%;
+        left: 10%;
+        background: url('../../../public/diamond_bottom_left.svg') no-repeat center center;
+        background-size: 70%;
+      }
+
+    }
+
+    @media only screen and (max-width: @md) {
+        padding-bottom: 0px;
+        .shape {
+          display: none;
+        }
+    }
+  }
+
+.wavy {
+  z-index: -1;
+  width: 100%;
+  height:100%; 
+  position: absolute;
+  background: url('../../../public/wavy.svg') no-repeat center center;
+  background-size: contain;
+  background-position: bottom;
+  bottom: 0;
+  // @media only screen and (max-width: @md) {
+  //   display: none;
+  // }
+}
+
+
+.homeInfo {
+  .generic-section();
+  
+  h3 {
+    font-weight: bold;
+    line-height: 3rem;
+  }
+
+  .splitInfoRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4rem;
+    max-width: 80%;
+    .constrained-bounds();
+
+    img {
+      flex: 0 1 50%;
+      max-width: @max-width1;
+      margin-top: 2rem;
+      border-radius: 1rem;
 
       @media screen and (max-width: @xs) {
-        flex-direction: column;
-        width: 100%;
-        justify-content:center;
+        flex: 0 1 100%;
+        max-width: 70%;
+        display: block;
+        margin: 0 auto;
       }
-    
+    }
+  
+    .infoText {
+      flex: 1 1 50%;
+      max-width: 80%;
+      padding: @padding-base2;
 
-      // a card that holds basic info
-      .previewCard {
-        background-color: @black;
-        max-height: 350px;
-        width: calc(50% - 8px);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        font-size: @font3;
-        border-radius: @radius-base4;
-        border-width: 0;
-
-        @media screen and (max-width: @xs) {
-          width: 100%; /* Adjusted width for smaller screens */
-          margin-bottom: 16px;
-        }
-
-        p {
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-          width: fit-content;
-        }
-
-        .previewIcon {
-          background: white;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 8px;
-          width: 45px;
-          height: 45px; 
-        }
-
-    
-        h3 {
-          color: white;
-          font-weight: @semi-bold;
-          margin-bottom: 1rem;
-        }
-
-        h4 {
-          color: rgb(213, 213, 213);
-        }
+      .infoButton {
+        margin-top: @margin-base;
+        margin-bottom: @margin-base;
+        .button-colorful();
       }
     }
 
   }
+}
 
-
-
-
-
-  // Container to hold events
-  .eventsContainer {
-    .generic-centered-section();
-    .constrained-bounds();
-    margin-top: @content-top-margin;
-    h4 {
-      max-width: @xxs;
-    }
-  }
-
-  // wrapper to hold the collapse component
-  .sponsorshipBox {
-    .generic-centered-section();
-    .constrained-bounds();
-    margin-top: @content-top-margin;
-
-   
-    .sponsorshipCollapse {
-      .gradient();
-      .generic-centered-section();
-      .constrained-bounds();
-      padding: 3rem;
-      border-radius: @radius-base4;
-      margin-top: @margin-base2;
-      .ant-collapse-arrow {
-        color: white; /* Replace with your desired arrow color */
-      }
-      p {
-        color: white;
-      }
-      a {
-        color: black;
-      }
-    }
-  }
-
-
-  // the gradient bar just above the main footer
-  .homeBottomBar {
-    .gradient();
-    box-sizing: border-box;
+.knowledgeSection {
     text-align: center;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;    
+    margin-left: 2rem; 
+    margin-right: 2rem; 
+
+    h3 {
+      font-weight: bold;
+      line-height: 3rem;
+    }
+
+    p {
+      font-size: @font3;
+      margin-bottom: @font3;
+    }
+
+    .pinkContainer {
+      border: 3px solid @mainred;
+      border-radius: @radius-base5;
+      background-color: #FFF8F8;
+      max-width: 80%;
+      padding: 3rem 5rem;
+      margin-bottom: 5rem;
+      gap: 10rem;
+        .items {
+          margin-top: @margin-base2;
+          display: flex;
+          flex-direction: row;
+          text-align: left;
+          gap: 2rem;
+
+          img {
+              justify-self: center;
+              width: 12vw;
+          }
+
+          .knowledgeButton {
+            .button-red-outline();
+          }
+      }
+    }        
+}
+
+.colorful{
+  background: linear-gradient(#F66161, #FF8130);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;  /* For Firefox */
+  color: transparent;
+}
+
+.homeBottomBar {
+    box-sizing: border-box;
+    background: linear-gradient(to right, #F66161, #FE7C37);
+    border: 0px solid transparent;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
     padding: 3rem;
     margin-top: 10rem;
-  }
-
 }
+  

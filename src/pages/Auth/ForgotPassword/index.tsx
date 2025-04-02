@@ -1,16 +1,16 @@
-import React from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
-import Card from '../../../components/Card';
 import { Form, Input, message, Button } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { resetPassword } from '../../../actions/auth';
-import { useHistory, RouteComponentProps } from 'react-router-dom';
+import { useHistory, RouteComponentProps, Link } from 'react-router-dom';
 import query from 'querystring';
+import { Layout } from 'antd';
+const { Content } = Layout;
 
 function ForgotPasswordPage({ location }: RouteComponentProps) {
   const history = useHistory();
-  const { handleSubmit, watch, errors, control } = useForm();
+  const { handleSubmit, watch, control, formState: { errors } } = useForm();
   const onSubmit = (values: any) => {
     let queries = query.parse(location.search);
 
@@ -31,36 +31,42 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
   return (
     <DefaultLayout>
       <div className="RegisterPage">
-        <Card className="registerCard">
+        <Content className="registerContent">
           <div className="cardContent">
-            <h2 style={{ margin: 0 }}>Forgot Password?</h2>
-            <p>Enter your new password</p>
+            <div className='registerHeader'>
+              <h2 style={{ margin: 0 }}>Forgot Password?</h2>
+              <p>Enter your new password</p>
+            </div>
+            
             <br />
             <form onSubmit={handleSubmit(onSubmit)}>
               <Controller
-                as={
+                render={({ field }) => (
                   <Form.Item>
                     <Input.Password
+                      {...field}
                       type="password"
                       placeholder="Password"
                       name="password"
                     />
                   </Form.Item>
-                }
+                )}
                 name="password"
                 control={control}
                 rules={{ required: true, minLength: 6 }}
+                
               />
               <Controller
-                as={
+                render={({ field }) => (
                   <Form.Item>
                     <Input.Password
+                      {...field}
                       type="password"
                       placeholder="Confirm Password"
                       name="confirmPassword"
                     />
                   </Form.Item>
-                }
+                )}
                 name="confirmPassword"
                 control={control}
                 rules={{
@@ -85,9 +91,14 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
               <Button htmlType="submit" className="registerButton">
                 Reset
               </Button>
+              <div className="authOptionsBox">
+                <Link to="./login">
+                  <p className="option">Back to Login</p>
+                </Link>
+              </div>
             </form>
           </div>
-        </Card>
+        </Content>
       </div>
     </DefaultLayout>
   );

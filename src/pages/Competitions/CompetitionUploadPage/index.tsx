@@ -35,7 +35,6 @@ const CompetitionUploadPage = () => {
   // Remove tags from list
   const handleClose = (removedTag: any) => {
     const newTags: any = tags.filter((tag) => tag !== removedTag);
-    console.log(newTags);
     setTags(newTags);
   };
 
@@ -55,7 +54,6 @@ const CompetitionUploadPage = () => {
     if (inputValue && tags.indexOf(inputValue) === -1) {
       newTags = [...tags, inputValue];
     }
-    console.log(newTags);
 
     // Limit of 10 tags
     if (newTags.length > 10) {

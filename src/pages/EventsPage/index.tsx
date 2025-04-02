@@ -8,7 +8,8 @@ import {
 } from '../../actions/events';
 import { Row, Col, Layout, Tabs } from 'antd';
 import EventCard from '../../components/EventCard/index';
-const { Content, Footer } = Layout;
+import MainFooter from '../../components/MainFooter';
+const { Content } = Layout;
 
 const newEvents = (eventData: ACMEvent[]): React.ReactNode => {
   return (
@@ -47,11 +48,9 @@ function EventsPage(props: any) {
   useEffect(() => {
     fetchFutureEvents().then((data) => {
       setFutureEventData(data);
-      console.log(data);
     });
     fetchPastEvents().then((data) => {
       setPastEventData(data);
-      console.log(data);
     });
   }, []);
 
@@ -86,43 +85,37 @@ function EventsPage(props: any) {
             ]}
           ></Tabs>
         </Content>
-
-        <Footer className="eventsFooter">
-          <Row className="row">
-            <Col>
-              <h2 className="title2">What events do we run?</h2>
+            
+        <Content className="eventsFAQ">
+          <Row className="splitInfoRow"> 
+            <Col className="infoText">
+              <h3> What events does <span className="colorful">ACM AI</span> run?</h3>
               <p>
-                We run all kinds of events, from intro to deep learning
-                workshops to seminars from distinguished researchers and
-                professors. Events are a great way to engage with the AI
-                community at UCSD and learn content you may not typically learn
-                in class! We also have a running contest ranking on Discord
-                based on your performance on our latest Kahoot quizzes. We often
-                host these quizzes at the start or end of a workshop.
+              We run all kinds of events, from intro to deep learning workshops to fun socials or
+              seminars from distinguished researchers and professors. 
+              Events are a great way to engage with the AI community at UCSD and learn content 
+              you may not typically learn in class. 
+
+              Join the conversation on Discord to learn more!
               </p>
             </Col>
           </Row>
-
-          <Row className="row">
-            <Col>
-              <h2 className="title2">Where can I find past workshops?</h2>
+          <Row className="splitInfoRow">
+            <Col className="infoText">
+              <h3>Where can I find past events</h3>
               <p>
-                We post all of our workshop recordings on our YouTube at{' '}
-                <a
-                  href="https://acmurl.com/youtube"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  https://acmurl.com/youtube
-                </a>
-                . Stay tuned in our Discord for uploads!
+              We post all of our workshop recordings on our YouTube at {' '}
+              <a href="https://acmurl.com/youtube" target="_blank" rel="noopener noreferrer">
+                https://acmurl.com/youtube
+              </a>.
+              Stay tuned in our Discord for uploads!
               </p>
             </Col>
           </Row>
-
-          <h3>ACM AI at UCSD 2023</h3>
-        </Footer>
+        </Content>
       </Content>
+
+      <MainFooter />
     </DefaultLayout>
   );
 }

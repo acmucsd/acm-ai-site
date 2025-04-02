@@ -1,9 +1,116 @@
 @import '../../newStyles/text.less';
 @import '../../newStyles/components.less';
 @import '../../newStyles/index.less';
+@import '../../newStyles/variables.less';
 
 .CompetitionsPage {
   .noContainer();
+
+  .mobileIcon {
+    @media screen and (min-width: @sm) {
+      display: none;
+    }
+    width: 60%;
+    display: block;
+    margin: 3rem auto 3rem auto;
+  }
+
+
+  .competitionMain {
+    background: url('../../../public/trophy_bg.png') 80% 30% no-repeat;
+    background-size: 20rem 20rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;   
+
+    @media screen and (min-width: @sm) {
+      height: 90vh;
+    }
+    
+     
+    .info{
+
+      position: relative;
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      @media screen and (max-width: @sm) {
+        width: 60%;
+      }
+
+  
+
+      .colorful{
+        background: linear-gradient(#F66161, #FF8130);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;  /* For Firefox */
+        color: transparent;
+      }
+
+      &::before {
+        content: url('../../../public/trophy_bg.png'); // Add your trophy icon path
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50px;
+        height: 50px;
+        transform: translate(-50%, -50%) rotate(-45deg); // Center and counter-rotate the icon
+        opacity: 0.1; // Adjust opacity for a subtle background effect
+        z-index: 0; // Ensure it stays behind the text
+      }
+
+      h1 {
+        font-size: @font5;
+      }
+
+      h3{
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+
+    }
+    
+
+    .containerForImage{
+
+      margin-top: @margin-base3;
+      margin-bottom: @margin-base3;
+
+      
+      img{
+        width: 30vw;
+      }
+
+      @media screen and (max-width: @sm) {
+        display: none;
+        // width: 80vw;
+        // display: flex;
+        // justify-content: center;
+      }
+
+    }
+
+    .buttons{
+      display: flex;
+      gap: 1rem;
+
+      .interestButton {
+        margin-top: @margin-base;
+        .button-colorful();
+      }
+
+      .portalButton {
+        margin-top: @margin-base;
+        .button-red-outline();
+      }
+    }
+    
+  }
 
   .competitionHeader{
     .generic-centered-section();
@@ -28,7 +135,7 @@
   .pastCompetitionsHeader {
     background: @orange;
     margin-top: 4rem;
-    padding: 4rem ;
+    padding: 5rem ;
     text-align: center;
     h1, h4 {
       color: white;
@@ -73,9 +180,16 @@
       padding: 4rem;
       background: #f7f7f7;
       border-radius: @radius-base5;
+      border: 2px solid @stat1;
+      background-color: #fffbfb;
 
       h3 {
         font-weight: @bold;
+        font-size: @font5;
+        @media screen and (max-width: @sm) {
+          font-size: @font3;
+        }
+
       }
       .competitionStats {
         display: inline-block;
@@ -83,15 +197,38 @@
         border-radius: @radius-base5;      
       }
       .compButtonPrimary {
-        border: none;
-        background: @black;
-        margin-top: 1rem;
+        border-radius: 10vw;
+        margin-top: @margin-base;
+        margin-bottom: @margin-base;
+        margin-right: @margin-base;
+        .button-red-outline();
       }
 
-      .compButtonSecondary {
-        border:none;
-        
+      .pastCompetitions{
+        display:flex;
+        flex-direction: column;
+        gap: 3rem;
+
+        img {
+          width: 3.5rem;
+        }
+
+        .description{
+          text-align: justify;
+        }
+
+        .year {
+          padding-right: 1rem;
+        }
       }
+
+      .competitionInfo{
+        @media screen and (max-width: @sm) {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
 
     }
   }

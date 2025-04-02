@@ -1,0 +1,61 @@
+[
+    {
+      "competitionName": "StarChess.AI",
+      "icon": "../../../starchessai.png",
+      "year": "2025",
+      "stats": {
+        "In Prizes": 2000
+      },
+      "description": "Get ready to put your AI skills to the test in our upcoming StarChess.AI competition! Set against a retro, vaporwave, and vintage-inspired design theme, this competition challenges you to develop an AI Capable of mastering the game of chess. Whether you're a reinforcement learning enthusiast, a deep learning expert, or just eager to learn, this is your chance to strategize, optimize, and compete.",
+      "link": "/competitions/StarChess.AI"
+    },
+    {
+      "competitionName": "Element.AI",
+      "icon": "../../../elementai.png",
+      "year": "2023",
+      "stats": {
+        "In Prizes": 5000,
+        "Signups": 200,
+        "Teams": 50
+      },
+      "description": "Long ago, there was Sunny G. Using the four elements, he built and shaped the world, making the story of earth, water, fire, and air an ancient tale that has been told in many different cultures throughout history. Now the guardian of UCSD, Sunny G, tired of students not filling out CAPES, has decided to reward the power of elemental-bending to diligent students who fill out their CAPES. However, unsure on which element is the strongest, he has put together a competition for the elements to demonstrate their strength. We would like to thank our sponsor, Arjay Waran (RJ), for funding this competition to further AI and competitive programming. This competition has concluded. Congratulations to Team Shubham on their win.",
+      "link": "/competitions/Element.AI/",
+      "leaderboard": "/competitions/Element.AI/leaderboard"
+    },
+    {
+      "competitionName": "Neural Network Modeling",
+      "icon": "../../../nnm.png",
+      "year": "2021",
+      "stats": {
+        "Teams": 10,
+        "Submissions": 500
+      },
+      "description": "Welcome to the Winter 2021 Neural Network Modeling Competition! The objective of this competition is to model an unknown function as accurately as possible! Submissions are scored by lowest MSE. This competition has concluded. Congratulations to programjames on their win.",
+      "leaderboard": "/old-competitions/nn/"
+    },
+    {
+      "competitionName": "Energium AI",
+      "icon": "../../../energium.png",
+      "year": "2020",
+      "stats": {
+        "Teams": 14,
+        "Matches": 2400
+      },
+      "description": "Upon the dawn of the new millennium, energy has become currency, the most precious resource after the majority of Earth's resources have been mined out. You are an energy corporation with the technology of Collectors, robots that can mine an energy-rich resource known as Energium on the asteroid belts of our solar system. Your goal is to build the best AI agent to control these collectors and get more energy than your competitors. This competition has concluded. Congratulations to programjames on their win.",
+      "link": "/old-competitions/energium",
+      "leaderboard": "/old-competitions/energium/ranks"
+    },
+    {
+      "competitionName": "Hide and Seek",
+      "icon": ".../../../hns.png",
+      "year": "2020",
+      "stats": {
+        "Teams": 15,
+        "Matches": 120000
+      },
+      "description": "Welcome to ACM AI's first competition, and the first of its kind at UCSD. You must use your wits and strategies, along with knowledge of programming, to effectively hide and seek. Your AI must be able to play the Seeker and the Hider, and must either find and tag all hiders or hide from all seekers. Are you up for the challenge? The competition has concluded. Congratulations to Joe Cai for winning the Hide and Seek AI Competition and to Matei Gardus for winning the hacker award.",
+      "link": "/old-competitions/hideandseek",
+      "leaderboard": "/old-competitions/hideandseek/ranks"
+    }
+  ]
+  

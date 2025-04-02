@@ -15,7 +15,6 @@
   background: @white;
 
   .navBarWrapper {
-    margin: 0;
     height: 80px;
     display: flex;
     flex-direction: row;
@@ -87,6 +86,11 @@
       p {
         font-weight: @semi-bold;
       }
+
+      h4 {
+        font-weight: @semi-bold;;
+        color: white;
+      }
   
     }
   }
@@ -95,12 +99,15 @@
 }
 
 
+.mobileDropDown.open {
+  display: flex; /* When `menuOpen` is true, display as flex */
+}
 
 .mobileDropDown {
   margin-top: 80px;
   width: 100vw;
   max-height: 500px;
-  display: flex;
+  display: none;
   text-align: center;
   position: fixed;
   flex-direction: column;
