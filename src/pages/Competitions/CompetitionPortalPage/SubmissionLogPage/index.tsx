@@ -5,7 +5,7 @@ import "./index.less";
 import { generateTeamPicture } from "..";
 import { useParams } from "react-router-dom";
 import { Button, Input, List, Skeleton } from "antd";
-import { PaginationAlign, PaginationPosition } from "antd/es/pagination/Pagination";
+import Pagination from "antd/es/pagination/";
 import { getSubmissionDetails, getTeamInfo } from "../../../../actions/teams/utils";
 import SubmissionEntryCard from "../SubmissionEntryCard";
 
@@ -16,8 +16,8 @@ function SubmissionLogPage() {
 
     // extract competition & team details from the url parameter to fetch corresponding submission data
     const {competitionName, id} = useParams<{competitionName: string; id: string}>();
-    const [position] = useState<PaginationPosition>('bottom');
-    const [align] = useState<PaginationAlign>('center');
+    const [position] = useState<('top' | 'bottom' | 'both')>('bottom');
+    const [align] = useState<'start' | 'center' | 'end'>('center');
 
     const [submissions, setSubmissions] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);

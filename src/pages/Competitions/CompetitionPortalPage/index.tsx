@@ -17,7 +17,7 @@ import TeamCard from '../../../components/TeamCard/index';
 import './index.less';
 import path from 'path';
 import DefaultLayout from "../../../components/layouts/default";
-import { PaginationPosition, PaginationAlign } from "antd/es/pagination/Pagination";
+import Pagination from "antd/es/pagination/";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import { IoHelp, IoRefresh, IoSearch, IoTime } from "react-icons/io5";
@@ -50,8 +50,8 @@ const FindTeamsTab = (
 ) => {
 
     // Constants to align the pagination options for the teams list
-    const [position] = useState<PaginationPosition>('bottom');
-    const [align] = useState<PaginationAlign>('center');
+    const [position] = useState<('top' | 'bottom' | 'both')>('bottom');
+    const [align] = useState<'start' | 'center' | 'end'>('center');
 
     // Dropdown options for search bar
     const [options, setOptions] = useState<Array<Object>>(data);
@@ -702,7 +702,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 function CompetitionPortalPage() {
 
     // This enables us to specify the most current competition
-    const competitionName = "TestCompetition2";
+    const competitionName = "StarChess.AI";
     const history = useHistory();
 
     // User profile data
