@@ -52,6 +52,8 @@ import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
+import SubmissionLogPage from './pages/Competitions/CompetitionPortalPage/SubmissionLogPage';
+import MatchesPage from './pages/Competitions/CompetitionPortalPage/MatchesPage';
 import ProfilePage from './pages/ProfilePage';
 
 let cookie = getCookie(COOKIE_NAME);
@@ -124,6 +126,19 @@ function App() {
                 exact
                 component={CompetitionPortalPage}
               />  
+
+              <Route
+                path="/:competitionName/submissionLog/:id"
+                exact
+                component={SubmissionLogPage}
+              />  
+
+              <Route
+                path="/matches/:id"
+                exact
+                component={MatchesPage}
+              /> 
+
               <Route
                 path="/competitions/:id"
                 exact

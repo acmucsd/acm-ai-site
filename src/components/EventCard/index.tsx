@@ -1,3 +1,10 @@
+/**
+ * Modular component that displays event data in the form of a card. This is used in the 
+ * home page and events page. Provides ability to expand details via a modal.
+ * 
+ * @param {ACMEvent} event  custom type that contains information about the event
+ * 
+ */
 import React, { useState } from 'react';
 import { Row, Col, Button, Modal } from 'antd';
 import { AiFillCalendar, AiOutlineLink } from 'react-icons/ai';
@@ -6,18 +13,22 @@ import { ACMEvent } from '../../actions/events';
 import { HiLocationMarker } from 'react-icons/hi';
 
 const EventCard = ({ event }: { event: ACMEvent }) => {
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // Modal props
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const formatCalendarTime = (dateTime: string) => {
     return new Date(dateTime).toISOString().replace(/-|:|\.\d+/g, '');
   };
 
+  // Helper function to format external links for shceduling a new event
   const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
     event.title
   )}&details=${encodeURIComponent(
@@ -81,10 +92,12 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
         onCancel={handleCancel}
         title={<h3 style={{ fontWeight: '700' }}>{event.title}</h3>}
         footer={
+
           // If this is an old event, do not give user ability to schedule the event
           new Date() > new Date(event.end) ? null : (
+
             /* Antd Button has a bug where using href directly will mess up the
-             * alignment of the button text so we use onClick instead
+             * alignment of the button text so we use onClick() instead
              */
             <Button
               size="large"
@@ -158,6 +171,8 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
     </>
   );
 };
+
+
 /**
  * Formats a date to be readable.
  * @param {string} time The time in unformatted form.

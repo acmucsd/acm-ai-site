@@ -10,6 +10,13 @@ export type PastCompetition = {
   route: string;
 };
 
+export interface CompetitionData {
+    rank: number;
+    team: string;
+    score: number;
+    submitHistory: Array<string>;
+}
+
 export const uploadSubmission = async (
   file: File | undefined,
   tagsSelected: string[],
