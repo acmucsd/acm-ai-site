@@ -7,11 +7,9 @@
   .noContainer();
 
   .mobileIcon {
-
     @media screen and (min-width: @sm) {
       display: none;
     }
-
     width: 60%;
     display: block;
     margin: 3rem auto 3rem auto;
@@ -19,21 +17,18 @@
 
 
   .competitionMain {
-
     background: url('../../../public/trophy_bg.png') 80% 30% no-repeat;
     background-size: 20rem 20rem;
-
-
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;   
 
     @media screen and (min-width: @sm) {
       height: 90vh;
     }
     
-    align-items: center;
-    justify-content: center;    
-
+     
     .info{
 
       position: relative;
@@ -195,6 +190,7 @@
         border-radius: 10vw;
         margin-top: @margin-base;
         margin-bottom: @margin-base;
+        margin-right: @margin-base;
         .button-red-outline();
       }
 
