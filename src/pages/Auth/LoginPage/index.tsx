@@ -17,9 +17,16 @@ function LoginPage() {
     // setRegisterStep('processing');
 
     loginUser(DIMENSION_ID, values).then((res: any) => {
-      setUser(getUserFromToken(res));
-      message.success('Logged in!');
-      window.location.href = '/';
+      if (res) {
+        // Now we know that user has successfully logged in or verified
+        setUser(getUserFromToken(res));
+        message.success('Logged in!');
+        
+        // Only redirect after verification is done (if the user was already verified)
+        window.location.href = '/';  // Or use a different page based on your app flow
+      }
+    }).catch((error) => {
+      message.error(error.response.data.error.message);
     });
   };
 

@@ -51,6 +51,7 @@ import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
+import VerifyEmailPage from './pages/Auth/VerifyEmail';
 
 let cookie = getCookie(COOKIE_NAME);
 
