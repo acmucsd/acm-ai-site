@@ -2,34 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
 import { useHistory, useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
-import { getMetaData, getLeaderboard } from '../../../actions/competition';
+import { getMetaData, getLeaderboard, CompetitionData } from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
 import path from 'path';
 import ChartJS from 'chart.js';
 import { ColumnsType } from 'antd/lib/table';
 import { genColor } from '../../../utils/colors';
 
-interface CompetitionData {
-  rank: number;
-  team: string;
-  // users: string[];
-  score: number;
-  submitHistory: Array<string>;
-  // last: Date;
-}
 
-const stringHash = (str: string) => {
-  let hash = 0,
-    i,
-    chr;
-  if (str.length === 0) return hash;
-  for (i = 0; i < str.length; i++) {
-    chr = str.charCodeAt(i) * 2;
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
-};
+
 
 const columns: ColumnsType<CompetitionData> = [
   {
@@ -43,8 +24,8 @@ const columns: ColumnsType<CompetitionData> = [
     dataIndex: 'team',
     sorter: (a, b) => a.team.length - b.team.length,
     render(value, record, index) {
-      const color1 = genColor(value);
-      const color2 = genColor(`${value}_abcs`);
+      const color1 = genColor(record.team);
+      const color2 = genColor(`${record.team}_abcs`);
       return (
         <span>
           <div
@@ -70,13 +51,11 @@ const columns: ColumnsType<CompetitionData> = [
   {
     title: 'Score',
     dataIndex: 'score',
-    // defaultSortOrder: 'descend',
     sorter: (a, b) => a.score - b.score,
   },
   {
     title: 'Submissions',
     dataIndex: 'submitHistory',
-    // defaultSortOrder: 'descend',
     render: (v) => v.length,
     sorter: (a, b) => a.submitHistory.length - b.submitHistory.length,
   },
@@ -95,7 +74,6 @@ const CompetitionLeaderboardPage = () => {
     submissionsEnabled: boolean;
   } | null>(null);
   const [visible, setVisible] = useState(false);
-  const [chart, setChart] = useState<ChartJS | null>(null);
   const chartContainer = useRef<HTMLCanvasElement>(null);
   const [scoreHistTitle, setScoreHistTitle] = useState('');
   const params = useParams() as { id: string };
@@ -119,7 +97,6 @@ const CompetitionLeaderboardPage = () => {
       setData(newData);
     });
     getMetaData(competitionID).then((res) => {
-      // console.log("METADATA", res.data);
       setMeta(res.data);
     });
   };
