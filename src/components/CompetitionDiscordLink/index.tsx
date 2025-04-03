@@ -2,11 +2,11 @@ import React from 'react';
 function CompetitionDiscordLink() {
   return (
     <a
-      href="https://discord.gg/XsG5etY"
+      href="https://acmurl.com/ai-discord"
       target="_blank"
       rel="noopener noreferrer"
     >
-      https://discord.gg/XsG5etY
+      https://acmurl.com/ai-discord
     </a>
   );
 }
