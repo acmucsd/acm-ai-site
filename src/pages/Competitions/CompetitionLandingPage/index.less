@@ -1,37 +1,74 @@
-@import '../../../styles/base.less';
+@import '../../../newStyles/text.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/index.less';
+@import '../../../newStyles/variables.less';
+
 .CompetitionLandingPage {
-  #title {
-    width: 100%;
-  }
-  .subtext {
-    width: 100%;
-  }
   .noContainer();
-  .meta-data {
-    font-size: @font2;
-    margin-bottom: @margin-base;
-  }
-  .button-wrapper {
-    margin-left: 10% !important;
-    margin-right: 10% !important;
-  }
-  .meta-data-title {
-    margin-bottom: 0px;
-  }
-  .markdown {
-    padding: 0 10% 3rem 10%;
-    img {
-      max-width: 100%;
+
+  .competitionHeader {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 4rem;
+    text-align: center;
+
+    h1 {
+      font-size: @font8;
+    }
+
+    h4 {
+      text-align: center;
+      max-width: @max-width2;
+      margin: 0 @margin-base2;
+      width: 60%;
+
+      @media screen and (max-width: @sm) {
+        width: 70%;
+      }
+    }
+
+    .competitionButtons {
+      .generic-section();
     }
   }
-  strong {
-    font-weight: bold;
-  }
-  p {
-    font-size: @font2;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+
+  .competitionMarkdown {
+    .generic-section();
+    .constrained-bounds();
+
+    h1 {
+      font-size: @font5;
+      margin-top: 2rem;
+      line-height: 4rem;
+    }
+
+    h2 {
+      font-size: @font4;
+      margin-top: 4rem;
+      line-height: 2rem;
+    }
+    
+    img {
+      max-width: 100%; 
+      height: auto; 
+      display: block;  
+      margin: 1rem auto;
+    }
+  
+    iframe {
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem auto;
+    }
+
+    p {
+      margin-top: 2rem;
+      line-height: 2rem;
+    }
+    
   }
 
-  @import '../../../styles/impactful.less';
+
 }

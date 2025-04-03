@@ -82,7 +82,7 @@ const MainFooter: React.FC<MainFooterProps> = ({ isMainPage = false }) => {
             </a>
           </Tooltip>
           <Tooltip title="Discord">
-            <a href="https://discord.com/invite/4zKpm7U" target="_blank" rel="noopener noreferrer">
+            <a href="https://acmurl.com/ai-discord" target="_blank" rel="noopener noreferrer">
               <BiLogoDiscord size={72} />
             </a>
           </Tooltip>
