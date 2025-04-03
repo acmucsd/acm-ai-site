@@ -26,8 +26,12 @@
   }
 
   .diamond {
-    border: solid 2px @mainred;
-    border-radius: 12px;
+    border: double 0.5em transparent;
+    border-radius: 2em;
+    background-image: linear-gradient(white, white), linear-gradient(to right, @danger, @mainyellow);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+
     aspect-ratio: 1;
     max-width: 250px;
     rotate: 45deg;
@@ -45,7 +49,6 @@
       rotate: -45deg;
       text-align: center;
     }
-
   }
 
   .pinkContainer {
@@ -62,6 +65,7 @@
     div:has(.editIcon) {
       display: flex;
       flex-direction: row;
+      align-items: center;
       justify-content: space-between;
     }
 
@@ -70,7 +74,7 @@
     }
 
     p {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
 
       i {
         font-style: italic;
