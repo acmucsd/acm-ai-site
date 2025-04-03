@@ -1,158 +1,242 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import { useParams, useHistory } from 'react-router-dom';
 import {
-  downloadBot,
-  getPlayerMatches,
-} from '../../actions/dimensions/tournament';
-import { Match } from '../../types/dimensions';
-import { getUser } from '../../actions/dimensions/dimensions';
-// import { Database } from 'dimensions-ai/lib/es6/Plugin/Database';
-import TournamentContext from '../../contexts/tournament';
-import { Skeleton, Divider, Button, message } from 'antd';
-import UserContext from '../../UserContext';
-import MatchList from '../../components/Energium2020/MatchList';
+  newsletterOptIn,
+  profileData,
+  updateProfile,
+  UserProfile,
+} from '../../actions/users';
+import { Row, Col, Layout, Button, Modal, Flex, Select } from 'antd';
+import MainFooter from '../../components/MainFooter';
+import { useHistory } from 'react-router-dom';
+import { EditOutlined } from '@ant-design/icons';
+import majors from './majors';
+const { Content } = Layout;
 
-function ProfilePage({ competitionKey }: { competitionKey: string }) {
-  const params: any = useParams();
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  year: 'numeric',
+});
+
+export default function ProfilePage(props: any) {
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+
   const history = useHistory();
-  const [dbuser, setUser] = useState<any>();
-  const { user } = useContext(UserContext);
-  const [stats, setStats] = useState<any>({});
-  const { tournament } = useContext(TournamentContext);
-  const [matches, setMatches] = useState<Array<Match>>([]);
-  const [ranksystem, setRankSystem] = useState<string>();
-  useEffect(() => {
-    if (tournament.id) {
-      setRankSystem(tournament.configs.rankSystem as string);
-      let tourneyKey = tournament.name.replace(/ /g, '_') + '_' + tournament.id;
-      getUser(tournament.dimID, params.userID)
-        .then((res) => {
-          setUser(res);
-          if (res.statistics) {
-            let s = res.statistics![tourneyKey];
-            if (s) {
-              setStats(s);
-            }
-          }
-        })
-        .catch((err) => {
-          if (!user.loggedIn) {
-            message.error('You need to login first!');
-          } else {
-            message.error(err.message);
-          }
-          history.push('../');
-        });
-      getPlayerMatches(
-        tournament.dimID,
-        tournament.id,
-        params.userID,
-        0,
-        20
-      ).then((matches) => {
-        matches = matches.map((m) => {
-          // @ts-ignore
-          m.matchStatus = 'finished';
-          return m;
-        });
-        setMatches(matches);
+
+  const loadProfileData = useCallback(() => {
+    profileData()
+      .then((res) => {
+        setUser(res);
+        setLoading(false);
+      })
+      .catch(() => {
+        history.push('/login');
       });
-    }
-  }, [tournament]);
+  }, [history]);
+
+  useEffect(() => {
+    loadProfileData();
+  }, [loadProfileData]);
+
   return (
     <DefaultLayout>
-      <div className="ProfilePage">
-        <h1>Profile page</h1>
-        <h2>{dbuser?.username}</h2>
-        <Divider></Divider>
-        <div>
-          <h3>Bot Status</h3>
-          {stats &&
-            stats.player &&
-            (stats.player.disabled ? (
-              <p className="danger">
-                Disabled due to compile error, please reupload your bot after it
-                compiles locally
-              </p>
-            ) : (
-              <p>Running</p>
-            ))}
-        </div>
-        <div className="statistics">
-          <h3>Statistics for Tournament: {tournament.configs.name}</h3>
-          <Skeleton loading={!stats && !stats.player}>
-            <p>Matches Played with Current Bot: {stats.matchesPlayed}</p>
-            {ranksystem === 'trueskill' && (
-              <div>
-                {stats.rankState && [
-                  <p>
-                    Score (Mu - 3 * Sigma):{' '}
-                    {stats?.rankState.rating.mu -
-                      3 * stats?.rankState.rating.sigma}
-                  </p>,
-                  <p>Mu (µ): {stats?.rankState.rating.mu}</p>,
-                  <p>Sigma (σ): {stats?.rankState.rating.sigma}</p>,
-                ]}
+      <Content className="ProfilePage">
+        <Content>
+          <Flex
+            className="profileHeader"
+            justify="space-between"
+            align="center"
+          >
+            <h1 className="title2">
+              {!loading && user ? (
+                <>
+                  Welcome Back,{' '}
+                  <span className="profileName">{user.username}.</span>
+                </>
+              ) : (
+                <></>
+              )}
+            </h1>
+          </Flex>
+
+          <Row justify="space-evenly">
+            <Col span={24} lg={7}>
+              <div className="diamond">
+                <Flex align="center" vertical gap={4}>
+                  <p>Member Since</p>
+                  <h3>
+                    {user &&
+                      dateFormatter.format(Date.parse(user.creationDate))}
+                  </h3>
+                </Flex>
               </div>
-            )}
-            {ranksystem === 'elo' && (
+            </Col>
+
+            <Col span={24} lg={7} className="pinkContainer">
               <div>
-                {stats.rankState && <p>Score: {stats.rankState.score}</p>}
+                <h3>About</h3>
+                {user && (
+                  <AboutModal
+                    initial={{
+                      major: user?.major,
+                      graduationYear: user?.graduationYear,
+                    }}
+                    onSubmit={async (values) => {
+                      await updateProfile(values);
+                      loadProfileData();
+                    }}
+                  />
+                )}
               </div>
-            )}
-            {ranksystem === 'wins' && (
+              <p>Major: {user?.major ?? <i>Unknown</i>}</p>
+              <p>Graduation Year: {user?.graduationYear ?? <i>Unknown</i>}</p>
+            </Col>
+
+            <Col span={24} lg={7} className="pinkContainer">
               <div>
-                <p>Wins: {stats.wins}</p>
-                <p>Ties: {stats.ties}</p>
-                <p>Losses: {stats.losses}</p>
+                <h3>Options</h3>
               </div>
-            )}
-          </Skeleton>
-        </div>
-        {(dbuser?.playerID === user.id || user.admin) && (
-          <div>
-            <h3>User Actions</h3>
-            <h4>Upload Bot</h4>
-            <Button
-              onClick={() => {
-                history.push('../upload');
-              }}
-              disabled
-            >
-              Upload
-            </Button>
-            <h4>Download Bot</h4>
-            <Button
-              onClick={() => {
-                downloadBot(tournament.dimID, tournament.id, params.userID)
-                  .then((url) => {
-                    window.open(url);
-                  })
-                  .catch((err) => {
-                    console.error(err.message);
-                    message.warning(
-                      "couldn't download your bot, you might not have one uploaded yet"
-                    );
-                  });
-              }}
-            >
-              Download
-            </Button>
-          </div>
-        )}
-        <br />
-        <h3>Last 20 Matches</h3>
-        <MatchList
-          matches={matches}
-          competitionKey={competitionKey}
-          dimID={tournament.dimID}
-          tournamentID={tournament.id}
-        />
-      </div>
+              <p>ACM AI Newsletter</p>
+
+              {!user?.newsletterOptedIn ? (
+                <Button
+                  className="button-colorful"
+                  shape="round"
+                  onClick={() => newsletterOptIn(true).then(loadProfileData)}
+                >
+                  Opt In
+                </Button>
+              ) : (
+                <Button
+                  className="button-black"
+                  shape="round"
+                  onClick={() => newsletterOptIn(false).then(loadProfileData)}
+                >
+                  Opt Out
+                </Button>
+              )}
+            </Col>
+          </Row>
+        </Content>
+        <MainFooter />
+      </Content>
     </DefaultLayout>
   );
 }
 
-export default ProfilePage;
+function AboutModal({
+  initial,
+  onSubmit,
+}: {
+  initial: {
+    major?: string;
+    graduationYear?: number;
+  };
+  onSubmit: (values: {
+    major?: string;
+    graduationYear?: number;
+  }) => Promise<void>;
+}) {
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [major, setMajor] = useState(initial.major);
+  const [graduationYear, setGraduationYear] = useState(initial.graduationYear);
+
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleOk = () => {
+    onSubmit({ major, graduationYear: graduationYear })
+      .then(() => {
+        setOpen(false);
+        setConfirmLoading(false);
+      })
+      .catch(() => {
+        setConfirmLoading(false);
+      });
+
+    setConfirmLoading(true);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
+  // Based on membership portal
+  const years = useMemo(() => {
+    const years: number[] = [];
+    const currentYear = new Date().getUTCFullYear();
+    // Ensure the user's graduation year is listed in the dropdown in case
+    // they're taking longer than expected to graduate
+    for (
+      let year = Math.min(
+        initial.graduationYear ?? currentYear,
+        currentYear - 2
+      );
+      year <= currentYear + 6;
+      year += 1
+    ) {
+      years.push(year);
+    }
+    return years;
+  }, [initial.graduationYear]);
+
+  return (
+    <>
+      <Button
+        onClick={showModal}
+        className="editIcon"
+        shape="circle"
+        type="text"
+        size="large"
+        icon={<EditOutlined />}
+      />
+      <Modal
+        className="bioModal"
+        title="Edit Bio"
+        open={open}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+        okText="Save"
+        okButtonProps={{ className: 'button-colorful', shape: 'round' }}
+        cancelButtonProps={{ className: 'button-black', shape: 'round' }}
+      >
+        <Flex gap={16} vertical>
+          <div>
+            <p>Major</p>
+            <Select
+              style={{ width: '100%' }}
+              value={major}
+              onChange={(value) => {
+                setMajor(value);
+              }}
+              options={majors.map((major) => ({
+                label: major,
+                value: major,
+              }))}
+            />
+          </div>
+
+          <div>
+            <p>Graduation Year</p>
+            <Select
+              style={{ width: '100%' }}
+              value={graduationYear}
+              onChange={(value) => {
+                setGraduationYear(value);
+              }}
+              options={years.map((year) => ({
+                label: year,
+                value: year,
+              }))}
+            />
+          </div>
+        </Flex>
+      </Modal>
+    </>
+  );
+}

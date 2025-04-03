@@ -38,7 +38,7 @@ import requestreset from './pages/Auth/RequestReset';
 
 import HideAndSeek2020 from './components/HistoricalCompetitionDescriptions/HideAndSeek2020';
 import HideAndSeek2020Page from './pages/Competitions/HideAndSeek2020Page';
-import { EnergiumRoutes } from './components/CompetitionRoutes/Energium';
+import Energium2020Page from './pages/Competitions/Energium2020Page';
 import NNRanksPage from './pages/Competitions/NNRankPage';
 
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
@@ -51,6 +51,7 @@ import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
+import ProfilePage from './pages/ProfilePage';
 
 let cookie = getCookie(COOKIE_NAME);
 
@@ -156,6 +157,7 @@ function App() {
               {/* accounts */}
               <Route path="/login" exact component={LoginPage} />
               <Route path="/register" exact component={RegisterPage} />
+              <Route path="/profile" exact component={ProfilePage} />
               <Route path="/requestreset" component={requestreset} /> 
               <Route path="/resetpassword" component={ForgotPasswordPage} />
               <Route path="/admin/register" exact component={RegisterPage} />
@@ -175,7 +177,16 @@ function App() {
               />
               <Route path="/old-competitions/nn" exact component={NNRanksPage} />
               {/* <Route path="/competitions/nn/upload" exact component={nnUpload} /> */}
-              <EnergiumRoutes />
+              
+              <Route
+                path="/old-competitions/energium"
+                exact component={Energium2020Page}
+              />
+              <Route
+                path="/old-competitions/energium/ranks"
+                exact
+                component={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
+              />
 
               <Route path="*" component={NotFoundPage} />
               </Switch>

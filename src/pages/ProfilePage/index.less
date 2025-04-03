@@ -1,9 +1,89 @@
-@import '../../styles/base.less';
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
 .ProfilePage {
-  .statistics, p {
-    font-size: @font2;
+  // removes any default white space margins
+  .noContainer();
+
+  // prevents layout shifts caused by scrollbar
+  overflow-y: hidden;
+  background: @white;
+
+
+  .profileHeader {
+    padding: 2rem;
+
+    display: flex;
+
+    h1 .profileName {
+      color: @orange;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
   }
-  .danger {
-    color: @p1;
+
+  .diamond {
+    border: double 0.5em transparent;
+    border-radius: 2em;
+    background-image: linear-gradient(white, white), linear-gradient(to right, @danger, @mainyellow);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+
+    aspect-ratio: 1;
+    max-width: 250px;
+    rotate: 45deg;
+    margin: 80px auto;
+
+    @media (min-width: @md) and (max-width: @lg) {
+      max-width: 200px;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      rotate: -45deg;
+      text-align: center;
+    }
+  }
+
+  .pinkContainer {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid @mainred;
+    border-radius: @radius-base5;
+    background-color: #FFF8F8;
+    max-width: 80%;
+    padding: 2rem 2rem;
+    margin: 4rem 2rem;
+    gap: 1.5rem;
+
+    div:has(.editIcon) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    h3 {
+      font-weight: @semi-bold;
+    }
+
+    p {
+      font-size: 1.5rem;
+
+      i {
+        font-style: italic;
+      }
+    }
+  }
+
+  .editIcon > svg {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }
