@@ -150,12 +150,25 @@ const CompetitionLeaderboardPage = () => {
         <br />
         {/* <BackLink to="../" /> */}
         <h2>{meta?.competitionName}</h2>
-        {/* TODO: make this configurable */}
         <p>
-          Upload submissions below and view the current leaderboard. This
-          leaderboard will decide the initial seeds for the knockout bracket.
+          {(() => {
+            if (!meta) return null;
+
+            const now = new Date();
+            const startDate = new Date(meta.startDate);
+            const endDate = new Date(meta.endDate);
+
+            if (now < startDate) {
+              return `The competition hasn't started yet. It will begin on ${startDate.toLocaleString()}.`;
+            } else if (now > endDate) {
+              return `This competition has concluded. It ended on ${endDate.toLocaleString()}.`;
+            } else if (!meta.submissionsEnabled) {
+              return `Submissions are not being accepted at this time. However, you can still view the leaderboard.`;
+            } else {
+              return `Upload submissions below and view the current leaderboard.`;
+            }
+          })()}
         </p>
-        <br />
         <Modal
           title={scoreHistTitle}
           open={visible}
@@ -168,15 +181,17 @@ const CompetitionLeaderboardPage = () => {
             <canvas ref={chartContainer} />
           </div>
         </Modal>
-        <Button
-          size="large"
-          className="upload-btn"
-          onClick={() => {
-            history.push(path.join(history.location.pathname, '../upload'));
-          }}
-        >
-          Upload Predictions
-        </Button>
+        { meta?.submissionsEnabled && (
+          <Button
+            size="large"
+            className="upload-btn"
+            onClick={() => {
+              history.push(path.join(history.location.pathname, '../upload'));
+            }}
+          >
+            Upload Predictions
+          </Button>
+        )}
         <Button
           size="large"
           className="refresh-btn"

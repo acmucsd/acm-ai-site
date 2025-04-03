@@ -12,4 +12,5 @@ export interface Competition {
     description: string;
     link?: string;
     leaderboard?: string;
+    signup?: string;
 }
