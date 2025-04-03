@@ -1,10 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Row, Col, Card, Button, Avatar, Input, Tag } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "./index.less";
 import DefaultLayout from '../../components/layouts/default';
+import UserContext from "../../UserContext";
+
+import { getCompetitionUser, getTeamInfo } from '../../actions/teams/utils'
 
 const CompetitionPortal: React.FC = () => {
+
+    const { user } = useContext(UserContext);
+    const [isRegistered, setIsRegistered] = useState<boolean>(false);
+    const [teamInfo, setTeamInfo] = useState<any>({});
+    const [teamName, setTeamName] = useState<string>("");
+    const [teamMembers, setTeamMembers] = useState<string[]>([]);
+    const [isMyTeam, setIsMyTeam] = useState<boolean>(false);
+    const competitionName: string = process.env.CURRENT_COMP || 'test';
+
+    const [submitCount, setSubmitCount] = useState<number>(0);
+    const [bestScore, setBestScore] = useState<number>(0);
+    const [ranking, setRanking] = useState<number|string>("N/A");
+    const [match, setMatch] = useState<number>(0);
+
+    
+
+    // const [submissionData, setSubmissionData] = useState<SubmissionData[]>([]);
+    // const [submissionIds, setSubmissionIds] = useState<any>([]);
+
+
+    // Check if user is logged in
+    useEffect(() => {
+        if (user.loggedIn) {
+        // TODO: it's hardcoded to "testinguser1"; change it to user.username
+            getCompetitionUser(competitionName, user.username).then((res) => {
+                setIsRegistered(res.data.registered);
+                if (res.data.competitionTeam) {
+                    console.log("hello")
+                  getTeamInfo(competitionName, res.data.competitionTeam.teamName).then(
+                    (res) => {
+                        console.log(res.data)
+                      setTeamMembers(Object.values(res.data.teamMembers))
+                      setTeamName(JSON.stringify(res.data.teamName).slice(1, -1))
+
+                      setSubmitCount(res.data.submitHistory.length)
+                      setBestScore(res.data.bestScore)
+                    }
+                  );
+                }
+              });
+            
+            // getTeams(competitionName).then((res)=>{
+                
+            // })
+        }
+    }, [user, competitionName]);
 
     const [selectedTab, setSelectedTab] = useState<string>('My Team');
 
@@ -16,9 +65,10 @@ const CompetitionPortal: React.FC = () => {
 
 
     // need to fetch from backend
-    let stats = ["12", "1260", "9th", "5"]
-    let teamName = "I love cats <33"
+    let stats = [ "1260", "9th", "5"]
     let member = [1, 2, 3]
+
+    console.log("submitCount: ", submitCount)
 
     return (
     <DefaultLayout>
@@ -38,13 +88,31 @@ const CompetitionPortal: React.FC = () => {
 
         {/* Values Row */}
         <Row gutter={16} justify="center" className="stats-row values">
-        {stats.map((value, index) => (
-            <Col span={6} key={index} className="stat-col">
+
+            <Col span={6} className="stat-col">
             <Card className="stat-card" bordered={false}>
-                <div className="stat-value">{value}</div>
+                <div className="stat-value">{submitCount}</div>
             </Card>
             </Col>
-        ))}
+
+            <Col span={6} className="stat-col">
+            <Card className="stat-card" bordered={false}>
+                <div className="stat-value">{bestScore}</div>
+            </Card>
+            </Col>
+
+            <Col span={6} className="stat-col">
+            <Card className="stat-card" bordered={false}>
+                <div className="stat-value">{ranking}</div>
+            </Card>
+            </Col>
+
+            <Col span={6} className="stat-col">
+            <Card className="stat-card" bordered={false}>
+                <div className="stat-value">{match}</div>
+            </Card>
+            </Col>
+        
         </Row>
     </div>
 
@@ -62,15 +130,21 @@ const CompetitionPortal: React.FC = () => {
 
         {/* Team Section */}
         {selectedTab === 'My Team' ? 
-        (<Card className="team-section">
+        (teamName === "" ? 
+            (
+                <Card className="stats-container"> 
+                    Find a team to join under the Find Team tab ^_^
+                </Card>
+            )
+        : (<Card className="team-section">
         <div className="team-info">
             <div className="team-name">{teamName}</div>
         </div>
         <div className="team-members">
-            {member.map((_, index) => (
+            {teamMembers.map((mem, index) => (
             <Card className="member-card" key={index}>
                 <Avatar size={40} icon={<UserOutlined />} />
-                <span>Name L.</span>
+                <span>{mem}</span>
             </Card>
             ))}
         </div>
@@ -82,7 +156,7 @@ const CompetitionPortal: React.FC = () => {
             Add Member
             </Button>
         </div>
-        </Card>) : null }
+        </Card>)) : null }
 
 
 

@@ -149,7 +149,8 @@ export const addToTeam = async (
     axios
       .post(
         process.env.REACT_APP_API +
-          `/v1/competitions/teams/${competitionName}/add-to-team`,
+          `/v1/teams/${competitionName}/add-to-team`,
+          // `/v1/competitions/teams/${competitionName}/add-to-team`,
         body,
         {
           headers: {
