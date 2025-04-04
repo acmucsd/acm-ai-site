@@ -5,7 +5,7 @@ import "./index.less";
 import DefaultLayout from '../../components/layouts/default';
 import UserContext from "../../UserContext";
 
-import { getCompetitionUser, getTeamInfo } from '../../actions/teams/utils'
+import { getCompetitionUser, getTeamInfo, searchTeam, searchUser } from '../../actions/teams/utils'
 
 const CompetitionPortal: React.FC = () => {
 
@@ -21,6 +21,8 @@ const CompetitionPortal: React.FC = () => {
     const [bestScore, setBestScore] = useState<number>(0);
     const [ranking, setRanking] = useState<number|string>("N/A");
     const [match, setMatch] = useState<number>(0);
+
+    const [displayList, setDisplayList] = useState<any[]>([]);
 
     
 
@@ -48,6 +50,8 @@ const CompetitionPortal: React.FC = () => {
                   );
                 }
               });
+              setDisplayList([1, 2, 3])
+
             
             // getTeams(competitionName).then((res)=>{
                 
@@ -61,12 +65,33 @@ const CompetitionPortal: React.FC = () => {
         setSelectedTab(tab);
     };
     const { Search } = Input;
-    const onSearch = (value : string) => console.log(value);
+    const onSearch = async (value: string, tab: string) => {
+        if (!value.trim()) {
+            setDisplayList([]); 
+            return;
+        }
+    
+        try {
+            console.log(value)
+            console.log(tab)
+            let response;
+            if (tab == "Find Team") {
+                response = await searchTeam(competitionName, value);
+            }
+            else {
+                response = await searchUser(competitionName, value);
+            }
+
+            setDisplayList(response.data); 
+        } catch (error) {
+            console.error("Search error:", error);
+        }
+    };
+    
 
 
     // need to fetch from backend
     let stats = [ "1260", "9th", "5"]
-    let member = [1, 2, 3]
 
     console.log("submitCount: ", submitCount)
 
@@ -165,18 +190,18 @@ const CompetitionPortal: React.FC = () => {
             <Search
             placeholder="Search"
             allowClear
-            onSearch={(e) => onSearch(e)}
+            onSearch={(e) => onSearch(e, selectedTab)}
             style={{ width: 304 }}
             />
 
-            {member.map((_, index) => (
+            {displayList.map((_, index) => (
                 <div className="all-teams">
                 <Card className="team-section" key={index}>
                 <div className="team-info">
                     <div className="team-name">{teamName}</div>
                 </div>
                 <div className="team-members">
-                    {member.map((_, index) => (
+                    {displayList.map((_, index) => (
                     <Card className="member-card" key={index}>
                         <Avatar size={40} icon={<UserOutlined />} />
                         <span>Name L.</span>
@@ -201,11 +226,11 @@ const CompetitionPortal: React.FC = () => {
             <Search
             placeholder="Search"
             allowClear
-            onSearch={(e) => onSearch(e)}
+            onSearch={(e) => onSearch(e, selectedTab)}
             style={{ width: 304 }}
             />
 
-            {member.map((_, index) => (
+            {displayList.map((_, index) => (
                 
                 <Card className="member-section" key={index}>
 

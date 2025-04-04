@@ -169,3 +169,56 @@ export const addToTeam = async (
       });
   });
 };
+
+export const searchTeam = async(competitionName: string, input: string): Promise<AxiosResponse> => {
+
+  let token = getToken(COOKIE_NAME);
+
+  return new Promise((resolve, reject) => {
+    axios
+    .get(
+        process.env.REACT_APP_API + `/v1/teams/${competitionName}/search-team/${input}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }
+        }
+        
+    ).then((res: AxiosResponse) => {
+      resolve(res)
+    })
+    .catch((error) => {
+      message.error(error.response.data.error.message);
+      console.error(error);
+      reject(error);
+    });
+  })
+}
+
+export const searchUser = async(competitionName: string, input: string): Promise<AxiosResponse> => {
+
+  let token = getToken(COOKIE_NAME);
+
+  return new Promise((resolve, reject) => {
+    axios
+    .get(
+        process.env.REACT_APP_API + `/v1/teams/${competitionName}/search-user/${input}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }
+        }
+        
+    ).then((res: AxiosResponse) => {
+      resolve(res)
+    })
+    .catch((error) => {
+      message.error(error.response.data.error.message);
+      console.error(error);
+      reject(error);
+    });
+  })
+}
+
