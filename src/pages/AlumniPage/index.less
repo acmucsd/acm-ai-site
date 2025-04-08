@@ -1,19 +1,179 @@
-@import '../../styles/base.less';
-.AboutPage {
+@import '../../newStyles/variables.less';
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
+.Alumni {
   .noContainer();
-  @import '../../styles/impactful.less';
-  p {
-    font-size: @font2;
-  }
-  .Card {
-    width: auto;
-    h3 {
-      margin: 0;
-      font-size: @font3;
-      color: inherit;
+
+  background: #FAFAFA;
+  
+  .alumniHeader {
+    .generic-centered-section();
+    .constrained-bounds();
+    margin-top: 4rem;
+    text-align: center;
+
+    h4 {
+      max-width: @max-width3;
+      line-height: 2rem;
+      margin: 0 @margin-base2;
     }
-    p{
-      font-size: @font2;
+  }
+
+  .gallery {
+    margin-bottom: 10rem;
+
+    .yearWrapper {
+      // margin: 0 @margin-base2;
+      padding: 0 2rem;
+
+      .constrained-bounds();
+      padding-top: 2rem;
+    }
+
+    .teamSection {
+      .generic-section();
+      .constrained-bounds();
+    }
+  }
+}
+
+.AboutCard {
+  text-align: left;
+  width: 100%;
+
+  .cardPreviewContent {
+    justify-content: left;
+    align-items: center;
+
+    .picture {
+      padding-right: 1rem;
+    }
+
+    .nameTitle {
+
+      h4 {
+        font-weight: @semi-bold;
+      }
+
+      p {
+        color: @text-gray;
+      }
+    }
+
+  }
+
+
+}
+
+
+.drawerButton {
+  background: @black;
+  border: none;
+  border-radius: @radius-base3;
+  box-shadow: @bx3;
+  color: white;
+  font-weight: @semi-bold;
+
+}
+
+
+.drawerContent {
+
+  .drawerHeader {
+    align-items: center;
+    justify-content: start;
+
+    @media only screen and (max-width: @xs) {
+      justify-content: start;
+    }
+
+    @media only screen and (max-width: @xxs) {
+      justify-content: center;
+    }
+
+    .titleBox {
+      margin-top: 1rem;
+      width: 70%;
+
+      @media only screen and (max-width: @xs) {
+        text-align: start;
+      }
+
+      @media only screen and (max-width: @xxs) {
+        width: 100%;
+        text-align: center;
+      }
+
+      h4 {
+        font-weight: @semi-bold;
+      }
+
+      p {
+        color: @text-gray;
+      }
+    }
+  }
+
+  .bio {
+    max-width: @sm;
+    background: @light-gray;
+    padding: 2rem 0;
+    border-radius: @radius-base4;
+
+    @media only screen and (max-width: @xs) {
+      width: 100%;
+    }
+
+    p {
+      width: 90%;
+      margin: auto;
+
+    }
+  }
+
+
+
+  .contactsBox {
+    margin-top: 3rem;
+    margin-bottom: 7rem;
+    flex-direction: row;
+
+    .links {
+
+      section {
+        margin-right: 1rem;
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        background: @light-gray;
+        border-radius: @radius-base3;
+        align-items: center;
+        height: 50px;
+        width: 150px;
+
+        div {
+          display: flex;
+          margin-left: 8px;
+          justify-content: center;
+          align-items: center;
+          border-radius: @radius-base2;
+          background: white;
+          height: 35px;
+          width: 35px;
+          box-shadow: 0px 3px 5px 1px rgba(189, 189, 189, 0.5);
+        }
+
+        a {
+          color: @text-gray;
+          padding-left: 0.5rem;
+
+          :hover {
+            color: @mainred;
+          }
+        }
+      }
     }
   }
 }

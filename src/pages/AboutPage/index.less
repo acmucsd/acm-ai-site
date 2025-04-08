@@ -21,9 +21,8 @@
     }
   }
 
-
   .gallery {
-    margin-bottom: 10rem;
+    margin-bottom: 5rem;
 
     .banner {
       margin-top: 4rem;
@@ -59,6 +58,24 @@
     .teamSection {
       .generic-section();
       .constrained-bounds();
+    }
+  }
+
+  .alumni {
+    display: flex;
+    justify-content: center;
+
+    .aboutButtons {
+      margin-bottom: 10rem;
+      gap: 1rem;
+
+      .alumniButton {
+        .button-red-outline();
+        font-size: 1.5rem;
+        height: unset;
+        padding: 1rem 2rem;
+        border: 2px solid @mainred;
+      }
     }
   }
 }
