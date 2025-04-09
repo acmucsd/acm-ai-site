@@ -14,10 +14,12 @@ import {
 import { BsPeopleFill } from 'react-icons/bs';
 import DefaultLayout from '../../components/layouts/default';
 import MainFooter from '../../components/MainFooter/index';
-import { Col, Row, Layout, Button, Skeleton, Drawer, Tag, Divider } from 'antd';
+import { Col, Row, Layout, Button, Skeleton, Drawer, Tag, Divider, } from 'antd';
 import { Card } from '../../components/Card';
 import { fetchData, Person, Socials } from './people';
 import { Size, useWindowSize } from '../../components/Header/useWindowSize';
+import { Link } from 'react-router-dom';
+
 const { Content } = Layout;
 
 const CardsRow = ({ children }: { children?: ReactNode }) => (
@@ -257,6 +259,15 @@ function AboutPage() {
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
           />
+        </Content>
+
+        <Content className='alumni'>
+          <div className='aboutButtons'>
+              <Link to={`/alumni`} rel="noopener noreferrer">
+                  <Button size="large" shape="round" className="alumniButton">
+                    Visit our alumni and teams from previous years &gt;</Button>
+              </Link>
+          </div>
         </Content>
 
         <MainFooter />
