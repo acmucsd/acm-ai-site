@@ -80,11 +80,11 @@ export const UploadBotPage = ({ competitionKey }: UploadBotPageProps) => {
           <Form>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Controller
-                as={
+                render={({ field }) => (
                   <Form.Item>
-                    <Input type="text" placeholder="Bot Name" name="botname" />
+                    <Input {...field} type="text" placeholder="Bot Name" name="botname" />
                   </Form.Item>
-                }
+                )}
                 control={control}
                 rules={{ required: true }}
                 name="botname"
@@ -100,11 +100,11 @@ export const UploadBotPage = ({ competitionKey }: UploadBotPageProps) => {
                 </Upload>
               </div>
               <Controller
-                as={
+                render={({ field }) => (
                   <Form.Item>
-                    <Input type="text" placeholder="Bot Path" name="path" />
+                    <Input {...field} type="text" placeholder="Bot Path" name="path" />
                   </Form.Item>
-                }
+                )}
                 control={control}
                 rules={{ required: true }}
                 name="path"

@@ -4,6 +4,9 @@
 
 .Header {
   position: fixed;
+  top: 0;
+  left: 0; 
+  right: 0;
   width: 100%;
   z-index: 100;
   height: 88px;
@@ -12,7 +15,6 @@
   background: @white;
 
   .navBarWrapper {
-    
     height: 80px;
     display: flex;
     flex-direction: row;
@@ -84,6 +86,11 @@
       p {
         font-weight: @semi-bold;
       }
+
+      h4 {
+        font-weight: @semi-bold;;
+        color: white;
+      }
   
     }
   }
@@ -133,11 +140,14 @@
     width: 100%;
     text-decoration: none;
     font-size: @font4;
-    color: @black;
     font-weight: @semi-bold;
     margin: 0.5rem 0;
     :hover {
       cursor: pointer;
+      color: @mainred;
+    }
+    a {
+      color:@black;
     }
   }
 

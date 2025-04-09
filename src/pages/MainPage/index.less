@@ -15,10 +15,33 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    
+
+    .HomeIconMobile{
+      width: 40rem;
+      margin-bottom: @margin-base4;
+
+      @media screen and (min-width: @xs){
+        display: none;
+      }
+
+    }
+
+    .ai-logo{
+      width: 25vw;
+
+      @media screen and (max-width: @xs){
+        display:none;
+      }
+
+
+    }
   }
 
   .homeText {
     width: 50vw;
+    @media screen and (max-width: @xs){
+      width: 60vw;
     margin-right: 2rem;
   }
 
@@ -34,6 +57,33 @@
     .aboutButton {
       .button-red-outline();
       border: 2px solid @mainred;
+    }
+  }
+
+    margin-right: 2rem;
+
+    .homeTitle{
+      font-size: @font8;
+      margin-bottom: @margin-base3;
+    }
+
+    h3{
+      font-weight: bold;
+      margin-bottom: @margin-base;
+    }
+
+    .homeButtons {
+      margin-top: @margin-base2;
+
+      .getStartedButton {
+        .button-colorful();
+        margin-right: @margin-base;
+      }
+    
+      .aboutButton {
+        .button-red-outline();
+        border: 2px solid @mainred;
+      }
     }
   }
 
@@ -65,6 +115,7 @@
   }
 }
 
+
 @media screen and (max-width: @xs) {
   .infoButton, .knowledgeButton {
     font-size: @font3;
@@ -80,10 +131,10 @@
       opacity: 0.9;
 
       &.shapeTop {
-        width: 400px;
-        height: 400px;
-        top: 8%;
-        right: 3%;
+        width: 20rem;
+        height: 20rem;
+        top: 12%;
+        right: 3vw;
         background: url('../../../public/diamond_top_right.svg') no-repeat center center;
         background-size: 70%;
       }
@@ -116,9 +167,9 @@
   background-size: contain;
   background-position: bottom;
   bottom: 0;
-  @media only screen and (max-width: @md) {
-    display: none;
-  }
+  // @media only screen and (max-width: @md) {
+  //   display: none;
+  // }
 }
 
 
@@ -142,6 +193,7 @@
       flex: 0 1 50%;
       max-width: @max-width1;
       margin-top: 2rem;
+      border-radius: 1rem;
 
       @media screen and (max-width: @xs) {
         flex: 0 1 100%;
@@ -171,7 +223,9 @@
     display: flex;
     flex-direction: column; 
     justify-content: center; 
-    align-items: center;     
+    align-items: center;    
+    margin-left: 2rem; 
+    margin-right: 2rem; 
 
     h3 {
       font-weight: bold;
@@ -189,8 +243,8 @@
       background-color: #FFF8F8;
       max-width: 80%;
       padding: 3rem 5rem;
+      margin-bottom: 5rem;
       gap: 10rem;
-
         .items {
           margin-top: @margin-base2;
           display: flex;
@@ -200,13 +254,13 @@
 
           img {
               justify-self: center;
-              width: 10vw;
+              width: 12vw;
           }
 
           .knowledgeButton {
             .button-red-outline();
           }
-        }
+      }
     }        
 }
 

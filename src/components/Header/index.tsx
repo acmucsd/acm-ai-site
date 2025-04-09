@@ -123,8 +123,9 @@ function Header() {
           {isMobile ? (
             // Mobile menu button
             <Button
+              ghost
               className="menuButton"
-              icon={<HiOutlineMenu size={35} />}
+              icon={<HiOutlineMenu size={35} style = {{color: "black"}} />}
               onClick={() => toggleMenu()}
             />
           ) : (
@@ -160,7 +161,7 @@ function Header() {
                       history.push('/');
                     }}
                   >
-                    <p>Login</p>
+                    <h4>Login</h4>
                   </Button>
                 </Link>
               )}

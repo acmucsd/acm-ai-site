@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import './index.less';
 import { useState } from 'react';
 import { AiFillHome } from 'react-icons/ai';
@@ -16,16 +16,7 @@ import DefaultLayout from '../../components/layouts/default';
 import MainFooter from '../../components/MainFooter/index';
 import { Col, Row, Layout, Button, Skeleton, Drawer, Tag, Divider } from 'antd';
 import { Card } from '../../components/Card';
-import {
-  directors,
-  operations,
-  dev,
-  marketing,
-  Person,
-  Socials,
-  socials,
-  staff,
-} from './people';
+import { fetchData, Person, Socials } from './people';
 import { Size, useWindowSize } from '../../components/Header/useWindowSize';
 const { Content } = Layout;
 
@@ -186,14 +177,30 @@ function AboutPage() {
   const size: Size = useWindowSize();
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<Person>();
+  const [people, setPeople] = useState<Record<string, Person[]>>({
+    directors: [],
+    operations: [],
+    dev: [],
+    marketing: [],
+    socials: [],
+    staff: [],
+  });
 
+  useEffect(() => {
+    const loadPeople = async () => {
+      const fetchedPeople = await fetchData();
+      setPeople(fetchedPeople);
+    };
+    loadPeople();
+  }, []);
+  
   return (
     <DefaultLayout>
       <Content className="About">
         <Content className="aboutHeader">
           <h1 className="title2">Our Team</h1>
           <h4>
-            Work isn’t always easy, so in order to make sure everything runs
+            Work isn't always easy, so in order to make sure everything runs
             smoothly, we rely on a passionate group of individuals who bring
             their unique talents to the table. From content creators, social
             leads, to programmers and more, everyone is an integral part of our
@@ -204,7 +211,7 @@ function AboutPage() {
 
         <Content className="gallery">
           <Section
-            people={directors}
+            people={people.directors}
             team="directors"
             statement={'And these are the people running the show!'}
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
@@ -212,7 +219,7 @@ function AboutPage() {
           />
 
           <Section
-            people={operations}
+            people={people.operations}
             team="operations"
             statement="Our team of event leads who design and host all the events"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
@@ -220,7 +227,7 @@ function AboutPage() {
           />
 
           <Section
-            people={socials}
+            people={people.socials}
             team="socials"
             statement="Our socials team that keeps the community fun, lively, and connected"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
@@ -228,7 +235,7 @@ function AboutPage() {
           />
 
           <Section
-            people={marketing}
+            people={people.marketing}
             team="marketing"
             statement="Our wonderful marketing and sponsorship team"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
@@ -236,7 +243,7 @@ function AboutPage() {
           />
 
           <Section
-            people={dev}
+            people={people.dev}
             team="developers"
             statement="Our team of developers working tirelessly to keep everything running smoothly"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
@@ -244,7 +251,7 @@ function AboutPage() {
           />
 
           <Section
-            people={staff}
+            people={people.staff}
             team="staff"
             statement="Our diamond staff bringing support to all of our teams"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
@@ -276,7 +283,7 @@ function AboutPage() {
         >
           <div className="drawerContent">
             <Col>
-              <Row className="drawerHeader">
+              <Row className="drawerHeader" gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
                 <img
                   style={{
                     marginRight: '1rem',
@@ -291,7 +298,7 @@ function AboutPage() {
                   alt={`profile of ${selectedPerson!!.name}`}
                 />
                 <Col className="titleBox">
-                  <Tag bordered={false} color={'error'}>
+                  <Tag bordered={false} color={'error'} >
                     {selectedPerson!!.role}
                   </Tag>
                   <h4>{selectedPerson!!.name}</h4>

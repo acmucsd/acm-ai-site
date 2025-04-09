@@ -66,7 +66,7 @@ export const registerUser = async (data: {
         resolve(res);
       })
       .catch((error) => {
-        //message.error(error.response.data.error.message);
+        message.error(error.response.data.error.message);
         console.error(error);
         //reject(error);
       });

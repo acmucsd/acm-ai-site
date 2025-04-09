@@ -13,13 +13,16 @@
     font-size: @font4;
     line-height: @font4;
     font-weight: @semi-bold;
+    @media only screen and (max-width: @xs) {
+      font-size: @font5;
+    }
   }
 
   .description {
     display: block;
     font-size: @font2;
     @media only screen and (max-width: @xs) {
-      font-size: 14px;
+      font-size: @font4;
     }
     font-weight: @regular;
     line-height: 32.25px;

@@ -1,19 +1,48 @@
 @import '../../../styles/base.less';
-.LoginPage {
+@import '../../../newStyles/text.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/variables.less';
 
-  .danger {
-    color: @danger;
+.RegisterPage {
+  .noContainer();
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .registerContent {
+    .generic-centered-section();
+    .constrained-bounds();
+    
+    .registerHeader {
+      margin-top: 4rem;
+    }
+
+    p {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    form {
+      Input {
+        line-height: 2.5rem ;
+        font-size: @font3;
+      }
+
+      .danger {
+        color: @danger;
+        text-align: left;
+        margin-top: -12px;
+        margin-bottom: 24px;
+      }
+    }
+
+    .registerButton {
+      width: 100%;
+      height:45px;
+      .button-black-square();
+      margin: auto;
+      font-size: 18px;
+    }
   }
-  .loginButton {
-    margin-top: @margin-base;
-    width: 100%;
-  }
-  .loginCard {
-    margin: auto;
-    .smack-center();
-    max-width: 90%;
-  }
-  .register-info {
-    margin-top: 12px;
-  }
+ 
 }

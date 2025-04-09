@@ -17,23 +17,22 @@ export interface Person {
   readonly socials?: Socials;
 }
 
-const directors: Person[] = [];
-const operations: Person[] = [];
-const dev: Person[] = [];
-const marketing: Person[] = [];
-const socials: Person[] = [];
-const staff: Person[] = [];
-
 const csvUrl = process.env["REACT_APP_BOARD_BIOS"] as string;
-const fetchData = async (url: string): Promise<void> => {
+const fetchData = async (): Promise<Record<string, Person[]>>=> {
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(csvUrl);
     const rows = response.data.values;
-    const people: Person[] = [];
 
-    if (rows && rows.length > 0) {
-      const header = rows[0]; 
+    const teams: Record<string, Person[]> = {
+      directors: [],
+      operations: [],
+      dev: [],
+      marketing: [],
+      socials: [],
+      staff: [],
+    };
 
+    if (rows && rows.length > 1) {
       rows.slice(1).forEach((row: string[]) => {
         const person: Person = {
           section: row[0] || '',
@@ -49,35 +48,24 @@ const fetchData = async (url: string): Promise<void> => {
           }
         };
         
-        switch (person.section) {
-          case 'dev':
-            dev.push(person);
-            break;
-          case 'operations':
-            operations.push(person);
-            break;
-          case 'marketing':
-            marketing.push(person);
-            break;
-          case 'socials':
-            socials.push(person);
-            break;
-          case 'directors':
-            directors.push(person);
-            break;
-          case 'staff':
-            staff.push(person);
-            break;
-          default:
-            break;
+        if (teams[person.section]) {
+          teams[person.section].push(person);
         }
       });
     }
 
+    return teams;
   } catch (error) {
     console.error("Error fetching or processing Google Sheets data:", error);
+    return {
+      directors: [],
+      operations: [],
+      dev: [],
+      marketing: [],
+      socials: [],
+      staff: [],
+    };
   }
 };
 
-fetchData(csvUrl);
-export { dev, marketing, directors, operations, socials, staff, };
+export { fetchData };

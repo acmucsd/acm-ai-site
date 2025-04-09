@@ -6,6 +6,12 @@ import { Card } from '../Card';
 import { Tag, Modal, Row, Col } from 'antd';
 import './index.less';
 
+
+/**
+ * Finds ASCII sum of a tag which is later used to color encode the tag
+ * @param {string} str represents a semantic tag or label for a project
+ * @returns int 
+ */
 var ASCIISum = (str: string) => {
   let sum = 0;
   for (let i = 0; i < str.length; ++i) {
@@ -14,16 +20,21 @@ var ASCIISum = (str: string) => {
   return sum;
 };
 
+
+/**
+ * Modular component that displays ACM AI project information. This is used in the 
+ * projects page.
+ * 
+ * @param {Project} project  
+ */
 const ProjectCard = ({ project }: { project: Project }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const color_tag: string[] = ['red', 'blue', 'gold', 'purple', 'green'];
-  //['magenta', 'cyan', 'gold', 'blue', 'purple', 'green'];
-  //['#DCB9B9', '#8FA5BE', '#E1B053', '#6D6864', '#8E799F', '#889F79']
 
-  // Modal props
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -82,6 +93,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
         <div className="iconsBox"></div>
       </Card>
 
+      {/* Modal to display full project description and links to project repo */}
       <Modal
         open={isModalOpen}
         onCancel={handleCancel}
@@ -128,6 +140,7 @@ export const formatTime = (time: string | number | Date): string => {
     hour12: true,
   });
 };
+
 export const isURL = (str: string): boolean => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
