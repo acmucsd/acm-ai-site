@@ -117,12 +117,17 @@ function App() {
               <Route path="/competitions" exact component={CompetitionsPage} />
               <Route path="/alumni" exact component={AlumniPage} />
               <Route path="/projects" exact component={ProjectPage} />
+              <Route
+                path="/old-competitions/hide-and-seek2020"
+                exact
+                component={HideAndSeek2020Page}
+              />
               <Route path="/events" exact component={EventsPage} />
               <Route path="/eventhasnotstarted" exact component={EventHasNotStartedPage}/>
               
               {/* new competition format */}
               <Route
-                path="/competitionPortal"
+                path="/portal"
                 exact
                 component={CompetitionPortalPage}
               />  
