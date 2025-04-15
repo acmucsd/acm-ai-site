@@ -1,8 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip } from "antd";
-import { InboxOutlined } from '@ant-design/icons';
-import { Layout, Button, Input, Modal, Upload } from 'antd';
+import { Row, Col, Layout, Button, Input, Modal, Upload, AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip, Pagination, Table} from 'antd';
 import type { UploadProps } from 'antd';
+import { ColumnsType } from "antd/es/table";
+import TextArea from "antd/es/input/TextArea";
+
+import { InboxOutlined } from '@ant-design/icons';
+import { IoHelp, IoRefresh, IoSearch, IoTime, IoEllipsisVertical, IoPersonAdd } from "react-icons/io5";
+import { FaCheck, FaClock, FaStar } from "react-icons/fa";
+
 import UserContext, { User } from "../../../UserContext";
 import { Link, useHistory } from 'react-router-dom';
 import {
@@ -14,24 +19,18 @@ import {
     getSubmissionDetails
 } from '../../../actions/teams/utils';
 import TeamCard from '../../../components/TeamCard/index';
-import './index.less';
-import path from 'path';
 import DefaultLayout from "../../../components/layouts/default";
-import Pagination from "antd/es/pagination/";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
-import { IoHelp, IoRefresh, IoSearch, IoTime } from "react-icons/io5";
-import { IoEllipsisVertical , IoPersonAdd} from "react-icons/io5";
-import { FaCheck, FaClock, FaStar } from "react-icons/fa";
-import Table, { ColumnsType } from "antd/es/table";
-import { BiStats } from "react-icons/bi";
-
 import { createAvatar } from '@dicebear/core';
 import { botttsNeutral, identicon } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
-import TextArea from "antd/es/input/TextArea";
 import LineChart from "./LineChart";
 import SubmissionEntryCard from "./SubmissionEntryCard";
+
+import path from 'path';
+import './index.less';
+
 const { Content } = Layout;
 
 /**
@@ -972,10 +971,10 @@ function CompetitionPortalPage() {
             <Content className="CompetitionPortalPage">
                 <Content id="portalHeader">
                     <section>
-                        <span>
-                            <h1 className="title2">Hello, {user.username}</h1>
+                        <div id="hello">
+                            <h1 className="title2">Hello, <span className="colorful">{user.username}</span></h1>
                             <Button size = "large"><p>Help</p></Button>
-                        </span>
+                        </div>
                         <div id="portalBanner">
                             <p>Welcome the the AI Portal for {competitionName}</p>
                         </div>
@@ -999,40 +998,32 @@ function CompetitionPortalPage() {
 
                                     :
                                     <section id="portalStatsRow">
-                                        <div className="portalStatsBox">
-                                            <span>
-                                                <FaCheck className = "statsIcon" size={20} />
-                                                <p>Your Submissions</p>
-                                            </span>
+                                        {/* Titles Row */}
+                                        <Row gutter={16} justify="center" className="stats-row titles">
+                                        <Col span={6} className="stat-title">Submissions</Col>
+                                        <Col span={6} className="stat-title">Latest Score</Col>
+                                        <Col span={6} className="stat-title">Ranking</Col>
+                                        <Col span={6} className="stat-title">W-L-D</Col>
+                                        </Row>
+                                        
+                                        {/* Values Row */}
+                                        <Row gutter={16} justify="center" className="stats-row values">
+                                            <Col span={6} className="stat-col">
+                                                <div className="stat-value">0</div>
+                                            </Col>
 
-                                            <p className="stat">0</p>
+                                            <Col span={6} className="stat-col">
+                                                <div className="stat-value">{userRankData.score}</div>
+                                            </Col>
 
-                                        </div>
+                                            <Col span={6} className="stat-col">
+                                                <div className="stat-value">{userRankData.rank}</div>
+                                            </Col>
 
-                                        <div className="portalStatsBox">
-                                            <span>
-                                                <BiStats className = "statsIcon" size={24} />
-                                                <p>Best Score</p>
-                                            </span>
-
-                                            <p className="stat">{userRankData.score}</p>
-                                        </div>
-
-                                        <div className="portalStatsBox">
-                                            <span>
-                                                <FaStar className = "statsIcon" size={20}/>
-                                                <p>Ranking</p>
-                                            </span>
-                                            <p className="stat">{userRankData.rank}</p>
-                                        </div>
-
-                                        <div className="portalStatsBox">
-                                            <span>
-                                                <FaStar className = "statsIcon" size={20}/>
-                                                <p>Matches Played</p>
-                                            </span>
-                                            <p className="stat">0</p>
-                                        </div>
+                                            <Col span={6} className="stat-col">
+                                                <div className="stat-value">0-0-0</div>
+                                            </Col>
+                                        </Row>
                                     </section>
                                 }
                             </>
