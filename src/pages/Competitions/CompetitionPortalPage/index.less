@@ -43,7 +43,6 @@
 
 
   #portalStatsContent {
-
     width: 100%;
     min-height: 120px;
     margin-top: 2rem;
@@ -63,26 +62,35 @@
       margin-top: 20px;
       border-radius: 10px;
       border: solid 2px @mainred;
-      
+      font-size: 64px;
       overflow: hidden; 
     
       /* Titles Row */
       .stats-row.titles {
-        font-size: @font8;
+        .stat-title {
+          font-size: @font3;
+        }
         font-weight: bold;
         color: white;
         margin-bottom: 10px;
-        padding: 3vh;
+        padding-top: 3vh;
+        padding-bottom: 3vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         .gradient();
       }
     
       /* Values Row */
       .stats-row.values {
         margin: @margin-base2;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
       }
   
       
-      /* Diamond-Shaped Cards */
+      /*  Cards */
       .stat-col {
         width: 80px;
         height: 80px;
@@ -92,7 +100,7 @@
         margin: auto;
     
         .stat-value {
-          font-size: 22px;
+          font-size: @font4;
           font-weight: bold;
         }
       }
