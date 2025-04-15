@@ -52,7 +52,6 @@ import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
 import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
-import LoggedInMainPage from './pages/LoggedInMainPage'
 import CompetitionPortal from './pages/CompPortal'
 import SubmissionLogPage from './pages/Competitions/CompetitionPortalPage/SubmissionLogPage';
 import MatchesPage from './pages/Competitions/CompetitionPortalPage/MatchesPage';
@@ -115,7 +114,6 @@ function App() {
               <Switch>
               <Route path="/" exact component={MainPage} />
               <Route path="/about" exact component={AboutPage} />
-              <Route path="/testlogin" exact component={LoggedInMainPage} />
               <Route path="/competitions" exact component={CompetitionsPage} />
               <Route path="/alumni" exact component={AlumniPage} />
               <Route path="/projects" exact component={ProjectPage} />
@@ -130,7 +128,7 @@ function App() {
               
               {/* new competition format */}
               <Route
-                path="/competitionPortal"
+                path="/portal"
                 exact
                 component={CompetitionPortalPage}
               />  
