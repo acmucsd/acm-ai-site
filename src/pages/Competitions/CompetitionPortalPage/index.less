@@ -12,7 +12,7 @@
     max-width: 1200px !important;
     margin-top: 4rem;
 
-    span {
+    #hello {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -43,7 +43,6 @@
 
 
   #portalStatsContent {
-
     width: 100%;
     min-height: 120px;
     margin-top: 2rem;
@@ -57,56 +56,54 @@
       color: @black;
     }
 
-
     #portalStatsRow {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(124px, 1fr));
-      gap: 1rem 2rem; // Adjust the gap as needed
       width: 100%;
-
-      @media screen and (max-width: @lg) {
-        grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
-      }
-
-      .portalStatsBox {
-        background-color: @light-gray;
-        min-height: 140px;
-        padding: @padding-base2;
-        border-radius: @radius-base4;
+      text-align: center;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: solid 2px @mainred;
+      font-size: 64px;
+      overflow: hidden; 
+    
+      /* Titles Row */
+      .stats-row.titles {
+        .stat-title {
+          font-size: @font3;
+        }
+        font-weight: bold;
+        color: white;
+        margin-bottom: 10px;
+        padding-top: 3vh;
+        padding-bottom: 3vh;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-        transition: background-color 0.2s ease-in;
-
-        span {
-          display: flex;
-          justify-content: start;
-          flex-direction: row;
-          align-items: center;
-          flex-wrap: wrap;
-
-          .statsIcon {
-            padding: 6px;
-            border-radius: 8px; 
-            color: white;
-            background: black;
-            margin-right: 1rem; 
-          }
-
-          p {
-            color: @text-gray3;
-          }
-
-        }
-
-        p.stat {
-          font-size: 2.8rem;
-          font-weight: @semi-bold;
-          margin-top: 1rem;
+        justify-content: space-around;
+        align-items: center;
+        .gradient();
+      }
+    
+      /* Values Row */
+      .stats-row.values {
+        margin: @margin-base2;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+  
+      
+      /*  Cards */
+      .stat-col {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    
+        .stat-value {
+          font-size: @font4;
+          font-weight: bold;
         }
       }
-
     }
   }
 
