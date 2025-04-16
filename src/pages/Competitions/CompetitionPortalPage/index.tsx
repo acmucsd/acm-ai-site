@@ -322,8 +322,8 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
             }).toString();
 
             // Convert the SVG string to a data URL
-            const encodedSvg = encodeURIComponent(svg);
-            const dataUrl = `data:image/svg+xml;base64,${btoa(svg.toString())}`;
+            const encodedSvg = btoa(encodeURIComponent(svg));
+            const dataUrl = `data:image/svg+xml;base64,${encodedSvg}`;
 
             // Set the avatar URL
             setAvatarUrl(dataUrl);
@@ -331,7 +331,7 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
         } catch (error) {
             console.error("Error generating avatar:", error);
             // Handle the error gracefully (e.g., set a default avatar)
-            setAvatarUrl('../../../../public/logo192.png'); // Replace with a default image
+            setAvatarUrl('/logo192.png'); // Replace with a default image
         } finally {
             setLoadingImage(false);
         }
@@ -352,6 +352,10 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
                     marginRight: '0.75rem'
                 }}
                 alt={`Avatar for ${username}`}
+                onError={() => {
+                    console.error("Error loading avatar image");
+                    setAvatarUrl('/logo192.png');
+                }}
             />
         )}
     </>

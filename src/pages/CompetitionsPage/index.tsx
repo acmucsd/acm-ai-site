@@ -39,11 +39,11 @@ function CompetitionsPage(props: any) {
                       <Button size="large" shape="round" className="interestButton">Interest Form &gt;</Button>
                   </a>
               </Col>
-              {/* <Col>
-                  <Link to={{ pathname: "#" }} target="_blank" >
+              <Col>
+                  <Link to={{ pathname: "portal" }} >
                       <Button size="large" shape="round" className="portalButton">Competitions Portal &gt;</Button>
                   </Link>
-              </Col> */}
+              </Col>
             </Row>
           </Col>
 
