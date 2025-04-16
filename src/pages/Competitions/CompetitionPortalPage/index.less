@@ -2,6 +2,22 @@
 @import '../../../newStyles/components.less';
 @import '../../../newStyles/index.less';
 
+.colorful1 {
+  .button-colorful();
+}
+
+.colorful2 {
+  .button-red-outline();
+  border: 2px solid @mainred;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  gap: @padding-base; // Adjust the gap as needed
+  margin-top: @margin-base
+
+}
 
 .CompetitionPortalPage {
   .noContainer();
@@ -39,7 +55,7 @@
     }
   }
 
-
+  
 
 
   #portalStatsContent {
