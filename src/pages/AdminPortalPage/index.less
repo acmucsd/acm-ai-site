@@ -1,0 +1,27 @@
+@import '../../newStyles/text.less';
+@import '../../newStyles/components.less';
+@import '../../newStyles/index.less';
+
+.AdminPortalPage {
+  // removes any default white space margins
+  .noContainer();
+
+  // prevents layout shifts caused by scrollbar
+  overflow-y: hidden;
+  background: @white;
+
+
+  .profileHeader {
+    padding: 2rem;
+
+    display: flex;
+
+    h1 .profileName {
+      color: @orange;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+}
