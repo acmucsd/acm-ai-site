@@ -1,5 +1,15 @@
 @import '../../../styles/base.less';
+@import '../../../newStyles/components.less';
+@import '../../../newStyles/variables.less';
+
 .CompetitionUploadPage {
+  .generic-section();
+  .constrained-bounds();
+
+  h2 {
+    padding-top: @padding-base3;
+  }
+
   .upload-form-card {
     max-width: 80rem;
     .smack-center;
