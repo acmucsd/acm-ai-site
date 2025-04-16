@@ -4,6 +4,10 @@
 
 .colorful1 {
   .button-colorful();
+
+  :hover{
+    color: @mainred
+  }
 }
 
 .colorful2 {
@@ -19,7 +23,9 @@
 
 }
 
-.CompetitionPortalPage {
+.CompetitionPortalPage { 
+  
+
   .noContainer();
 
   #portalHeader {
@@ -62,6 +68,7 @@
     width: 100%;
     min-height: 120px;
     margin-top: 2rem;
+    flex-shrink: 0;
 
     section#noTeamMessage {
       height: 108px;
@@ -154,6 +161,7 @@
 
 #leaderBoardContainer {
   margin-top: 1rem;
+  width: 100%;
 
   section {
     display: inline-flex;
@@ -185,6 +193,13 @@
 
 #myTeamContainer {
   margin-top: 1rem;
+
+  #createTeamSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    gap: @padding-base
+  }
 
   section:first-of-type {
     display: grid;

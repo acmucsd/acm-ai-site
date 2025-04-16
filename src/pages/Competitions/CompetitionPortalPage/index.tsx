@@ -421,7 +421,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
     };
 
     const showTeamLimitReached = () => {
-        message.error("Your team has reach max team size of 3!")
+        message.error("Your team has reached max team size of 3!")
     }
 
     const handleLeaveModalClose = () => {
@@ -688,7 +688,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
             {teamInfo == null && (
 
-                <section>
+                <section id="createTeamSection">
                     <Input
                         id="teamNameInput"
                         placeholder="New Team Name"
@@ -697,12 +697,12 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                     >
                     </Input><br />
                     <Button
-                        type="primary"
-                        size="large" id="makeTeamButton"
                         loading={isLoading}
+                        id="maketeambutton"
                         onClick={handleClick}
+                        className="colorful1"
                     >
-                        Make Team
+                        Create New Team
                     </Button>
                 </section>
             )}

@@ -20,19 +20,25 @@
     margin-right: 1rem;
 }
 
+.button-container{
+    display: flex;
+    justify-content:flex-end;
+    margin-top: @margin-base;
+    width: 100%;
+}
+
+#joinTeamBtn{
+    .button-colorful();
+}
+
 div.teamPreviewCard {
     
     width: 100%;
-    display: grid;
     align-items: center;
-    grid-template-columns: 2fr 2fr;
     background: @gray;
     padding: @padding-base2;
     border-radius: @radius-base4;
     box-shadow: @bx3;
-    cursor: pointer;
-
-
   
     span:first-child {
         display: flex;
@@ -60,6 +66,15 @@ div.teamPreviewCard {
    
 }
 
+#teamCard {
+    display: flex;
+    justify-content: space-between;
+
+    h5{
+        font-style: italic;
+    }
+
+}
 
 
 #teamViewButton {

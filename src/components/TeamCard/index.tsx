@@ -4,6 +4,7 @@ import { User } from "../../UserContext";
 import { addToTeam, leaveTeam } from '../../actions/teams/utils';
 import { BsPeopleFill } from "react-icons/bs";
 import { IoMdPerson } from "react-icons/io";
+import { ExpandAltOutlined } from '@ant-design/icons';
 
 import './index.less';
 import React from "react";
@@ -103,6 +104,7 @@ const TeamCard = (
     const showModal = () => {
         setIsModalOpen(true);
     };
+
     const handleCancel = () => {
         setIsModalOpen(false);
     };
@@ -125,17 +127,17 @@ const TeamCard = (
                  // Dynamically display join leave/join buttons based on user team membership status
                  footer = {
                     <>
-                        {team.teamMembers.includes(user.username) && (
+                        {/* {team.teamMembers.includes(user.username) && (
                             <Button  
                                 loading = {confirmLoading} 
                                 size="large" 
                                 shape="round" 
                                 type="primary" 
-                                onClick = {onLeaveTeam}
+                                onClick = {showModal}
                             >
                                 <p>leave</p>
                             </Button>
-                        )}
+                        )} */}
 
                         
                         {!team.teamMembers.includes(user.username) && (
@@ -161,8 +163,9 @@ const TeamCard = (
                     </>    
                 }
              >
+
                  <Col id = "teamModalContent">
-                     <section id = "teamMembersContainer">
+                     {/* <section id = "teamMembersContainer"> */}
 
                         {/* Display team member names */}
                         {team.teamMembers.length !== 0 ? 
@@ -170,7 +173,7 @@ const TeamCard = (
                                 <p key={index}>{member}</p>
                             ))
                         : <p>no members</p>}          
-                     </section>
+                     {/* </section> */}
                  </Col>
              </Modal>
  
@@ -181,10 +184,10 @@ const TeamCard = (
                 id = {team.teamID} 
                 className = "teamPreviewCard" 
                 style = {{ background: team.teamMembers.includes(user.username) ? '#f0f0f0': 'white'}}  
-                onClick={() => showModal()}
+                // onClick={() => showModal()}
             >
-                 <span>
-                    <div 
+                 {/* <span> */}
+                    {/* <div 
                         style={{
                             display: 'inline-flex',
                             verticalAlign: 'middle',
@@ -194,18 +197,52 @@ const TeamCard = (
                             background: `linear-gradient(30deg, ${color1}, ${color2})`,
                             marginRight: '1rem',
                         }}>
-                    </div>
+                    </div> */}
 
                     <div>
-                        <h4>{team.teamName}</h4>
-                        <p style = {{color: "grey", fontSize: "14px"}}>{team.teamMembers.length} members</p>
+                        <div id="teamCard">
+                            <h3>{team.teamName}</h3>
+                            {/* <ExpandAltOutlined 
+                            onClick={() => showModal()}
+                                /> */}
+
+                            {team.teamMembers.includes(user.username) ? 
+                            <h5>your team</h5> : null}
+                        </div>
+                        <br/>
+                        <h5>Team Member: {team.teamMembers.join(", ")}</h5>
+                    </div>
+
+
+                    <div className="button-container">
+                        {!team.teamMembers.includes(user.username) && (
+                            <>
+                                <Input
+                                    id = "joinCodeInput"
+                                    size = "small"
+                                    value={code}
+                                    onChange={(e) => setCode(e.target.value)}
+                                    placeholder="Code"
+                                />
+                                <Button 
+                                    id = "joinTeamBtn" 
+                                    size= "large" 
+                                    type = "primary" 
+                                    loading = {confirmLoading} 
+                                    onClick = {onSubmit}
+                                >
+                                    Join
+                                </Button>
+                            </>
+                        )}
                     </div>
                     
-                 </span>
+                    
+                 {/* </span> */}
 
                  {/* Clicking the button should open a modal to display team details 
                    * and the option to join if user isn't part of team yet */}
-                 <span id = "teamViewButtonSpan" >
+                 {/* <span id = "teamViewButtonSpan" >
                     <Button 
                         type = "text" 
                         ghost 
@@ -214,7 +251,7 @@ const TeamCard = (
                     >
                         <p>view</p>
                     </Button>
-                 </span>
+                 </span> */}
              </div>
          </>
      );
