@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, message } from 'antd';
+import { Button, message, Dropdown, Space } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 import './index.less';
 
 import UserContext from '../../UserContext';
@@ -20,6 +22,38 @@ function Header() {
   ];
   let path = window.location.pathname;
   let initKeys: Array<string> = [];
+  
+  const handleMenuClick: MenuProps['onClick'] = (e) => {
+
+    console.log('click', e);
+
+    if(e.key === "3"){
+      logoutUser();
+      setUser(defaultUser);
+      message.success('Logged out');
+      history.push('/');
+    }
+  };
+  
+  const items: MenuProps['items'] = [
+    {
+      label: <Link to="/profile">Profile</Link>,
+      key: '1',
+    },
+    {
+      label: <Link to="/portal">Portal</Link>,
+      key: '2',
+    },
+    {
+      label: 'Logout',
+      key: '3',
+    }
+  ];
+  
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
 
   if (path.match(`/home`)) {
     initKeys = ['home'];
@@ -138,18 +172,16 @@ function Header() {
               ))}
 
               {user.loggedIn ? (
-                <Button
-                  size="large"
-                  className="authButton"
-                  onClick={() => {
-                    logoutUser();
-                    setUser(defaultUser);
-                    message.success('Logged out');
-                    history.push('/');
-                  }}
+                <Dropdown
+                  menu={menuProps}
                 >
-                  <p>Logout</p>
-                </Button>
+                  <Button>
+                    <Space>
+                      {user.username}
+                      <DownOutlined />
+                    </Space>
+                  </Button>
+                </Dropdown>
               ) : (
                 <Link to="/login">
                   <Button
@@ -169,7 +201,7 @@ function Header() {
           )}
         </div>
 
-        <div className="navBarGradientLine"></div>
+        {/* <div className="navBarGradientLine"></div> */}
       </nav>
 
       {/** Mobile dropdown nav links */}
@@ -180,8 +212,16 @@ function Header() {
             <a href="#">{link.text}</a>
           </Link>
         ))}
+        
 
         {user.loggedIn ? (
+          <>
+          <Link className="mobileNavItem" to="/profile">
+            <a href="#">Profile</a>
+          </Link>
+          <Link className="mobileNavItem" to="/portal">
+            <a href="#">Portal</a>
+          </Link>
           <div
             className="logOutOption"
             onClick={() => {
@@ -193,6 +233,7 @@ function Header() {
           >
             <a href="#">Logout</a>
           </div>
+          </>
         ) : (
           <Link className="mobileNavItem" to="/login">
             <a href="#">Login</a>

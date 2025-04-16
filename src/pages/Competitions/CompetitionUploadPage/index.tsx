@@ -67,7 +67,7 @@ const CompetitionUploadPage = () => {
 
   useEffect(() => {
     if (!user.loggedIn) {
-      message.info('You need to login to upload predictions and participate');
+      message.info('You need to login to upload submissions and participate');
       history.replace(path.join(window.location.pathname, '../../../login'));
     }
   }, []);
@@ -86,6 +86,7 @@ const CompetitionUploadPage = () => {
         history.replace(path.join('/competitions', competitionID));
       })
       .catch((err) => {
+        console.log(err);
         message.error(`${err}`);
       })
       .finally(() => {
@@ -107,20 +108,28 @@ const CompetitionUploadPage = () => {
     }
   };
 
+  const beforeUpload = (file: any) => {
+    const isPythonFile = file.name.endsWith('.py');
+    if (!isPythonFile) {
+      message.error('You can only upload Python (.py) files!');
+    }
+
+    return isPythonFile;
+  };
+
   return (
     <DefaultLayout>
       <div className="CompetitionUploadPage">
         <br />
         <BackLink to="../" />
-        {/* <Card className="upload-form-card"> */}
         <h2>Submission to {competitionID}</h2>
         <p>
-          You must submit a .tar.gz file that contains your submission. You can
+          You must submit a .py file that contains your submission. You can
           add an optional description below as well as tags.
         </p>
         <br />
-        <Form>
-          <form onSubmit={handleSubmit(onSubmit)}>
+        {/* <Form> */}
+          {/* <form onSubmit={handleSubmit(onSubmit)}> */}
             <div className="upload-wrapper">
               <TextArea
                 className="desc"
@@ -128,13 +137,16 @@ const CompetitionUploadPage = () => {
                 value={desc}
                 onChange={(evt) => setDesc(evt.target.value)}
               />
-              <Upload onChange={handleFileChange} customRequest={dummyRequest}>
+              <Upload onChange={handleFileChange} 
+                      customRequest={dummyRequest} 
+                      beforeUpload={beforeUpload}
+                      accept=".py"
+              >
                 <Button className="upload-btn">
                   <UploadOutlined /> Click to add file
                 </Button>
               </Upload>
-              <div className="tags-list">
-                {/* Truncate long tags */}
+              {/* <div className="tags-list">
                 {tags.map((tag, index) => {
                   const isLongTag = tag.length > 20;
                   const tagElem = (
@@ -173,18 +185,18 @@ const CompetitionUploadPage = () => {
                     Add tag
                   </Tag>
                 )}
-              </div>
+              </div> */}
             </div>
             <Button
               htmlType="submit"
               className="submit-button"
+              onClick={handleSubmit(onSubmit)}
               disabled={uploading}
             >
               Submit
             </Button>
-          </form>
-        </Form>
-        {/* </Card> */}
+          {/* </form> */}
+        {/* </Form> */}
       </div>
     </DefaultLayout>
   );
