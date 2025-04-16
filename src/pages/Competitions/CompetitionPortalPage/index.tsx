@@ -313,20 +313,29 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
     
     useEffect(() => {
         setLoadingImage(true);
-        // Generate avatar based on username using DiceBear
-        const svg = createAvatar(botttsNeutral, {
-            seed: username,
-            radius: 50,
-            backgroundType: ["gradientLinear"]
-        });
+        try {
+            // Generate avatar based on username using DiceBear
+            const svg = createAvatar(botttsNeutral, {
+                seed: username,
+                radius: 50,
+                backgroundType: ["gradientLinear"]
+            }).toString();
 
-        // Convert the SVG string to a data URL
-        const dataUrl = `data:image/svg+xml;base64,${btoa(svg.toString())}`;
+            // Convert the SVG string to a data URL
+            const encodedSvg = encodeURIComponent(svg);
+            const dataUrl = `data:image/svg+xml;base64,${btoa(svg.toString())}`;
 
-        // Set the avatar URL
-        setAvatarUrl(dataUrl);
-
-        setLoadingImage(false);
+            // Set the avatar URL
+            setAvatarUrl(dataUrl);
+            
+        } catch (error) {
+            console.error("Error generating avatar:", error);
+            // Handle the error gracefully (e.g., set a default avatar)
+            setAvatarUrl('../../../../public/logo192.png'); // Replace with a default image
+        } finally {
+            setLoadingImage(false);
+        }
+        
     }, [username]);
 
     return (
