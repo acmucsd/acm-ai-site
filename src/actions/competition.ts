@@ -57,6 +57,60 @@ export const uploadSubmission = async (
   });
 };
 
+export const uploadCompetitionResults = async (
+  file: File | undefined,
+  competitionid: string,
+  uploadedBy: string
+): Promise<AxiosResponse> => {
+  if (!file) {
+    throw new Error('no file!');
+  }
+  if (!competitionid) {
+    throw new Error('competition ID not specified!');
+  }
+  if (!uploadedBy) {
+    throw new Error('Admin user not identified for upload!');
+  }
+
+  const token = getToken(COOKIE_NAME);
+  return new Promise((resolve, reject) => {
+    const bodyFormData = new FormData();
+    bodyFormData.set('results', file);
+    bodyFormData.set('uploadedBy', uploadedBy);
+
+    axios
+      .post(
+        process.env.REACT_APP_API + 
+          `/v1/competitions/${competitionid}/uploadResults`,
+        bodyFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error(error);
+        reject(error);
+      });
+  });
+}
+
+export const getCompetitions = async () => {
+  try {
+    const response = await axios.get(process.env.REACT_APP_API + `/v1/competitions`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching competitions:', error);
+    throw error;
+  }
+}
+
 export const getMetaData = async (
   competitionid: string
 ): Promise<AxiosResponse> => {

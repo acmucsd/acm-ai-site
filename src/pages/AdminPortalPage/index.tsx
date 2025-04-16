@@ -5,12 +5,13 @@ import {
   profileData,
   UserProfile,
 } from '../../actions/users';
-import { Row, Col, Layout, Button, Flex, message, Upload, Space } from 'antd';
+import { Layout, Button, Flex, message, Upload, Select } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-// import { uploadCompetitionResults } from '../../actions/competition';
+import { uploadCompetitionResults, getCompetitions } from '../../actions/competition';
 const { Content } = Layout;
+const { Option } = Select;
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'long',
@@ -22,6 +23,9 @@ export default function AdminPortalPage(props: any) {
   const [loading, setLoading] = useState(true);
   const [uploadingResults, setUploadingResults] = useState(false);
   const [resultsFile, setResultsFile] = useState<File | null>(null);
+  const [selectedCompetition, setSelectedCompetition] = useState<string | undefined>(undefined);
+  const [competitions, setCompetitions] = useState<Array<{ competitionName: string }>>([]);
+  const [competitionsLoading, setCompetitionsLoading] = useState(true);
   const history = useHistory();
 
   const checkAdminAccess = useCallback((profile: UserProfile | null) => {
@@ -45,9 +49,24 @@ export default function AdminPortalPage(props: any) {
       });
   }, [history, checkAdminAccess]);
 
+  const loadCompetitionsData = useCallback(() => {
+    setCompetitionsLoading(true);
+    getCompetitions()
+      .then((data: { competitions: string[] }) => {
+        setCompetitions(data.competitions.map(name => ({ competitionName: name })));
+        setCompetitionsLoading(false);
+      })
+      .catch((error) => {
+        message.error('Failed to load competitions.');
+        console.error('Error loading competitions:', error);
+        setCompetitionsLoading(false);
+      });
+  }, [getCompetitions]);
+
   useEffect(() => {
     loadProfileData();
-  }, [loadProfileData]);
+    loadCompetitionsData();
+  }, [loadProfileData, loadCompetitionsData]);
 
   const handleResultsFileChange = (info: any) => {
     if (info.file.status === 'done') {
@@ -73,33 +92,40 @@ export default function AdminPortalPage(props: any) {
     }, 0);
   };
 
+  const handleCompetitionSelect = (value: string) => {
+    setSelectedCompetition(value);
+  };
+
   const handleUploadResults = () => {
     if (!resultsFile) {
       message.error('Please select a CSV file to upload for competition results.');
+      return;
+    } 
+    if (!selectedCompetition) {
+      message.error('Please select a competition to upload results for.');
+      return;
+    }
+    if (!user?.username) {
+      message.error('Could not identify user');
       return;
     }
 
     setUploadingResults(true);
 
-    // uploadCompetitionResults(resultsFile)
-    //   .then(() => {
-    //     message.success('Competition results uploaded successfully!');
-    //     setResultsFile(null);
-    //   })
-    //   .catch((error) => {
-    //     message.error('Failed to upload competition results.');
-    //     console.error('Upload error:', error);
-    //   })
-    //   .finally(() => {
-    //     setUploadingResults(false);
-    //   });
+    uploadCompetitionResults(resultsFile, selectedCompetition, user.username)
+      .then(() => {
+        message.success('Competition results uploaded successfully!');
+        setResultsFile(null);
+      })
+      .catch((error) => {
+        message.error('Failed to upload competition results.');
+        console.error('Upload error:', error);
+        throw error;
+      })
+      .finally(() => {
+        setUploadingResults(false);
+      });
 
-    // simulating
-    setTimeout(() => {
-      message.success('Simulated: Competition results uploaded successfully!');
-      setResultsFile(null);
-      setUploadingResults(false);
-    }, 1000);
   };
 
   if (loading) {
@@ -135,7 +161,23 @@ export default function AdminPortalPage(props: any) {
             <h2>Upload Competition Results</h2>
             <p>Select a CSV file containing competition results.</p>
 
+            <Select
+              placeholder="Select Competition"
+              className="competitionDropdown"
+              style={{ width: '80%', maxWidth: 300, margin: '10px 0px'}}
+              onChange={handleCompetitionSelect}
+              value={selectedCompetition}
+              loading={competitionsLoading}
+            >
+              {competitions.map((comp) => (
+                <Option key={comp.competitionName} value={comp.competitionName}>
+                  {comp.competitionName}
+                </Option>
+              ))}
+            </Select>
+
             <Upload
+              className="competitionUpload"
               beforeUpload={beforeResultsUpload}
               onChange={handleResultsFileChange}
               maxCount={1}
