@@ -197,13 +197,13 @@ export const generateTeamPicture = (teamName: any) => {
     return (
         <div
             style={{
-                display: 'inline-block',
+                display: 'inline-flex',
                 verticalAlign: 'middle',
                 borderRadius: '100%',
                 width: '4rem',
                 height: '4rem',
                 background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                marginRight: '0.75rem',
+                marginRight: '2rem',
             }}>
         </div>
     )
@@ -385,8 +385,10 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                     <div id="teamMainContent">
 
                         <div id="teamHeader">
-                            {generateTeamPicture(teamInfo.teamName)}
                             <div id="teamNameWrapper">
+                                <div>
+                                    {generateTeamPicture(teamInfo.teamName)}
+                                </div>
                                 <article>
                                     <h3>{teamInfo.teamName}</h3>
                                     <p id = "rankingTag">{getOrdinal(rankData.rank)} place</p>
@@ -419,7 +421,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 </Tooltip>
                             </span>
                             
-                            <Link to={{ pathname: "competitions/" + metaData.competitionName + "/upload" }} >
+                            <Link to={{ pathname: `competitions/${metaData.competitionName}/upload`}} >
                                 <Button size="large" className="uploadButton" icon = {<UploadOutlined size = {14}/>}>Upload</Button>
                             </Link>
 
@@ -657,24 +659,38 @@ function CompetitionPortalPage() {
         getLeaderboard(competitionName).then((res) => {
 
             let newData = res.data
-                .sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
+                .sort((a: any, b: any) => {
+                    const latestScoreA = a.scoreHistory?.length > 0 ? a.scoreHistory[a.scoreHistory.length - 1] : -Infinity;
+                    const latestScoreB = b.scoreHistory?.length > 0 ? b.scoreHistory[b.scoreHistory.length - 1] : -Infinity;
+                    return latestScoreB - latestScoreA;
+                })
+                // .sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
                 .map((d: any, index: number) => {
+                        const latestScore = d.scoreHistory?.length > 0 ? d.scoreHistory[d.scoreHistory.length - 1] : 0; 
 
                         if (teamInfo != null) {
                             if (d.teamName === teamInfo.teamName) {
                                 setUserRankData({
                                     rank: index + 1,
-                                    team: d.teamName,
-                                    score: d.bestScore,
+                                    team: d.teamName, 
+                                    score: latestScore,
                                     submitHistory: d.submitHistory,
+                                    scoreHistory: d.scoreHistory,
+                                    winHistory: d.winHistory,
+                                    lossHistory: d.lossHistory,
+                                    drawHistory: d.drawHistory,
                                 });
                             }
                         }
                         return {
                             rank: index + 1,
-                            team: d.teamName,
-                            score: d.bestScore,
+                            team: d.teamName, 
+                            score: latestScore,
                             submitHistory: d.submitHistory,
+                            scoreHistory: d.scoreHistory,
+                            winHistory: d.winHistory,
+                            lossHistory: d.lossHistory,
+                            drawHistory: d.drawHistory,
                         };
                 });
 
@@ -784,9 +800,6 @@ function CompetitionPortalPage() {
             }
         })
     }
-    console.log("userrankdata", userRankData);
-    console.log("teaminfo", teamInfo);
-
 
     return (
         <DefaultLayout>
@@ -864,7 +877,12 @@ function CompetitionPortalPage() {
                                             </Col>
 
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">{userRankData.score}</div>
+                                                <div className="stat-value"> 
+                                                    {userRankData.scoreHistory?.length > 0
+                                                        ? userRankData.scoreHistory[userRankData.scoreHistory?.length - 1]
+                                                        : 0
+                                                    }
+                                                </div>
                                             </Col>
 
                                             <Col span={6} className="stat-col">
@@ -872,7 +890,20 @@ function CompetitionPortalPage() {
                                             </Col>
 
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">0-0-0</div>
+                                                <div className="stat-value">
+                                                {userRankData.winHistory?.length > 0
+                                                    ? userRankData.winHistory[userRankData.winHistory?.length - 1]
+                                                    : 0
+                                                }-
+                                                {userRankData.drawHistory?.length > 0
+                                                    ? userRankData.drawHistory[userRankData.drawHistory?.length - 1]
+                                                    : 0
+                                                }-
+                                                {userRankData.lossHistory?.length > 0
+                                                    ? userRankData.lossHistory[userRankData.lossHistory?.length - 1]
+                                                    : 0
+                                                }
+                                                </div>
                                             </Col>
                                         </Row>
                                     </section>
@@ -903,7 +934,8 @@ function CompetitionPortalPage() {
                                         rankData={rankingsData}
                                         lastRefresh={lastRefresh}
                                         updateRankingsCallback={updateRankings}
-                                        isLoading={isLoadingLeaderBoard} />
+                                        isLoading={isLoadingLeaderBoard} 
+                                        competitionName={competitionName}/>
                                 },
                                 {
                                     label: <p>Find Teams</p>,

@@ -4,12 +4,14 @@ import type { ColumnsType } from "antd/es/table";
 import { CompetitionData } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import "./index.less";
+import { Link } from "react-router-dom";
 
 interface LeaderBoardTabProps {
     rankData: any;
     lastRefresh: Date | null;
     updateRankingsCallback: () => void;
     isLoading: boolean;
+    competitionName: string;
 }
 const { Content } = Layout;
 
@@ -23,11 +25,12 @@ const { Content } = Layout;
  * 
  */
 const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
-    {rankData, lastRefresh, updateRankingsCallback, isLoading}:
+    {rankData, lastRefresh, updateRankingsCallback, isLoading, competitionName}:
     { rankData: any,
       lastRefresh: Date | null,
       updateRankingsCallback: () => void,
-      isLoading: boolean
+      isLoading: boolean,
+      competitionName: string
     }
 ) => {
 
@@ -85,15 +88,21 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
                     Last refreshed{': '}
                     {lastRefresh ? lastRefresh.toLocaleString() : ''}
                 </p>
-                <Button
-                    size="large"
-                    className="refresh-btn"
-                    onClick={() => {
-                        updateRankingsCallback();
-                    }}
-                >
-                    Refresh
-                </Button>
+
+                <div className="buttonContainer">
+                    {/* <Link to={{ pathname: `competitions/${competitionName}/leaderboard` }} >
+                        <Button size="large" className="full-lb-btn">Full Leaderboard</Button>
+                    </Link> */}
+                    <Button
+                        size="large"
+                        className="refresh-btn"
+                        onClick={() => {
+                            updateRankingsCallback();
+                        }}
+                    >
+                        Refresh
+                    </Button>
+                </div>
             </section>
             <Table loading={isLoading} columns={columns} dataSource={rankData} />
         </Content>

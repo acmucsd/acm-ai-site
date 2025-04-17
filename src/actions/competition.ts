@@ -15,10 +15,10 @@ export interface CompetitionData {
     team: string;
     score: number;
     submitHistory: Array<string>;
-    scoreHistory?: Array<number>;
-    winHistory?: Array<number>;
-    drawHistory?: Array<number>;
-    lossHistory?: Array<number>;
+    scoreHistory: Array<number>;
+    winHistory: Array<number>;
+    drawHistory: Array<number>;
+    lossHistory: Array<number>;
 }
 
 export const uploadSubmission = async (
@@ -65,6 +65,7 @@ export const uploadCompetitionResults = async (
   file: File | undefined,
   competitionid: string,
 ): Promise<AxiosResponse> => {
+  
   if (!file) {
     throw new Error('no file!');
   }
@@ -75,7 +76,8 @@ export const uploadCompetitionResults = async (
   const token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     const bodyFormData = new FormData();
-    bodyFormData.set('results', file);
+    const csvFile = new File([file], file.name, {type: 'text/csv'});
+    bodyFormData.append('results', csvFile);
 
     axios
       .post(

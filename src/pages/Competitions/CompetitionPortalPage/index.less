@@ -140,7 +140,7 @@
   margin-top: 1rem;
 
   section {
-    display: inline-flex;
+    display: flex;
     width: 100%;
     justify-content: space-between;
     margin-bottom: 1rem;
@@ -150,6 +150,11 @@
       border-radius: @radius-base4;
       padding: @padding-base;
       margin-right: 2rem;
+    }
+
+    .buttonContainer {
+      display: flex;
+      gap: 0.5rem;
     }
 
     @media screen and (max-width: @sm) {
@@ -169,7 +174,6 @@
 
 #myTeamContainer {
   margin-top: 1rem;
-
   section:first-of-type {
     display: grid;
     grid-template-columns: minmax(400px, 3fr) 2fr;
@@ -189,11 +193,12 @@
 
     #leaveTeamButton {
       border: none;
+      margin-left: auto; 
     }
 
     #teamNameWrapper {
       display: flex;
-      justify-content: space-between;
+      flex-direction: row;
       align-items: center;
       width: 100%;
 
@@ -221,6 +226,7 @@
 
       h3 {
         font-weight: @semi-bold;
+        margin-bottom: 0.5rem;
       }
     }
 
