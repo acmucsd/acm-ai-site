@@ -3,7 +3,7 @@ import { Row, Col, Layout, Button, Input, Modal, Upload, AutoComplete, Drawer, L
 import type { UploadProps } from 'antd';
 import TextArea from "antd/es/input/TextArea";
 
-import { InboxOutlined } from '@ant-design/icons';
+import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
 import { IoHelp, IoRefresh, IoSearch, IoTime, IoEllipsisVertical, IoPersonAdd } from "react-icons/io5";
 import { FaCheck, FaClock, FaStar } from "react-icons/fa";
 
@@ -17,7 +17,6 @@ import {
     leaveTeam,
     getSubmissionDetails
 } from '../../../actions/teams/utils';
-import TeamCard from '../../../components/TeamCard/index';
 import DefaultLayout from "../../../components/layouts/default";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
@@ -412,7 +411,21 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                             <LineChart scoreHistory={(teamInfo != null) ? teamInfo.scoreHistory.map(Number) : []}/>
                         </div>
 
-                        <form id = "uploadFileSection">
+                        <div id = "uploadFileSection">
+                            <span id = "uploadFileHeader">
+                                <h3>Upload Submission</h3>
+                                <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
+                                    <FaClock size = {28} />
+                                </Tooltip>
+                            </span>
+                            
+                            <Link to={{ pathname: "competitions/" + metaData.competitionName + "/upload" }} >
+                                <Button size="large" className="uploadButton" icon = {<UploadOutlined size = {14}/>}>Upload</Button>
+                            </Link>
+
+                        </div>
+
+                        {/* <form id = "uploadFileSection">
                             <span id = "uploadFileHeader">
                                 <h3>Upload Submission</h3>
                                 <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
@@ -432,7 +445,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 onChange={(evt) => setDesc(evt.target.value)}
                             />
 
-                            {/*Inline style needed here */}
                             <Dragger id = "uploadDragArea" style = {{borderRadius: "20px", background: "white", border: "none"}}height={150} {...uploadProps}>
                                 <p id="antUploadDragIcon">
                                     <InboxOutlined style={{color: "darkgray"}}/>
@@ -449,7 +461,8 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                             >
                                 Submit
                             </Button>   
-                        </form>
+                        </form> 
+                        */}
 
                         <SubmissionsPreview  teamInfo={teamInfo} competitionName= {metaData.competitionName} />
                     </div>
@@ -493,13 +506,14 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
                         </div>
 
-                        <div id = "matchesBox">
+                        {/* <div id = "matchesBox">
                             <h3>Matches</h3>
                             <p>Check out your team's match replays to see how well youre performing!</p>
                             <Link to={`/matches/${teamInfo.teamName}`} rel="noopener noreferrer">
                                 <p style = {{color: "white", marginTop: "1rem"}}>view all &gt;</p>
                             </Link>
-                        </div>
+                        </div> */}
+
                     </div>
                     
                 </section>
