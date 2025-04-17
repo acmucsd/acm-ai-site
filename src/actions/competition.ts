@@ -15,6 +15,10 @@ export interface CompetitionData {
     team: string;
     score: number;
     submitHistory: Array<string>;
+    scoreHistory?: Array<number>;
+    winHistory?: Array<number>;
+    drawHistory?: Array<number>;
+    lossHistory?: Array<number>;
 }
 
 export const uploadSubmission = async (

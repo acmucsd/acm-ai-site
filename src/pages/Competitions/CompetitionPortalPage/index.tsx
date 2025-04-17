@@ -566,7 +566,11 @@ function CompetitionPortalPage() {
         rank: 0,
         team: "",
         score: 0,
-        submitHistory: []
+        submitHistory: [],
+        scoreHistory: [],
+        winHistory: [],
+        lossHistory: [],
+        drawHistory: [],
     }
     );
 
@@ -766,6 +770,8 @@ function CompetitionPortalPage() {
             }
         })
     }
+    console.log("userrankdata", userRankData);
+    console.log("teaminfo", teamInfo);
 
 
     return (
@@ -822,7 +828,7 @@ function CompetitionPortalPage() {
                                 {compUser.competitionTeam == null ?
                                     <section id="noTeamMessage">
                                         <p>
-                                            Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code,
+                                            Uh oh! You're not in a team yet. Either make your own team or ask your friends to share their invite code,
                                             then navigate to Find Teams below to join their group!
                                         </p>
                                     </section>
@@ -840,7 +846,7 @@ function CompetitionPortalPage() {
                                         {/* Values Row */}
                                         <Row gutter={16} justify="center" className="stats-row values">
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">0</div>
+                                                <div className="stat-value">{userRankData.submitHistory.length}</div>
                                             </Col>
 
                                             <Col span={6} className="stat-col">
