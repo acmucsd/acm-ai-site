@@ -424,6 +424,10 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         setIsLeaveModalVisible(true);
     };
 
+    const showTeamLimitReached = () => {
+        message.error("Your team has reached max team size of 3!")
+    }
+
     const handleLeaveModalClose = () => {
         setIsLeaveModalVisible(false);
     };
@@ -540,7 +544,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         createTeam(compUser.competitionName, compUser.username, newTeamName).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
-            console.log(compUser)
+            // console.log(compUser)
 
         })
         .catch((error) => {
@@ -635,7 +639,12 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         <div id = "membersBox">
                             <div id="teamMembersHeader">
                                 <h3  className="heading">Members</h3>
-                                <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
+                                {
+                                    compUser.competitionTeam.teamMembers.length >= 3 ? 
+                                    <Button size="large" id="inviteButton" onClick={showTeamLimitReached} icon = {<IoPersonAdd size = {14}/>}>Invite</Button> :
+                                    <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
+                                }
+                                
                                 <Modal 
                                     className = "inviteCodeModal"
                                     centered 
@@ -683,7 +692,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
             {teamInfo == null && (
 
-                <section>
+                <section id="createTeamSection">
                     <Input
                         id="teamNameInput"
                         placeholder="New Team Name"
@@ -692,12 +701,12 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                     >
                     </Input><br />
                     <Button
-                        type="primary"
-                        size="large" id="makeTeamButton"
                         loading={isLoading}
+                        id="maketeambutton"
                         onClick={handleClick}
+                        className="colorful1"
                     >
-                        Make Team
+                        Create New Team
                     </Button>
                 </section>
             )}
@@ -969,15 +978,21 @@ function CompetitionPortalPage() {
                     Looks like we don't have you registered for {competitionName} yet. Click register below to get started. The page will
                     reload once we confirm your registration. Otherwise, feel free to leave this page.
                 </p>
-                <Button onClick={onSubmit} >
-                    Register
-                </Button>
 
-                <Button
-                    onClick={() => {
-                        history.push(path.join(history.location.pathname, '../competitions'));
-                    }}
-                >Go Back</Button>
+                <div className="btn-container">
+                    <Button onClick={onSubmit} className="colorful1">
+                        Register
+                    </Button>
+
+
+                    <Button
+                        onClick={() => {
+                            history.push(path.join(history.location.pathname, '../competitions'));
+                        }}
+                        className="colorful2"
+                    >Go Back</Button>
+
+                </div>
             </Modal>
 
             {/** Main Content */}
@@ -1005,7 +1020,7 @@ function CompetitionPortalPage() {
                                     <section id="noTeamMessage">
                                         <p>
                                             Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code,
-                                            then navigate to Find Teams below to join their group!
+                                            then navigate to Find Teams below to join their team!
                                         </p>
                                     </section>
 
