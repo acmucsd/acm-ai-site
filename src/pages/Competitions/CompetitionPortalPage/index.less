@@ -2,8 +2,30 @@
 @import '../../../newStyles/components.less';
 @import '../../../newStyles/index.less';
 
+.colorful1 {
+  .button-colorful();
 
-.CompetitionPortalPage {
+  :hover{
+    color: @mainred
+  }
+}
+
+.colorful2 {
+  .button-red-outline();
+  border: 2px solid @mainred;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  gap: @padding-base; // Adjust the gap as needed
+  margin-top: @margin-base
+
+}
+
+.CompetitionPortalPage { 
+  
+
   .noContainer();
 
   #portalHeader {
@@ -39,13 +61,14 @@
     }
   }
 
-
+  
 
 
   #portalStatsContent {
     width: 100%;
     min-height: 120px;
     margin-top: 2rem;
+    flex-shrink: 0;
 
     section#noTeamMessage {
       height: 108px;
@@ -138,6 +161,7 @@
 
 #leaderBoardContainer {
   margin-top: 1rem;
+  width: 100%;
 
   section {
     display: flex;
@@ -174,6 +198,14 @@
 
 #myTeamContainer {
   margin-top: 1rem;
+
+  #createTeamSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    gap: @padding-base
+  }
+
   section:first-of-type {
     display: grid;
     grid-template-columns: minmax(400px, 3fr) 2fr;
