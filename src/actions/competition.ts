@@ -60,7 +60,6 @@ export const uploadSubmission = async (
 export const uploadCompetitionResults = async (
   file: File | undefined,
   competitionid: string,
-  uploadedBy: string
 ): Promise<AxiosResponse> => {
   if (!file) {
     throw new Error('no file!');
@@ -68,15 +67,11 @@ export const uploadCompetitionResults = async (
   if (!competitionid) {
     throw new Error('competition ID not specified!');
   }
-  if (!uploadedBy) {
-    throw new Error('Admin user not identified for upload!');
-  }
 
   const token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     const bodyFormData = new FormData();
     bodyFormData.set('results', file);
-    bodyFormData.set('uploadedBy', uploadedBy);
 
     axios
       .post(

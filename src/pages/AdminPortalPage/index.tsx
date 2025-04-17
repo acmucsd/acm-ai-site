@@ -105,14 +105,10 @@ export default function AdminPortalPage(props: any) {
       message.error('Please select a competition to upload results for.');
       return;
     }
-    if (!user?.username) {
-      message.error('Could not identify user');
-      return;
-    }
 
     setUploadingResults(true);
 
-    uploadCompetitionResults(resultsFile, selectedCompetition, user.username)
+    uploadCompetitionResults(resultsFile, selectedCompetition)
       .then(() => {
         message.success('Competition results uploaded successfully!');
         setResultsFile(null);
