@@ -56,13 +56,13 @@ export const getTeamInfo = async (
   teamName: string
 ): Promise<AxiosResponse> => {
   let token = getToken(COOKIE_NAME);
+  const encodedTeamName = encodeURIComponent(teamName);
+  console.log("encode", encodedTeamName);
   return new Promise((resolve, reject) => {
     axios
       .get(
-        // TODO: remove hardcoded thing
-        // `http://localhost:9000/v1/competitions/teams/${competitionName}/${teamName}`,
         process.env.REACT_APP_API +
-          `/v1/competitions/teams/${competitionName}/${teamName}`,
+          `/v1/competitions/teams/${competitionName}/${encodedTeamName}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

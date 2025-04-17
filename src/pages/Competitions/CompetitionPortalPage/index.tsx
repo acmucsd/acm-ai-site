@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Layout, Button, Input, Modal, Upload, AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip, Pagination, Table} from 'antd';
 import type { UploadProps } from 'antd';
-import { ColumnsType } from "antd/es/table";
 import TextArea from "antd/es/input/TextArea";
 
 import { InboxOutlined } from '@ant-design/icons';
@@ -28,182 +27,13 @@ import CountdownTimer from "./CountDownTimer";
 import LineChart from "./LineChart";
 import SubmissionEntryCard from "./SubmissionEntryCard";
 
+import LeaderBoardTab from "./Leaderboard";
+import FindTeamsTab from "./FindTeams";
+
 import path from 'path';
 import './index.less';
 
 const { Content } = Layout;
-
-/**
- * Renders the tab to view all available teams to join or leave
- * 
- * @param {any} data Holds the array of all teams
- * @param {User} user 
- * @param {any} compUser The competition user
- * @param fetchTeamsCallback Function that refetches all team data
- * @param updateRankings Function that retreives the new rankings of teams
- * 
- */
-const FindTeamsTab = (
-    { data, user, compUser, registered, fetchTeamsCallback, updateRankings }:
-    { data: Object[], user: User, compUser: any, registered: Boolean, fetchTeamsCallback: () => void, updateRankings: () => void }
-) => {
-
-    // Constants to align the pagination options for the teams list
-    const [position] = useState<('top' | 'bottom' | 'both')>('bottom');
-    const [align] = useState<'start' | 'center' | 'end'>('center');
-
-    // Dropdown options for search bar
-    const [options, setOptions] = useState<Array<Object>>(data);
-
-    // Initialize the teams data once that data defined
-    useEffect(() => {
-        if (data) {
-            setOptions(data);
-        }
-    }, [data, registered])
-
-    const handleSearch = (value: string) => {
-        // Resets search options back to the original data if the value is an empty string
-        if (value === "") {
-            setOptions(data);
-        }
-    }
-
-    const handleSelect = (value: string) => {
-
-        // Filter the list items
-        const filteredOptions = data.filter((item: any) =>
-            item.teamName.toUpperCase().includes(value.toUpperCase())
-        );
-        setOptions(filteredOptions)
-    }
-
-    return (
-        <Content id="findTeamsContainer">
-            <AutoComplete
-                id="teamSearchBar"
-                onSearch={(text) => handleSearch(text)}
-                onSelect={handleSelect}
-
-                // list of all possible options for dropdown
-                options={options.map((item: any) => ({ value: item.teamName }))}
-
-                // filterOption to handle filtered dropdown items 
-                filterOption={(inputValue, option) =>
-                    option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                }
-                size="large"
-                style={{ width: "100%" }}
-            >
-                <Input allowClear bordered ={false} prefix={<IoSearch size = {20} id = "searchIcon" style = {{marginRight: "0.5rem", color: "lightgrey"}} />}  size="large" placeholder="Look up a team name"  />
-            </AutoComplete>
-
-            {/** List to preview all the teams based on the user's query */}
-            <List
-                split={false}
-                pagination={{ position, align, pageSize: 6 }}
-                dataSource={options}
-                renderItem={(team: any) => (
-                    <List.Item key={team.competitionName}>
-                        {<TeamCard team={team} user={user} compUser={compUser} fetchTeamCallback={fetchTeamsCallback} updateRankings={updateRankings} />}
-                    </List.Item>
-                )}
-            />
-
-        </Content>
-    );
-};
-
-
-
-
-/**
- * Renders the leaderboard of all teams based on their ranking
- * 
- * @param {any} rankData The ranking data of all teams
- * @param {Date} lastRefresh The last time when the leaderboard was refreshed
- * @param updateRankingsCallback Function that refetches the rankings for all teams
- * @param {boolean} isLoading Indicates if all the competitions teams info is being fetched
- * 
- */
-const LeaderBoardTab = (
-    {rankData, lastRefresh, updateRankingsCallback, isLoading}:
-    { rankData: any,
-      lastRefresh: Date | null,
-      updateRankingsCallback: () => void,
-      isLoading: boolean
-    }
-) => {
-
-    // Formats how the columns should be arranged and styled
-    const columns: ColumnsType<CompetitionData> = [
-        {
-            title: 'Rank',
-            dataIndex: 'rank',
-            sorter: (a, b) => b.score - a.score,
-            defaultSortOrder: 'ascend',
-        },
-        {
-            title: 'Team',
-            dataIndex: 'team',
-            sorter: (a, b) => a.team.length - b.team.length,
-            render(value, record, index) {
-                const color1 = genColor(record.team);
-                const color2 = genColor(`${record.team}_additional_seed`);
-
-                return (
-                    <span>
-                        <div
-                            style={{
-                                display: 'inline-block',
-                                verticalAlign: 'middle',
-                                borderRadius: '50%',
-                                width: '2rem',
-                                height: '2rem',
-                                background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                                marginRight: '0.75rem',
-                            }}
-                        ></div>
-                        {value.length > 28 ? (
-                            <span>{value.substring(0, 28)}...</span>
-                        ) : (
-                            <span>{value.substring(0, 28)}</span>
-                        )}
-                    </span>
-                );
-            },
-        },
-        {
-            title: 'Score',
-            dataIndex: 'score',
-            sorter: (a, b) => a.score - b.score,
-        },
-    ];
-
-
-    return (
-        <Content id="leaderBoardContainer">
-            <section>
-
-                <p id="lastRefreshedText">
-                    Last refreshed{': '}
-                    {lastRefresh ? lastRefresh.toLocaleString() : ''}
-                </p>
-                <Button
-                    size="large"
-                    className="refresh-btn"
-                    onClick={() => {
-                        updateRankingsCallback();
-                    }}
-                >
-                    Refresh
-                </Button>
-            </section>
-            <Table loading={isLoading} columns={columns} dataSource={rankData} />
-        </Content>
-    );
-};
-
 
 /**
  * Renders the submission preview list for the user's team
@@ -297,9 +127,6 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
     );
 }
 
-
-
-
 /**
  * Generates a unique avatar for each team member 
  * using a third party avatar library 
@@ -384,8 +211,6 @@ export const generateTeamPicture = (teamName: any) => {
 }
 
 
-
-
 /**
  * Component that displays a team's data. Contains several components 
  * to create a team, view team members, upload submissions, view submission previews, 
@@ -404,7 +229,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
-    // Form field to create a new etam with a name
+    // Form field to create a new team with a name
     const [newTeamName, setNewTeamName] = useState<string>("");
 
     // Modal states 
@@ -540,7 +365,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         createTeam(compUser.competitionName, compUser.username, newTeamName).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
-            console.log(compUser)
 
         })
         .catch((error) => {
@@ -557,7 +381,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         :
         <Content id="myTeamContainer" >
             
-            {teamInfo !== null && teamInfo.teamName && (
+            {teamInfo !== null && teamInfo?.teamName && (
                 <section>
                     <div id="teamMainContent">
 
@@ -785,7 +609,7 @@ function CompetitionPortalPage() {
                 showModal();
             }
             else {
-                // update the compeition user state
+                // update the competition user state
                 setCompUser(res.data);
 
                 // fetch all the teams
@@ -811,11 +635,8 @@ function CompetitionPortalPage() {
 
     // Function to get ranking of user's team and all teams
     function updateRankings() {
-
         setIsLoadingLeaderBoard(true);
-
         getLeaderboard(competitionName).then((res) => {
-            console.log(res.data)
 
             let newData = res.data
                 .sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
@@ -829,8 +650,6 @@ function CompetitionPortalPage() {
                                     score: d.bestScore,
                                     submitHistory: d.submitHistory,
                                 });
-
-                                console.log("user rank data: ", userRankData);
                             }
                         }
                         return {
@@ -905,7 +724,6 @@ function CompetitionPortalPage() {
         // If comp user is in a team, grab the team information
         if (Object.keys(compUser).length !== 0) {
             if (compUser.competitionTeam != null) {
-                console.log(compUser)
                 updateTeamInformation();
             }
             else {
