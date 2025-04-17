@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Layout, Button, Input, Modal, Upload, AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip, Pagination, Table} from 'antd';
 import type { UploadProps } from 'antd';
-import { ColumnsType } from "antd/es/table";
 import TextArea from "antd/es/input/TextArea";
 
-import { InboxOutlined } from '@ant-design/icons';
+import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
 import { IoHelp, IoRefresh, IoSearch, IoTime, IoEllipsisVertical, IoPersonAdd } from "react-icons/io5";
 import { FaCheck, FaClock, FaStar } from "react-icons/fa";
 
@@ -18,7 +17,6 @@ import {
     leaveTeam,
     getSubmissionDetails
 } from '../../../actions/teams/utils';
-import TeamCard from '../../../components/TeamCard/index';
 import DefaultLayout from "../../../components/layouts/default";
 import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
@@ -28,182 +26,13 @@ import CountdownTimer from "./CountDownTimer";
 import LineChart from "./LineChart";
 import SubmissionEntryCard from "./SubmissionEntryCard";
 
+import LeaderBoardTab from "./Leaderboard";
+import FindTeamsTab from "./FindTeams";
+
 import path from 'path';
 import './index.less';
 
 const { Content } = Layout;
-
-/**
- * Renders the tab to view all available teams to join or leave
- * 
- * @param {any} data Holds the array of all teams
- * @param {User} user 
- * @param {any} compUser The competition user
- * @param fetchTeamsCallback Function that refetches all team data
- * @param updateRankings Function that retreives the new rankings of teams
- * 
- */
-const FindTeamsTab = (
-    { data, user, compUser, registered, fetchTeamsCallback, updateRankings }:
-    { data: Object[], user: User, compUser: any, registered: Boolean, fetchTeamsCallback: () => void, updateRankings: () => void }
-) => {
-
-    // Constants to align the pagination options for the teams list
-    const [position] = useState<('top' | 'bottom' | 'both')>('bottom');
-    const [align] = useState<'start' | 'center' | 'end'>('center');
-
-    // Dropdown options for search bar
-    const [options, setOptions] = useState<Array<Object>>(data);
-
-    // Initialize the teams data once that data defined
-    useEffect(() => {
-        if (data) {
-            setOptions(data);
-        }
-    }, [data, registered])
-
-    const handleSearch = (value: string) => {
-        // Resets search options back to the original data if the value is an empty string
-        if (value === "") {
-            setOptions(data);
-        }
-    }
-
-    const handleSelect = (value: string) => {
-
-        // Filter the list items
-        const filteredOptions = data.filter((item: any) =>
-            item.teamName.toUpperCase().includes(value.toUpperCase())
-        );
-        setOptions(filteredOptions)
-    }
-
-    return (
-        <Content id="findTeamsContainer">
-            <AutoComplete
-                id="teamSearchBar"
-                onSearch={(text) => handleSearch(text)}
-                onSelect={handleSelect}
-
-                // list of all possible options for dropdown
-                options={options.map((item: any) => ({ value: item.teamName }))}
-
-                // filterOption to handle filtered dropdown items 
-                filterOption={(inputValue, option) =>
-                    option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                }
-                size="large"
-                style={{ width: "100%" }}
-            >
-                <Input allowClear bordered ={false} prefix={<IoSearch size = {20} id = "searchIcon" style = {{marginRight: "0.5rem", color: "lightgrey"}} />}  size="large" placeholder="Look up a team name"  />
-            </AutoComplete>
-
-            {/** List to preview all the teams based on the user's query */}
-            <List
-                split={false}
-                pagination={{ position, align, pageSize: 6 }}
-                dataSource={options}
-                renderItem={(team: any) => (
-                    <List.Item key={team.competitionName}>
-                        {<TeamCard team={team} user={user} compUser={compUser} fetchTeamCallback={fetchTeamsCallback} updateRankings={updateRankings} />}
-                    </List.Item>
-                )}
-            />
-
-        </Content>
-    );
-};
-
-
-
-
-/**
- * Renders the leaderboard of all teams based on their ranking
- * 
- * @param {any} rankData The ranking data of all teams
- * @param {Date} lastRefresh The last time when the leaderboard was refreshed
- * @param updateRankingsCallback Function that refetches the rankings for all teams
- * @param {boolean} isLoading Indicates if all the competitions teams info is being fetched
- * 
- */
-const LeaderBoardTab = (
-    {rankData, lastRefresh, updateRankingsCallback, isLoading}:
-    { rankData: any,
-      lastRefresh: Date | null,
-      updateRankingsCallback: () => void,
-      isLoading: boolean
-    }
-) => {
-
-    // Formats how the columns should be arranged and styled
-    const columns: ColumnsType<CompetitionData> = [
-        {
-            title: 'Rank',
-            dataIndex: 'rank',
-            sorter: (a, b) => b.score - a.score,
-            defaultSortOrder: 'ascend',
-        },
-        {
-            title: 'Team',
-            dataIndex: 'team',
-            sorter: (a, b) => a.team.length - b.team.length,
-            render(value, record, index) {
-                const color1 = genColor(record.team);
-                const color2 = genColor(`${record.team}_additional_seed`);
-
-                return (
-                    <span>
-                        <div
-                            style={{
-                                display: 'inline-block',
-                                verticalAlign: 'middle',
-                                borderRadius: '50%',
-                                width: '2rem',
-                                height: '2rem',
-                                background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                                marginRight: '0.75rem',
-                            }}
-                        ></div>
-                        {value.length > 28 ? (
-                            <span>{value.substring(0, 28)}...</span>
-                        ) : (
-                            <span>{value.substring(0, 28)}</span>
-                        )}
-                    </span>
-                );
-            },
-        },
-        {
-            title: 'Score',
-            dataIndex: 'score',
-            sorter: (a, b) => a.score - b.score,
-        },
-    ];
-
-
-    return (
-        <Content id="leaderBoardContainer">
-            <section>
-
-                <p id="lastRefreshedText">
-                    Last refreshed{': '}
-                    {lastRefresh ? lastRefresh.toLocaleString() : ''}
-                </p>
-                <Button
-                    size="large"
-                    className="refresh-btn"
-                    onClick={() => {
-                        updateRankingsCallback();
-                    }}
-                >
-                    Refresh
-                </Button>
-            </section>
-            <Table loading={isLoading} columns={columns} dataSource={rankData} />
-        </Content>
-    );
-};
-
 
 /**
  * Renders the submission preview list for the user's team
@@ -297,9 +126,6 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
     );
 }
 
-
-
-
 /**
  * Generates a unique avatar for each team member 
  * using a third party avatar library 
@@ -371,19 +197,17 @@ export const generateTeamPicture = (teamName: any) => {
     return (
         <div
             style={{
-                display: 'inline-block',
+                display: 'inline-flex',
                 verticalAlign: 'middle',
                 borderRadius: '100%',
                 width: '4rem',
                 height: '4rem',
                 background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                marginRight: '0.75rem',
+                marginRight: '2rem',
             }}>
         </div>
     )
 }
-
-
 
 
 /**
@@ -404,7 +228,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
-    // Form field to create a new etam with a name
+    // Form field to create a new team with a name
     const [newTeamName, setNewTeamName] = useState<string>("");
 
     // Modal states 
@@ -544,7 +368,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         createTeam(compUser.competitionName, compUser.username, newTeamName).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
-            // console.log(compUser)
 
         })
         .catch((error) => {
@@ -561,13 +384,15 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         :
         <Content id="myTeamContainer" >
             
-            {teamInfo !== null && teamInfo.teamName && (
+            {teamInfo !== null && teamInfo?.teamName && (
                 <section>
                     <div id="teamMainContent">
 
                         <div id="teamHeader">
-                            {generateTeamPicture(teamInfo.teamName)}
                             <div id="teamNameWrapper">
+                                <div>
+                                    {generateTeamPicture(teamInfo.teamName)}
+                                </div>
                                 <article>
                                     <h3>{teamInfo.teamName}</h3>
                                     <p id = "rankingTag">{getOrdinal(rankData.rank)} place</p>
@@ -592,7 +417,21 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                             <LineChart scoreHistory={(teamInfo != null) ? teamInfo.scoreHistory.map(Number) : []}/>
                         </div>
 
-                        <form id = "uploadFileSection">
+                        <div id = "uploadFileSection">
+                            <span id = "uploadFileHeader">
+                                <h3>Upload Submission</h3>
+                                <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
+                                    <FaClock size = {28} />
+                                </Tooltip>
+                            </span>
+                            
+                            <Link to={{ pathname: `competitions/${metaData.competitionName}/upload`}} >
+                                <Button size="large" className="uploadButton" icon = {<UploadOutlined size = {14}/>}>Upload</Button>
+                            </Link>
+
+                        </div>
+
+                        {/* <form id = "uploadFileSection">
                             <span id = "uploadFileHeader">
                                 <h3>Upload Submission</h3>
                                 <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
@@ -612,7 +451,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 onChange={(evt) => setDesc(evt.target.value)}
                             />
 
-                            {/*Inline style needed here */}
                             <Dragger id = "uploadDragArea" style = {{borderRadius: "20px", background: "white", border: "none"}}height={150} {...uploadProps}>
                                 <p id="antUploadDragIcon">
                                     <InboxOutlined style={{color: "darkgray"}}/>
@@ -629,7 +467,8 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                             >
                                 Submit
                             </Button>   
-                        </form>
+                        </form> 
+                        */}
 
                         <SubmissionsPreview  teamInfo={teamInfo} competitionName= {metaData.competitionName} />
                     </div>
@@ -678,13 +517,14 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
                         </div>
 
-                        <div id = "matchesBox">
+                        {/* <div id = "matchesBox">
                             <h3>Matches</h3>
                             <p>Check out your team's match replays to see how well youre performing!</p>
                             <Link to={`/matches/${teamInfo.teamName}`} rel="noopener noreferrer">
                                 <p style = {{color: "white", marginTop: "1rem"}}>view all &gt;</p>
                             </Link>
-                        </div>
+                        </div> */}
+
                     </div>
                     
                 </section>
@@ -751,7 +591,11 @@ function CompetitionPortalPage() {
         rank: 0,
         team: "",
         score: 0,
-        submitHistory: []
+        submitHistory: [],
+        scoreHistory: [],
+        winHistory: [],
+        lossHistory: [],
+        drawHistory: [],
     }
     );
 
@@ -794,7 +638,7 @@ function CompetitionPortalPage() {
                 showModal();
             }
             else {
-                // update the compeition user state
+                // update the competition user state
                 setCompUser(res.data);
 
                 // fetch all the teams
@@ -820,33 +664,42 @@ function CompetitionPortalPage() {
 
     // Function to get ranking of user's team and all teams
     function updateRankings() {
-
         setIsLoadingLeaderBoard(true);
-
         getLeaderboard(competitionName).then((res) => {
-            console.log(res.data)
 
             let newData = res.data
-                .sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
+                .sort((a: any, b: any) => {
+                    const latestScoreA = a.scoreHistory?.length > 0 ? a.scoreHistory[a.scoreHistory.length - 1] : -Infinity;
+                    const latestScoreB = b.scoreHistory?.length > 0 ? b.scoreHistory[b.scoreHistory.length - 1] : -Infinity;
+                    return latestScoreB - latestScoreA;
+                })
+                // .sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
                 .map((d: any, index: number) => {
+                        const latestScore = d.scoreHistory?.length > 0 ? d.scoreHistory[d.scoreHistory.length - 1] : 0; 
 
                         if (teamInfo != null) {
                             if (d.teamName === teamInfo.teamName) {
                                 setUserRankData({
                                     rank: index + 1,
-                                    team: d.teamName,
-                                    score: d.bestScore,
+                                    team: d.teamName, 
+                                    score: latestScore,
                                     submitHistory: d.submitHistory,
+                                    scoreHistory: d.scoreHistory,
+                                    winHistory: d.winHistory,
+                                    lossHistory: d.lossHistory,
+                                    drawHistory: d.drawHistory,
                                 });
-
-                                console.log("user rank data: ", userRankData);
                             }
                         }
                         return {
                             rank: index + 1,
-                            team: d.teamName,
-                            score: d.bestScore,
+                            team: d.teamName, 
+                            score: latestScore,
                             submitHistory: d.submitHistory,
+                            scoreHistory: d.scoreHistory,
+                            winHistory: d.winHistory,
+                            lossHistory: d.lossHistory,
+                            drawHistory: d.drawHistory,
                         };
                 });
 
@@ -914,7 +767,6 @@ function CompetitionPortalPage() {
         // If comp user is in a team, grab the team information
         if (Object.keys(compUser).length !== 0) {
             if (compUser.competitionTeam != null) {
-                console.log(compUser)
                 updateTeamInformation();
             }
             else {
@@ -957,7 +809,6 @@ function CompetitionPortalPage() {
             }
         })
     }
-
 
     return (
         <DefaultLayout>
@@ -1019,8 +870,8 @@ function CompetitionPortalPage() {
                                 {compUser.competitionTeam == null ?
                                     <section id="noTeamMessage">
                                         <p>
-                                            Uh oh! You’re not in a team yet. Either make your own team or ask your friends to share their invite code,
-                                            then navigate to Find Teams below to join their team!
+                                            Uh oh! You're not in a team yet. Either make your own team or ask your friends to share their invite code,
+                                            then navigate to Find Teams below to join their group!
                                         </p>
                                     </section>
 
@@ -1037,11 +888,16 @@ function CompetitionPortalPage() {
                                         {/* Values Row */}
                                         <Row gutter={16} justify="center" className="stats-row values">
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">0</div>
+                                                <div className="stat-value">{userRankData.submitHistory.length}</div>
                                             </Col>
 
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">{userRankData.score}</div>
+                                                <div className="stat-value"> 
+                                                    {userRankData.scoreHistory?.length > 0
+                                                        ? userRankData.scoreHistory[userRankData.scoreHistory?.length - 1]
+                                                        : 0
+                                                    }
+                                                </div>
                                             </Col>
 
                                             <Col span={6} className="stat-col">
@@ -1049,7 +905,20 @@ function CompetitionPortalPage() {
                                             </Col>
 
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">0-0-0</div>
+                                                <div className="stat-value">
+                                                {userRankData.winHistory?.length > 0
+                                                    ? userRankData.winHistory[userRankData.winHistory?.length - 1]
+                                                    : 0
+                                                }-
+                                                {userRankData.drawHistory?.length > 0
+                                                    ? userRankData.drawHistory[userRankData.drawHistory?.length - 1]
+                                                    : 0
+                                                }-
+                                                {userRankData.lossHistory?.length > 0
+                                                    ? userRankData.lossHistory[userRankData.lossHistory?.length - 1]
+                                                    : 0
+                                                }
+                                                </div>
                                             </Col>
                                         </Row>
                                     </section>
@@ -1080,7 +949,8 @@ function CompetitionPortalPage() {
                                         rankData={rankingsData}
                                         lastRefresh={lastRefresh}
                                         updateRankingsCallback={updateRankings}
-                                        isLoading={isLoadingLeaderBoard} />
+                                        isLoading={isLoadingLeaderBoard} 
+                                        competitionName={competitionName}/>
                                 },
                                 {
                                     label: <p>Find Teams</p>,
