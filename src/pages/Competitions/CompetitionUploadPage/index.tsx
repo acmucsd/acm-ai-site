@@ -83,7 +83,7 @@ const CompetitionUploadPage = () => {
     )
       .then((res) => {
         message.success('Submission Uploaded Succesfully');
-        history.replace(path.join('/competitions', competitionID));
+        history.replace('/portal');
       })
       .catch((err) => {
         console.log(err);
@@ -109,12 +109,12 @@ const CompetitionUploadPage = () => {
   };
 
   const beforeUpload = (file: any) => {
-    const isPythonFile = file.name.endsWith('.py');
-    if (!isPythonFile) {
-      message.error('You can only upload Python (.py) files!');
+    const isBotPy = file.name === 'bot.py';
+    if (!isBotPy) {
+      message.error('You can only upload a file named bot.py!');
     }
 
-    return isPythonFile;
+    return isBotPy;
   };
 
   return (
@@ -124,7 +124,7 @@ const CompetitionUploadPage = () => {
         <BackLink to="../" />
         <h2>Submission to {competitionID}</h2>
         <p>
-          You must submit a .py file that contains your submission. You can
+          You must submit a bot.py file that contains your submission. You can
           add an optional description below as well as tags.
         </p>
         <br />

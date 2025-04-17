@@ -185,7 +185,7 @@ const SubmissionEntryCard = (data: any) => {
         <p className="submissionDescription">{data.entry.description}</p>
         <span className="submissionFileRow">
           <FaLink size={20} style={{ marginRight: "1rem" }} />
-          <p>bot.targz</p>
+          <p>bot.py</p>
           {/* TODO: Add this back in when file submission works: <p>{data.entry.fileLocation}</p> */}
         </span>
       </div>

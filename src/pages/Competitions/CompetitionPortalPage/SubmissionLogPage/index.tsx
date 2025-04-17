@@ -107,10 +107,10 @@ function SubmissionLogPage() {
                     <h1 className="title2">Submission Log</h1>
                     <p>View your previous submissions to gauge the performance of your bots!</p>
 
-                    <span>
+                    {/* <span>
                         <Input type="search" size = "large" id = "submissionLogSearch" placeholder="search by uploader"></Input>
                         <Button id = "refreshButton" size = "large" onClick={() => fetchRecents()}><p>Refresh</p></Button>
-                    </span>
+                    </span> */}
                 </Content>
                 
 

@@ -55,6 +55,7 @@ import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPa
 import SubmissionLogPage from './pages/Competitions/CompetitionPortalPage/SubmissionLogPage';
 import MatchesPage from './pages/Competitions/CompetitionPortalPage/MatchesPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminPortalPage from './pages/AdminPortalPage';
 
 let cookie = getCookie(COOKIE_NAME);
 
@@ -187,6 +188,7 @@ function App() {
               <Route path="/requestreset" component={requestreset} /> 
               <Route path="/resetpassword" component={ForgotPasswordPage} />
               <Route path="/admin/register" exact component={RegisterPage} />
+              <Route path="/admin/portal" exact component={AdminPortalPage} />
 
               {/* old competitions */}
               <Route  path="/old-competitions/hideandseek" exact component={HideAndSeek2020Page} />

@@ -15,6 +15,10 @@ export interface CompetitionData {
     team: string;
     score: number;
     submitHistory: Array<string>;
+    scoreHistory: Array<number>;
+    winHistory: Array<number>;
+    drawHistory: Array<number>;
+    lossHistory: Array<number>;
 }
 
 export const uploadSubmission = async (
@@ -56,6 +60,57 @@ export const uploadSubmission = async (
       });
   });
 };
+
+export const uploadCompetitionResults = async (
+  file: File | undefined,
+  competitionid: string,
+): Promise<AxiosResponse> => {
+  
+  if (!file) {
+    throw new Error('no file!');
+  }
+  if (!competitionid) {
+    throw new Error('competition ID not specified!');
+  }
+
+  const token = getToken(COOKIE_NAME);
+  return new Promise((resolve, reject) => {
+    const bodyFormData = new FormData();
+    const csvFile = new File([file], file.name, {type: 'text/csv'});
+    bodyFormData.append('results', csvFile);
+
+    axios
+      .post(
+        process.env.REACT_APP_API + 
+          `/v1/competitions/${competitionid}/uploadResults`,
+        bodyFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+
+      )
+      .then((res: AxiosResponse) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        message.error(error);
+        reject(error);
+      });
+  });
+}
+
+export const getCompetitions = async () => {
+  try {
+    const response = await axios.get(process.env.REACT_APP_API + `/v1/competitions`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching competitions:', error);
+    throw error;
+  }
+}
 
 export const getMetaData = async (
   competitionid: string
