@@ -18,7 +18,7 @@ const UploadNNPage = () => {
   const history = useHistory();
   useEffect(() => {
     if (!user.loggedIn) {
-      message.info('You need to login to upload predictions and participate');
+      message.info('You need to login to upload submissions and participate');
       history.replace(path.join(window.location.pathname, '../../../login'));
     }
   }, []);
