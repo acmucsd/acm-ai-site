@@ -77,8 +77,27 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
             dataIndex: 'score',
             sorter: (a, b) => a.score - b.score,
         },
+        {
+            title: 'W',
+            dataIndex: 'winHistory',
+            render: (winHistory: number[]) => winHistory[winHistory.length - 1],
+            sorter: (a, b) => (a.winHistory[a.winHistory.length - 1] || 0) - (b.winHistory[b.winHistory.length - 1] || 0),
+        },
+        {
+            title: 'L',
+            dataIndex: 'lossHistory',
+            render: (lossHistory: number[]) => lossHistory[lossHistory.length - 1],
+            sorter: (a, b) => (a.lossHistory[a.lossHistory.length - 1] || 0) - (b.lossHistory[b.lossHistory.length - 1] || 0),
+        },
+        {
+            title: 'D',
+            dataIndex: 'drawHistory',
+            render: (drawHistory: number[]) => drawHistory[drawHistory.length - 1],
+            sorter: (a, b) => (a.drawHistory[a.drawHistory.length - 1] || 0) - (b.drawHistory[b.drawHistory.length - 1] || 0),
+        },
     ];
 
+    console.log("rankdata", rankData);
 
     return (
         <Content id="leaderBoardContainer">
