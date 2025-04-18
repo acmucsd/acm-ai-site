@@ -644,7 +644,9 @@ function CompetitionPortalPage() {
                 // fetch all the teams
                 getTeams(competitionName).then(res => {
                     if (res.data) {
-                        setAllTeams(Array.from(res.data))
+                        const nonemptyteams = res.data.filter((team: any) => team.teamMembers.length > 0);
+                        setAllTeams(Array.from(nonemptyteams))
+                    
                     }
                 })
                 .catch(error => {
