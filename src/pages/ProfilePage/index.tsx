@@ -139,8 +139,8 @@ export default function ProfilePage(props: any) {
               <p className='compsDescription'> Collaborate in a dynamic team environment and gain hands-on 
                         experience, while enjoying every step of the journey!
               </p>
-              <Link to={`/competitions`} rel="noopener noreferrer">
-                      <Button size="large" shape="round" className="navButton">Explore Competitions!</Button>
+              <Link to={`/portal`} rel="noopener noreferrer">
+                      <Button size="large" shape="round" className="navButton">Competitions Portal &gt;</Button>
               </Link>
             </div>
           </div>
