@@ -112,6 +112,41 @@ export const getCompetitions = async () => {
   }
 }
 
+export const getCompetitionDetails = async (competitionName: string) => {
+  try {
+    const response = await axios.get(process.env.REACT_APP_API + `/v1/competitions/${competitionName}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching details for ${competitionName}:`, error);
+    throw error;
+  }
+};
+
+export const updateCompetitionDescription = async (competitionName: string, description: string) => {
+  const token = getToken(COOKIE_NAME);
+  try {
+    const response = await axios.post(
+      process.env.REACT_APP_API + `/v1/competitions/${competitionName}/updateDescription`,
+      { description },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error(`Error updating description for ${competitionName}:`, error);
+    if (error.response?.data?.error?.message) {
+      message.error(error.response.data.error.message);
+    } else {
+      message.error('Failed to update competition description.');
+    }
+    throw error;
+  }
+};
+
 export const getMetaData = async (
   competitionid: string
 ): Promise<AxiosResponse> => {
