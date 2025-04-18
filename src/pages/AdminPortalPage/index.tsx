@@ -5,13 +5,14 @@ import {
   profileData,
   UserProfile,
 } from '../../actions/users';
-import { Layout, Button, Flex, message, Upload, Select } from 'antd';
+import { Layout, Button, Flex, message, Upload, Select, Input } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-import { uploadCompetitionResults, getCompetitions } from '../../actions/competition';
+import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription } from '../../actions/competition';
 const { Content } = Layout;
 const { Option } = Select;
+const { TextArea } = Input;
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'long',
@@ -26,6 +27,8 @@ export default function AdminPortalPage(props: any) {
   const [selectedCompetition, setSelectedCompetition] = useState<string | undefined>(undefined);
   const [competitions, setCompetitions] = useState<Array<{ competitionName: string }>>([]);
   const [competitionsLoading, setCompetitionsLoading] = useState(true);
+  const [competitionDescription, setCompetitionDescription] = useState<string>('');
+  const [updatingDescription, setUpdatingDescription] = useState(false);
   const history = useHistory();
 
   const checkAdminAccess = useCallback((profile: UserProfile | null) => {
@@ -63,10 +66,35 @@ export default function AdminPortalPage(props: any) {
       });
   }, [getCompetitions]);
 
+  const loadCompetitionDescription = useCallback((competitionName: string) => {
+    if (competitionName) {
+      setCompetitionsLoading(true);
+      getCompetitionDetails(competitionName)
+        .then((data: any) => {
+          setCompetitionDescription(data.description || '');
+          setCompetitionsLoading(false);
+        })
+        .catch((error) => {
+          message.error(`Failed to load details for ${competitionName}.`);
+          console.error('Error loading competition details:', error);
+          setCompetitionsLoading(false);
+          setCompetitionDescription('');
+        });
+    } else {
+      setCompetitionDescription('');
+    }
+  }, [getCompetitionDetails]);
+
   useEffect(() => {
     loadProfileData();
     loadCompetitionsData();
   }, [loadProfileData, loadCompetitionsData]);
+
+  useEffect(() => {
+    if (selectedCompetition) {
+      loadCompetitionDescription(selectedCompetition);
+    }
+  }, [selectedCompetition, loadCompetitionDescription]);
 
   const handleResultsFileChange = (info: any) => {
     if (info.file.status === 'done') {
@@ -124,6 +152,34 @@ export default function AdminPortalPage(props: any) {
 
   };
 
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCompetitionDescription(e.target.value);
+  };
+
+  const handleUpdateDescription = () => {
+    if (!selectedCompetition) {
+      message.error('Please select a competition to update the description for.');
+      return;
+    }
+    if (!competitionDescription) {
+      message.error('Please enter a new description.');
+      return;
+    }
+
+    setUpdatingDescription(true);
+    updateCompetitionDescription(selectedCompetition, competitionDescription)
+      .then(() => {
+        message.success(`Description for ${selectedCompetition} updated successfully!`);
+      })
+      .catch((error) => {
+        message.error(`Failed to update description for ${selectedCompetition}.`);
+        console.error('Error updating description:', error);
+      })
+      .finally(() => {
+        setUpdatingDescription(false);
+      });
+  };
+
   if (loading) {
     return <DefaultLayout>Loading...</DefaultLayout>;
   }
@@ -153,7 +209,7 @@ export default function AdminPortalPage(props: any) {
             </h1>
           </Flex>
 
-          <div className="compResults">
+          <div className="competitionResults">
             <h2>Upload Competition Results</h2>
             <p>Select a CSV file containing competition results.</p>
 
@@ -192,6 +248,46 @@ export default function AdminPortalPage(props: any) {
               style={{ marginTop: '10px' }}
             >
               Upload Results
+            </Button>
+          </div>
+
+          <div className="competitionDescription">
+            <h2>Update Competition Description</h2>
+            <p>Select a competition to update its description.</p>
+
+            <Select
+              placeholder="Select Competition"
+              className="competitionDropdown"
+              style={{ width: '80%', margin: '10px 0px'}}
+              onChange={handleCompetitionSelect}
+              value={selectedCompetition}
+              loading={competitionsLoading}
+            >
+              {competitions.map((comp) => (
+                <Option key={comp.competitionName} value={comp.competitionName}>
+                  {comp.competitionName}
+                </Option>
+              ))}
+            </Select>
+
+            {selectedCompetition && (
+              <TextArea
+                rows={4}
+                placeholder="Enter new description"
+                value={competitionDescription}
+                onChange={handleDescriptionChange}
+                style={{ width: '80%', maxWidth: 600, margin: '10px 0px'}}
+              />
+            )}
+
+            <Button
+              type="primary"
+              onClick={handleUpdateDescription}
+              disabled={!selectedCompetition || updatingDescription}
+              loading={updatingDescription}
+              style={{ marginTop: '10px', maxWidth: 300}}
+            >
+              Set New Description
             </Button>
           </div>
         </Content>

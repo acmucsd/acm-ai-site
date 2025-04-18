@@ -13,7 +13,6 @@
 
   .profileHeader {
     padding: 2rem;
-
     display: flex;
 
     h1 .profileName {
@@ -25,10 +24,21 @@
     }
   }
 
-  .compResults {
+  .competitionResults {
     .generic-section();
+    max-width: 50%;
     h2 {
       font-size: @font5;
     }
+  }
+  
+  .competitionDescription {
+    .generic-section();
+    max-width: 50%;
+    h2 {
+      font-size: @font5;
+    }
+    display: flex;
+    flex-direction: column;
   }
 }
