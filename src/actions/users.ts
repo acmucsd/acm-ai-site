@@ -85,3 +85,64 @@ export const newsletterOptIn = async (optIn: boolean): Promise<void> => {
       });
   });
 };
+
+export const getUsers = async (): Promise<{ users: string[] }> => {
+  const token = getToken();
+  return new Promise((resolve, reject) => {
+    axios
+      .get(process.env.REACT_APP_API + '/v1/users', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res: AxiosResponse) => {
+        resolve(res.data as { users: string[] });
+      })
+      .catch((error) => {
+        message.error('Failed to fetch users.');
+        reject(error);
+      });
+  });
+};
+
+export const promoteUserToAdmin = async (userId: string): Promise<void> => {
+  const token = getToken();
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        process.env.REACT_APP_API + `/v1/users/${userId}/makeAdmin`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then(() => {
+        message.success(`User ${userId} promoted to admin.`);
+        resolve();
+      })
+      .catch((error) => {
+        message.error(`Failed to promote user ${userId} to admin.`);
+        reject(error);
+      });
+  });
+};
+
+export const promoteUserToPrimaryAdmin = async (userId: string): Promise<void> => {
+  const token = getToken();
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        process.env.REACT_APP_API + `/v1/users/${userId}/makePrimaryAdmin`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then(() => {
+        message.success(`User ${userId} promoted to primary admin.`);
+        resolve();
+      })
+      .catch((error) => {
+        message.error(`Failed to promote user ${userId} to primary admin.`);
+        reject(error);
+      });
+  });
+};
