@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
+import { Link } from 'react-router-dom';
 import {
   newsletterOptIn,
   profileData,
@@ -12,6 +13,10 @@ import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { EditOutlined } from '@ant-design/icons';
 import majors from './majors';
+import { Card } from '../../components/Card';
+import TeamImg from '../../../public/team.png';
+import AIMLImg from '../../../public/aimlpath.jpg';
+
 const { Content } = Layout;
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
@@ -119,6 +124,79 @@ export default function ProfilePage(props: any) {
               )}
             </Col>
           </Row>
+        </Content>
+
+        <div className="profileGradientLine"></div>
+
+        <Content className='exploreSection'>
+
+          <div className='competitionsSection'>
+            <div className='compsContainer'>
+              <div className="compsHeader">
+                  <h3 className='sub-title'>Most Recent Competition: <span className="colorful">
+                          StarChess.AI (2025)</span></h3>
+              </div>
+              <p className='compsDescription'> Collaborate in a dynamic team environment and gain hands-on 
+                        experience, while enjoying every step of the journey!
+              </p>
+              <Link to={`/portal`} rel="noopener noreferrer">
+                      <Button size="large" shape="round" className="navButton">Competitions Portal &gt;</Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className='exploreCards'>
+            <Card
+              className="exploreCard"
+              style={{ 
+                width: 600, 
+                backgroundColor: 'transparent',
+                borderRadius: "70px"  }}
+              bodyStyle={{padding: "24px 0px 0px 0px"}}
+              cover={<img alt="events" src={TeamImg} className='cover'/>}
+              bordered={false}
+            > 
+              <Col className="cardPreviewContent">
+                <Row className='areaDirect'>
+                  <h4>ACM AI Team</h4>
+                  <Link to={`/about`} rel="noopener noreferrer">
+                      <Button size="large" shape="round" className="navButton">
+                              <span>&#8594;</span></Button>
+                  </Link>
+                </Row>
+                <div className='exploreDescription'>
+                  <p>We are a tight-knit community of students that exists within 
+                  the ACM family at UCSD. Learn more about us!</p>
+                </div>
+              </Col>
+            </Card>
+
+            <Card
+              className="exploreCard"
+              style={{ width: 600, backgroundColor: 'transparent' }}
+              bodyStyle={{padding: "24px 0px 0px 0px"}}
+              cover={<img 
+                alt="Projects" 
+                src={AIMLImg} 
+                className='cover'
+                />}
+              bordered={false}
+            >
+              <Col className="cardPreviewContent">
+                <Row className='areaDirect'>
+                  <h4>Previous Projects</h4>
+                  <Link to={`/projects`} rel="noopener noreferrer">
+                      <Button size="large" shape="round" className="navButton">
+                              <span>&#8594;</span></Button>
+                  </Link>
+                </Row>
+                <div className='exploreDescription'>
+                  <p>Explore our club's cutting-edge AI projects, showcasing 
+                  innovation and expertise in artificial intelligence!</p>
+                </div>   
+              </Col>
+            </Card>
+          </div>
         </Content>
         <MainFooter />
       </Content>
