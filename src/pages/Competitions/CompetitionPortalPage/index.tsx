@@ -577,7 +577,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 function CompetitionPortalPage() {
 
     // This enables us to specify the most current competition
-    const competitionName = "StarChess.TEST";
+    const competitionName = "StarChess.AI";
     const history = useHistory();
 
     // User profile data
