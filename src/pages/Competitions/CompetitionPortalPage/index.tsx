@@ -4,7 +4,7 @@ import type { UploadProps } from 'antd';
 import TextArea from "antd/es/input/TextArea";
 
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { IoHelp, IoRefresh, IoSearch, IoTime, IoEllipsisVertical, IoPersonAdd } from "react-icons/io5";
+import { IoHelp, IoRefresh, IoSearch, IoTime, IoEllipsisVertical, IoPersonAdd, IoExit } from "react-icons/io5";
 import { FaCheck, FaClock, FaStar } from "react-icons/fa";
 
 import UserContext, { User } from "../../../UserContext";
@@ -371,7 +371,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
         })
         .catch((error) => {
-            message.error(error.message);
+            // message.error(error.message);
         });
         setIsLoading(false);
     }
@@ -478,11 +478,25 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         <div id = "membersBox">
                             <div id="teamMembersHeader">
                                 <h3  className="heading">Members</h3>
+                                
+                                <div id="teamActionBtns">
+                                <Button size="large" id="inviteButton" icon = {<IoExit size = {14}/>} onClick={()=>{
+                                        Modal.confirm({
+                                            title: 'Are you sure you want to leave the team?',
+                                            content: 'You will need invite code to join again.',
+                                            okText: 'Yes',
+                                            okType: 'danger',
+                                            cancelText: 'No',
+                                            onOk: handleLeaveTeam,
+                                        });
+                                    }}>Leave</Button>
                                 {
-                                    compUser.competitionTeam.teamMembers.length >= 3 ? 
+                                    compUser.competitionTeam?.teamMembers.length >= 3 ? 
                                     <Button size="large" id="inviteButton" onClick={showTeamLimitReached} icon = {<IoPersonAdd size = {14}/>}>Invite</Button> :
                                     <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
                                 }
+
+                                </div>
                                 
                                 <Modal 
                                     className = "inviteCodeModal"
@@ -854,7 +868,6 @@ function CompetitionPortalPage() {
                     <section>
                         <div id="hello">
                             <h1 className="title2">Hello, <span className="colorful">{user.username}</span></h1>
-                            <Button size = "large"><p>Help</p></Button>
                         </div>
                         <div id="portalBanner">
                             <p>Welcome the the AI Portal for {competitionName}</p>

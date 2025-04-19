@@ -149,10 +149,9 @@ export default function ProfilePage(props: any) {
             <Card
               className="exploreCard"
               style={{ 
-                width: 600, 
+                width: '80%',
                 backgroundColor: 'transparent',
                 borderRadius: "70px"  }}
-              bodyStyle={{padding: "24px 0px 0px 0px"}}
               cover={<img alt="events" src={TeamImg} className='cover'/>}
               bordered={false}
             > 
@@ -173,8 +172,7 @@ export default function ProfilePage(props: any) {
 
             <Card
               className="exploreCard"
-              style={{ width: 600, backgroundColor: 'transparent' }}
-              bodyStyle={{padding: "24px 0px 0px 0px"}}
+              style={{ width: '80%', backgroundColor: 'transparent' }}
               cover={<img 
                 alt="Projects" 
                 src={AIMLImg} 

@@ -236,7 +236,7 @@
 
       #rankingTag {
         border-radius: @radius-base5;
-        background-color: rgb(18, 113, 255);
+        .button-colorful();
         padding: 4px 12px;
         width: fit-content;
         color: white;
@@ -380,9 +380,19 @@
           font-weight: @semi-bold;
         }
 
-        #inviteButton {
-          .button-black-square();
+        #teamActionBtns{
+
+            display: flex;
+            gap: 0.5rem; /* Adjust the gap to make it smaller */
+            justify-content: space-around;
+
+          #inviteButton {
+            .button-black-square();
+          }
+
         }
+
+        
       }
 
       div.teamMember {
