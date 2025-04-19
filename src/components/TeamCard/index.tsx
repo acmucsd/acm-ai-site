@@ -148,6 +148,7 @@ const TeamCard = (
                                     value={code}
                                     onChange={(e) => setCode(e.target.value)}
                                     placeholder="Code"
+                                    autoComplete="off"
                                 />
                                 <Button 
                                     id = "teamJoinButton" 
