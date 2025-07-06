@@ -107,7 +107,7 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
                 objectPosition: 'center top',
               }}
               src={card.picture}
-              alt={"/logo512.png"}
+              alt={`profile of ${card.name}`}
             />
           )
         }
@@ -318,7 +318,7 @@ function AboutPage() {
                   }}
                   className="image"
                   src={selectedPerson!!.picture}
-                  alt={"/logo512.png"}
+                  alt={`profile of ${selectedPerson!!.name}`}
                 />
                 <Col className="titleBox">
                   <Tag bordered={false} color={'error'} >
