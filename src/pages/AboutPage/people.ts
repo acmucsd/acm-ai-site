@@ -26,6 +26,7 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
     const teams: Record<string, Person[]> = {
       directors: [],
       operations: [],
+      competitions: [],
       dev: [],
       marketing: [],
       socials: [],
@@ -40,7 +41,8 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
           name: row[2] || '',
           major: row[3] || '',
           bio: row[4] || '',
-          picture: row[5] || "/logo512.png", 
+          picture: row[5]?.startsWith("https://drive.google.com") ? 
+                "/logo512.png" : row[5] || "/logo512.png",
           socials: {
             github: row[6] || '',
             linkedin: row[7] || '',
@@ -60,6 +62,7 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
     return {
       directors: [],
       operations: [],
+      competitions: [],
       dev: [],
       marketing: [],
       socials: [],

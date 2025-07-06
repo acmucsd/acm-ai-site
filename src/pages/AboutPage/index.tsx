@@ -10,6 +10,7 @@ import {
   FaGithubSquare,
   FaLinkedin,
   FaHandsHelping,
+  FaTrophy,
 } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
 import DefaultLayout from '../../components/layouts/default';
@@ -162,6 +163,7 @@ const Section = ({
         {team === 'operations' && <FaRegCalendar size={25} color={'#f5621e'} />}
         {team === 'socials' && <BsPeopleFill size={25} color={'#f5621e'} />}
         {team === 'marketing' && <FaBullhorn size={25} color={'#f5621e'} />}
+        {team === 'competitions' && <FaTrophy size={25} color={'#f5621e'} />}
         {team === 'developers' && <FaLaptopCode size={25} color={'#f5621e'} />}
         {team === 'staff' && <FaHandsHelping size={25} color={'#f5621e'} />}
       </div>
@@ -182,6 +184,7 @@ function AboutPage() {
   const [people, setPeople] = useState<Record<string, Person[]>>({
     directors: [],
     operations: [],
+    competitions: [],
     dev: [],
     marketing: [],
     socials: [],
@@ -245,6 +248,14 @@ function AboutPage() {
           />
 
           <Section
+            people={people.competitions}
+            team="competitions"
+            statement="Our team curating each of our competitions"
+            onSelectPerson={(person: Person) => setSelectedPerson(person)}
+            showDrawer={() => setIsDrawerVisible(true)}
+          />
+
+          <Section
             people={people.dev}
             team="developers"
             statement="Our team of developers working tirelessly to keep everything running smoothly"
@@ -252,13 +263,14 @@ function AboutPage() {
             showDrawer={() => setIsDrawerVisible(true)}
           />
 
-          <Section
+          {/* Add back once we have diamond staff again */}
+          {/* <Section
             people={people.staff}
             team="staff"
             statement="Our diamond staff bringing support to all of our teams"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
-          />
+          /> */}
         </Content>
 
         <Content className='alumni'>
