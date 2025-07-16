@@ -4,7 +4,9 @@
       "icon": "../../../starchessai.png",
       "year": "2025",
       "stats": {
-        "In Prizes": 2000
+        "In Prizes": 2000,
+        "Submissions": 120,
+        "Teams": 31
       },
       "description": "Get ready to put your AI skills to the test in our upcoming StarChess.AI competition! Set against a retro, vaporwave, and vintage-inspired design theme, this competition challenges you to develop an AI Capable of mastering the game of chess. Whether you're a reinforcement learning enthusiast, a deep learning expert, or just eager to learn, this is your chance to strategize, optimize, and compete.",
       "link": "/competitions/StarChess.AI",
