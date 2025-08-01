@@ -4,13 +4,13 @@
       "icon": "../../../starchessai.png",
       "year": "2025",
       "stats": {
-        "In Prizes": 2000
-        "Signups": 700
+        "In Prizes": 2000,
+        "Signups": 700,
         "Teams": 200
       },
       "description": "Get ready to put your AI skills to the test in our upcoming StarChess.AI competition! Set against a retro, vaporwave, and vintage-inspired design theme, this competition challenges you to develop an AI Capable of mastering the game of chess. Whether you're a reinforcement learning enthusiast, a deep learning expert, or just eager to learn, this is your chance to strategize, optimize, and compete.",
       "link": "/competitions/StarChess.AI",
-      "signup": "https://ai.acmucsd.com/competitions/StarChess.AI/leaderboard"
+      "leaderboard": "https://ai.acmucsd.com/competitions/StarChess.AI/leaderboard"
     },
     {
       "competitionName": "Element.AI",
