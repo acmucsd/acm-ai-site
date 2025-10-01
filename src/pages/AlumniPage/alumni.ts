@@ -18,6 +18,7 @@ export interface Person {
 }
 
 const sheetYears = [
+  "24-25",
   "23-24",
   "22-23",
   "21-22",
@@ -30,6 +31,7 @@ const BASE_URL = "https://sheets.googleapis.com/v4/spreadsheets";
 
 const fetchData = async (): Promise<Record<string, Person[]>>=> {
   const years: Record<string, Person[]> = {
+    YR_24_25: [],
     YR_23_24: [],
     YR_22_23: [],
     YR_21_22: [],
@@ -49,6 +51,13 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
         rows.slice(1).forEach((row: string[]) => {
           // Account for different sheet formatting over different years
           switch (year) {
+            case '24-25':
+              major = row[13] 
+              picture = row[20]; 
+              website = row[12]; 
+              github = row[10]; 
+              linkedin = row[11]; 
+              break;
             case '23-24':
               major = row[13] 
               picture = row[20]; 
@@ -104,6 +113,11 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
 
           if ((person.team === "AI" || person.team === "ACM AI") && person.name) {
               switch (year) {
+                case '24-25': 
+                  if (!years["YR_24_25"].find(element => element.name === person.name)) {
+                      years["YR_24_25"].push(person);
+                      break;
+                  }
                 case '23-24': 
                   if (!years["YR_23_24"].find(element => element.name === person.name)) {
                     years["YR_23_24"].push(person);
