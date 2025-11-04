@@ -146,3 +146,20 @@ export const promoteUserToPrimaryAdmin = async (userId: string): Promise<void> =
       });
   });
 };
+
+export const getIdentifiers = async (): Promise<{ identifiers: string[] }> => {
+  const token = getToken();
+  return new Promise((resolve, reject) => {
+    axios
+      .get(process.env.REACT_APP_API + '/v1/users/identifiers', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res: AxiosResponse) => {
+        resolve(res.data as { identifiers: string[] });
+      })
+      .catch((error) => {
+        message.error('Failed to fetch identifiers.');
+        reject(error);
+      });
+  });
+};
