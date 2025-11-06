@@ -5,7 +5,7 @@ import {
   profileData,
   UserProfile,
 } from '../../actions/users';
-import { Layout, Button, Flex, message, Upload, Select, Input, Switch, InputNumber } from 'antd';
+import { Layout, Button, Flex, message, Upload, Select, Input, Switch } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
@@ -30,10 +30,7 @@ export default function AdminPortalPage(props: any) {
   const [competitionsLoading, setCompetitionsLoading] = useState(true);
   const [competitionDescription, setCompetitionDescription] = useState<string>('');
   const [updatingDescription, setUpdatingDescription] = useState(false);
-  const [minTeamSize, setMinTeamSize] = useState<number | undefined>(undefined);
-  const [maxTeamSize, setMaxTeamSize] = useState<number | undefined>(undefined);
   const [submissionsEnabled, setSubmissionsEnabled] = useState<boolean>(false);
-  const [leaderboardEnabled, setLeaderboardEnabled] = useState<boolean>(false);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
   const history = useHistory();
 
@@ -89,27 +86,11 @@ export default function AdminPortalPage(props: any) {
       getCompetitionDetails(competitionName)
         .then((data: any) => {
           setCompetitionDescription(data.description || '');
-          // Try to map various possible backend field names
-          const minSize =
-            (typeof data.minTeamSize === 'number' && data.minTeamSize) ||
-            (typeof data.teamSizeMin === 'number' && data.teamSizeMin) ||
-            undefined;
-          const maxSize =
-            (typeof data.maxTeamSize === 'number' && data.maxTeamSize) ||
-            (typeof data.teamSizeMax === 'number' && data.teamSizeMax) ||
-            undefined;
           const subsEnabled =
             typeof data.submissionsEnabled === 'boolean'
               ? data.submissionsEnabled
               : false;
-          const lbEnabled =
-            typeof data.leaderboardEnabled === 'boolean'
-              ? data.leaderboardEnabled
-              : false;
-          setMinTeamSize(minSize);
-          setMaxTeamSize(maxSize);
           setSubmissionsEnabled(subsEnabled);
-          setLeaderboardEnabled(lbEnabled);
           setCompetitionsLoading(false);
         })
         .catch((error) => {
@@ -117,17 +98,11 @@ export default function AdminPortalPage(props: any) {
           console.error('Error loading competition details:', error);
           setCompetitionsLoading(false);
           setCompetitionDescription('');
-          setMinTeamSize(undefined);
-          setMaxTeamSize(undefined);
           setSubmissionsEnabled(false);
-          setLeaderboardEnabled(false);
         });
     } else {
       setCompetitionDescription('');
-      setMinTeamSize(undefined);
-      setMaxTeamSize(undefined);
       setSubmissionsEnabled(false);
-      setLeaderboardEnabled(false);
     }
   }, [getCompetitionDetails]);
 
@@ -251,21 +226,8 @@ export default function AdminPortalPage(props: any) {
       message.error('Please select a competition to update settings for.');
       return;
     }
-    if (
-      typeof minTeamSize === 'number' &&
-      typeof maxTeamSize === 'number' &&
-      minTeamSize > maxTeamSize
-    ) {
-      message.error('Min team size cannot be greater than max team size.');
-      return;
-    }
-
     setUpdatingSettings(true);
-    const payload: any = {};
-    if (typeof minTeamSize === 'number') payload.minTeamSize = minTeamSize;
-    if (typeof maxTeamSize === 'number') payload.maxTeamSize = maxTeamSize;
-    payload.submissionsEnabled = submissionsEnabled;
-    payload.leaderboardEnabled = leaderboardEnabled;
+    const payload = { submissionsEnabled };
 
     updateCompetitionSettings(selectedCompetition, payload)
       .then(() => {
@@ -429,38 +391,11 @@ export default function AdminPortalPage(props: any) {
                   <>
                     <div style={{ margin: '10px 0px' }}>
                       <div style={{ display: 'flex', gap: 12.5, alignItems: 'center', flexWrap: 'wrap' }}>
-                        <div>
-                          <span style={{ marginRight: 8 }}>Submissions Enabled</span>
-                          <Switch
-                            checked={submissionsEnabled}
-                            onChange={setSubmissionsEnabled}
-                          />
-                        </div>
-                        <div>
-                          <span style={{ marginRight: 8 }}>Leaderboard Enabled</span>
-                          <Switch
-                            checked={leaderboardEnabled}
-                            onChange={setLeaderboardEnabled}
-                          />
-                        </div>
-                        <div>
-                          <span style={{ marginRight: 8 }}>Min Team Size</span>
-                          <InputNumber
-                            min={1}
-                            max={50}
-                            value={minTeamSize}
-                            onChange={(v) => setMinTeamSize(typeof v === 'number' ? v : undefined)}
-                          />
-                        </div>
-                        <div>
-                          <span style={{ marginRight: 8}}>Max Team Size</span>
-                          <InputNumber
-                            min={1}
-                            max={50}
-                            value={maxTeamSize}
-                            onChange={(v) => setMaxTeamSize(typeof v === 'number' ? v : undefined)}
-                          />
-                        </div>
+                        <span style={{ marginRight: 8 }}>Submissions Enabled</span>
+                        <Switch
+                          checked={submissionsEnabled}
+                          onChange={setSubmissionsEnabled}
+                        />
                       </div>
                       <Button
                         type="primary"
