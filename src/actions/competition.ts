@@ -155,6 +155,7 @@ export type UpdateCompetitionSettingsPayload = {
   leaderboardEnabled?: boolean;
   minTeamSize?: number;
   maxTeamSize?: number;
+  showPrivateScores?: boolean;
 };
 
 export const updateCompetitionSettings = async (
