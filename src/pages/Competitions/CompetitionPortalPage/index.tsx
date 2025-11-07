@@ -249,7 +249,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
     };
 
     const showTeamLimitReached = () => {
-        message.error("Your team has reached max team size of 3!")
+        message.error("Your team has reached max team size of 2!")
     }
 
     const handleLeaveModalClose = () => {
@@ -491,7 +491,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                         });
                                     }}>Leave</Button>
                                 {
-                                    compUser.competitionTeam?.teamMembers.length >= 3 ? 
+                                    compUser.competitionTeam?.teamMembers.length >= 2 ? 
                                     <Button size="large" id="inviteButton" onClick={showTeamLimitReached} icon = {<IoPersonAdd size = {14}/>}>Invite</Button> :
                                     <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
                                 }
