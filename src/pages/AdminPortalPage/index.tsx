@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import Fuse from 'fuse.js';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import {
@@ -10,7 +11,8 @@ import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings } from '../../actions/competition';
-import { getUsers as fetchUsers, promoteUserToAdmin, promoteUserToPrimaryAdmin } from '../../actions/users';
+import { getUsers as fetchUsers, getIdentifiers as fetchIdentifiers, 
+  promoteUserToAdmin, promoteUserToPrimaryAdmin } from '../../actions/users';
 const { Content } = Layout;
 const { Option } = Select;
 const { TextArea } = Input;
@@ -38,9 +40,12 @@ export default function AdminPortalPage(props: any) {
   // User Management State
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [users, setUsers] = useState<Array<{ username: string }>>([]);
+  const [identifiers, setIdentifiers] = useState<Array<{ identifier: string }>>([]);
   const [filteredUsers, setFilteredUsers] = useState<Array<{ username: string }>>([]);
+  const [filteredIdentifiers, setFilteredIdentifiers] = useState<Array<{ identifier: string }>>([]);
   const [selectedUserToPromote, setSelectedUserToPromote] = useState<string | undefined>(undefined);
   const [usersLoading, setUsersLoading] = useState(true);
+  const [identifiersLoading, setIdentifiersLoading] = useState(true);
   const [promotingUser, setPromotingUser] = useState(false);
 
   // admin check and load
@@ -131,11 +136,29 @@ export default function AdminPortalPage(props: any) {
       });
   }, [fetchUsers]);
 
+  // for username/email fuzzy search
+  const loadIdentifiers = useCallback(() => {
+    setIdentifiersLoading(true);
+    fetchIdentifiers()
+      .then((data: { identifiers: string[] }) => {
+        const identifierList = data.identifiers.map(identifier => ({ identifier }));
+        setIdentifiers(identifierList);
+        setFilteredIdentifiers(identifierList);
+        setIdentifiersLoading(false);
+      })
+      .catch((error) => {
+        message.error('Failed to load identifiers.');
+        console.error('Error loading identifiers:', error);
+        setIdentifiersLoading(false);
+      });
+  }, [fetchIdentifiers]);
+
   useEffect(() => {
     loadProfileData();
     loadCompetitionsData();
     loadUsersData();
-  }, [loadProfileData, loadCompetitionsData, loadUsersData]);
+    loadIdentifiers();
+  }, [loadProfileData, loadCompetitionsData, loadUsersData, loadIdentifiers]);
 
   useEffect(() => {
     if (selectedCompetition) {
@@ -301,6 +324,27 @@ export default function AdminPortalPage(props: any) {
       .finally(() => {
         setPromotingUser(false);
       });
+  };
+
+  // Identifier search (usernames and emails)
+  const handleSearchIdentifier = (value: string, ) => {
+    if (value === "") {
+       setFilteredIdentifiers(identifiers)
+    }
+    else {
+      setSearchTerm(value);
+      const fuseOptions = {
+        keys: ["identifier"],
+        threshold: 0.8,
+        matchAllOnEmptyQuery: true
+      }
+      const fuse = new Fuse(
+        identifiers,
+        fuseOptions)
+      const filtered = fuse.search(value);
+      console.log(filtered.length);
+      setFilteredIdentifiers(filtered.map(r => r.item));
+    };
   };
 
   if (loading) {
@@ -490,6 +534,28 @@ export default function AdminPortalPage(props: any) {
                 </Button>
               </Flex>
             )}
+          </div>
+          <div className='findUserIdentifiers'>
+            <h2>Find Usernames</h2>
+            <p>Find forgotten usernames with a fuzzy search.</p>
+
+            <Select
+              showSearch
+              placeholder="Search Usernames and Emails"
+              className="userIdentifierDropdown"
+              style={{ width: '80%', maxWidth: 300, margin: '10px 0px' }}
+              onSearch={handleSearchIdentifier}
+              loading={identifiersLoading}
+              filterOption={(input, option) =>
+                (option?.value as string)?.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {filteredIdentifiers.map((identifiers) => (
+                <Option key={identifiers.identifier} value={identifiers.identifier}>
+                  {identifiers.identifier}
+                </Option>
+              ))}
+            </Select>
           </div>
         </Content>
         <MainFooter />
