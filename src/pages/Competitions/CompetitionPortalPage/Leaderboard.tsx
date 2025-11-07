@@ -77,6 +77,34 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
             dataIndex: 'score',
             sorter: (a, b) => a.score - b.score,
         },
+        {
+            title: 'Public Score',
+            dataIndex: 'publicScoreHistory',
+            render: (history: number[]) => history ? history[history.length - 1] : 0,
+            sorter: (a, b) => {
+                const aScore = Array.isArray(a.publicScoreHistory)
+                    ? a.publicScoreHistory.at(-1) ?? 0
+                    : 0;
+                const bScore = Array.isArray(b.publicScoreHistory)
+                    ? b.publicScoreHistory.at(-1) ?? 0
+                    : 0;
+                return aScore - bScore;
+            },
+        },
+        {
+            title: 'Private Score',
+            dataIndex: 'privateScoreHistory',
+            render: (history: number[]) => history ? history[history.length - 1] : 0,
+            sorter: (a, b) => {
+                const aScore = Array.isArray(a.privateScoreHistory)
+                    ? a.privateScoreHistory.at(-1) ?? 0
+                    : 0;
+                const bScore = Array.isArray(b.privateScoreHistory)
+                    ? b.privateScoreHistory.at(-1) ?? 0
+                    : 0;
+                return aScore - bScore;
+            },
+        },
         // {
         //     title: 'W',
         //     dataIndex: 'winHistory',

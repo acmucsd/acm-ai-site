@@ -577,7 +577,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 function CompetitionPortalPage() {
 
     // This enables us to specify the most current competition
-    const competitionName = "Blockography.AI";
+    const competitionName = "Blockography.TEST";
     const history = useHistory();
 
     // User profile data
@@ -684,23 +684,24 @@ function CompetitionPortalPage() {
         getLeaderboard(competitionName).then((res) => {
 
             let newData = res.data
-                .sort((a: any, b: any) => {
-                    const latestScoreA = a.scoreHistory?.length > 0 ? a.scoreHistory[a.scoreHistory.length - 1] : -Infinity;
-                    const latestScoreB = b.scoreHistory?.length > 0 ? b.scoreHistory[b.scoreHistory.length - 1] : -Infinity;
-                    return latestScoreB - latestScoreA;
-                })
+                // sort on backend for blockography
+                // .sort((a: any, b: any) => {
+                //     const latestScoreA = a.scoreHistory?.length > 0 ? a.scoreHistory[a.scoreHistory.length - 1] : -Infinity;
+                //     const latestScoreB = b.scoreHistory?.length > 0 ? b.scoreHistory[b.scoreHistory.length - 1] : -Infinity;
+                //     return latestScoreB - latestScoreA;
+                // })
                 // .sort((a: any, b: any) => b.bestScore - a.bestScore) // Sort by bestScore in descending order
                 .map((d: any, index: number) => {
-                        const latestScore = d.scoreHistory?.length > 0 ? d.scoreHistory[d.scoreHistory.length - 1] : 0; 
-
                         if (teamInfo != null) {
                             if (d.teamName === teamInfo.teamName) {
                                 setUserRankData({
                                     rank: index + 1,
                                     team: d.teamName, 
-                                    score: latestScore,
+                                    score: d.displayScore,
                                     submitHistory: d.submitHistory,
                                     scoreHistory: d.scoreHistory,
+                                    publicScoreHistory: d.publicScoreHistory,
+                                    privateScoreHistory: d.privateScoreHistory,
                                     winHistory: d.winHistory,
                                     lossHistory: d.lossHistory,
                                     drawHistory: d.drawHistory,
@@ -710,9 +711,11 @@ function CompetitionPortalPage() {
                         return {
                             rank: index + 1,
                             team: d.teamName, 
-                            score: latestScore,
+                            score: d.displayScore,
                             submitHistory: d.submitHistory,
                             scoreHistory: d.scoreHistory,
+                            publicScoreHistory: d.publicScoreHistory,
+                            privateScoreHistory: d.privateScoreHistory,
                             winHistory: d.winHistory,
                             lossHistory: d.lossHistory,
                             drawHistory: d.drawHistory,
