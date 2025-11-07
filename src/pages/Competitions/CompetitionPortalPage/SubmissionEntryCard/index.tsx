@@ -141,10 +141,10 @@ const SubmissionEntryCard = (data: any) => {
           </div>
         </section>
 
-        <section className="submissionDescriptionSection">
+        {/* <section className="submissionDescriptionSection">
           <h4>Description</h4>
           <p>{data.entry.description}</p>
-        </section>
+        </section> */}
 
         <section className="submissionErrorLogsSection">
           <h4>Error Logs</h4>
@@ -182,12 +182,12 @@ const SubmissionEntryCard = (data: any) => {
 
         </span>
 
-        <p className="submissionDescription">{data.entry.description}</p>
+        {/* <p className="submissionDescription">{data.entry.description}</p>
         <span className="submissionFileRow">
           <FaLink size={20} style={{ marginRight: "1rem" }} />
-          <p>bot.py</p>
+          <p>bot.py</p> */}
           {/* TODO: Add this back in when file submission works: <p>{data.entry.fileLocation}</p> */}
-        </span>
+        {/* </span> */}
       </div>
     </>
   );
