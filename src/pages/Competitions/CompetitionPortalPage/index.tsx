@@ -524,7 +524,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                     <TeamMemberAvatar username={member}></TeamMemberAvatar>
                                     <div className="teamMemberTextWrapper">
                                         <p className="teamMemberName">{member}</p>
-                                        <p>0 submissions</p>
                                     </div>
                                 </div>
                             ))}
