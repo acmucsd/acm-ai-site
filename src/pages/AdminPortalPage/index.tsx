@@ -33,6 +33,7 @@ export default function AdminPortalPage(props: any) {
   const [competitionDescription, setCompetitionDescription] = useState<string>('');
   const [updatingDescription, setUpdatingDescription] = useState(false);
   const [submissionsEnabled, setSubmissionsEnabled] = useState<boolean>(false);
+  const [showPrivateScores, setShowPrivateScores] = useState<boolean>(false);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
   const history = useHistory();
 
@@ -95,7 +96,12 @@ export default function AdminPortalPage(props: any) {
             typeof data.submissionsEnabled === 'boolean'
               ? data.submissionsEnabled
               : false;
+          const privateScoresEnabled =
+            typeof data.showPrivateScores === 'boolean'
+              ? data.showPrivateScores
+              : false;
           setSubmissionsEnabled(subsEnabled);
+          setShowPrivateScores(privateScoresEnabled);
           setCompetitionsLoading(false);
         })
         .catch((error) => {
@@ -104,10 +110,12 @@ export default function AdminPortalPage(props: any) {
           setCompetitionsLoading(false);
           setCompetitionDescription('');
           setSubmissionsEnabled(false);
+          setShowPrivateScores(false);
         });
     } else {
       setCompetitionDescription('');
       setSubmissionsEnabled(false);
+      setShowPrivateScores(false);
     }
   }, [getCompetitionDetails]);
 
@@ -250,7 +258,7 @@ export default function AdminPortalPage(props: any) {
       return;
     }
     setUpdatingSettings(true);
-    const payload = { submissionsEnabled };
+    const payload = { submissionsEnabled, showPrivateScores };
 
     updateCompetitionSettings(selectedCompetition, payload)
       .then(() => {
@@ -434,12 +442,21 @@ export default function AdminPortalPage(props: any) {
                 {selectedCompetition && (
                   <>
                     <div style={{ margin: '10px 0px' }}>
-                      <div style={{ display: 'flex', gap: 12.5, alignItems: 'center', flexWrap: 'wrap' }}>
-                        <span style={{ marginRight: 8 }}>Submissions Enabled</span>
-                        <Switch
-                          checked={submissionsEnabled}
-                          onChange={setSubmissionsEnabled}
-                        />
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                          <span>Submissions Enabled</span>
+                          <Switch
+                            checked={submissionsEnabled}
+                            onChange={setSubmissionsEnabled}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                          <span>Show Private Scores</span>
+                          <Switch
+                            checked={showPrivateScores}
+                            onChange={setShowPrivateScores}
+                          />
+                        </div>
                       </div>
                       <Button
                         type="primary"
