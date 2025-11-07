@@ -577,7 +577,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 function CompetitionPortalPage() {
 
     // This enables us to specify the most current competition
-    const competitionName = "StarChess.AI";
+    const competitionName = "Blockography.AI";
     const history = useHistory();
 
     // User profile data
@@ -870,7 +870,7 @@ function CompetitionPortalPage() {
                             <h1 className="title2">Hello, <span className="colorful">{user.username}</span></h1>
                         </div>
                         <div id="portalBanner">
-                            <p>Welcome the the AI Portal for {competitionName}</p>
+                            <p>Welcome to the AI Portal for {competitionName}</p>
                         </div>
 
                     </section>
@@ -897,7 +897,7 @@ function CompetitionPortalPage() {
                                         <Col span={6} className="stat-title">Submissions</Col>
                                         <Col span={6} className="stat-title">Latest Score</Col>
                                         <Col span={6} className="stat-title">Ranking</Col>
-                                        <Col span={6} className="stat-title">W-L-D</Col>
+                                        {/* <Col span={6} className="stat-title">W-L-D</Col> */}
                                         </Row>
                                         
                                         {/* Values Row */}
@@ -919,7 +919,7 @@ function CompetitionPortalPage() {
                                                 <div className="stat-value">{userRankData.rank}</div>
                                             </Col>
 
-                                            <Col span={6} className="stat-col">
+                                            {/* <Col span={6} className="stat-col">
                                                 <div className="stat-value">
                                                 {userRankData.winHistory?.length > 0
                                                     ? userRankData.winHistory[userRankData.winHistory?.length - 1]
@@ -934,7 +934,7 @@ function CompetitionPortalPage() {
                                                     : 0
                                                 }
                                                 </div>
-                                            </Col>
+                                            </Col> */}
                                         </Row>
                                     </section>
                                 }
