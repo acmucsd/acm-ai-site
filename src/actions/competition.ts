@@ -147,6 +147,41 @@ export const updateCompetitionDescription = async (competitionName: string, desc
   }
 };
 
+export type UpdateCompetitionSettingsPayload = {
+  submissionsEnabled?: boolean;
+  leaderboardEnabled?: boolean;
+  minTeamSize?: number;
+  maxTeamSize?: number;
+};
+
+export const updateCompetitionSettings = async (
+  competitionName: string,
+  payload: UpdateCompetitionSettingsPayload
+) => {
+  const token = getToken(COOKIE_NAME);
+  try {
+    const response = await axios.post(
+      process.env.REACT_APP_API + `/v1/competitions/${competitionName}/updateSettings`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error(`Error updating settings for ${competitionName}:`, error);
+    if (error.response?.data?.error?.message) {
+      message.error(error.response.data.error.message);
+    } else {
+      message.error('Failed to update competition settings.');
+    }
+    throw error;
+  }
+};
+
 export const getMetaData = async (
   competitionid: string
 ): Promise<AxiosResponse> => {

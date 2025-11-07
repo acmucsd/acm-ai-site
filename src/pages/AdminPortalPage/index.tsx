@@ -6,11 +6,11 @@ import {
   profileData,
   UserProfile,
 } from '../../actions/users';
-import { Layout, Button, Flex, message, Upload, Select, Input } from 'antd';
+import { Layout, Button, Flex, message, Upload, Select, Input, Switch } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription } from '../../actions/competition';
+import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings } from '../../actions/competition';
 import { getUsers as fetchUsers, getIdentifiers as fetchIdentifiers, 
   promoteUserToAdmin, promoteUserToPrimaryAdmin } from '../../actions/users';
 const { Content } = Layout;
@@ -32,6 +32,8 @@ export default function AdminPortalPage(props: any) {
   const [competitionsLoading, setCompetitionsLoading] = useState(true);
   const [competitionDescription, setCompetitionDescription] = useState<string>('');
   const [updatingDescription, setUpdatingDescription] = useState(false);
+  const [submissionsEnabled, setSubmissionsEnabled] = useState<boolean>(false);
+  const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
   const history = useHistory();
 
   // User Management State
@@ -89,6 +91,11 @@ export default function AdminPortalPage(props: any) {
       getCompetitionDetails(competitionName)
         .then((data: any) => {
           setCompetitionDescription(data.description || '');
+          const subsEnabled =
+            typeof data.submissionsEnabled === 'boolean'
+              ? data.submissionsEnabled
+              : false;
+          setSubmissionsEnabled(subsEnabled);
           setCompetitionsLoading(false);
         })
         .catch((error) => {
@@ -96,9 +103,11 @@ export default function AdminPortalPage(props: any) {
           console.error('Error loading competition details:', error);
           setCompetitionsLoading(false);
           setCompetitionDescription('');
+          setSubmissionsEnabled(false);
         });
     } else {
       setCompetitionDescription('');
+      setSubmissionsEnabled(false);
     }
   }, [getCompetitionDetails]);
 
@@ -233,6 +242,25 @@ export default function AdminPortalPage(props: any) {
       .finally(() => {
         setUpdatingDescription(false);
       });
+  };
+
+  const handleUpdateSettings = () => {
+    if (!selectedCompetition) {
+      message.error('Please select a competition to update settings for.');
+      return;
+    }
+    setUpdatingSettings(true);
+    const payload = { submissionsEnabled };
+
+    updateCompetitionSettings(selectedCompetition, payload)
+      .then(() => {
+        message.success(`Settings for ${selectedCompetition} updated successfully!`);
+      })
+      .catch((error) => {
+        message.error(`Failed to update settings for ${selectedCompetition}.`);
+        console.error('Error updating competition settings:', error);
+      })
+      .finally(() => setUpdatingSettings(false));
   };
 
   // admin promotion
@@ -383,9 +411,9 @@ export default function AdminPortalPage(props: any) {
             </Button>
           </div>
 
-          <div className="competitionDescription">
-            <h2>Update Competition Description</h2>
-            <p>Select a competition to update its description. This should be formatted in Markdown.</p>
+          <div className="competitionDescription"> {/* This is called competitionDescription, but it updates other properties as well.*/}
+            <h2>Update Competition</h2>
+            <p>Select a competition to update. Description should be formatted in Markdown.</p>
 
               <div className="competitionDescriptionSettings">
                 <Select
@@ -404,13 +432,34 @@ export default function AdminPortalPage(props: any) {
                 </Select>
 
                 {selectedCompetition && (
-                  <TextArea
-                    rows={4}
-                    placeholder="Enter new description"
-                    value={competitionDescription}
-                    onChange={handleDescriptionChange}
-                    style={{  margin: '10px 0px'}}
-                  />
+                  <>
+                    <div style={{ margin: '10px 0px' }}>
+                      <div style={{ display: 'flex', gap: 12.5, alignItems: 'center', flexWrap: 'wrap' }}>
+                        <span style={{ marginRight: 8 }}>Submissions Enabled</span>
+                        <Switch
+                          checked={submissionsEnabled}
+                          onChange={setSubmissionsEnabled}
+                        />
+                      </div>
+                      <Button
+                        type="primary"
+                        onClick={handleUpdateSettings}
+                        disabled={!selectedCompetition || updatingSettings}
+                        loading={updatingSettings}
+                        style={{ marginTop: '10px', maxWidth: 300 }}
+                      >
+                        Update Settings
+                      </Button>
+                    </div>
+
+                    <TextArea
+                      rows={4}
+                      placeholder="Enter new description"
+                      value={competitionDescription}
+                      onChange={handleDescriptionChange}
+                      style={{  margin: '10px 0px'}}
+                    />
+                  </>
                 )}
               </div>
             
