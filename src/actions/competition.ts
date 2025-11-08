@@ -13,6 +13,7 @@ export type PastCompetition = {
 export interface CompetitionData {
     rank: number;
     team: string;
+    teamGroup?: string;
     score: number;
     submitHistory: Array<string>;
     scoreHistory: Array<number>;

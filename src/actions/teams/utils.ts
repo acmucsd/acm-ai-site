@@ -84,7 +84,8 @@ export const getTeamInfo = async (
 export const createTeam = async (
   competitionid: string,
   userid: string,
-  teamName: string
+  teamName: string,
+  teamGroup: string | undefined = undefined
 ): Promise<AxiosResponse> => {
   let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
@@ -94,6 +95,7 @@ export const createTeam = async (
         {
           username: userid,
           teamName: teamName,
+          teamGroup: teamGroup,
         },
         {
           headers: {

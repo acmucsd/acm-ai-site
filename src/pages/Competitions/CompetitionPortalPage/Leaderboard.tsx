@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Table, Button } from 'antd';
+import { Layout, Table, Button, Tag } from 'antd';
 import type { ColumnsType } from "antd/es/table";
 import { CompetitionData } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
@@ -71,6 +71,16 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
                     </span>
                 );
             },
+        },
+        {
+            title: 'Division',
+            dataIndex: 'teamGroup',
+            filters: [
+              { text: 'Steve', value: 'Steve' },
+              { text: 'Herobrine', value: 'Herobrine' },
+            ],
+            render: (group: string) => <Tag>{group}</Tag>,
+            onFilter: (value, record) => record.teamGroup?.includes(value.toString()) ?? false,
         },
         {
             title: 'Score',
