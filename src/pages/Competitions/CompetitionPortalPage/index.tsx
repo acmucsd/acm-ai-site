@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Row, Col, Layout, Button, Input, Modal, Upload, AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip, Pagination, Table} from 'antd';
+import { Row, Col, Layout, Button, Input, Modal, Upload, AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip, Pagination, Table, Tag, Select} from 'antd';
 import type { UploadProps } from 'antd';
 import TextArea from "antd/es/input/TextArea";
 
@@ -230,6 +230,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
     
     // Form field to create a new team with a name
     const [newTeamName, setNewTeamName] = useState<string>("");
+    const [newTeamGroup, setNewTeamGroup] = useState<string>("Steve");
 
     // Modal states 
     const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
@@ -363,9 +364,16 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
             message.info('Name cannot be empty');
             return;
         }
+
+        // blockography
+        if (!["Steve", "Herobrine"].includes(newTeamGroup)) {
+            message.info('Division is not valid');
+            return;
+        }
+
         setIsLoading(true);
 
-        createTeam(compUser.competitionName, compUser.username, newTeamName).then((res) => {
+        createTeam(compUser.competitionName, compUser.username, newTeamName, newTeamGroup).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
 
@@ -394,7 +402,10 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                     {generateTeamPicture(teamInfo.teamName)}
                                 </div>
                                 <article>
-                                    <h3>{teamInfo.teamName}</h3>
+                                    <h3>
+                                        {teamInfo.teamName}
+                                        {teamInfo.teamGroup && <Tag style={{marginLeft: "12px"}}>{teamInfo.teamGroup}</Tag>}
+                                    </h3>
                                     <p id = "rankingTag">{getOrdinal(rankData.rank)} place</p>
                                 </article>
                             
@@ -552,7 +563,22 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         size="large"
                         onChange={(e) => setNewTeamName(e.target.value)}
                     >
-                    </Input><br />
+                    </Input>
+                    <br />
+                    <Select
+                        placeholder="New Team Division"
+                        style={{ width: '100%' }}
+                        value={newTeamGroup}
+                        onChange={(value) => {
+                            setNewTeamGroup(value);
+                        }}
+                        options={[
+                            { label: "Steve Division (Beginner)", value: "Steve" },
+                            { label: "Herobrine Division (Advanced)", value: "Herobrine" },
+                        ]}
+                        defaultOpen={true}
+                    />
+                    <br />
                     <Button
                         loading={isLoading}
                         id="maketeambutton"
@@ -710,6 +736,7 @@ function CompetitionPortalPage() {
                         return {
                             rank: index + 1,
                             team: d.teamName, 
+                            teamGroup: d.teamGroup,
                             score: d.displayScore,
                             submitHistory: d.submitHistory,
                             scoreHistory: d.scoreHistory,
