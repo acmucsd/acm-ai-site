@@ -496,7 +496,7 @@ export default function AdminPortalPage(props: any) {
                           />
                         </div>
                         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                          <span>Toggle Leaderboard</span>
+                          <span>Leaderboard Enabled</span>
                           <Switch
                             checked={leaderboardEnabled}
                             onChange={setLeaderboardEnabled}
