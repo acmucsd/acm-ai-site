@@ -262,15 +262,13 @@ function AboutPage() {
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
           />
-
-          {/* Add back once we have diamond staff again */}
-          {/* <Section
+          <Section
             people={people.staff}
             team="staff"
             statement="Our diamond staff bringing support to all of our teams"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
-          /> */}
+          />
         </Content>
 
         <Content className='alumni'>

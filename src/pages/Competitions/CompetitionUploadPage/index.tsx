@@ -109,12 +109,12 @@ const CompetitionUploadPage = () => {
   };
 
   const beforeUpload = (file: any) => {
-    const isBotPy = file.name === 'bot.py';
-    if (!isBotPy) {
-      message.error('You can only upload a file named bot.py!');
+    const isSubmissionCsv = file.name === 'submission.csv';
+    if (!isSubmissionCsv) {
+      message.error('You can only upload a file named submission.csv!');
     }
 
-    return isBotPy;
+    return isSubmissionCsv;
   };
 
   return (
@@ -124,23 +124,22 @@ const CompetitionUploadPage = () => {
         <BackLink to="../" />
         <h2>Submission to {competitionID}</h2>
         <p>
-          You must submit a bot.py file that contains your submission. You can
-          add an optional description below as well as tags.
+          You must submit a submission.csv file that contains your submission.
         </p>
         <br />
         {/* <Form> */}
           {/* <form onSubmit={handleSubmit(onSubmit)}> */}
             <div className="upload-wrapper">
-              <TextArea
+              {/* <TextArea
                 className="desc"
                 rows={2}
                 value={desc}
                 onChange={(evt) => setDesc(evt.target.value)}
-              />
+              /> */}
               <Upload onChange={handleFileChange} 
                       customRequest={dummyRequest} 
                       beforeUpload={beforeUpload}
-                      accept=".py"
+                      accept=".csv"
               >
                 <Button className="upload-btn">
                   <UploadOutlined /> Click to add file
