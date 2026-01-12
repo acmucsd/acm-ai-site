@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Table, Button } from 'antd';
+import { Layout, Table, Button, Tag } from 'antd';
 import type { ColumnsType } from "antd/es/table";
 import { CompetitionData } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
@@ -73,28 +73,66 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
             },
         },
         {
+            title: 'Division',
+            dataIndex: 'teamGroup',
+            filters: [
+              { text: 'Steve', value: 'Steve' },
+              { text: 'Herobrine', value: 'Herobrine' },
+            ],
+            render: (group: string) => <Tag>{group}</Tag>,
+            onFilter: (value, record) => record.teamGroup?.includes(value.toString()) ?? false,
+        },
+        {
             title: 'Score',
             dataIndex: 'score',
             sorter: (a, b) => a.score - b.score,
         },
         {
-            title: 'W',
-            dataIndex: 'winHistory',
-            render: (winHistory: number[]) => winHistory[winHistory.length - 1],
-            sorter: (a, b) => (a.winHistory[a.winHistory.length - 1] || 0) - (b.winHistory[b.winHistory.length - 1] || 0),
+            title: 'Public Score',
+            dataIndex: 'publicScoreHistory',
+            render: (history: number[]) => history ? history[history.length - 1] : 0,
+            sorter: (a, b) => {
+                const aScore = Array.isArray(a.publicScoreHistory)
+                    ? a.publicScoreHistory.at(-1) ?? 0
+                    : 0;
+                const bScore = Array.isArray(b.publicScoreHistory)
+                    ? b.publicScoreHistory.at(-1) ?? 0
+                    : 0;
+                return aScore - bScore;
+            },
         },
         {
-            title: 'L',
-            dataIndex: 'lossHistory',
-            render: (lossHistory: number[]) => lossHistory[lossHistory.length - 1],
-            sorter: (a, b) => (a.lossHistory[a.lossHistory.length - 1] || 0) - (b.lossHistory[b.lossHistory.length - 1] || 0),
+            title: 'Private Score',
+            dataIndex: 'privateScoreHistory',
+            render: (history: number[]) => history ? history[history.length - 1] : 0,
+            sorter: (a, b) => {
+                const aScore = Array.isArray(a.privateScoreHistory)
+                    ? a.privateScoreHistory.at(-1) ?? 0
+                    : 0;
+                const bScore = Array.isArray(b.privateScoreHistory)
+                    ? b.privateScoreHistory.at(-1) ?? 0
+                    : 0;
+                return aScore - bScore;
+            },
         },
-        {
-            title: 'D',
-            dataIndex: 'drawHistory',
-            render: (drawHistory: number[]) => drawHistory[drawHistory.length - 1],
-            sorter: (a, b) => (a.drawHistory[a.drawHistory.length - 1] || 0) - (b.drawHistory[b.drawHistory.length - 1] || 0),
-        },
+        // {
+        //     title: 'W',
+        //     dataIndex: 'winHistory',
+        //     render: (winHistory: number[]) => winHistory[winHistory.length - 1],
+        //     sorter: (a, b) => (a.winHistory[a.winHistory.length - 1] || 0) - (b.winHistory[b.winHistory.length - 1] || 0),
+        // },
+        // {
+        //     title: 'L',
+        //     dataIndex: 'lossHistory',
+        //     render: (lossHistory: number[]) => lossHistory[lossHistory.length - 1],
+        //     sorter: (a, b) => (a.lossHistory[a.lossHistory.length - 1] || 0) - (b.lossHistory[b.lossHistory.length - 1] || 0),
+        // },
+        // {
+        //     title: 'D',
+        //     dataIndex: 'drawHistory',
+        //     render: (drawHistory: number[]) => drawHistory[drawHistory.length - 1],
+        //     sorter: (a, b) => (a.drawHistory[a.drawHistory.length - 1] || 0) - (b.drawHistory[b.drawHistory.length - 1] || 0),
+        // },
     ];
 
     console.log("rankdata", rankData);

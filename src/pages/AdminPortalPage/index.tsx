@@ -6,7 +6,7 @@ import {
   profileData,
   UserProfile,
 } from '../../actions/users';
-import { Layout, Button, Flex, message, Upload, Select, Input, Switch } from 'antd';
+import { Layout, Button, Flex, message, Upload, Select, Input, Switch, InputNumber } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
@@ -34,6 +34,9 @@ export default function AdminPortalPage(props: any) {
   const [updatingDescription, setUpdatingDescription] = useState(false);
   const [submissionsEnabled, setSubmissionsEnabled] = useState<boolean>(false);
   const [showPrivateScores, setShowPrivateScores] = useState<boolean>(false);
+  const [leaderboardEnabled, setLeaderboardEnabled] = useState<boolean>(false);
+  const [minTeamSize, setMinTeamSize] = useState<number | null>(null);
+  const [maxTeamSize, setMaxTeamSize] = useState<number | null>(null);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
   const history = useHistory();
 
@@ -100,9 +103,24 @@ export default function AdminPortalPage(props: any) {
             typeof data.showPrivateScores === 'boolean'
               ? data.showPrivateScores
               : false;
+          const lbEnabled = 
+            typeof data.leaderboardEnabled === 'boolean'
+              ? data.leaderboardEnabled
+              : false;
+          const minSize =
+            typeof data.minTeamSize === 'number'
+              ? data.minTeamSize
+              : null;
+          const maxSize =
+            typeof data.maxTeamSize === 'number'
+              ? data.maxTeamSize
+              : null;
           setSubmissionsEnabled(subsEnabled);
           setShowPrivateScores(privateScoresEnabled);
           setCompetitionsLoading(false);
+          setLeaderboardEnabled(lbEnabled);
+          setMinTeamSize(minSize);
+          setMaxTeamSize(maxSize);
         })
         .catch((error) => {
           message.error(`Failed to load details for ${competitionName}.`);
@@ -111,11 +129,17 @@ export default function AdminPortalPage(props: any) {
           setCompetitionDescription('');
           setSubmissionsEnabled(false);
           setShowPrivateScores(false);
+          setLeaderboardEnabled(false);
+          setMinTeamSize(null);
+          setMaxTeamSize(null);
         });
     } else {
       setCompetitionDescription('');
       setSubmissionsEnabled(false);
       setShowPrivateScores(false);
+      setLeaderboardEnabled(false);
+      setMinTeamSize(null);
+      setMaxTeamSize(null);
     }
   }, [getCompetitionDetails]);
 
@@ -257,8 +281,22 @@ export default function AdminPortalPage(props: any) {
       message.error('Please select a competition to update settings for.');
       return;
     }
+    if (
+      typeof minTeamSize === 'number' &&
+      typeof maxTeamSize === 'number' &&
+      minTeamSize > maxTeamSize
+    ) {
+      message.error('Min team size cannot be greater than max team size.');
+      return;
+    }
     setUpdatingSettings(true);
-    const payload = { submissionsEnabled, showPrivateScores };
+    const payload = {
+      submissionsEnabled,
+      showPrivateScores,
+      leaderboardEnabled,
+      minTeamSize: typeof minTeamSize === 'number' ? minTeamSize : undefined,
+      maxTeamSize: typeof maxTeamSize === 'number' ? maxTeamSize : undefined,
+    };
 
     updateCompetitionSettings(selectedCompetition, payload)
       .then(() => {
@@ -455,6 +493,31 @@ export default function AdminPortalPage(props: any) {
                           <Switch
                             checked={showPrivateScores}
                             onChange={setShowPrivateScores}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                          <span>Toggle Leaderboard</span>
+                          <Switch
+                            checked={leaderboardEnabled}
+                            onChange={setLeaderboardEnabled}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                          <span>Min Team Size</span>
+                          <InputNumber
+                            min={1}
+                            value={minTeamSize}
+                            onChange={setMinTeamSize}
+                            placeholder="Min"
+                          />
+                        </div>
+                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                          <span>Max Team Size</span>
+                          <InputNumber
+                            min={1}
+                            value={maxTeamSize}
+                            onChange={setMaxTeamSize}
+                            placeholder="Max"
                           />
                         </div>
                       </div>
