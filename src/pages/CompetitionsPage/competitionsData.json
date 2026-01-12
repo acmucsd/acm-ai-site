@@ -1,5 +1,15 @@
 [
     {
+      "competitionName": "Blockography.AI",
+      "icon": "../../../blockographyai.png",
+      "year": "2025",
+      "stats": {
+      },
+      "description": "Join us for an exciting opportunity to build machine learning models to classify Minecraft biomes from real gameplay images. Compete against your peers to win Qualcomm Rubik Pi 3's, and get a chance to network with Qualcomm engineers!",
+      "link": "/competitions/Blockography.AI",
+      "leaderboard": ""
+    },
+    {
       "competitionName": "StarChess.AI",
       "icon": "../../../starchessai.png",
       "year": "2025",

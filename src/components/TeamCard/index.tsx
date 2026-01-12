@@ -1,4 +1,4 @@
-import { Modal, Col, Button, Form, Input, message, Badge, Avatar } from "antd";
+import { Modal, Col, Button, Form, Input, message, Badge, Avatar, Tag } from "antd";
 import { useState } from "react";
 import { User } from "../../UserContext";
 import { addToTeam, leaveTeam } from '../../actions/teams/utils';
@@ -202,7 +202,10 @@ const TeamCard = (
 
                     <div>
                         <div id="teamCard">
-                            <h3>{team.teamName}</h3>
+                            <h3 style={{ display:"inline-flex" }}>
+                                {team.teamName}
+                                {team.teamGroup && <Tag style={{ marginLeft: "12px" }}>{team.teamGroup}</Tag>}
+                            </h3>
                             {/* <ExpandAltOutlined 
                             onClick={() => showModal()}
                                 /> */}

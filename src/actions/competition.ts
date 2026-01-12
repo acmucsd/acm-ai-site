@@ -13,12 +13,16 @@ export type PastCompetition = {
 export interface CompetitionData {
     rank: number;
     team: string;
+    teamGroup?: string;
     score: number;
     submitHistory: Array<string>;
     scoreHistory: Array<number>;
-    winHistory: Array<number>;
-    drawHistory: Array<number>;
-    lossHistory: Array<number>;
+    winHistory?: Array<number>;
+    drawHistory?: Array<number>;
+    lossHistory?: Array<number>;
+    // blockography
+    publicScoreHistory?: Array<number>;
+    privateScoreHistory?: Array<number>;
 }
 
 export const uploadSubmission = async (
