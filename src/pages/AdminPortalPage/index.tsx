@@ -34,12 +34,9 @@ export default function AdminPortalPage(props: any) {
   const [updatingDescription, setUpdatingDescription] = useState(false);
   const [submissionsEnabled, setSubmissionsEnabled] = useState<boolean>(false);
   const [showPrivateScores, setShowPrivateScores] = useState<boolean>(false);
-<<<<<<< HEAD
   const [leaderboardEnabled, setLeaderboardEnabled] = useState<boolean>(false);
   const [minTeamSize, setMinTeamSize] = useState<number | null>(null);
   const [maxTeamSize, setMaxTeamSize] = useState<number | null>(null);
-=======
->>>>>>> origin/main
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
   const history = useHistory();
 
@@ -106,7 +103,6 @@ export default function AdminPortalPage(props: any) {
             typeof data.showPrivateScores === 'boolean'
               ? data.showPrivateScores
               : false;
-<<<<<<< HEAD
           const lbEnabled = 
             typeof data.leaderboardEnabled === 'boolean'
               ? data.leaderboardEnabled
@@ -119,8 +115,6 @@ export default function AdminPortalPage(props: any) {
             typeof data.maxTeamSize === 'number'
               ? data.maxTeamSize
               : null;
-=======
->>>>>>> origin/main
           setSubmissionsEnabled(subsEnabled);
           setShowPrivateScores(privateScoresEnabled);
           setCompetitionsLoading(false);
@@ -135,23 +129,17 @@ export default function AdminPortalPage(props: any) {
           setCompetitionDescription('');
           setSubmissionsEnabled(false);
           setShowPrivateScores(false);
-<<<<<<< HEAD
           setLeaderboardEnabled(false);
           setMinTeamSize(null);
           setMaxTeamSize(null);
-=======
->>>>>>> origin/main
         });
     } else {
       setCompetitionDescription('');
       setSubmissionsEnabled(false);
       setShowPrivateScores(false);
-<<<<<<< HEAD
       setLeaderboardEnabled(false);
       setMinTeamSize(null);
       setMaxTeamSize(null);
-=======
->>>>>>> origin/main
     }
   }, [getCompetitionDetails]);
 
@@ -302,7 +290,6 @@ export default function AdminPortalPage(props: any) {
       return;
     }
     setUpdatingSettings(true);
-<<<<<<< HEAD
     const payload = {
       submissionsEnabled,
       showPrivateScores,
@@ -310,9 +297,6 @@ export default function AdminPortalPage(props: any) {
       minTeamSize: typeof minTeamSize === 'number' ? minTeamSize : undefined,
       maxTeamSize: typeof maxTeamSize === 'number' ? maxTeamSize : undefined,
     };
-=======
-    const payload = { submissionsEnabled, showPrivateScores };
->>>>>>> origin/main
 
     updateCompetitionSettings(selectedCompetition, payload)
       .then(() => {
@@ -511,7 +495,6 @@ export default function AdminPortalPage(props: any) {
                             onChange={setShowPrivateScores}
                           />
                         </div>
-<<<<<<< HEAD
                         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                           <span>Toggle Leaderboard</span>
                           <Switch
@@ -537,8 +520,6 @@ export default function AdminPortalPage(props: any) {
                             placeholder="Max"
                           />
                         </div>
-=======
->>>>>>> origin/main
                       </div>
                       <Button
                         type="primary"
