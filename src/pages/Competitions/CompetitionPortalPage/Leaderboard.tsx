@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Layout, Table, Button, Tag } from 'antd';
 import type { ColumnsType } from "antd/es/table";
 import { CompetitionData } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import "./index.less";
-import { Link } from "react-router-dom";
 
 interface LeaderBoardTabProps {
     rankData: any;
@@ -12,6 +11,7 @@ interface LeaderBoardTabProps {
     updateRankingsCallback: () => void;
     isLoading: boolean;
     competitionName: string;
+    leaderboardEnabled?: boolean;
 }
 const { Content } = Layout;
 
@@ -25,15 +25,15 @@ const { Content } = Layout;
  * 
  */
 const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
-    {rankData, lastRefresh, updateRankingsCallback, isLoading, competitionName}:
+    {rankData, lastRefresh, updateRankingsCallback, isLoading, competitionName, leaderboardEnabled}:
     { rankData: any,
       lastRefresh: Date | null,
       updateRankingsCallback: () => void,
       isLoading: boolean,
-      competitionName: string
+      competitionName: string,
+      leaderboardEnabled?: boolean
     }
 ) => {
-
     // Formats how the columns should be arranged and styled
     const columns: ColumnsType<CompetitionData> = [
         {
@@ -136,6 +136,16 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
     ];
 
     console.log("rankdata", rankData);
+
+    if (leaderboardEnabled === false) {
+        return (
+            <Content id="leaderBoardContainer">
+                <section>
+                    <p>Leaderboard is disabled.</p>
+                </section>
+            </Content>
+        );
+    }
 
     return (
         <Content id="leaderBoardContainer">
