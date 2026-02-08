@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
 import { Form, Button, Upload, message, Input } from 'antd';
@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 // import Card from '../../../components/Card';
 import { useHistory, useParams } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-import { uploadSubmission } from '../../../actions/competition';
+import { uploadSubmission, getSubmissionFileName } from '../../../actions/competition';
 import UserContext from '../../../UserContext';
 import path from 'path';
 import BackLink from '../../../components/BackLink';
@@ -28,6 +28,8 @@ const CompetitionUploadPage = () => {
   const { id } = useParams() as { id: string };
   const competitionID = id;
 
+  const [submissionFileName, setSubmissionFileName] = useState<string>('');
+  const [submissionFileExtension, setSubmissionExtension] = useState<string>('');
   const [tags, setTags] = useState<Array<string>>([]);
   const [inputVisible, setInputVisible] = useState<Boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
@@ -64,6 +66,31 @@ const CompetitionUploadPage = () => {
     setInputVisible(false);
     setInputValue('');
   };
+
+  // load submission file name
+  const loadSubmissionFileName = useCallback((competitionName: string) => {
+    if (competitionName) {
+      getSubmissionFileName(competitionName)
+        .then((data: any) => {
+          setSubmissionFileName(data.submissionFileName || '');
+          setSubmissionExtension("." + data.submissionFileName.split(".")[1] || '');
+        }
+      )
+      .catch((error) => {
+          message.error(`Failed to load submission file name for ${competitionName}.`);
+          console.error('Error loading competition submission file name:', error);
+          setSubmissionFileName('');
+          setSubmissionExtension('');
+        });
+    } else {
+      setSubmissionFileName('');
+      setSubmissionExtension('');
+    }
+  }, [getSubmissionFileName]);
+
+  useEffect(() => {
+    loadSubmissionFileName(competitionID);
+  }, [loadSubmissionFileName]);
 
   useEffect(() => {
     if (!user.loggedIn) {
@@ -109,12 +136,12 @@ const CompetitionUploadPage = () => {
   };
 
   const beforeUpload = (file: any) => {
-    const isSubmissionCsv = file.name === 'submission.csv';
-    if (!isSubmissionCsv) {
-      message.error('You can only upload a file named submission.csv!');
+    const correctFileName = file.name === submissionFileName;
+    if (!correctFileName) {
+      message.error(`You can only upload a file named ${submissionFileName}!`);
     }
 
-    return isSubmissionCsv;
+    return correctFileName;
   };
 
   return (
@@ -124,7 +151,7 @@ const CompetitionUploadPage = () => {
         <BackLink to="../" />
         <h2>Submission to {competitionID}</h2>
         <p>
-          You must submit a submission.csv file that contains your submission.
+          You must submit a {submissionFileName} file that contains your submission.
         </p>
         <br />
         {/* <Form> */}
@@ -139,7 +166,7 @@ const CompetitionUploadPage = () => {
               <Upload onChange={handleFileChange} 
                       customRequest={dummyRequest} 
                       beforeUpload={beforeUpload}
-                      accept=".csv"
+                      accept={submissionFileExtension}
               >
                 <Button className="upload-btn">
                   <UploadOutlined /> Click to add file
