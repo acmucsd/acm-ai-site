@@ -649,6 +649,7 @@ function CompetitionPortalPage() {
         startDate: string;
         endDate: string;
         submissionsEnabled: boolean;
+        leaderboardEnabled?: boolean;
     } | null>(null);
 
 
@@ -994,7 +995,8 @@ function CompetitionPortalPage() {
                                         lastRefresh={lastRefresh}
                                         updateRankingsCallback={updateRankings}
                                         isLoading={isLoadingLeaderBoard} 
-                                        competitionName={competitionName}/>
+                                        competitionName={competitionName}
+                                        leaderboardEnabled={metaData?.leaderboardEnabled}/>
                                 },
                                 {
                                     label: <p>Find Teams</p>,

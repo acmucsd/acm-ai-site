@@ -9,6 +9,7 @@ interface LeaderBoardTabProps {
     updateRankingsCallback: () => void;
     isLoading: boolean;
     competitionName: string;
+    leaderboardEnabled?: boolean;
 }
 const { Content } = Layout;
 
@@ -22,17 +23,30 @@ const { Content } = Layout;
  * 
  */
 const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
-    {rankData, lastRefresh, updateRankingsCallback, isLoading, competitionName}:
+    {rankData, lastRefresh, updateRankingsCallback, isLoading, competitionName, leaderboardEnabled}:
     { rankData: any,
       lastRefresh: Date | null,
       updateRankingsCallback: () => void,
       isLoading: boolean,
-      competitionName: string
+      competitionName: string,
+      leaderboardEnabled?: boolean
     }
 ) => {
 
-    // Get columns based on competition name
+    // Get columns given competition name
     const columns = getColumnsForCompetition(competitionName);
+
+    // console.log("rankdata", rankData);
+
+    if (leaderboardEnabled === false) {
+        return (
+            <Content id="leaderBoardContainer">
+                <section>
+                    <p>Leaderboard is disabled.</p>
+                </section>
+            </Content>
+        );
+    }
 
     return (
         <Content id="leaderBoardContainer">

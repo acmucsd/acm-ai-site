@@ -53,7 +53,7 @@ const CompetitionLandingPage = () => {
           startDate: apiMeta.startDate,
           endDate: apiMeta.endDate,
           submissionsEnabled: apiMeta.submissionsEnabled,
-          leaderboardEnabled: competition?.leaderboard ? true : false,
+          leaderboardEnabled: Boolean(apiMeta.leaderboardEnabled),
           signup: competition?.signup || null,
         });
       })
