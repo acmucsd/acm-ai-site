@@ -5,61 +5,7 @@ import DefaultLayout from '../../../components/layouts/default';
 import { getMetaData, getLeaderboard, CompetitionData } from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
 import path from 'path';
-import ChartJS from 'chart.js';
-import { ColumnsType } from 'antd/lib/table';
-import { genColor } from '../../../utils/colors';
-
-
-
-
-const columns: ColumnsType<CompetitionData> = [
-  {
-    title: 'Rank',
-    dataIndex: 'rank',
-    sorter: (a, b) => a.rank - b.rank,
-    defaultSortOrder: 'ascend',
-  },
-  {
-    title: 'Team',
-    dataIndex: 'team',
-    sorter: (a, b) => a.team.length - b.team.length,
-    render(value, record, index) {
-      const color1 = genColor(record.team);
-      const color2 = genColor(`${record.team}_abcs`);
-      return (
-        <span>
-          <div
-            style={{
-              display: 'inline-block',
-              verticalAlign: 'middle',
-              borderRadius: '50%',
-              width: '2rem',
-              height: '2rem',
-              background: `linear-gradient(30deg, ${color1}, ${color2})`,
-              marginRight: '0.75rem',
-            }}
-          ></div>
-          {value.length > 28 ? (
-            <span>{value.substring(0, 28)}...</span>
-          ) : (
-            <span>{value.substring(0, 28)}</span>
-          )}
-        </span>
-      );
-    },
-  },
-  {
-    title: 'Score',
-    dataIndex: 'score',
-    sorter: (a, b) => a.score - b.score,
-  },
-  {
-    title: 'Submissions',
-    dataIndex: 'submitHistory',
-    render: (v) => v.length,
-    sorter: (a, b) => a.submitHistory.length - b.submitHistory.length,
-  },
-];
+import { getColumnsForCompetition } from '../CompetitionPortalPage/leaderboardColumns';
 
 const CompetitionLeaderboardPage = () => {
   const history = useHistory();
@@ -89,8 +35,15 @@ const CompetitionLeaderboardPage = () => {
         return {
           rank: index + 1,
           team: d.teamName,
-          score: d.bestScore,
+          teamGroup: d.teamGroup,
+          score: d.displayScore,
           submitHistory: d.submitHistory,
+          scoreHistory: d.scoreHistory,
+          publicScoreHistory: d.publicScoreHistory,
+          privateScoreHistory: d.privateScoreHistory,
+          winHistory: d.winHistory,
+          lossHistory: d.lossHistory,
+          drawHistory: d.drawHistory,
         };
       });
       setLastRefresh(new Date());
@@ -199,7 +152,7 @@ const CompetitionLeaderboardPage = () => {
           {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
         </p>
 
-        <Table loading={loading} columns={columns} dataSource={data} />
+        <Table loading={loading} columns={getColumnsForCompetition(meta?.competitionName ?? '')} dataSource={data} />
         {updateTime && <p>Last updated {updateTime?.toLocaleString()}</p>}
       </div>
     </DefaultLayout>
