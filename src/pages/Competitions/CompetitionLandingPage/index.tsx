@@ -97,6 +97,11 @@ const CompetitionLandingPage = () => {
   }, []);
   if (!meta) return <DefaultLayout>Nothing</DefaultLayout>;
 
+  const invalidDescription =
+    !meta.description || meta.description.trim().toUpperCase() === 'N/A';
+  const showPortalFallback =
+    competitionID !== meta.competitionName || invalidDescription;
+
   return (
     <DefaultLayout>
       <Content className="CompetitionLandingPage">
@@ -147,14 +152,25 @@ const CompetitionLandingPage = () => {
               {user.loggedIn && isRegistered ? (
                 <>
                   {meta.submissionsEnabled && (
-                    <>
-                      <Link to={`/competitions/${competitionID}/teams`}>
-                        <Button className="headerbtn">Teams</Button>
-                      </Link>
-                      <Link to={`/competitions/${competitionID}/upload`}>
-                        <Button className="headerbtn">Submit</Button>
-                      </Link>
-                    </>
+                    showPortalFallback ? (
+                      <>
+                        <p className="subtext">
+                          For the latest competition details and actions, please visit the portal.
+                        </p>
+                        <Link to="/portal">
+                          <Button className="headerbtn">Go to Portal</Button>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to={`/competitions/${competitionID}/teams`}>
+                          <Button className="headerbtn">Teams</Button>
+                        </Link>
+                        <Link to={`/competitions/${competitionID}/upload`}>
+                          <Button className="headerbtn">Submit</Button>
+                        </Link>
+                      </>
+                    )
                   )}
                 </>
               ) : user.loggedIn ? (
