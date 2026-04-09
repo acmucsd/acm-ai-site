@@ -1,5 +1,15 @@
 [
     {
+      "competitionName": "Stellatro.AI",
+      "icon": "../../../stellatro.png",
+      "year": "2026",
+      "stats": {
+      },
+      "description": "Put your creativity to the test by training an AI to play a card game. Whether you’re new to AI or already experienced, this competition is a great chance to learn, collaborate, and have fun!",
+      "link": "/competitions/Stellatro.AI",
+      "leaderboard": ""
+    },
+    {
       "competitionName": "Blockography.AI",
       "icon": "../../../blockographyai.png",
       "year": "2025",
