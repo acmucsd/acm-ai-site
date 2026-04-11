@@ -106,6 +106,33 @@ export const uploadCompetitionResults = async (
   });
 }
 
+export const uploadNewCompetition = async (
+  payload: NewCompetitionSettingsPayload
+) => {
+  const token = getToken(COOKIE_NAME);
+  try {
+    const response = await axios.post(
+      process.env.REACT_APP_API + `/v1/competitions/`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error(`Error creating new competition:`, error);
+    if (error.response?.data?.error?.message) {
+      message.error(error.response.data.error.message);
+    } else {
+      message.error('Failed to create competition.');
+    }
+    throw error;
+  }
+};
+
 export const getCompetitions = async () => {
   try {
     const response = await axios.get(process.env.REACT_APP_API + `/v1/competitions`);
@@ -157,6 +184,21 @@ export type UpdateCompetitionSettingsPayload = {
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
+};
+
+export type NewCompetitionSettingsPayload = {
+  competitionName: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  submissionFileName: string;
+  submissionCooldown?: number;
+  submissionsEnabled: boolean;
+  leaderboardEnabled: boolean;
+  minTeamSize?: number;
+  maxTeamSize?: number;
+  showPrivateScores: boolean;
+  truthCSV?: string;
 };
 
 export const updateCompetitionSettings = async (

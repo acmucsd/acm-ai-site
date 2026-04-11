@@ -10,7 +10,7 @@ import { Layout, Button, Flex, message, Upload, Select, Input, Switch, InputNumb
 import MainFooter from '../../components/MainFooter';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings } from '../../actions/competition';
+import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings, uploadNewCompetition } from '../../actions/competition';
 import { getUsers as fetchUsers, getIdentifiers as fetchIdentifiers, 
   promoteUserToAdmin, promoteUserToPrimaryAdmin } from '../../actions/users';
 const { Content } = Layout;
@@ -38,6 +38,20 @@ export default function AdminPortalPage(props: any) {
   const [minTeamSize, setMinTeamSize] = useState<number | null>(null);
   const [maxTeamSize, setMaxTeamSize] = useState<number | null>(null);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
+  const [creatingCompetition, setCreatingCompetition] = useState(false);
+  const [newCompetitionName, setNewCompetitionName] = useState<string>('');
+  const [newCompetitionDescription, setNewCompetitionDescription] = useState<string>('');
+  const [newStartDate, setNewStartDate] = useState<string>('');
+  const [newEndDate, setNewEndDate] = useState<string>('');
+  const [newSubmissionFileName, setNewSubmissionFileName] = useState<string>('');
+  const [newLeaderboardEnabled, setNewLeaderboardEnabled] = useState<boolean>(false);
+  const [newMaxTeamSize, setNewMaxTeamSize] = useState<number | null>(null);
+  const [newMinTeamSize, setNewMinTeamSize] = useState<number | null>(null);
+  const [newShowPrivateScores, setNewShowPrivateScores]  = useState<boolean>(false);
+  const [newSubmissionCooldown, setNewSubmissionCooldown] = useState<number | null>(null);
+  const [newSubmissionsEnabled, setNewSubmissionsEnabled] = useState<boolean>(false);
+  const [newTruthCSV, setNewtruthCSV] = useState<string>('');
+
   const history = useHistory();
 
   // User Management State
@@ -244,7 +258,6 @@ export default function AdminPortalPage(props: any) {
       .finally(() => {
         setUploadingResults(false);
       });
-
   };
 
   // comp description change
@@ -309,6 +322,106 @@ export default function AdminPortalPage(props: any) {
       .finally(() => setUpdatingSettings(false));
   };
 
+  const handleNewCompetition = () => {
+    if (!newCompetitionName.trim()) {
+      message.error('Enter a competition name.');
+      return;
+    }
+    if (!newCompetitionDescription.trim()) {
+      message.error('Enter a competition description.');
+      return;
+    }
+    if (!newStartDate.trim()) {
+      message.error('Enter a competition start date.');
+      return;
+    }
+    if (!newEndDate.trim()) {
+      message.error('Enter a competition end date.');
+      return;
+    }
+    if (!newSubmissionFileName.trim()) {
+      message.error('Enter a competition submission file name.');
+      return;
+    }
+    if (
+      typeof newMinTeamSize === 'number' &&
+      typeof newMaxTeamSize === 'number' &&
+      newMinTeamSize > newMaxTeamSize
+    ) {
+      message.error('Min team size cannot be greater than max team size.');
+      return;
+    }
+    const payload = {
+      competitionName: newCompetitionName.trim(),
+      description: newCompetitionDescription.trim(),
+      startDate: newStartDate.trim(),
+      endDate: newEndDate.trim(),
+      submissionFileName: newSubmissionFileName.trim(),
+      submissionCooldown: newSubmissionCooldown ?? undefined,
+      submissionsEnabled: newSubmissionsEnabled,
+      leaderboardEnabled: newLeaderboardEnabled,
+      minTeamSize: newMinTeamSize ?? undefined,
+      maxTeamSize: newMaxTeamSize ?? undefined,
+      showPrivateScores: newShowPrivateScores,
+      truthCSV: newTruthCSV.trim() !== '' ? newTruthCSV : undefined,
+    };
+    
+    if (creatingCompetition) {
+      return;
+    }
+
+    setCreatingCompetition(true)
+    uploadNewCompetition(payload)
+      .then(() => {
+        message.success(`New competition created successfully!`);
+        loadCompetitionsData();
+
+        setNewCompetitionName('');
+        setNewCompetitionDescription('');
+        setNewStartDate('');
+        setNewEndDate('');
+        setNewSubmissionFileName('');
+        setNewSubmissionCooldown(null);
+        setNewSubmissionsEnabled(false);
+        setNewLeaderboardEnabled(false);
+        setNewMinTeamSize(null);
+        setNewMaxTeamSize(null);
+        setNewShowPrivateScores(false);
+        setNewtruthCSV('');
+      })
+      .catch((error) => {
+        message.error(`Failed to create competition.`);
+        console.error('Error creating new competition:', error);
+      })
+      .finally(() => setCreatingCompetition(false));
+
+  };
+
+  // new competition handling
+  const handleNewCompetitionNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewCompetitionName(e.target.value);
+  };
+
+  const handleNewDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewCompetitionDescription(e.target.value);
+  };
+
+  const handleNewSubmissionFileName = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewSubmissionFileName(e.target.value);
+  };
+
+  const handleNewTruthCSV = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewtruthCSV(e.target.value);
+  };
+
+  const handleNewStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewStartDate(e.target.value);
+  };
+  
+  const handleNewEndDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewEndDate(e.target.value);
+  };
+
   // admin promotion
   const handleSearchUser = (value: string) => {
     setSearchTerm(value);
@@ -366,21 +479,20 @@ export default function AdminPortalPage(props: any) {
 
   // Identifier search (usernames and emails)
   const handleSearchIdentifier = (value: string, ) => {
-    if (value === "") {
+    if (value.trim() === "") {
        setFilteredIdentifiers(identifiers)
+       return;
     }
     else {
       setSearchTerm(value);
       const fuseOptions = {
         keys: ["identifier"],
         threshold: 0.8,
-        matchAllOnEmptyQuery: true
       }
       const fuse = new Fuse(
         identifiers,
         fuseOptions)
       const filtered = fuse.search(value);
-      console.log(filtered.length);
       setFilteredIdentifiers(filtered.map(r => r.item));
     };
   };
@@ -480,29 +592,29 @@ export default function AdminPortalPage(props: any) {
                 {selectedCompetition && (
                   <>
                     <div style={{ margin: '10px 0px' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                      <div className='settings-col'>
+                        <div>
                           <span>Submissions Enabled</span>
                           <Switch
                             checked={submissionsEnabled}
                             onChange={setSubmissionsEnabled}
                           />
                         </div>
-                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                        <div>
                           <span>Show Private Scores</span>
                           <Switch
                             checked={showPrivateScores}
                             onChange={setShowPrivateScores}
                           />
                         </div>
-                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                        <div>
                           <span>Leaderboard Enabled</span>
                           <Switch
                             checked={leaderboardEnabled}
                             onChange={setLeaderboardEnabled}
                           />
                         </div>
-                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                        <div>
                           <span>Min Team Size</span>
                           <InputNumber
                             min={1}
@@ -511,7 +623,7 @@ export default function AdminPortalPage(props: any) {
                             placeholder="Min"
                           />
                         </div>
-                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                        <div>
                           <span>Max Team Size</span>
                           <InputNumber
                             min={1}
@@ -542,7 +654,6 @@ export default function AdminPortalPage(props: any) {
                   </>
                 )}
               </div>
-            
 
             <Button
               type="primary"
@@ -553,6 +664,129 @@ export default function AdminPortalPage(props: any) {
             >
               Set New Description
             </Button>
+          </div>
+
+          <div className="createCompetition">
+            <h2>Create Competition</h2>
+            <p>Enter a new name and create a competition model.</p>
+            <TextArea
+              rows={1}
+              placeholder="Enter competition name"
+              value={newCompetitionName}
+              onChange={handleNewCompetitionNameChange}
+              style={{  margin: '10px 0px', maxWidth: 300}}
+            />
+            <>
+              <div style={{ margin: '10px 0px' }}>
+                <div className='settings-col'>
+                  <div>
+                    <span>Submissions Enabled</span>
+                    <Switch
+                      checked={newSubmissionsEnabled}
+                      onChange={setNewSubmissionsEnabled}
+                    />
+                  </div>
+                  <div>
+                    <span>Show Private Scores</span>
+                    <Switch
+                      checked={newShowPrivateScores}
+                      onChange={setNewShowPrivateScores}
+                    />
+                  </div>
+                  <div>
+                    <span>Leaderboard Enabled</span>
+                    <Switch
+                      checked={newLeaderboardEnabled}
+                      onChange={setNewLeaderboardEnabled}
+                    />
+                  </div>
+                  <div>
+                    <span>Min Team Size</span>
+                    <InputNumber
+                      min={1}
+                      value={newMinTeamSize}
+                      onChange={setNewMinTeamSize}
+                      placeholder="Min"
+                    />
+                  </div>
+                  <div>
+                    <span>Max Team Size</span>
+                    <InputNumber
+                      min={1}
+                      value={newMaxTeamSize}
+                      onChange={setNewMaxTeamSize}
+                      placeholder="Max"
+                    />
+                  </div>
+                  <div>
+                    <span>Submission Cooldown in Seconds (default: 60)</span>
+                    <InputNumber
+                      min={0}
+                      value={newSubmissionCooldown}
+                      onChange={setNewSubmissionCooldown}
+                      placeholder="Cooldown"
+                    />
+                  </div>
+                  <div>
+                    <span>Start Date</span>
+                    <input 
+                      type="datetime-local" 
+                      value={newStartDate}
+                      onChange={handleNewStartDate}
+                    />
+                  </div>
+                  <div>
+                    <span>End Date</span>
+                    <input 
+                      type="datetime-local" 
+                      value={newEndDate}
+                      onChange={handleNewEndDate}
+                    />
+                  </div>
+                  <div>
+                    <span>Submission File Name</span>
+                    <TextArea
+                      rows={1}
+                      placeholder="Enter submission file name"
+                      value={newSubmissionFileName}
+                      onChange={handleNewSubmissionFileName}
+                      style={{  margin: '10px 0px', maxWidth: 300}}
+                    />
+                  </div>
+                  <div>
+                    <span>Truth CSV (not required, leave blank if not used)</span>
+                    <TextArea
+                      rows={1}
+                      placeholder="Enter Truth CSV"
+                      value={newTruthCSV}
+                      onChange={handleNewTruthCSV}
+                      style={{  margin: '10px 0px', maxWidth: 300}}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <label htmlFor='newCompDescription'>Enter a description: </label>
+              <TextArea
+                rows={4}
+                id="newCompDescription"
+                name="newCompDescription"
+                placeholder="Competition description"
+                value={newCompetitionDescription}
+                onChange={handleNewDescriptionChange}
+                style={{  margin: '10px 0px'}}
+              />
+              
+            </>
+            <Button
+              type="primary"
+              onClick={handleNewCompetition}
+              loading={creatingCompetition}
+              style={{ marginTop: '10px', maxWidth: 300}}
+            >
+              Create New Competition
+            </Button>
+
           </div>
 
           <div className="userManagement">
@@ -609,9 +843,7 @@ export default function AdminPortalPage(props: any) {
               style={{ width: '80%', maxWidth: 300, margin: '10px 0px' }}
               onSearch={handleSearchIdentifier}
               loading={identifiersLoading}
-              filterOption={(input, option) =>
-                (option?.value as string)?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
+              filterOption={false}
             >
               {filteredIdentifiers.map((identifiers) => (
                 <Option key={identifiers.identifier} value={identifiers.identifier}>
