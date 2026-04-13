@@ -18,6 +18,7 @@ const CompetitionLeaderboardPage = () => {
     startDate: string;
     endDate: string;
     submissionsEnabled: boolean;
+    teamGroups?: string[];
   } | null>(null);
   const [visible, setVisible] = useState(false);
   const chartContainer = useRef<HTMLCanvasElement>(null);
@@ -152,7 +153,7 @@ const CompetitionLeaderboardPage = () => {
           {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
         </p>
 
-        <Table loading={loading} columns={getColumnsForCompetition(meta?.competitionName ?? '')} dataSource={data} />
+        <Table loading={loading} columns={getColumnsForCompetition(meta?.teamGroups)} dataSource={data} />
         {updateTime && <p>Last updated {updateTime?.toLocaleString()}</p>}
       </div>
     </DefaultLayout>

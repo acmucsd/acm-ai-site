@@ -107,37 +107,20 @@ const drawColumn: ColumnsType<CompetitionData>[number] = {
     sorter: (a, b) => (a.drawHistory?.[a.drawHistory.length - 1] ?? 0) - (b.drawHistory?.[b.drawHistory.length - 1] ?? 0),
 };
 
-const competitionColumns: Record<string, ColumnsType<CompetitionData>> = {
-    "blockography.ai": [ // Currently we only have blockography
-        rankColumn,
-        teamColumn,
-        createDivisionColumn([
-            { text: 'Steve', value: 'Steve' },
-            { text: 'Herobrine', value: 'Herobrine' },
-        ]),
-        scoreColumn,
-        publicScoreColumn,
-        privateScoreColumn,
-    ],
-    // Default columns without division
-    "default": [
-        rankColumn,
-        teamColumn,
-        scoreColumn,
-        publicScoreColumn,
-        privateScoreColumn,
-    ],
-};
-
 /**
- * Get columns configuration for a given a competition name
- * @param competitionName
- * @returns the columns for the specified competition, 
- *          or default columns if the competition name is not recognized
+ * Get columns configuration based on teamGroups
+ * @param teamGroups array of division names or undefined
  */
-export const getColumnsForCompetition = (competitionName: string): ColumnsType<CompetitionData> => {
-    const lowerCaseName = competitionName.toLowerCase();
-    return competitionColumns[lowerCaseName] ?? competitionColumns["default"];
+export const getColumnsForCompetition = (teamGroups?: string[]): ColumnsType<CompetitionData> => {
+    const baseColumns = [rankColumn, teamColumn];
+
+    if (teamGroups && teamGroups.length > 0) { // Only add division column if divisions exist
+        baseColumns.push(createDivisionColumn(
+            teamGroups.map(g => ({ text: g, value: g }))
+        ));
+    }
+
+    return [...baseColumns, scoreColumn, publicScoreColumn, privateScoreColumn];
 };
 
 export {

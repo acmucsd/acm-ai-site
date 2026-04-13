@@ -9,6 +9,7 @@ interface LeaderBoardTabProps {
     updateRankingsCallback: () => void;
     isLoading: boolean;
     competitionName: string;
+    teamGroups?: string[];
     leaderboardEnabled?: boolean;
 }
 const { Content } = Layout;
@@ -23,18 +24,19 @@ const { Content } = Layout;
  * 
  */
 const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
-    {rankData, lastRefresh, updateRankingsCallback, isLoading, competitionName, leaderboardEnabled}:
+    {rankData, lastRefresh, updateRankingsCallback, isLoading, competitionName, teamGroups, leaderboardEnabled}:
     { rankData: any,
       lastRefresh: Date | null,
       updateRankingsCallback: () => void,
       isLoading: boolean,
       competitionName: string,
+      teamGroups?: string[],
       leaderboardEnabled?: boolean
     }
 ) => {
 
-    // Get columns given competition name
-    const columns = getColumnsForCompetition(competitionName);
+    // Get columns based on team divisions
+    const columns = getColumnsForCompetition(teamGroups);
 
     // console.log("rankdata", rankData);
 
