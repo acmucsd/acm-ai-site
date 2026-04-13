@@ -14,6 +14,10 @@
       "icon": "../../../blockographyai.png",
       "year": "2025",
       "stats": {
+        "RUBIK Pis Won": 8,
+        "Signups": 135,
+        "Submissions": 490,
+        "Teams": 40
       },
       "description": "Join us for an exciting opportunity to build machine learning models to classify Minecraft biomes from real gameplay images. Compete against your peers to win Qualcomm Rubik Pi 3's, and get a chance to network with Qualcomm engineers!",
       "link": "/competitions/Blockography.AI",
