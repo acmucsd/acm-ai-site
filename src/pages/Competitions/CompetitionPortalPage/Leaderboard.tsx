@@ -53,16 +53,6 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
         );
     }
 
-    if (leaderboardEnabled === false) {
-        return (
-            <Content id="leaderBoardContainer">
-                <section>
-                    <p>Leaderboard is disabled.</p>
-                </section>
-            </Content>
-        );
-    }
-
     return (
         <Content id="leaderBoardContainer">
             <section>
