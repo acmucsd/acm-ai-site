@@ -1,6 +1,9 @@
 import React from "react";
-import { Layout, Table, Button } from 'antd';
+import { Layout, Table, Button, Tag } from 'antd';
+import type { ColumnsType } from "antd/es/table";
 import { getColumnsForCompetition } from "./leaderboardColumns";
+import { CompetitionData } from "../../../actions/competition";
+import { genColor } from "../../../utils/colors";
 import "./index.less";
 
 interface LeaderBoardTabProps {
@@ -39,6 +42,16 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
     const columns = getColumnsForCompetition(teamGroups);
 
     // console.log("rankdata", rankData);
+
+    if (leaderboardEnabled === false) {
+        return (
+            <Content id="leaderBoardContainer">
+                <section>
+                    <p>Leaderboard is disabled.</p>
+                </section>
+            </Content>
+        );
+    }
 
     if (leaderboardEnabled === false) {
         return (
