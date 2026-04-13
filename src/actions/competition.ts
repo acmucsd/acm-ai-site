@@ -333,3 +333,13 @@ export const getSubmissionReplay = async (
       });
   });
 };
+
+export const getSubmissionFileName = async (competitionid: string) => {
+  try {
+    const response = await axios.get(process.env.REACT_APP_API + `/v1/competitions/${competitionid}/submissionFileName`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching submission file name:', error);
+    throw error;
+  }
+}
