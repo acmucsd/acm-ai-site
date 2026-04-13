@@ -230,7 +230,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
     
     // Form field to create a new team with a name
     const [newTeamName, setNewTeamName] = useState<string>("");
-    const [newTeamGroup, setNewTeamGroup] = useState<string>("Steve");
+    const [newTeamGroup, setNewTeamGroup] = useState<string | undefined>(metaData?.teamGroups?.[0]);
 
     // Modal states 
     const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
@@ -365,15 +365,14 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
             return;
         }
 
-        // blockography
-        if (!["Steve", "Herobrine"].includes(newTeamGroup)) {
+        if (metaData?.teamGroups && (!newTeamGroup || !metaData.teamGroups.includes(newTeamGroup))) {
             message.info('Division is not valid');
             return;
         }
 
         setIsLoading(true);
 
-        createTeam(compUser.competitionName, compUser.username, newTeamName, newTeamGroup).then((res) => {
+        createTeam(compUser.competitionName, compUser.username, newTeamName, metaData?.teamGroups ? newTeamGroup : undefined).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
 
@@ -564,20 +563,23 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         onChange={(e) => setNewTeamName(e.target.value)}
                     >
                     </Input>
-                    <br />
-                    <Select
-                        placeholder="New Team Division"
-                        style={{ width: '100%' }}
-                        value={newTeamGroup}
-                        onChange={(value) => {
-                            setNewTeamGroup(value);
-                        }}
-                        options={[
-                            { label: "Steve Division (Beginner)", value: "Steve" },
-                            { label: "Herobrine Division (Advanced)", value: "Herobrine" },
-                        ]}
-                        defaultOpen={true}
-                    />
+                    {metaData?.teamGroups && metaData.teamGroups.length > 0 && (
+                        <>
+                        <br />
+                        <Select
+                            placeholder="New Team Division"
+                            style={{ width: '100%' }}
+                            value={newTeamGroup}
+                            onChange={(value) => {
+                                setNewTeamGroup(value);
+                            }}
+                            options={metaData.teamGroups.map((g: string) => ({
+                                label: g, value: g
+                            }))}
+                            defaultOpen={true}
+                        />
+                        </>
+                    )}
                     <br />
                     <Button
                         loading={isLoading}
@@ -650,6 +652,7 @@ function CompetitionPortalPage() {
         endDate: string;
         submissionsEnabled: boolean;
         leaderboardEnabled?: boolean;
+        teamGroups?: string[];
     } | null>(null);
 
 
@@ -996,6 +999,7 @@ function CompetitionPortalPage() {
                                         updateRankingsCallback={updateRankings}
                                         isLoading={isLoadingLeaderBoard} 
                                         competitionName={competitionName}
+                                        teamGroups={metaData?.teamGroups}
                                         leaderboardEnabled={metaData?.leaderboardEnabled}/>
                                 },
                                 {
