@@ -86,6 +86,13 @@ const createDivisionColumn = (filters: { text: string; value: string }[]): Colum
     onFilter: (value, record) => record.teamGroup?.includes(value.toString()) ?? false,
 });
 
+const benchmarkScoreColumn: ColumnsType<CompetitionData>[number] = {
+    title: 'Benchmark Score',
+    dataIndex: 'benchmarkScore',
+    render: (value: number | null) => value != null ? value : 'N/A',
+    sorter: (a, b) => (a.benchmarkScore ?? 0) - (b.benchmarkScore ?? 0),
+};
+
 const winColumn: ColumnsType<CompetitionData>[number] = {
     title: 'W',
     dataIndex: 'winHistory',
@@ -108,10 +115,11 @@ const drawColumn: ColumnsType<CompetitionData>[number] = {
 };
 
 /**
- * Get columns configuration based on teamGroups
+ * Get columns configuration based on competition name and teamGroups
+ * @param competitionName competition name
  * @param teamGroups array of division names or undefined
  */
-export const getColumnsForCompetition = (teamGroups?: string[]): ColumnsType<CompetitionData> => {
+export const getColumnsForCompetition = (competitionName?: string, teamGroups?: string[]): ColumnsType<CompetitionData> => {
     const baseColumns = [rankColumn, teamColumn];
 
     if (teamGroups && teamGroups.length > 0) { // Only add division column if divisions exist
@@ -119,7 +127,18 @@ export const getColumnsForCompetition = (teamGroups?: string[]): ColumnsType<Com
             teamGroups.map(g => ({ text: g, value: g }))
         ));
     }
+    
+    // Stellatro has score and benchmark score
+    if (competitionName?.includes('Stellatro.')) {
+        return [...baseColumns, scoreColumn, benchmarkScoreColumn];
+    }
 
+    // StarChess has win/loss/draw
+    if (competitionName?.includes('StarChess.')) {
+        return [...baseColumns, scoreColumn, winColumn, lossColumn, drawColumn];
+    }
+    
+    // Defaults to public and private score (e.g. blockography uses this)
     return [...baseColumns, scoreColumn, publicScoreColumn, privateScoreColumn];
 };
 
@@ -129,6 +148,7 @@ export {
     scoreColumn,
     publicScoreColumn,
     privateScoreColumn,
+    benchmarkScoreColumn,
     createDivisionColumn,
     winColumn,
     lossColumn,
