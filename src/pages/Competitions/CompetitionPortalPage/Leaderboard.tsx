@@ -38,8 +38,8 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
     }
 ) => {
 
-    // Get columns based on team divisions
-    const columns = getColumnsForCompetition(teamGroups);
+    // Get columns based on competition name and team divisions
+    const columns = getColumnsForCompetition(competitionName, teamGroups);
 
     // console.log("rankdata", rankData);
 

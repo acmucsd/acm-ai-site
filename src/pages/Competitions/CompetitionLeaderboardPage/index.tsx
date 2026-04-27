@@ -45,6 +45,7 @@ const CompetitionLeaderboardPage = () => {
           winHistory: d.winHistory,
           lossHistory: d.lossHistory,
           drawHistory: d.drawHistory,
+          benchmarkScore: d.benchmarkScore ?? null,
         };
       });
       setLastRefresh(new Date());
@@ -153,7 +154,7 @@ const CompetitionLeaderboardPage = () => {
           {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
         </p>
 
-        <Table loading={loading} columns={getColumnsForCompetition(meta?.teamGroups)} dataSource={data} />
+        <Table loading={loading} columns={getColumnsForCompetition(competitionID, meta?.teamGroups)} dataSource={data} />
         {updateTime && <p>Last updated {updateTime?.toLocaleString()}</p>}
       </div>
     </DefaultLayout>
