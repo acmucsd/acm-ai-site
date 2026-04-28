@@ -14,6 +14,7 @@ import BackLink from '../../../components/BackLink';
 import { Tag, Tooltip } from 'antd';
 
 const { TextArea } = Input;
+const MAX_UPLOAD_SIZE_BYTES = 80 * 1024 * 1024;
 
 const CompetitionUploadPage = () => {
   // const tags = ['feather weight', 'middle weight', 'heavy weight']
@@ -136,6 +137,18 @@ const CompetitionUploadPage = () => {
   };
 
   const beforeUpload = (file: any) => {
+    const isZipFile = file.name.toLowerCase().endsWith('.zip');
+    if (!isZipFile) {
+      message.error('You can only upload ZIP files!');
+      return false;
+    }
+
+    const isWithinSizeLimit = file.size <= MAX_UPLOAD_SIZE_BYTES;
+    if (!isWithinSizeLimit) {
+      message.error(`File must be ${MAX_UPLOAD_SIZE_BYTES / (1024 * 1024)}MB or smaller.`);
+      return false;
+    }
+
     const correctFileName = file.name === submissionFileName;
     if (!correctFileName) {
       message.error(`You can only upload a file named ${submissionFileName}!`);
@@ -166,7 +179,7 @@ const CompetitionUploadPage = () => {
               <Upload onChange={handleFileChange} 
                       customRequest={dummyRequest} 
                       beforeUpload={beforeUpload}
-                      accept={submissionFileExtension}
+                      accept=".zip,application/zip,application/x-zip-compressed"
               >
                 <Button className="upload-btn">
                   <UploadOutlined /> Click to add file
