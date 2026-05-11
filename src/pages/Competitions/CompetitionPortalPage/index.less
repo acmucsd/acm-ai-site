@@ -263,6 +263,7 @@
     }
 
     #uploadFileSection,
+    #latestSubmissionResultSection,
     #submissionsPreviewSection,
     #teamScoreHistorySection {
       display: block;
@@ -296,6 +297,41 @@
 
       #antUploadText {
         color: @text-gray;
+      }
+    }
+
+    #latestSubmissionResultSection {
+      background-color: @light-gray;
+      padding: @padding-base2;
+      border-radius: @radius-base4;
+
+      h3 {
+        font-weight: @semi-bold;
+        margin-bottom: 1rem;
+      }
+
+      #latestSubmissionResultCard {
+        background-color: white;
+        border-radius: @radius-base3;
+        padding: @padding-base;
+
+        p {
+          color: @black;
+          margin: 0.75rem 0 0;
+          word-break: break-word;
+        }
+      }
+
+      #latestSubmissionResultTags {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      #latestSubmissionResultEmpty {
+        color: @text-gray;
+        margin: 0;
       }
     }
 

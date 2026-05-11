@@ -244,6 +244,8 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
     const [submissionFile, setFile] = useState<any>();
     const [uploading, setUploading] = useState<boolean>(false);
+    const [latestSubmissionResult, setLatestSubmissionResult] = useState<any>(null);
+    const [isLoadingLatestSubmissionResult, setIsLoadingLatestSubmissionResult] = useState<boolean>(false);
 
     const showLeaveModal = () => {
         setIsLeaveModalVisible(true);
@@ -383,6 +385,42 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         setIsLoading(false);
     }
 
+    useEffect(() => {
+        if (!teamInfo?.submitHistory?.length || !metaData?.competitionName) {
+            setLatestSubmissionResult(null);
+            return;
+        }
+
+        let isCurrent = true;
+        const latestSubmissionId = teamInfo.submitHistory[teamInfo.submitHistory.length - 1];
+
+        setIsLoadingLatestSubmissionResult(true);
+        getSubmissionDetails(metaData.competitionName, latestSubmissionId)
+            .then((res) => {
+                if (!isCurrent) return;
+                setLatestSubmissionResult(res.data?.[0] || null);
+            })
+            .catch(() => {
+                if (!isCurrent) return;
+                setLatestSubmissionResult(null);
+            })
+            .finally(() => {
+                if (!isCurrent) return;
+                setIsLoadingLatestSubmissionResult(false);
+            });
+
+        return () => {
+            isCurrent = false;
+        };
+    }, [teamInfo?.submitHistory, metaData?.competitionName]);
+
+    const latestSubmissionMessage =
+        latestSubmissionResult?.message ||
+        latestSubmissionResult?.error ||
+        'No result message returned yet.';
+    const latestSubmissionOk = latestSubmissionResult?.evaluationOk;
+    const latestSubmissionCode = latestSubmissionResult?.evaluationCode;
+
 
     return (
         <>
@@ -439,6 +477,29 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 <Button size="large" className="uploadButton" icon = {<UploadOutlined size = {14}/>}>Upload</Button>
                             </Link>
 
+                        </div>
+
+                        <div id="latestSubmissionResultSection">
+                            <h3>Latest Submission Result</h3>
+                            {isLoadingLatestSubmissionResult ? (
+                                <Skeleton active paragraph={{ rows: 2 }} />
+                            ) : latestSubmissionResult ? (
+                                <div id="latestSubmissionResultCard">
+                                    <span id="latestSubmissionResultTags">
+                                        {typeof latestSubmissionOk === 'boolean' && (
+                                            <Tag color={latestSubmissionOk ? 'success' : 'error'}>
+                                                {latestSubmissionOk ? 'Success' : 'Failed'}
+                                            </Tag>
+                                        )}
+                                        {latestSubmissionCode && <Tag>{latestSubmissionCode}</Tag>}
+                                    </span>
+                                    <p>{latestSubmissionMessage}</p>
+                                </div>
+                            ) : (
+                                <p id="latestSubmissionResultEmpty">
+                                    Submit once to see your latest result here.
+                                </p>
+                            )}
                         </div>
 
                         {/* <form id = "uploadFileSection">
