@@ -128,9 +128,9 @@ export const getColumnsForCompetition = (competitionName?: string, teamGroups?: 
         ));
     }
     
-    // Stellatro has score and benchmark score
+    // Stellatro has score and benchmark score. (Update: Benchmark score hidden for comp)
     if (competitionName?.includes('Stellatro.')) {
-        return [...baseColumns, scoreColumn, benchmarkScoreColumn];
+        return [...baseColumns, scoreColumn, /*benchmarkScoreColumn*/];
     }
 
     // StarChess has win/loss/draw
