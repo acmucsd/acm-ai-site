@@ -233,7 +233,7 @@ const CompetitionUploadPage = () => {
               onClick={handleSubmit(onSubmit)}
               disabled={uploading}
             >
-              Submit
+              {uploading ? "Running benchmark" : "Submit"}
             </Button>
           {/* </form> */}
         {/* </Form> */}
