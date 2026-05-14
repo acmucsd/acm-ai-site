@@ -187,7 +187,6 @@ function App() {
               <Route path="/profile" exact component={ProfilePage} />
               <Route path="/requestreset" component={requestreset} /> 
               <Route path="/resetpassword" component={ForgotPasswordPage} />
-              <Route path="/admin/register" exact component={RegisterPage} />
               <Route path="/admin/portal" exact component={AdminPortalPage} />
 
               {/* old competitions */}
