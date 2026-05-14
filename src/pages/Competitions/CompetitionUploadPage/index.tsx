@@ -111,6 +111,7 @@ const CompetitionUploadPage = () => {
     )
       .then((res) => {
         message.success('Submission Uploaded Succesfully');
+        localStorage.setItem("activeTab", JSON.stringify('3'));
         history.replace('/portal');
       })
       .catch((err) => {
@@ -232,7 +233,7 @@ const CompetitionUploadPage = () => {
               onClick={handleSubmit(onSubmit)}
               disabled={uploading}
             >
-              Submit
+              {uploading ? "Running benchmark" : "Submit"}
             </Button>
           {/* </form> */}
         {/* </Form> */}
