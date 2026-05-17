@@ -163,8 +163,8 @@ const CompetitionLandingPage = () => {
                       </>
                     ) : (
                       <>
-                        <Link to={`/competitions/${competitionID}/teams`}>
-                          <Button className="headerbtn">Teams</Button>
+                        <Link to="/portal">
+                          <Button className="headerbtn">Portal</Button>
                         </Link>
                         <Link to={`/competitions/${competitionID}/upload`}>
                           <Button className="headerbtn">Submit</Button>
