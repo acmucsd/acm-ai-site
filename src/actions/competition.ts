@@ -35,7 +35,7 @@ export const uploadSubmission = async (
   userid: string
 ): Promise<AxiosResponse> => {
   if (!file) {
-    throw new Error('no file!');
+    throw new Error('No file selected. Please upload a .zip file before submitting.');
   }
 
   let token = getToken(COOKIE_NAME);

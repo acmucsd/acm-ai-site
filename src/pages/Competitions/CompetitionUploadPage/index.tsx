@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
 import { Form, Button, Upload, message, Input } from 'antd';
@@ -8,6 +8,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import { uploadSubmission, getSubmissionFileName } from '../../../actions/competition';
 import UserContext from '../../../UserContext';
+import { minimatch } from 'minimatch';
 import path from 'path';
 import BackLink from '../../../components/BackLink';
 // import CheckableTagList from '../../../components/CheckableTagList'
@@ -29,8 +30,7 @@ const CompetitionUploadPage = () => {
   const { id } = useParams() as { id: string };
   const competitionID = id;
 
-  const [submissionFileName, setSubmissionFileName] = useState<string>('');
-  const [submissionFileExtension, setSubmissionExtension] = useState<string>('');
+  const [submissionFilePattern, setSubmissionFilePattern] = useState<string>('');
   const [tags, setTags] = useState<Array<string>>([]);
   const [inputVisible, setInputVisible] = useState<Boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
@@ -68,30 +68,19 @@ const CompetitionUploadPage = () => {
     setInputValue('');
   };
 
-  // load submission file name
-  const loadSubmissionFileName = useCallback((competitionName: string) => {
-    if (competitionName) {
-      getSubmissionFileName(competitionName)
-        .then((data: any) => {
-          setSubmissionFileName(data.submissionFileName || '');
-          setSubmissionExtension("." + data.submissionFileName.split(".")[1] || '');
-        }
-      )
-      .catch((error) => {
-          message.error(`Failed to load submission file name for ${competitionName}.`);
-          console.error('Error loading competition submission file name:', error);
-          setSubmissionFileName('');
-          setSubmissionExtension('');
-        });
-    } else {
-      setSubmissionFileName('');
-      setSubmissionExtension('');
-    }
-  }, [getSubmissionFileName]);
-
   useEffect(() => {
-    loadSubmissionFileName(competitionID);
-  }, [loadSubmissionFileName]);
+    if (competitionID) {
+      getSubmissionFileName(competitionID)
+        .then((data: any) => {
+          setSubmissionFilePattern(data.submissionFileName || '');
+        })
+        .catch((error) => {
+          message.error(`Failed to load submission file name pattern for ${competitionID}.`);
+          console.error('Error loading competition submission file name:', error);
+          setSubmissionFilePattern('');
+        });
+    }
+  }, [competitionID]);
 
   useEffect(() => {
     if (!user.loggedIn) {
@@ -150,12 +139,14 @@ const CompetitionUploadPage = () => {
       return false;
     }
 
-    const correctFileName = file.name === submissionFileName;
-    if (!correctFileName) {
-      message.error(`You can only upload a file named ${submissionFileName}!`);
+    if (submissionFilePattern) {
+      if (!minimatch(file.name, submissionFilePattern)) {
+        message.error(`"${file.name}" does not match the required file name pattern: ${submissionFilePattern}`);
+        return false;
+      }
     }
 
-    return correctFileName;
+    return true;
   };
 
   return (
@@ -165,7 +156,7 @@ const CompetitionUploadPage = () => {
         <BackLink to="../" />
         <h2>Submission to {competitionID}</h2>
         <p>
-          You must submit a {submissionFileName} file that contains your submission.
+          You must submit a .zip file{submissionFilePattern ? ` matching the pattern: ${submissionFilePattern}` : ''} that contains your submission.
         </p>
         <br />
         {/* <Form> */}
