@@ -163,6 +163,7 @@ const AlumniPage = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<Person>();
   const [people, setPeople] = useState<Record<string, Person[]>>({
+      YR_25_26: [],
       YR_24_25: [],
       YR_23_24: [],
       YR_22_23: [],
@@ -190,6 +191,13 @@ const AlumniPage = () => {
         </Content>
 
         <Content className="gallery">
+         <Section
+          year='2025-2026'
+          people={people.YR_25_26}
+          onSelectPerson={(person: Person) => setSelectedPerson(person)}
+          showDrawer={() => setIsDrawerVisible(true)}
+         />
+
          <Section
           year='2024-2025'
           people={people.YR_24_25}
