@@ -18,6 +18,7 @@ export interface Person {
 }
 
 const sheetYears = [
+  "25-26",
   "24-25",
   "23-24",
   "22-23",
@@ -27,10 +28,12 @@ const sheetYears = [
 
 const KEY = process.env.REACT_APP_BOARD_SHEET_KEY as string;
 const SHEET_ID = process.env.REACT_APP_BOARD_SHEET_ID as string;
+const BOARD_BIOS_URL = process.env.REACT_APP_BOARD_BIOS as string;
 const BASE_URL = "https://sheets.googleapis.com/v4/spreadsheets";
 
 const fetchData = async (): Promise<Record<string, Person[]>>=> {
   const years: Record<string, Person[]> = {
+    YR_25_26: [],
     YR_24_25: [],
     YR_23_24: [],
     YR_22_23: [],
@@ -41,7 +44,11 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
   for (let year of sheetYears) {
     try {
       const response = 
-          await axios.get(`${BASE_URL}/${SHEET_ID}/values/${year}?key=${KEY}`);
+          await axios.get(
+            year === '25-26' && BOARD_BIOS_URL
+              ? BOARD_BIOS_URL
+              : `${BASE_URL}/${SHEET_ID}/values/${year}?key=${KEY}`
+          );
       const rows = response.data.values;
 
       let team = '', role = '', picture = '', github = '', website = '', 
@@ -51,6 +58,13 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
         rows.slice(1).forEach((row: string[]) => {
           // Account for different sheet formatting over different years
           switch (year) {
+            case '25-26':
+              major = row[3];
+              picture = row[5];
+              github = row[6];
+              linkedin = row[7];
+              website = row[8];
+              break;
             case '24-25':
               major = row[13] 
               picture = row[20]; 
@@ -119,8 +133,13 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
             }
           }
 
-          if ((person.team === "AI" || person.team === "ACM AI") && person.name) {
+          if ((year === '25-26' || person.team === "AI" || person.team === "ACM AI") && person.name) {
               switch (year) {
+                case '25-26':
+                  if (!years["YR_25_26"].find(element => element.name === person.name)) {
+                    years["YR_25_26"].push(person);
+                    break;
+                  }
                 case '24-25': 
                   if (!years["YR_24_25"].find(element => element.name === person.name)) {
                       years["YR_24_25"].push(person);
@@ -159,6 +178,7 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
         YR_21_22: [], 
         YR_22_23: [], 
         YR_23_24: [],
+        YR_25_26: [],
       };
     }
   }
