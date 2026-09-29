@@ -186,8 +186,6 @@ function AboutPage() {
     operations: [],
     competitions: [],
     dev: [],
-    marketing: [],
-    socials: [],
     staff: [],
   });
 
@@ -232,22 +230,6 @@ function AboutPage() {
           />
 
           <Section
-            people={people.socials}
-            team="socials"
-            statement="Our socials team that keeps the community fun, lively, and connected"
-            onSelectPerson={(person: Person) => setSelectedPerson(person)}
-            showDrawer={() => setIsDrawerVisible(true)}
-          />
-
-          <Section
-            people={people.marketing}
-            team="marketing"
-            statement="Our wonderful marketing and sponsorship team"
-            onSelectPerson={(person: Person) => setSelectedPerson(person)}
-            showDrawer={() => setIsDrawerVisible(true)}
-          />
-
-          <Section
             people={people.competitions}
             team="competitions"
             statement="Our team curating each of our competitions"
@@ -262,6 +244,8 @@ function AboutPage() {
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
           />
+          
+          {/* //When we recruit Diamond staff
           <Section
             people={people.staff}
             team="staff"
@@ -269,8 +253,9 @@ function AboutPage() {
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
           />
+          */}
         </Content>
-
+        
         <Content className='alumni'>
           <div className='aboutButtons'>
               <Link to={`/alumni`} rel="noopener noreferrer">
