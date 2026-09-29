@@ -224,7 +224,8 @@ function AboutPage() {
           <Section
             people={people.operations}
             team="operations"
-            statement="Our team of event leads who design and host all the events"
+            statement="Our event, social, and marketing leads who design
+                      and host all our events"
             onSelectPerson={(person: Person) => setSelectedPerson(person)}
             showDrawer={() => setIsDrawerVisible(true)}
           />
