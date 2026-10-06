@@ -3,13 +3,13 @@
   .button-colorful();
 
   :hover{
-    color: @mainred
+    color: var(--accent)
   }
 }
 
 .colorful2 {
   .button-red-outline();
-  border: 2px solid @mainred;
+  border: 2px solid var(--accent);
 }
 
 .btn-container {
@@ -53,7 +53,7 @@
       box-sizing: border-box;
 
       p {
-        color: white;
+        color: var(--text-inverse);
       }
     }
   }
@@ -73,7 +73,7 @@
       align-items: start;
       padding: @padding-base2;
       max-width: @sm;
-      color: @black;
+      color: var(--foreground);
     }
 
     #portalStatsRow {
@@ -81,7 +81,7 @@
       text-align: center;
       margin-top: 20px;
       border-radius: 10px;
-      border: solid 2px @mainred;
+      border: solid 2px var(--accent);
       font-size: 64px;
       overflow: hidden; 
     
@@ -91,7 +91,7 @@
           font-size: @font3;
         }
         font-weight: bold;
-        color: white;
+        color: var(--text-inverse);
         margin-bottom: 10px;
         padding-top: 3vh;
         padding-bottom: 3vh;
@@ -137,7 +137,7 @@
 
     .ant-tabs-ink-bar {
       display: block;
-      background-color: @mainred;
+      background-color: var(--accent);
     }
 
   }
@@ -167,7 +167,7 @@
     margin-bottom: 1rem;
 
     p#lastRefreshedText {
-      background: @light-gray;
+      background: var(--surface-muted);
       border-radius: @radius-base4;
       padding: @padding-base;
       margin-right: 2rem;
@@ -236,7 +236,7 @@
         .button-colorful();
         padding: 4px 12px;
         width: fit-content;
-        color: white;
+        color: var(--text-inverse);
         transform: translateY(4px);
         font-weight: @semi-bold;
       }
@@ -267,7 +267,7 @@
     }
 
     #uploadFileSection {
-      background-color: @light-gray;
+      background-color: var(--surface-muted);
       padding: @padding-base2;
       border-radius: @radius-base4;
 
@@ -283,7 +283,7 @@
       }
 
       #uploadDescription { 
-        color: @black;
+        color: var(--foreground);
         border-radius: @radius-base3;
         margin-bottom: 2rem;
         height: 100px;
@@ -292,12 +292,12 @@
       }
 
       #antUploadText {
-        color: @text-gray;
+        color: var(--muted);
       }
     }
 
     #latestSubmissionResultSection {
-      background-color: @light-gray;
+      background-color: var(--surface-muted);
       padding: @padding-base2;
       border-radius: @radius-base4;
 
@@ -307,12 +307,12 @@
       }
 
       #latestSubmissionResultCard {
-        background-color: white;
+        background-color: var(--surface);
         border-radius: @radius-base3;
         padding: @padding-base;
 
         p {
-          color: @black;
+          color: var(--foreground);
           margin: 0.75rem 0 0;
           word-break: break-word;
         }
@@ -326,7 +326,7 @@
       }
 
       #latestSubmissionResultEmpty {
-        color: @text-gray;
+        color: var(--muted);
         margin: 0;
       }
     }
@@ -339,7 +339,7 @@
     }
 
     #submissionCountDown {
-      background-color: @light-gray;
+      background-color: var(--surface-muted);
       border-radius: @radius-base3;
       padding: 10px;
       display: inline-block;
@@ -359,7 +359,7 @@
       height: fit-content;
       box-sizing: border-box;
       padding: @padding-base3;
-      background-color: @light-gray;
+      background-color: var(--surface-muted);
       border-radius: @radius-base4;
 
 
@@ -402,7 +402,7 @@
       }
 
       div.teamMember:hover {
-        background-color: white !important;
+        background-color: var(--surface) !important;
         cursor: pointer;
       }
     }
@@ -418,12 +418,12 @@
       h3 {
         margin-right: 1rem;
         font-weight: @semi-bold;
-        color: white;
+        color: var(--text-inverse);
         margin-bottom: 1rem;
       }
 
       p {
-        color: white;
+        color: var(--text-inverse);
       }
     }
   }

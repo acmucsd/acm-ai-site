@@ -27,14 +27,14 @@ body {
   color:@b1;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  background-color:#FEFEFE;
+  background-color:var(--background);
   overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5 {
-  color: @b2;
+  color: var(--heading);
 }
 
 h1 {
@@ -101,7 +101,7 @@ a {
 }
 a:hover {
   text-decoration: none;
-  color: @mainred;
+  color: var(--accent);
 }
 /* These media queries apply global resizing for the base font size for 
  * each screen size. Typography is dyanmically scaled using

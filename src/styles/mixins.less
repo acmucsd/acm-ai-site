@@ -53,26 +53,26 @@
 
 // subTexts are for small paragraphs or buttons
 .sub-text-black {
-    color: @black;
+    color: var(--foreground);
     font-weight: @regular;
     .sub-text();
 }
 
 .sub-text-white {
-    color: @white;
+    color: var(--text-inverse);
     font-weight: @regular;
     .sub-text();
 }
 
 // text for buttons
 .button-text-black {
-    color: @black;
+    color: var(--foreground);
     font-weight: @semi-bold;
     .sub-text();
 }
 
 .button-text-white {
-    color: @white;
+    color: var(--text-inverse);
     font-weight: @semi-bold;
     .sub-text();
 }
@@ -92,7 +92,7 @@
 
 // provides app theme linear gradient: red -> yellow
 .gradient {
-    background: linear-gradient(90deg, @mainred, @mainyellow);
+    background: linear-gradient(90deg, var(--gradient-start), @mainyellow);
 }
 
 // Every page has a header so it's better to keep a single source of truth here
@@ -122,7 +122,7 @@
 .constrained-bounds {
     width: 80%;
     margin: 0 auto;
-    max-width: 1024px;
+    max-width: var(--max-width);
 
     @media screen and (max-width: @sm){
         width: 100%;
@@ -151,36 +151,36 @@
 /* Used for giving basic styling for nay button*/
 .button-black {
     background-color: @b1;
-    color: @white;
+    color: var(--text-inverse);
     border-style: none;
 
     &:hover {
-        color: @mainred;
+        color: var(--accent);
     }
 }
 
 .button-colorful {
-    background: linear-gradient(#F66161, #FF8130);
+    background: linear-gradient(var(--gradient-start), var(--gradient-end));
     border-style: none;
-    color: @white;
+    color: var(--text-inverse);
 
     &:hover {
-        color: @text-gray2;
+        color: var(--secondary);
     }
 }
 
 .button-red-outline {
-    background-color: white;
-    border-color: @mainred;
-    color: @mainred;
+    background-color: var(--surface);
+    border-color: var(--accent);
+    color: var(--accent);
     &:hover {
-        border-color: @text-gray2;
-        color: @text-gray2;
+        border-color: var(--secondary);
+        color: var(--secondary);
     }
 }
 
 .text-colorful {
-    background: linear-gradient(#F66161, #FF8130);
+    background: linear-gradient(var(--gradient-start), var(--gradient-end));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;  /* For Firefox */
@@ -192,5 +192,5 @@
 }
 
 .danger {
-    color: @danger;
+    color: var(--error);
 }

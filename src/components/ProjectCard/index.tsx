@@ -62,7 +62,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
               alt={project.name}
               style={{
                 objectFit: 'cover',
-                boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
+                boxShadow: 'var(--card-shadow)',
                 borderRadius: '16px',
                 height: '60px',
                 width: '60px',

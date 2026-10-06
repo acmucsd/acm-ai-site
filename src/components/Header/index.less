@@ -6,10 +6,10 @@
   right: 0;
   width: 100%;
   z-index: 100;
-  height: 88px;
+  height: var(--navbar-height);
   display: flex;
   flex-direction: column;
-  background: @white;
+  background: var(--surface);
 
   .navBarWrapper {
     height: 80px;
@@ -32,10 +32,10 @@
   .navItem{
     margin: 0 1rem;
     font-size: @font3;
-    color: @black;
+    color: var(--foreground);
     font-weight: @semi-bold;
     &:hover {
-      color: @mainred;
+      color: var(--accent);
     }
   }
 
@@ -83,7 +83,7 @@
 
       h4 {
         font-weight: @semi-bold;;
-        color: white;
+        color: var(--text-inverse);
       }
   
     }
@@ -105,24 +105,24 @@
   text-align: center;
   position: fixed;
   flex-direction: column;
-  background:@white;
+  background:var(--surface);
   padding-top: 4rem;
   padding-bottom: 3rem;
   z-index: 99;
   transform: translateY(-100%);
   transition: transform 0.3s ease-in-out; /* You can adjust the duration and easing as needed */
-  box-shadow: @bx2;
+  box-shadow: var(--raised-shadow);
 
   .mobileNavItem {
     text-decoration: none;
   
     font-size: @font4;
-    color: @black;
+    color: var(--foreground);
     font-weight: @semi-bold;
     margin: 1rem 0;
 
     &:hover {
-      color: @mainred;
+      color: var(--accent);
     }
 
   }
@@ -133,10 +133,10 @@
     font-size: @font4;
     font-weight: @semi-bold;
     margin: 0.5rem 0;
-    color: @black;
+    color: var(--foreground);
     &:hover {
       cursor: pointer;
-      color: @mainred;
+      color: var(--accent);
     }
   }
 
