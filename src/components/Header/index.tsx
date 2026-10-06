@@ -20,9 +20,6 @@ function Header() {
     { to: '/competitions', text: 'Competitions' },
     { to: '/projects', text: 'Projects' },
   ];
-  let path = window.location.pathname;
-  let initKeys: Array<string> = [];
-  
   const handleMenuClick: MenuProps['onClick'] = (e) => {
 
     console.log('click', e);
@@ -55,75 +52,11 @@ function Header() {
     onClick: handleMenuClick,
   };
 
-  if (path.match(`/home`)) {
-    initKeys = ['home'];
-  }
-  if (path.match(`user`)) {
-    initKeys = ['profile'];
-  }
-  if (path.match(`login`)) {
-    initKeys = ['login'];
-  }
-  if (path.match(`register`)) {
-    initKeys = ['register'];
-  }
-  if (path.match(`/competitions`)) {
-    initKeys = ['competitions'];
-  }
-  if (path.match(`/about`)) {
-    initKeys = ['about'];
-  }
-  if (path.match(`/alumni`)) {
-    initKeys = ['alumni'];
-  }
-  if (path.match(`/events`)) {
-    initKeys = ['events'];
-  }
-
-  // const [key, setKey] = useState<Array<string>>(initKeys);
-  // const handleClick = (e: any) => {
-  //   setKey(e.key);
-  // };
-
   const size: Size = useWindowSize();
   const [isMobile, setIsMobile] = useState<Boolean>(false);
   const [menuOpen, setMenuOpen] = useState<Boolean>(false);
 
-  //const [loginItems, setLoginItems] = useState<any>();
   const history = useHistory();
-
-  /*
-  useEffect(() => {
-    if (user.loggedIn) {
-      setLoginItems([
-        <Menu.Item
-          key="logout"
-          onClick={() => {
-            logoutUser();
-            setUser(defaultUser);
-            message.success('Logged out');
-            history.push('/');
-          }}
-        >
-          Logout
-        </Menu.Item>,
-      ]);
-    } else {
-      setLoginItems([
-        <Menu.Item key="register">
-          <Link to={`/register`} rel="noopener noreferrer">
-            Register
-          </Link>
-        </Menu.Item>,
-        <Menu.Item key="login">
-          <Link to={`/login`} rel="noopener noreferrer">
-            Login
-          </Link>
-        </Menu.Item>,
-      ]);
-    }
-  }, [history, setUser, user]);
-  */
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);

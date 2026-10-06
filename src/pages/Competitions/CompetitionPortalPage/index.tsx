@@ -236,14 +236,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
     const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
     const [isLeaveModalVisible, setIsLeaveModalVisible] = useState<boolean>(false);
     
-    // Submission description input
-    const [desc, setDesc] = useState<string>('');
-
-    // Submission tags input (not being used for now as there isn't UI to add tags yet)
-    // const [tags, setTags] = useState<Array<string>>([]); 
-
-    const [submissionFile, setFile] = useState<any>();
-    const [uploading, setUploading] = useState<boolean>(false);
     const [latestSubmissionResult, setLatestSubmissionResult] = useState<any>(null);
     const [isLoadingLatestSubmissionResult, setIsLoadingLatestSubmissionResult] = useState<boolean>(false);
 
@@ -265,66 +257,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
     const handleInviteModalClose = () => {
         setIsInviteModalVisible(false);
-    };
-
-    // Upload submission
-    const { Dragger } = Upload;
-    const uploadProps: UploadProps = {
-        name: 'file',
-        multiple: false,
-        // TODO: replace placeholder link with actual file uploading logic
-        // action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-        onChange(info) {
-            const { status } = info.file;
-            if (status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully.`);
-                setFile(info.file)
-            } else if (status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-    };
-
-    /**
-     * Helper function to refresh the submission history or log
-     * when the user successfully uploads a submission. Also
-     * performs a refresh of the team data in case the eval server
-     * updates the team's ranking, score, etc.
-     * 
-     * @param event A react form event
-     */
-    const handleSubmit = (event: React.FormEvent) => {
-
-        event.preventDefault();
-        fetchTeamsCallback();
-
-        /* TODO: When eval servers are up, uncomment this portion
-        event.preventDefault();
-        setUploading(true);
-        uploadSubmission(
-          submissionFile,
-          // use the username as first tag value
-          [compUser.username],
-          desc,
-          compUser.competitionName,
-          compUser.username as string
-        )
-          .then((res) => {
-            message.success('Submission Uploaded Succesfully');
-            fetchTeamsCallback();
-          })
-          .catch((err) => {
-            message.error(`${err}`);
-          })
-          .finally(() => {
-            setUploading(false);
-          }); */
     };
 
     /**
@@ -501,45 +433,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 </p>
                             )}
                         </div>
-
-                        {/* <form id = "uploadFileSection">
-                            <span id = "uploadFileHeader">
-                                <h3>Upload Submission</h3>
-                                <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
-                                    <FaClock size = {28} />
-                                </Tooltip>
-                            
-                            </span>
-
-                            <TextArea
-                                id ="uploadDescription"
-                                rows={1}
-                                autoSize
-                                maxLength={300}
-                                size="large"
-                                placeholder="Add a description. Max character limit of 300"
-                                value={desc}
-                                onChange={(evt) => setDesc(evt.target.value)}
-                            />
-
-                            <Dragger id = "uploadDragArea" style = {{borderRadius: "20px", background: "white", border: "none"}}height={150} {...uploadProps}>
-                                <p id="antUploadDragIcon">
-                                    <InboxOutlined style={{color: "darkgray"}}/>
-                                </p>
-                                <p id="antUploadText">Click or drag file to this area to upload</p>
-                            </Dragger>
-                        
-                            <Button
-                                size = "large"
-                                htmlType="submit"
-                                id ="submitFileButton"
-                                onClick = {(event) => handleSubmit(event)}
-                                disabled = {metaData.submissionsEnabled ? false : true}
-                            >
-                                Submit
-                            </Button>   
-                        </form> 
-                        */}
 
                         {/* <SubmissionsPreview  teamInfo={teamInfo} competitionName= {metaData.competitionName} /> */}
                     </div>
