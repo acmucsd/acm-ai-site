@@ -1,10 +1,4 @@
-//@import 'antd/dist/reset.css';
-@import '~./reset.less';
-@import './variables.less';
-
-
-// This less file uses the reset.less file to apply consistent text styling 
-// across all pages, so that means we write less code! 
+// element defaults
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -109,48 +103,6 @@ a:hover {
   text-decoration: none;
   color: @mainred;
 }
-a[l] {
-  color:var(--b2);
-  padding-bottom: 2px;
-  position: relative;
-  font-style: normal;
-  cursor: pointer;
-}
-a[l]:hover,a[l]:focus {
-  text-decoration: none;
-}
-a[l]::before {
-  content: "";
-  left: 0;
-  background-color: var(--b2);
-  width: 0%;
-  height: 1px;
-  top:-webkit-calc(1em + 8px);
-  top:calc(1em + 8px);
-  position: absolute;
-  z-index: 2;
-  -webkit-transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
-  -o-transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
-  transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;;
-}
-a[l]:hover::before, a[l]:focus::before {
-  content: "";
-  left: 0;
-  background-color: var(--b2);
-  width: 100%;
-  height: 1px;
-  top:-webkit-calc(1em + 8px);
-  top:calc(1em + 8px);
-  position: absolute;
-  z-index: 2;
-  -webkit-transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
-  -o-transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
-  transition: background-color 0.2s, height 0.2s, top 0.2s, width 0.2s;
-  text-decoration: none;
-}
-
-
-
 /* These media queries apply global resizing for the base font size for 
  * each screen size. Typography is dyanmically scaled using
  * relative units in the variables.less file (i.e @font1,2,3...)

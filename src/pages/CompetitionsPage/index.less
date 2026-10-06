@@ -1,8 +1,4 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-@import '../../newStyles/variables.less';
-
+@import (reference) '../../styles/index.less';
 .CompetitionsPage {
   .noContainer();
 
@@ -42,14 +38,6 @@
       }
 
   
-
-      .colorful{
-        background: linear-gradient(#F66161, #FF8130);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;  /* For Firefox */
-        color: transparent;
-      }
 
       &::before {
         content: url('../../../public/trophy_bg.png'); // Add your trophy icon path
