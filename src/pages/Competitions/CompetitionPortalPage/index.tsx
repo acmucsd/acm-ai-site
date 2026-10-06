@@ -135,7 +135,8 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
     
     // Form field to create a new team with a name
     const [newTeamName, setNewTeamName] = useState<string>("");
-    const [newTeamGroup, setNewTeamGroup] = useState<string | undefined>(metaData?.teamGroups?.[0]);
+    const [newTeamGroup, setNewTeamGroup] = useState<string>();
+    const teamGroup = newTeamGroup ?? metaData?.teamGroups?.[0];
 
     // Modal states 
     const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
@@ -205,14 +206,14 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
             return;
         }
 
-        if (metaData?.teamGroups && (!newTeamGroup || !metaData.teamGroups.includes(newTeamGroup))) {
+        if (metaData?.teamGroups && (!teamGroup || !metaData.teamGroups.includes(teamGroup))) {
             message.info('Division is not valid');
             return;
         }
 
         setIsLoading(true);
 
-        createTeam(compUser.competitionName, compUser.username, newTeamName, metaData?.teamGroups ? newTeamGroup : undefined).then((res) => {
+        createTeam(compUser.competitionName, compUser.username, newTeamName, metaData?.teamGroups ? teamGroup : undefined).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
         })
@@ -421,14 +422,13 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         <Select
                             placeholder="New Team Division"
                             style={{ width: '100%' }}
-                            value={newTeamGroup}
+                            value={teamGroup}
                             onChange={(value) => {
                                 setNewTeamGroup(value);
                             }}
                             options={metaData.teamGroups.map((g: string) => ({
                                 label: g, value: g
                             }))}
-                            defaultOpen={true}
                         />
                         </>
                     )}
