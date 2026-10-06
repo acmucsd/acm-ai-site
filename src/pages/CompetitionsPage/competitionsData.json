@@ -1,5 +1,14 @@
 [
     {
+      "competitionName": "Five Nights at AI",
+      "icon": "../../../temp_comp.png",
+      "year": "2026",
+      "stats": {
+      },
+      "description": "Coming soon!",
+      "link": "/competitions/Five Nights at AI"
+    },
+    {
       "competitionName": "Stellatro.AI",
       "icon": "../../../stellatro.png",
       "year": "2026",
