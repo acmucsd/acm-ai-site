@@ -3,6 +3,13 @@ import axios, { AxiosResponse } from 'axios';
 import { COOKIE_NAME } from '../configs';
 import { getToken } from '../utils/token';
 
+export const LEADERBOARD_TYPES = ['wld', 'public_private', 'basic_score', 'mse'] as const;
+
+export type LeaderboardType = (typeof LEADERBOARD_TYPES)[number];
+
+export const isLeaderboardType = (type?: string): type is LeaderboardType =>
+  LEADERBOARD_TYPES.includes(type as LeaderboardType);
+
 export type PastCompetition = {
   name: string;
   year: number;
@@ -183,6 +190,7 @@ export const updateCompetitionDescription = async (competitionName: string, desc
 export type UpdateCompetitionSettingsPayload = {
   submissionsEnabled?: boolean;
   leaderboardEnabled?: boolean;
+  leaderboardType?: LeaderboardType;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
@@ -197,6 +205,7 @@ export type NewCompetitionSettingsPayload = {
   submissionCooldown?: number;
   submissionsEnabled: boolean;
   leaderboardEnabled: boolean;
+  leaderboardType: LeaderboardType;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores: boolean;
