@@ -107,7 +107,7 @@ export const createTeam = async (
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
+        message.error(error.response?.data?.error?.message ?? 'Failed to create team.');
         reject(error);
       });
   });
