@@ -20,7 +20,7 @@ function LoginPage() {
       setUser(getUserFromToken(res));
       message.success('Logged in!');
       window.location.href = '/profile';
-    });
+    }).catch(() => {});
   };
 
   return (

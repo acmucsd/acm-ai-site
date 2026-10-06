@@ -43,7 +43,7 @@ export const requestReset = async (username: string) => {
       })
       .catch((error) => {
         message.error('Request Failed');
-        //reject(error);
+        reject(error);
       });
   });
 };
@@ -66,9 +66,8 @@ export const registerUser = async (data: {
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
-        console.error(error);
-        //reject(error);
+        message.error(error.response?.data?.error?.message ?? 'Registration failed');
+        reject(error);
       });
   });
 };
@@ -122,8 +121,8 @@ export const loginUser = async (
         resolve(res.data.token);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
-        //reject(error);
+        message.error(error.response?.data?.error?.message ?? 'Login failed');
+        reject(error);
       });
   });
 };
@@ -142,8 +141,8 @@ export const verifyToken = async (dimensionID: string, token: string) => {
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
-        //reject(error);
+        message.error(error.response?.data?.error?.message ?? 'Session check failed');
+        reject(error);
       });
   });
 };
