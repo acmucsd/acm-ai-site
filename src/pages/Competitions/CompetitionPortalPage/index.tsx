@@ -308,12 +308,12 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         <div id = "uploadFileSection">
                             <span id = "uploadFileHeader">
                                 <h3>Upload Submission</h3>
-                                <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
+                                <Tooltip title = {<p id = "submissionCountDown">{metaData?.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
                                     <FaClock size = {28} />
                                 </Tooltip>
                             </span>
                             
-                            <Link to={{ pathname: `competitions/${metaData.competitionName}/upload`}} >
+                            <Link to={{ pathname: `competitions/${compUser.competitionName}/upload`}} >
                                 <Button size="large" className="uploadButton" icon = {<UploadOutlined size = {14}/>}>Upload</Button>
                             </Link>
 
