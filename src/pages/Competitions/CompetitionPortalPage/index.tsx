@@ -282,7 +282,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                     <p id = "rankingTag">{rankData.rank ? `${getOrdinal(rankData.rank)} place` : "Unranked"}</p>
                                 </article>
                             
-                                <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28} style = {{color: "black"}}/>}></Button>
+                                <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28} style = {{color: 'var(--foreground)'}}/>}></Button>
                                 <Modal
                                     centered
                                     title="Are you sure you want to leave this team?"
