@@ -30,43 +30,7 @@ const CompetitionUploadPage = () => {
   const competitionID = id;
 
   const [submissionFilePattern, setSubmissionFilePattern] = useState<string>('');
-  const [tags, setTags] = useState<Array<string>>([]);
-  const [inputVisible, setInputVisible] = useState<Boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
   const [uploading, setUploading] = useState<boolean>(false);
-  // Remove tags from list
-  const handleClose = (removedTag: any) => {
-    const newTags: any = tags.filter((tag) => tag !== removedTag);
-    setTags(newTags);
-  };
-
-  // Show input box when adding new tag
-  const showInput = () => {
-    setInputVisible(true);
-  };
-
-  // Set input value on change
-  const handleInputChange = (e: any) => {
-    setInputValue(e.target.value);
-  };
-
-  // Submit new tag on enter key press
-  const handleInputConfirm = () => {
-    let newTags: Array<string> = [];
-    if (inputValue && tags.indexOf(inputValue) === -1) {
-      newTags = [...tags, inputValue];
-    }
-
-    // Limit of 10 tags
-    if (newTags.length > 10) {
-      message.info('Up to 10 tags may be submitted');
-    } else {
-      setTags(newTags);
-    }
-    setInputVisible(false);
-    setInputValue('');
-  };
-
   useEffect(() => {
     if (competitionID) {
       getSubmissionFileName(competitionID)
@@ -92,7 +56,7 @@ const CompetitionUploadPage = () => {
     setUploading(true);
     uploadSubmission(
       submissionFile,
-      tags,
+      [],
       desc,
       competitionID,
       user.username as string
@@ -176,46 +140,6 @@ const CompetitionUploadPage = () => {
                   <UploadOutlined /> Click to add file
                 </Button>
               </Upload>
-              {/* <div className="tags-list">
-                {tags.map((tag, index) => {
-                  const isLongTag = tag.length > 20;
-                  const tagElem = (
-                    <Tag
-                      key={tag}
-                      closable={index !== 0}
-                      onClose={() => handleClose(tag)}
-                    >
-                      {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-                    </Tag>
-                  );
-                  return isLongTag ? (
-                    <Tooltip title={tag} key={tag}>
-                      {tagElem}
-                    </Tooltip>
-                  ) : (
-                    tagElem
-                  );
-                })}
-                {inputVisible && (
-                  <Input
-                    type="text"
-                    size="small"
-                    style={{ width: 78 }}
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    onBlur={handleInputConfirm}
-                    onPressEnter={handleInputConfirm}
-                  />
-                )}
-                {!inputVisible && (
-                  <Tag
-                    onClick={showInput}
-                    style={{ background: '#fff', borderStyle: 'dashed' }}
-                  >
-                    Add tag
-                  </Tag>
-                )}
-              </div> */}
             </div>
             <Button
               htmlType="submit"
