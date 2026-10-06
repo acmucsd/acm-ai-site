@@ -167,7 +167,7 @@ function Header() {
             <div className="navLinksWrapper">
               {navLinks.map((link, key) => (
                 <Link className="navItem" key={key} to={link.to}>
-                  <a href="#">{link.text}</a>
+                  {link.text}
                 </Link>
               ))}
 
@@ -201,7 +201,7 @@ function Header() {
       <div className={`mobileDropDown ${menuOpen ? 'open' : ''}`}>
         {navLinks.map((link, key) => (
           <Link className="mobileNavItem" key={key} to={link.to}>
-            <a href="#">{link.text}</a>
+            {link.text}
           </Link>
         ))}
         
@@ -209,10 +209,10 @@ function Header() {
         {user.loggedIn ? (
           <>
           <Link className="mobileNavItem" to="/profile">
-            <a href="#">Profile</a>
+            Profile
           </Link>
           <Link className="mobileNavItem" to="/portal">
-            <a href="#">Portal</a>
+            Portal
           </Link>
           <div
             className="logOutOption"
@@ -223,12 +223,12 @@ function Header() {
               history.push('/');
             }}
           >
-            <a href="#">Logout</a>
+            Logout
           </div>
           </>
         ) : (
           <Link className="mobileNavItem" to="/login">
-            <a href="#">Login</a>
+            Login
           </Link>
         )}
       </div>
