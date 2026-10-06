@@ -185,6 +185,7 @@ export type UpdateCompetitionSettingsPayload = {
   leaderboardEnabled?: boolean;
   leaderboardType?: LeaderboardType;
   submissionFileName?: string;
+  inPortal?: boolean;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
@@ -233,6 +234,9 @@ export const updateCompetitionSettings = async (
     throw error;
   }
 };
+
+export const getPortalCompetition = async (): Promise<AxiosResponse> =>
+  axios.get(process.env.REACT_APP_API + '/v1/competitions/portal');
 
 export const getMetaData = async (
   competitionid: string

@@ -16,7 +16,7 @@ import {
     getSubmissionDetails
 } from '../../../actions/teams/utils';
 import DefaultLayout from "../../../components/layouts/default";
-import { CompetitionData, getLeaderboard, getMetaData, registerCompetitionUser } from "../../../actions/competition";
+import { CompetitionData, getLeaderboard, getMetaData, getPortalCompetition, registerCompetitionUser } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import { createAvatar } from '@dicebear/core';
 import { botttsNeutral } from '@dicebear/collection';
@@ -459,10 +459,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 /**
  * Renders the entire dashboard for the competition portal.
  */
-function CompetitionPortalPage() {
-
-    // This enables us to specify the most current competition
-    const competitionName = "Stellatro.AI";
+function CompetitionPortal({ competitionName }: { competitionName: string }) {
     const history = useHistory();
 
     // User profile data
@@ -887,6 +884,35 @@ function CompetitionPortalPage() {
 
         </DefaultLayout>
     );
+}
+
+/**
+ * Loads the competition admins put in the portal.
+ */
+function CompetitionPortalPage() {
+    const [competitionName, setCompetitionName] = useState<string | null>();
+
+    useEffect(() => {
+        getPortalCompetition()
+            .then((res) => setCompetitionName(res.data.competitionName))
+            .catch(() => setCompetitionName(null));
+    }, []);
+
+    if (competitionName === undefined) {
+        return <DefaultLayout><Skeleton active /></DefaultLayout>;
+    }
+
+    if (competitionName === null) {
+        return (
+            <DefaultLayout>
+                <Content className="CompetitionPortalPage">
+                    <p>No competition is running right now. Check back soon!</p>
+                </Content>
+            </DefaultLayout>
+        );
+    }
+
+    return <CompetitionPortal competitionName={competitionName} />;
 }
 
 export default CompetitionPortalPage;

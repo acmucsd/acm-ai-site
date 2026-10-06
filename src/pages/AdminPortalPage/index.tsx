@@ -38,6 +38,7 @@ export default function AdminPortalPage(props: any) {
   const [submissionsEnabled, setSubmissionsEnabled] = useState<boolean>(false);
   const [showPrivateScores, setShowPrivateScores] = useState<boolean>(false);
   const [leaderboardEnabled, setLeaderboardEnabled] = useState<boolean>(false);
+  const [inPortal, setInPortal] = useState<boolean>(false);
   const [leaderboardType, setLeaderboardType] = useState<LeaderboardType>();
   const [submissionFileName, setSubmissionFileName] = useState<string>('');
   const [minTeamSize, setMinTeamSize] = useState<number | null>(null);
@@ -139,6 +140,7 @@ export default function AdminPortalPage(props: any) {
           setShowPrivateScores(privateScoresEnabled);
           setCompetitionsLoading(false);
           setLeaderboardEnabled(lbEnabled);
+          setInPortal(data.inPortal === true);
           setLeaderboardType(data.leaderboardType);
           setSubmissionFileName(data.submissionFileName ?? '');
           setMinTeamSize(minSize);
@@ -152,6 +154,7 @@ export default function AdminPortalPage(props: any) {
           setSubmissionsEnabled(false);
           setShowPrivateScores(false);
           setLeaderboardEnabled(false);
+          setInPortal(false);
           setLeaderboardType(undefined);
           setSubmissionFileName('');
           setMinTeamSize(null);
@@ -162,6 +165,7 @@ export default function AdminPortalPage(props: any) {
       setSubmissionsEnabled(false);
       setShowPrivateScores(false);
       setLeaderboardEnabled(false);
+      setInPortal(false);
       setLeaderboardType(undefined);
       setSubmissionFileName('');
       setMinTeamSize(null);
@@ -327,6 +331,7 @@ export default function AdminPortalPage(props: any) {
       submissionsEnabled,
       showPrivateScores,
       leaderboardEnabled,
+      inPortal,
       leaderboardType,
       submissionFileName: submissionFileName.trim(),
       minTeamSize: typeof minTeamSize === 'number' ? minTeamSize : undefined,
@@ -640,6 +645,13 @@ export default function AdminPortalPage(props: any) {
                           <Switch
                             checked={leaderboardEnabled}
                             onChange={setLeaderboardEnabled}
+                          />
+                        </div>
+                        <div>
+                          <span>Show in Portal</span>
+                          <Switch
+                            checked={inPortal}
+                            onChange={setInPortal}
                           />
                         </div>
                         <div>
