@@ -176,7 +176,7 @@ export default function TeamsAdmin({ competitions }: { competitions: string[] })
     <>
       <Select
         placeholder="Select Competition"
-        style={{ width: '80%', maxWidth: 300, margin: '10px 0px' }}
+        className="field"
         value={competition}
         onChange={setCompetition}
         options={competitions.map((name) => ({ label: name, value: name }))}

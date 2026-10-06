@@ -90,7 +90,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
         width={800}
         open={isModalOpen}
         onCancel={handleCancel}
-        title={<h3 style={{ fontWeight: '700' }}>{event.title}</h3>}
+        title={<h3 className="modal-title">{event.title}</h3>}
         footer={
 
           // If this is an old event, do not give user ability to schedule the event

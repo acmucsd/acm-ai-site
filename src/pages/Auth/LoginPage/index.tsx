@@ -34,7 +34,7 @@ function LoginPage() {
 
             <Controller
               render={({ field }) => (
-                <Form.Item style={{ marginBottom: '12px' }}>
+                <Form.Item className="compact">
                   <Input
                     {...field}
                     size="large"
@@ -52,7 +52,7 @@ function LoginPage() {
             />
             <Controller
               render={({ field }) => (
-                <Form.Item style={{ marginBottom: '12px' }}>
+                <Form.Item className="compact">
                   <Input.Password
                     {...field}
                     size="large"

@@ -40,7 +40,7 @@ function RegisterPage() {
           <Form onSubmitCapture={handleSubmit(onSubmit)}>
             <Controller
               render={({ field }) => (
-                <Form.Item hasFeedback style={{ marginBottom: '12px' }}>
+                <Form.Item hasFeedback className="compact">
                   <Input
                     {...field}
                     size="large"
@@ -57,7 +57,7 @@ function RegisterPage() {
             />
             <Controller
               render={({ field }) => (
-                <Form.Item style={{ marginBottom: '12px' }}>
+                <Form.Item className="compact">
                   <Input
                     {...field}
                     size="large"
@@ -80,7 +80,7 @@ function RegisterPage() {
             />
             <Controller
               render={({ field }) => ( 
-                <Form.Item style={{ marginBottom: '12px' }}>
+                <Form.Item className="compact">
                   <Input.Password
                     {...field}
                     size="large"
@@ -96,7 +96,7 @@ function RegisterPage() {
             />
             <Controller
               render={({ field }) => ( 
-                <Form.Item style={{ marginBottom: '12px' }}>
+                <Form.Item className="compact">
                   <Input.Password
                     {...field}
                     size="large"
