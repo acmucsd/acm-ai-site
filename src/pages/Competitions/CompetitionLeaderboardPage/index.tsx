@@ -1,17 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.less';
 import { useHistory, useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import { getMetaData, getLeaderboard, CompetitionData } from '../../../actions/competition';
-import { Table, Button, Modal } from 'antd';
+import { Table, Button } from 'antd';
 import path from 'path';
 import { getLeaderboardColumns } from '../CompetitionPortalPage/leaderboardColumns';
 
 const CompetitionLeaderboardPage = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [updateTime, setUpdateTime] = useState<Date>();
-  // const [data, setData] = useState<any>([]);
   const [meta, setMeta] = useState<{
     competitionName: string;
     description: string;
@@ -21,9 +19,6 @@ const CompetitionLeaderboardPage = () => {
     teamGroups?: string[];
     leaderboardType?: string;
   } | null>(null);
-  const [visible, setVisible] = useState(false);
-  const chartContainer = useRef<HTMLCanvasElement>(null);
-  const [scoreHistTitle, setScoreHistTitle] = useState('');
   const params = useParams() as { id: string };
   const competitionID = params.id;
 
@@ -51,7 +46,7 @@ const CompetitionLeaderboardPage = () => {
       });
       setLastRefresh(new Date());
       setData(newData);
-    });
+    }).finally(() => setLoading(false));
     getMetaData(competitionID).then((res) => {
       setMeta(res.data);
     });
@@ -70,11 +65,6 @@ const CompetitionLeaderboardPage = () => {
 
   useEffect(() => {
     update();
-  }, []);
-
-  useEffect(() => {
-    setData(data.sort((a, b) => a.rank - b.rank));
-    setLoading(false);
   }, []);
 
   const columns = getLeaderboardColumns(meta?.leaderboardType, meta?.teamGroups);
@@ -104,18 +94,6 @@ const CompetitionLeaderboardPage = () => {
             }
           })()}
         </p>
-        <Modal
-          title={scoreHistTitle}
-          open={visible}
-          footer={null}
-          onCancel={() => {
-            setVisible(false);
-          }}
-        >
-          <div>
-            <canvas ref={chartContainer} />
-          </div>
-        </Modal>
         { meta?.submissionsEnabled && (
           <Button
             size="large"
@@ -162,7 +140,6 @@ const CompetitionLeaderboardPage = () => {
         ) : (
           <Table loading={loading || !meta} columns={columns ?? []} dataSource={data} />
         )}
-        {updateTime && <p>Last updated {updateTime?.toLocaleString()}</p>}
       </div>
     </DefaultLayout>
   );
