@@ -15,7 +15,7 @@ const RequestResetPage = () => {
 
     requestReset(values.username).then((res) => {
       message.success('Reset Link Sent! Check your email');
-    });
+    }).catch(() => {});
   };
   return (
     <DefaultLayout>
