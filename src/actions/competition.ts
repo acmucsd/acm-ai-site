@@ -324,3 +324,41 @@ export const getSubmissionFileName = async (competitionid: string) => {
     throw error;
   }
 }
+export type AdminTeam = {
+  teamName: string;
+  teamMembers: string[];
+  submitHistory: string[];
+  scoreHistory: number[];
+  publicScoreHistory: number[];
+  privateScoreHistory: number[];
+  disqualified?: boolean;
+};
+
+export type TeamEntry = {
+  _id: string;
+  submissionDate: string;
+  score: number;
+  description: string;
+  message?: string;
+  error?: string;
+  evaluationOk?: boolean;
+};
+
+export type TeamScore = { score?: number; publicScore?: number; privateScore?: number };
+
+const teamUrl = (competitionName: string, teamName: string) =>
+  process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/${encodeURIComponent(teamName)}`;
+
+const authHeader = () => ({ headers: { Authorization: `Bearer ${getToken(COOKIE_NAME)}` } });
+
+export const getAdminTeams = async (competitionName: string): Promise<AdminTeam[]> =>
+  (await axios.get(process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/all`, authHeader())).data;
+
+export const getTeamEntries = async (competitionName: string, teamName: string): Promise<TeamEntry[]> =>
+  (await axios.get(teamUrl(competitionName, teamName) + '/entries', authHeader())).data;
+
+export const overrideTeamScore = async (competitionName: string, teamName: string, scores: TeamScore) =>
+  (await axios.post(teamUrl(competitionName, teamName) + '/score', scores, authHeader())).data;
+
+export const setTeamDisqualified = async (competitionName: string, teamName: string, disqualified: boolean) =>
+  (await axios.post(teamUrl(competitionName, teamName) + '/disqualify', { disqualified }, authHeader())).data;
