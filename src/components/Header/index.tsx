@@ -184,15 +184,7 @@ function Header() {
                 </Dropdown>
               ) : (
                 <Link to="/login">
-                  <Button
-                    size="large"
-                    className="authButton"
-                    onClick={() => {
-                      logoutUser();
-                      setUser(defaultUser);
-                      history.push('/');
-                    }}
-                  >
+                  <Button size="large" className="authButton">
                     <h4>Login</h4>
                   </Button>
                 </Link>
