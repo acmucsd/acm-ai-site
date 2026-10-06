@@ -283,7 +283,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                         {teamInfo.teamName}
                                         {teamInfo.teamGroup && <Tag style={{marginLeft: "12px"}}>{teamInfo.teamGroup}</Tag>}
                                     </h3>
-                                    <p id = "rankingTag">{getOrdinal(rankData.rank)} place</p>
+                                    <p id = "rankingTag">{rankData.rank ? `${getOrdinal(rankData.rank)} place` : "Unranked"}</p>
                                 </article>
                             
                                 <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28} style = {{color: "black"}}/>}></Button>
@@ -807,7 +807,7 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
                                             </Col>
 
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">{userRankData.rank}</div>
+                                                <div className="stat-value">{userRankData.rank || "-"}</div>
                                             </Col>
 
                                             {isWld && (
