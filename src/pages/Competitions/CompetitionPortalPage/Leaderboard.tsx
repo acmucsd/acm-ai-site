@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout, Table, Button, Tag } from 'antd';
 import type { ColumnsType } from "antd/es/table";
-import { getColumnsForCompetition } from "./leaderboardColumns";
+import { getLeaderboardColumns } from "./leaderboardColumns";
 import { CompetitionData } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import "./index.less";
@@ -11,9 +11,10 @@ interface LeaderBoardTabProps {
     lastRefresh: Date | null;
     updateRankingsCallback: () => void;
     isLoading: boolean;
-    competitionName: string;
     teamGroups?: string[];
     leaderboardEnabled?: boolean;
+    leaderboardType?: string;
+    metaLoaded: boolean;
 }
 const { Content } = Layout;
 
@@ -27,19 +28,10 @@ const { Content } = Layout;
  * 
  */
 const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
-    {rankData, lastRefresh, updateRankingsCallback, isLoading, competitionName, teamGroups, leaderboardEnabled}:
-    { rankData: any,
-      lastRefresh: Date | null,
-      updateRankingsCallback: () => void,
-      isLoading: boolean,
-      competitionName: string,
-      teamGroups?: string[],
-      leaderboardEnabled?: boolean
-    }
+    {rankData, lastRefresh, updateRankingsCallback, isLoading, teamGroups, leaderboardEnabled, leaderboardType, metaLoaded}
 ) => {
 
-    // Get columns based on competition name and team divisions
-    const columns = getColumnsForCompetition(competitionName, teamGroups);
+    const columns = getLeaderboardColumns(leaderboardType, teamGroups);
 
     // console.log("rankdata", rankData);
 
@@ -48,6 +40,17 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
             <Content id="leaderBoardContainer">
                 <section>
                     <p>Leaderboard is disabled.</p>
+                </section>
+            </Content>
+        );
+    }
+
+    // wait for meta before calling type invalid
+    if (metaLoaded && !columns) {
+        return (
+            <Content id="leaderBoardContainer">
+                <section>
+                    <p>This competition has no valid leaderboard type configured.</p>
                 </section>
             </Content>
         );
@@ -63,9 +66,6 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
                 </p>
 
                 <div className="buttonContainer">
-                    {/* <Link to={{ pathname: `competitions/${competitionName}/leaderboard` }} >
-                        <Button size="large" className="full-lb-btn">Full Leaderboard</Button>
-                    </Link> */}
                     <Button
                         size="large"
                         className="refresh-btn"
@@ -77,7 +77,7 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
                     </Button>
                 </div>
             </section>
-            <Table loading={isLoading} columns={columns} dataSource={rankData} />
+            <Table loading={isLoading || !metaLoaded} columns={columns ?? []} dataSource={rankData} />
         </Content>
     );
 };

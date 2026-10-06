@@ -5,7 +5,7 @@ import DefaultLayout from '../../../components/layouts/default';
 import { getMetaData, getLeaderboard, CompetitionData } from '../../../actions/competition';
 import { Table, Button, Modal } from 'antd';
 import path from 'path';
-import { getColumnsForCompetition } from '../CompetitionPortalPage/leaderboardColumns';
+import { getLeaderboardColumns } from '../CompetitionPortalPage/leaderboardColumns';
 
 const CompetitionLeaderboardPage = () => {
   const history = useHistory();
@@ -19,6 +19,7 @@ const CompetitionLeaderboardPage = () => {
     endDate: string;
     submissionsEnabled: boolean;
     teamGroups?: string[];
+    leaderboardType?: string;
   } | null>(null);
   const [visible, setVisible] = useState(false);
   const chartContainer = useRef<HTMLCanvasElement>(null);
@@ -75,6 +76,8 @@ const CompetitionLeaderboardPage = () => {
     setData(data.sort((a, b) => a.rank - b.rank));
     setLoading(false);
   }, []);
+
+  const columns = getLeaderboardColumns(meta?.leaderboardType, meta?.teamGroups);
 
   return (
     <DefaultLayout>
@@ -154,7 +157,11 @@ const CompetitionLeaderboardPage = () => {
           {lastRefresh ? lastRefresh.toLocaleString() : 'never'})
         </p>
 
-        <Table loading={loading} columns={getColumnsForCompetition(competitionID, meta?.teamGroups)} dataSource={data} />
+        {meta && !columns ? (
+          <p>This competition has no valid leaderboard type configured.</p>
+        ) : (
+          <Table loading={loading || !meta} columns={columns ?? []} dataSource={data} />
+        )}
         {updateTime && <p>Last updated {updateTime?.toLocaleString()}</p>}
       </div>
     </DefaultLayout>
