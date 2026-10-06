@@ -147,9 +147,9 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
 
               <section className="eventDetailSection">
                 <div className="eventIconWrapper" id="location">
-                  <HiLocationMarker size={20} color={'var(--gradient-end)'} />
+                  <HiLocationMarker size={20} color={'var(--accent)'} />
                 </div>
-                <h4 style={{ marginLeft: '1rem', color: 'var(--gradient-end)' }}>
+                <h4 className="text-colorful" style={{ marginLeft: '1rem' }}>
                   {event.location}
                 </h4>
               </section>
