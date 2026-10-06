@@ -203,7 +203,7 @@ export const leaveTeam = async(
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data);
+        message.error(error.response?.data?.error?.message ?? 'Failed to leave team.');
         reject(error);
       });
   });

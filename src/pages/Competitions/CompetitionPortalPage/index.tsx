@@ -190,9 +190,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
             handleLeaveModalClose();
             fetchTeamsCallback();
         })
-        .catch((error) => (
-            message.error(error)
-        ));
+        .catch(() => {});
     }
 
     /**
