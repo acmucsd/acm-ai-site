@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { message } from 'antd';
 import { setCookie, deleteCookie } from '../utils/cookie';
 import { User } from '../UserContext';
-import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
+import { COOKIE_NAME } from '../configs';
 
 export const resetPassword = async (data: {
   username: string;
@@ -74,9 +74,6 @@ export const registerUser = async (data: {
 
 export const logoutUser = () => {
   deleteCookie(COOKIE_NAME);
-  for (const cookie_name of Object.values(COMPETITIONS_COOKIE_NAME)) {
-    deleteCookie(cookie_name);
-  }
 };
 export const getUserFromToken = (token: string): User => {
   let res = tokenGetClaims(token);
@@ -85,14 +82,6 @@ export const getUserFromToken = (token: string): User => {
     admin: false,
     username: res.username,
     id: res.playerID,
-    competitionRegistrations: {
-      energium: undefined,
-      openai: undefined,
-    },
-    competitionData: {
-      energium: undefined,
-      openai: undefined,
-    },
   };
 };
 
@@ -109,10 +98,7 @@ export const tokenGetClaims = (token: string): any => {
   );
 };
 
-export const loginUser = async (
-  dimensionID: string,
-  data: { username: string; password: string }
-) => {
+export const loginUser = async (data: { username: string; password: string }) => {
   return new Promise((resolve, reject) => {
     axios
       .post(process.env.REACT_APP_API + '/v1/auth/login', data)
@@ -127,7 +113,7 @@ export const loginUser = async (
   });
 };
 
-export const verifyToken = async (dimensionID: string, token: string) => {
+export const verifyToken = async (token: string) => {
   return new Promise((resolve, reject) => {
     axios
       .post(

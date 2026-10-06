@@ -5,7 +5,6 @@ import {
   useHistory,
 } from 'react-router-dom';
 import { UserProvider } from './UserContext';
-import { TournamentProvider } from './contexts/tournament';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -19,10 +18,8 @@ import LoginPage from './pages/Auth/LoginPage';
 import { getCookie } from './utils/cookie';
 import { verifyToken, getUserFromToken } from './actions/auth';
 import {
-  DIMENSION_ID,
   COOKIE_NAME,
   defaultUser,
-  defaultTournament,
 } from './configs';
 import { message } from 'antd';
 import CompetitionsPage from './pages/CompetitionsPage';
@@ -66,14 +63,13 @@ function ScrollToTop() {
 
 function App() {
   const [user, setUser] = useState(defaultUser);
-  const [tournament, setTournament] = useState(defaultTournament);
   const [verifying, setVerifying] = useState(true);
   const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
 
   useEffect(() => {
     if (cookie) {
       // verify cookie
-      verifyToken(DIMENSION_ID, cookie)
+      verifyToken(cookie)
         .then(() => {
           let u = getUserFromToken(cookie);
           setUser(u);
