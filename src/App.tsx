@@ -29,7 +29,6 @@ import CompetitionsPage from './pages/CompetitionsPage';
 import AboutPage from './pages/AboutPage';
 import AlumniPage from './pages/AlumniPage';
 import EventsPage from './pages/EventsPage';
-import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword';
 import requestreset from './pages/Auth/RequestReset';
 
@@ -40,17 +39,12 @@ import NNRanksPage from './pages/Competitions/NNRankPage';
 
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
-import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionTeamPages/SpecificTeamPage';
-import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/AllTeamsPage';
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
-import CompetitionSubmissionDetailsPage from './pages/Competitions/CompetitionTeamPages/SubmissionDetailsPage';
 import CompetitionPortalPage from './pages/Competitions/CompetitionPortalPage';
 import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
-import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
 import SubmissionLogPage from './pages/Competitions/CompetitionPortalPage/SubmissionLogPage';
-import MatchesPage from './pages/Competitions/CompetitionPortalPage/MatchesPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminPortalPage from './pages/AdminPortalPage';
 
@@ -111,7 +105,6 @@ function App() {
                 component={HideAndSeek2020Page}
               />
               <Route path="/events" exact component={EventsPage} />
-              <Route path="/eventhasnotstarted" exact component={EventHasNotStartedPage}/>
               
               {/* new competition format */}
               <Route
@@ -127,12 +120,6 @@ function App() {
               />  
 
               <Route
-                path="/matches/:id"
-                exact
-                component={MatchesPage}
-              /> 
-
-              <Route
                 path="/competitions/:id"
                 exact
                 component={CompetitionLandingPage}
@@ -146,26 +133,6 @@ function App() {
                 path="/competitions/:id/upload"
                 exact
                 component={CompetitionUploadPage}
-              />
-              <Route
-                path="/competitions/:competitionName/teams"
-                exact
-                component={CompetitionAllTeamsPage}
-              />
-              <Route
-                path="/competitions/:competitionName/teams/:teamName"
-                exact
-                component={CompetitionSpecificTeamPage}
-              />
-              <Route
-                path="/competitions/:competitionName/teams/:teamName/submissions/:submissionId"
-                exact
-                component={CompetitionSubmissionDetailsPage}
-              />
-              <Route
-                path="/competitions/:competitionName/add-to-team"
-                exact
-                component={JoinTeamsPage}
               />
 
               {/* accounts */}
