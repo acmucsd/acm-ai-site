@@ -38,6 +38,7 @@ export default function AdminPortalPage(props: any) {
   const [showPrivateScores, setShowPrivateScores] = useState<boolean>(false);
   const [leaderboardEnabled, setLeaderboardEnabled] = useState<boolean>(false);
   const [leaderboardType, setLeaderboardType] = useState<LeaderboardType>();
+  const [submissionFileName, setSubmissionFileName] = useState<string>('');
   const [minTeamSize, setMinTeamSize] = useState<number | null>(null);
   const [maxTeamSize, setMaxTeamSize] = useState<number | null>(null);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
@@ -138,6 +139,7 @@ export default function AdminPortalPage(props: any) {
           setCompetitionsLoading(false);
           setLeaderboardEnabled(lbEnabled);
           setLeaderboardType(data.leaderboardType);
+          setSubmissionFileName(data.submissionFileName ?? '');
           setMinTeamSize(minSize);
           setMaxTeamSize(maxSize);
         })
@@ -150,6 +152,7 @@ export default function AdminPortalPage(props: any) {
           setShowPrivateScores(false);
           setLeaderboardEnabled(false);
           setLeaderboardType(undefined);
+          setSubmissionFileName('');
           setMinTeamSize(null);
           setMaxTeamSize(null);
         });
@@ -159,6 +162,7 @@ export default function AdminPortalPage(props: any) {
       setShowPrivateScores(false);
       setLeaderboardEnabled(false);
       setLeaderboardType(undefined);
+      setSubmissionFileName('');
       setMinTeamSize(null);
       setMaxTeamSize(null);
     }
@@ -305,6 +309,10 @@ export default function AdminPortalPage(props: any) {
       message.error('Please select a leaderboard type.');
       return;
     }
+    if (!submissionFileName.trim()) {
+      message.error('Please enter a submission file name.');
+      return;
+    }
     if (
       typeof minTeamSize === 'number' &&
       typeof maxTeamSize === 'number' &&
@@ -319,6 +327,7 @@ export default function AdminPortalPage(props: any) {
       showPrivateScores,
       leaderboardEnabled,
       leaderboardType,
+      submissionFileName: submissionFileName.trim(),
       minTeamSize: typeof minTeamSize === 'number' ? minTeamSize : undefined,
       maxTeamSize: typeof maxTeamSize === 'number' ? maxTeamSize : undefined,
     };
@@ -658,6 +667,16 @@ export default function AdminPortalPage(props: any) {
                             value={maxTeamSize}
                             onChange={setMaxTeamSize}
                             placeholder="Max"
+                          />
+                        </div>
+                        <div>
+                          <span>Submission File Name</span>
+                          <TextArea
+                            rows={1}
+                            placeholder="Enter submission file name"
+                            value={submissionFileName}
+                            onChange={(e) => setSubmissionFileName(e.target.value)}
+                            style={{ maxWidth: 300 }}
                           />
                         </div>
                       </div>

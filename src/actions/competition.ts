@@ -191,6 +191,7 @@ export type UpdateCompetitionSettingsPayload = {
   submissionsEnabled?: boolean;
   leaderboardEnabled?: boolean;
   leaderboardType?: LeaderboardType;
+  submissionFileName?: string;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
