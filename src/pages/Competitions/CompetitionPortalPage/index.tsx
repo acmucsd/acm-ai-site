@@ -532,6 +532,8 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
         getCompetitionUser(competitionName, user.username).then((res) => {
             if (!res.data.registered) {
                 message.info("you are not registered!");
+                setTeamInfo(null);
+                setIsLoadingTeamInfo(false);
 
                 // Expose the register modal. When user registers, the page will reload
                 showModal();
@@ -611,9 +613,9 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
             setLastRefresh(new Date());
             setRankingsData(newData);
             setIsLoadingLeaderBoard(false);
-            setTimeout(() => {
+            if (teamInfo?.teamName) {
                 setIsLoadingTeamInfo(false);
-              }, 800);
+            }
         });
     };
 
@@ -667,27 +669,17 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
      * 
      */
     useEffect(() => {
-        setIsLoadingTeamInfo(true);
+        if (Object.keys(compUser).length === 0) return;
 
-        // If comp user is in a team, grab the team information
-        if (Object.keys(compUser).length !== 0) {
-            if (compUser.competitionTeam != null) {
-                updateTeamInformation();
-            }
-            else {
-                setTeamInfo(null)
-                setTimeout(() => {
-                    setIsLoadingTeamInfo(false);
-                  }, 800);
-            }
+        // Team members wait for rankings, see updateRankings
+        if (compUser.competitionTeam != null) {
+            setIsLoadingTeamInfo(true);
+            updateTeamInformation();
         }
         else {
-            setTeamInfo(null)
-            setTimeout(() => {
-                setIsLoadingTeamInfo(false);
-              }, 800);
+            setTeamInfo(null);
+            setIsLoadingTeamInfo(false);
         }
-
     }, [compUser])
 
 
