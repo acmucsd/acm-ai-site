@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
   useHistory,
@@ -96,7 +95,6 @@ function App() {
   }, []);
 
   return (
-    <Router>
       <div>
         <ScrollToTop />
           {!verifying ? (
@@ -222,7 +220,6 @@ function App() {
             </div>
           )} 
       </div>
-    </Router>
   );
 }
 
