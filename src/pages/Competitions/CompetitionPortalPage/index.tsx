@@ -22,7 +22,6 @@ import { createAvatar } from '@dicebear/core';
 import { botttsNeutral } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
 import LineChart from "./LineChart";
-import SubmissionEntryCard from "./SubmissionEntryCard";
 
 import LeaderBoardTab from "./Leaderboard";
 import FindTeamsTab from "./FindTeams";
@@ -31,97 +30,6 @@ import path from 'path';
 import './index.less';
 
 const { Content } = Layout;
-
-/**
- * Renders the submission preview list for the user's team
- * 
- * @param {any} teamInfo The team's general information
- * @param {string} competitionName The name of the current competition
- *
- */
-const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competitionName: string}) => {
-
-    const [submissions, setSubmissions] = useState<any[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    /* The actual data inside the teamInfo.submitHistory will be a list of mongoose object ids
-       that point to each competition entry object. This component will query the
-       recent entries and display them in a list view */
-
-    const dummyData = [
-        "63c396f9671b14068b17f681"
-    ];
-
-    const fetchRecents = async() => {
-        setSubmissions([]);
-        setIsLoading(true);
-
-        if (teamInfo) {
-            teamInfo.submitHistory.slice(0, 3).map((id: any) => {
-                getSubmissionDetails(competitionName, id).then((res) => {
-                let submission = res.data[0];
-                if (!submission) return;
-                let date = new Date(submission.submissionDate);
-                let submissionDetails = {
-                    date: date,
-                    status: submission.status,
-                    dateString:
-                    date.toLocaleDateString() + ' at ' + date.toLocaleTimeString(),
-                    description: submission.description,
-                    tags: submission.tags.join(', '),
-                    score: submission.score,
-                    key: id,
-                };
-                setSubmissions((submissionData: any) => [
-                    ...submissionData,
-                    submissionDetails,
-                ]);
-            });
-        })
-
-        setTimeout(() => {
-            // Your code to be executed after the delay
-            setIsLoading(false);
-        }, 500);
-
-      }
-
-    }
-
-
-    useEffect(() => {
-        fetchRecents();
-    }, []);
-
-    return (
-        <div id = "submissionsPreviewSection">
-            <span id = "submissionsPreviewHeader">
-                <h3>Submission Log</h3>
-                <span>
-                    <Button id = "viewSubmissionsButton" type = "link" icon = {<IoRefresh size = {20} />} onClick={()=> fetchRecents()}/>
-                    <Link to={`/${competitionName}/submissionLog/${teamInfo.teamName}`} rel="noopener noreferrer">
-                        <Button type="text" id = "viewAllSubmissionsButton"><p>view all</p></Button>
-                    </Link>
-                </span>
-            </span>
-
-            <section id = "submissionsPreviewColumn">
-                {isLoading ? <Skeleton active   paragraph={{ rows: 10 }}/> :
-                    <List
-                        split={false}
-                        // loading = {isLoading}
-                        dataSource={submissions}
-                        renderItem={(data: any) => (
-                            <List.Item>
-                                <SubmissionEntryCard entry = {data}  />
-                            </List.Item>
-                        )}
-                    />
-                }     
-            </section>
-        </div>
-    );
-}
 
 /**
  * Generates a unique avatar for each team member 
@@ -431,7 +339,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                             )}
                         </div>
 
-                        {/* <SubmissionsPreview  teamInfo={teamInfo} competitionName= {metaData.competitionName} /> */}
                     </div>
 
                     <div id ="sideContent">

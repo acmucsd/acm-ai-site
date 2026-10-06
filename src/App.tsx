@@ -41,7 +41,6 @@ import CompetitionPortalPage from './pages/Competitions/CompetitionPortalPage';
 import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
-import SubmissionLogPage from './pages/Competitions/CompetitionPortalPage/SubmissionLogPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminPortalPage from './pages/AdminPortalPage';
 
@@ -107,12 +106,6 @@ function App() {
                 path="/portal"
                 exact
                 component={CompetitionPortalPage}
-              />  
-
-              <Route
-                path="/:competitionName/submissionLog/:id"
-                exact
-                component={SubmissionLogPage}
               />  
 
               <Route
