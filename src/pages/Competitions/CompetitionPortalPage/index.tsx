@@ -811,6 +811,8 @@ function CompetitionPortalPage() {
         })
     }
 
+    const isWld = metaData?.leaderboardType === 'wld';
+
     return (
         <DefaultLayout>
 
@@ -882,7 +884,7 @@ function CompetitionPortalPage() {
                                         <Col span={6} className="stat-title">Submissions</Col>
                                         <Col span={6} className="stat-title">Latest Score</Col>
                                         <Col span={6} className="stat-title">Ranking</Col>
-                                        {/* <Col span={6} className="stat-title">W-L-D</Col> */}
+                                        {isWld && <Col span={6} className="stat-title">W-L-D</Col>}
                                         </Row>
                                         
                                         {/* Values Row */}
@@ -904,22 +906,13 @@ function CompetitionPortalPage() {
                                                 <div className="stat-value">{userRankData.rank}</div>
                                             </Col>
 
-                                            {/* <Col span={6} className="stat-col">
-                                                <div className="stat-value">
-                                                {userRankData.winHistory?.length > 0
-                                                    ? userRankData.winHistory[userRankData.winHistory?.length - 1]
-                                                    : 0
-                                                }-
-                                                {userRankData.drawHistory?.length > 0
-                                                    ? userRankData.drawHistory[userRankData.drawHistory?.length - 1]
-                                                    : 0
-                                                }-
-                                                {userRankData.lossHistory?.length > 0
-                                                    ? userRankData.lossHistory[userRankData.lossHistory?.length - 1]
-                                                    : 0
-                                                }
-                                                </div>
-                                            </Col> */}
+                                            {isWld && (
+                                                <Col span={6} className="stat-col">
+                                                    <div className="stat-value">
+                                                        {userRankData.winHistory?.at(-1) ?? 0}-{userRankData.lossHistory?.at(-1) ?? 0}-{userRankData.drawHistory?.at(-1) ?? 0}
+                                                    </div>
+                                                </Col>
+                                            )}
                                         </Row>
                                     </section>
                                 }
