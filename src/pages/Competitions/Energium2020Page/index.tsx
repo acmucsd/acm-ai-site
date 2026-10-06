@@ -96,7 +96,7 @@ export const Energium2020Page = () => {
           </p>
         </div>
         <div className="main-section">
-          <h1 style={{ color: 'white' }}>Competition Info</h1>
+          <h1 style={{ color: 'var(--text-inverse)' }}>Competition Info</h1>
           <h1 className="statement">
             Ranking{' '}
             <span role="img" aria-label="ranks">

@@ -7,8 +7,8 @@
   overflow: hidden;
 
   .main-section {
-    color: @white;
-    background: @b2;
+    color: var(--text-inverse);
+    background: var(--heading);
     position: relative;
     padding: 6rem;
     // old breakpoint. @md clips text with the -48px offset
@@ -27,7 +27,7 @@
       font-size: @font3;
     }
     h3 {
-      color: @white;
+      color: var(--text-inverse);
     }
     strong {
       font-weight: 600;
@@ -37,12 +37,12 @@
       margin-top: 0.5rem;
     }
     .prize-title {
-      color: @white;
+      color: var(--text-inverse);
       font-weight: 400;
     }
     .statement {
-      color: @white;
-      border-left: 4px solid @white;
+      color: var(--text-inverse);
+      border-left: 4px solid var(--text-inverse);
       padding-left: 1rem;
       margin-bottom: 1rem;
     }
@@ -51,19 +51,19 @@
     padding-bottom: 12rem;
   }
   .main-section:nth-child(odd) {
-    background: @white;
-    color: @b2;
+    background: var(--surface);
+    color: var(--heading);
     box-shadow: 0px 0px 40px rgba(30, 55, 77, 0.52);
     z-index: 10;
     .statement {
       color: @b1;
       font-weight: 600;
-      border-left: 0.5rem solid @b2;
+      border-left: 0.5rem solid var(--heading);
     }
   }
   .main-section .statement {
     font-size: @font5;
     font-weight: 600;
-    border-left: 0.5rem solid @white;
+    border-left: 0.5rem solid var(--text-inverse);
   }
 }

@@ -177,7 +177,7 @@ const TeamCard = (
              <div 
                 id = {team.teamID} 
                 className = "teamPreviewCard" 
-                style = {{ background: team.teamMembers.includes(user.username) ? '#f0f0f0': 'white'}}  
+                style = {{ background: team.teamMembers.includes(user.username) ? 'var(--surface-muted)' : 'var(--surface)'}}  
                 // onClick={() => showModal()}
             >
                  {/* <span> */}

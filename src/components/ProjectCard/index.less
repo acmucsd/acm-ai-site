@@ -22,7 +22,7 @@
     .title {
       font-weight: @semi-bold;
       margin-top: 1rem;
-      color: @b2;
+      color: var(--heading);
     }
 
     .projectCardInfo {
@@ -45,7 +45,7 @@
       p {
         margin: 0;
         white-space: normal;
-        color: @text-gray2;
+        color: var(--secondary);
 
       }
 
@@ -58,14 +58,14 @@
 
       .viewModalButton {
         border: none;
-        background: @black;
-        box-shadow: 0px 3px 5px 1px rgba(189, 189, 189, 0.5);
+        background: var(--foreground);
+        box-shadow: var(--card-shadow);
         display: flex;
         padding: 1rem;
         align-items: center;
         justify-content: center;
         p {
-          color: @white;
+          color: var(--text-inverse);
         }
 
       }
@@ -77,7 +77,7 @@
         padding: 1rem;
         align-items: center;
         p {
-          color: @black;
+          color: var(--foreground);
           @media screen and (max-width: @xs) {
             display: none;
             margin: none;

@@ -52,7 +52,7 @@
   
     .aboutButton {
       .button-red-outline();
-      border: 2px solid @mainred;
+      border: 2px solid var(--accent);
     }
   }
 
@@ -78,7 +78,7 @@
     
       .aboutButton {
         .button-red-outline();
-        border: 2px solid @mainred;
+        border: 2px solid var(--accent);
       }
     }
   }
@@ -234,9 +234,9 @@
     }
 
     .pinkContainer {
-      border: 3px solid @mainred;
+      border: 3px solid var(--accent);
       border-radius: @radius-base5;
-      background-color: #FFF8F8;
+      background-color: var(--accent-tint);
       max-width: 80%;
       padding: 3rem 5rem;
       margin-bottom: 5rem;
@@ -262,7 +262,7 @@
 
 .homeBottomBar {
     box-sizing: border-box;
-    background: linear-gradient(to right, #F66161, #FE7C37);
+    background: linear-gradient(to right, var(--gradient-start), #FE7C37);
     border: 0px solid transparent;
     background-clip: padding-box, border-box;
     background-origin: padding-box, border-box;
