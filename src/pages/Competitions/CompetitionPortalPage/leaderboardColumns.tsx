@@ -2,7 +2,7 @@ import React from "react";
 import type { ColumnsType } from "antd/es/table";
 import { Tag } from "antd";
 import { CompetitionData, LeaderboardType, isLeaderboardType } from "../../../actions/competition";
-import { genColor } from "../../../utils/colors";
+import TeamAvatar from "../../../components/TeamAvatar";
 
 const rankColumn: ColumnsType<CompetitionData>[number] = {
     title: 'Rank',
@@ -16,22 +16,9 @@ const teamColumn: ColumnsType<CompetitionData>[number] = {
     dataIndex: 'team',
     sorter: (a, b) => a.team.length - b.team.length,
     render(value, record, index) {
-        const color1 = genColor(record.team);
-        const color2 = genColor(`${record.team}_additional_seed`);
-
         return (
             <span>
-                <div
-                    style={{
-                        display: 'inline-block',
-                        verticalAlign: 'middle',
-                        borderRadius: '50%',
-                        width: '2rem',
-                        height: '2rem',
-                        background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                        marginRight: '0.75rem',
-                    }}
-                ></div>
+                <TeamAvatar teamName={record.team} size="small" />
                 {value.length > 28 ? (
                     <span>{value.substring(0, 28)}...</span>
                 ) : (
