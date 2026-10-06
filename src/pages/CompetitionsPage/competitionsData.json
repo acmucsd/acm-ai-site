@@ -74,7 +74,7 @@
     },
     {
       "competitionName": "Hide and Seek",
-      "icon": ".../../../hns.png",
+      "icon": "../../../hns.png",
       "year": "2020",
       "stats": {
         "Teams": 15,
