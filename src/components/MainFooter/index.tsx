@@ -3,7 +3,6 @@ import React from 'react';
 import './index.less';
 import { AiOutlineLink } from 'react-icons/ai';
 import { BiLogoInstagram, BiLogoDiscord, BiMailSend } from 'react-icons/bi';
-import '../../newStyles/components.less'
 const { Footer, Content } = Layout;
 
 /**
