@@ -136,7 +136,7 @@ function App() {
               <Route  path="/old-competitions/hideandseek" exact component={HideAndSeek2020Page} />
               <Route
                 path="/old-competitions/hideandseek/ranks"
-                exact component={() => {
+                exact render={() => {
                   return (
                     <TournamentRankingsPageHistorical
                       dataDir="2020summer"
@@ -155,7 +155,7 @@ function App() {
               <Route
                 path="/old-competitions/energium/ranks"
                 exact
-                component={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
+                render={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
               />
 
               <Route path="*" component={NotFoundPage} />
