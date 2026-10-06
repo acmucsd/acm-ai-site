@@ -57,7 +57,6 @@ export const getTeamInfo = async (
 ): Promise<AxiosResponse> => {
   let token = getToken(COOKIE_NAME);
   const encodedTeamName = encodeURIComponent(teamName);
-  console.log("encode", encodedTeamName);
   return new Promise((resolve, reject) => {
     axios
       .get(

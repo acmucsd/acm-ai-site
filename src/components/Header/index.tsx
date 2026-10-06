@@ -21,9 +21,6 @@ function Header() {
     { to: '/projects', text: 'Projects' },
   ];
   const handleMenuClick: MenuProps['onClick'] = (e) => {
-
-    console.log('click', e);
-
     if(e.key === "3"){
       logoutUser();
       setUser(defaultUser);

@@ -83,7 +83,6 @@ const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competi
 
         setTimeout(() => {
             // Your code to be executed after the delay
-            console.log("Delayed code executed!");
             setIsLoading(false);
         }, 500);
 
@@ -648,7 +647,7 @@ function CompetitionPortalPage() {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.error(error);
                 });
             }
         })

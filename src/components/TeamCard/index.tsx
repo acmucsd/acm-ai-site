@@ -53,7 +53,6 @@ const TeamCard = (
      const onSubmit = () => {
         setConfirmLoading(true);
 
-        console.log("Comp user", compUser)
         if(compUser.competitionTeam !== null) {
             if(compUser.competitionTeam.teamName !== team.teamName) {
                 message.info("Cannot join another team if you're already in one")
@@ -74,7 +73,7 @@ const TeamCard = (
             }
             )
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 message.error("An error occurred: ", error);
             });
         }

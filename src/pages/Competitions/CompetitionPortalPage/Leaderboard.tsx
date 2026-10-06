@@ -33,8 +33,6 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
 
     const columns = getLeaderboardColumns(leaderboardType, teamGroups);
 
-    // console.log("rankdata", rankData);
-
     if (leaderboardEnabled === false) {
         return (
             <Content id="leaderBoardContainer">

@@ -92,8 +92,6 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
   // Metric used to show relative change from previous submission score
   const [scoreHistoryPercentage, setScoreHistoryPercentage] = useState<number>(0);
 
-  console.log(scoreHistory)
-
   useEffect(() => {
     if(scoreHistory.length != 0) {
 

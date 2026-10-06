@@ -26,9 +26,7 @@ function SubmissionLogPage() {
     // First grab the competition data and update team info
     useEffect(() => {
         getTeamInfo(competitionName, id).then((res) => {
-            console.log(res.data);
             setTeamInfo(res.data);
-            console.log("set team info");
         })   
         
     }, []);
@@ -36,7 +34,6 @@ function SubmissionLogPage() {
     // Once we verify team, get recent submissions
     useEffect(() => {
         if(teamInfo !== null) {
-            console.log(teamInfo)
             fetchRecents();
         }
     }, [teamInfo]);
@@ -52,7 +49,6 @@ function SubmissionLogPage() {
         setSubmissions([]);
 
         if (teamInfo && teamInfo.submitHistory) {
-            console.log(teamInfo);
 
             {/* Currently slices data, but need to remove this line in the future */}
             teamInfo.submitHistory.slice(0, 3).map((id: any) => {
