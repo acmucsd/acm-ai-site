@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
-  useLocation,
   useHistory,
 } from 'react-router-dom';
 import { UserProvider } from './UserContext';
-import { TournamentProvider } from './contexts/tournament';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import './styles/index.less';
-import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
 
 import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
@@ -22,17 +18,14 @@ import LoginPage from './pages/Auth/LoginPage';
 import { getCookie } from './utils/cookie';
 import { verifyToken, getUserFromToken } from './actions/auth';
 import {
-  DIMENSION_ID,
   COOKIE_NAME,
   defaultUser,
-  defaultTournament,
 } from './configs';
 import { message } from 'antd';
 import CompetitionsPage from './pages/CompetitionsPage';
 import AboutPage from './pages/AboutPage';
 import AlumniPage from './pages/AlumniPage';
 import EventsPage from './pages/EventsPage';
-import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword';
 import requestreset from './pages/Auth/RequestReset';
 
@@ -43,17 +36,11 @@ import NNRanksPage from './pages/Competitions/NNRankPage';
 
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
-import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionTeamPages/SpecificTeamPage';
-import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/AllTeamsPage';
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
-import CompetitionSubmissionDetailsPage from './pages/Competitions/CompetitionTeamPages/SubmissionDetailsPage';
 import CompetitionPortalPage from './pages/Competitions/CompetitionPortalPage';
 import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
-import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
-import SubmissionLogPage from './pages/Competitions/CompetitionPortalPage/SubmissionLogPage';
-import MatchesPage from './pages/Competitions/CompetitionPortalPage/MatchesPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminPortalPage from './pages/AdminPortalPage';
 
@@ -75,18 +62,13 @@ function ScrollToTop() {
 
 function App() {
   const [user, setUser] = useState(defaultUser);
-  const [initializedGA, setGA] = useState(false);
-  const [tournament, setTournament] = useState(defaultTournament);
   const [verifying, setVerifying] = useState(true);
-  const location = useLocation();
   const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
 
   useEffect(() => {
-    ReactGA.initialize('UA-167602471-1');
-    setGA(true);
     if (cookie) {
       // verify cookie
-      verifyToken(DIMENSION_ID, cookie)
+      verifyToken(cookie)
         .then(() => {
           let u = getUserFromToken(cookie);
           setUser(u);
@@ -100,14 +82,8 @@ function App() {
       setVerifying(false);
     }
   }, []);
-  useEffect(() => {
-    if (initializedGA) {
-      ReactGA.pageview(location.pathname);
-    }
-  }, [initializedGA, location]);
 
   return (
-    <Router>
       <div>
         <ScrollToTop />
           {!verifying ? (
@@ -124,7 +100,6 @@ function App() {
                 component={HideAndSeek2020Page}
               />
               <Route path="/events" exact component={EventsPage} />
-              <Route path="/eventhasnotstarted" exact component={EventHasNotStartedPage}/>
               
               {/* new competition format */}
               <Route
@@ -132,18 +107,6 @@ function App() {
                 exact
                 component={CompetitionPortalPage}
               />  
-
-              <Route
-                path="/:competitionName/submissionLog/:id"
-                exact
-                component={SubmissionLogPage}
-              />  
-
-              <Route
-                path="/matches/:id"
-                exact
-                component={MatchesPage}
-              /> 
 
               <Route
                 path="/competitions/:id"
@@ -160,26 +123,6 @@ function App() {
                 exact
                 component={CompetitionUploadPage}
               />
-              <Route
-                path="/competitions/:competitionName/teams"
-                exact
-                component={CompetitionAllTeamsPage}
-              />
-              <Route
-                path="/competitions/:competitionName/teams/:teamName"
-                exact
-                component={CompetitionSpecificTeamPage}
-              />
-              <Route
-                path="/competitions/:competitionName/teams/:teamName/submissions/:submissionId"
-                exact
-                component={CompetitionSubmissionDetailsPage}
-              />
-              <Route
-                path="/competitions/:competitionName/add-to-team"
-                exact
-                component={JoinTeamsPage}
-              />
 
               {/* accounts */}
               <Route path="/login" exact component={LoginPage} />
@@ -193,7 +136,7 @@ function App() {
               <Route  path="/old-competitions/hideandseek" exact component={HideAndSeek2020Page} />
               <Route
                 path="/old-competitions/hideandseek/ranks"
-                exact component={() => {
+                exact render={() => {
                   return (
                     <TournamentRankingsPageHistorical
                       dataDir="2020summer"
@@ -212,7 +155,7 @@ function App() {
               <Route
                 path="/old-competitions/energium/ranks"
                 exact
-                component={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
+                render={() => <TournamentRankingsPageHistorical dataDir="2020fall" />}
               />
 
               <Route path="*" component={NotFoundPage} />
@@ -233,7 +176,6 @@ function App() {
             </div>
           )} 
       </div>
-    </Router>
   );
 }
 

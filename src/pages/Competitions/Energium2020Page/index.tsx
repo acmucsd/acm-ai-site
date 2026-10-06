@@ -7,42 +7,6 @@ import { Energium } from '../../../components/Text/Energium';
 import CompetitionDiscordLink from '../../../components/CompetitionDiscordLink';
 
 export const Energium2020Page = () => {
-  // no longer used as competition is over
-  /*
-  const {user, setUser} = useContext(UserContext);
-  const { tournament } = useContext(TournamentContext);
-  const registerForCompetition = () => {
-    registerUser(tournament.dimID, {
-      username: user.username,
-      password: process.env.REACT_APP_BOT_PASSWORDS as string
-    }).then(() => {
-      loginUserToCompetition();
-    });
-  };
-  const loginUserToCompetition = () => {
-    loginUser(tournament.dimID, {
-      username: user.username,
-      password: process.env.REACT_APP_BOT_PASSWORDS as string
-    }).then(() => {
-      const newuser = {...user}
-      newuser.competitionRegistrations.energium = true;
-      setUser(newuser);
-      message.success("Registered into competition! Good luck!")
-    });
-  }
-  const renderRegisterUploadButton = () => {
-    if (user.loggedIn) {
-      if (user.competitionRegistrations.energium === undefined) {
-        return <span className='Loading'>Loading <Spin indicator={antIcon} /></span>
-      } else {
-        return user.competitionRegistrations.energium ? <Link to='/competitions/energium/upload'><Button className="tourney-btn" type="primary">Upload Bot</Button></Link> : <Button onClick={registerForCompetition} className="tourney-btn" type="primary">Register in Competition</Button>
-      }
-    } else {
-      return <Link to="/login"><Button className="tourney-btn" type="primary">Login to register</Button></Link>
-    }
-  }
-  const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
-  */
   return (
     <DefaultLayout>
       <div className="Energium2020Page">
@@ -65,7 +29,6 @@ export const Energium2020Page = () => {
                 View Github
               </Button>
             </a>
-            {/* {renderRegisterUploadButton()} */}
           </div>
           <br />
           <p>

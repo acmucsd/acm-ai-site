@@ -20,13 +20,7 @@ function Header() {
     { to: '/competitions', text: 'Competitions' },
     { to: '/projects', text: 'Projects' },
   ];
-  let path = window.location.pathname;
-  let initKeys: Array<string> = [];
-  
   const handleMenuClick: MenuProps['onClick'] = (e) => {
-
-    console.log('click', e);
-
     if(e.key === "3"){
       logoutUser();
       setUser(defaultUser);
@@ -55,75 +49,11 @@ function Header() {
     onClick: handleMenuClick,
   };
 
-  if (path.match(`/home`)) {
-    initKeys = ['home'];
-  }
-  if (path.match(`user`)) {
-    initKeys = ['profile'];
-  }
-  if (path.match(`login`)) {
-    initKeys = ['login'];
-  }
-  if (path.match(`register`)) {
-    initKeys = ['register'];
-  }
-  if (path.match(`/competitions`)) {
-    initKeys = ['competitions'];
-  }
-  if (path.match(`/about`)) {
-    initKeys = ['about'];
-  }
-  if (path.match(`/alumni`)) {
-    initKeys = ['alumni'];
-  }
-  if (path.match(`/events`)) {
-    initKeys = ['events'];
-  }
-
-  // const [key, setKey] = useState<Array<string>>(initKeys);
-  // const handleClick = (e: any) => {
-  //   setKey(e.key);
-  // };
-
   const size: Size = useWindowSize();
   const [isMobile, setIsMobile] = useState<Boolean>(false);
   const [menuOpen, setMenuOpen] = useState<Boolean>(false);
 
-  //const [loginItems, setLoginItems] = useState<any>();
   const history = useHistory();
-
-  /*
-  useEffect(() => {
-    if (user.loggedIn) {
-      setLoginItems([
-        <Menu.Item
-          key="logout"
-          onClick={() => {
-            logoutUser();
-            setUser(defaultUser);
-            message.success('Logged out');
-            history.push('/');
-          }}
-        >
-          Logout
-        </Menu.Item>,
-      ]);
-    } else {
-      setLoginItems([
-        <Menu.Item key="register">
-          <Link to={`/register`} rel="noopener noreferrer">
-            Register
-          </Link>
-        </Menu.Item>,
-        <Menu.Item key="login">
-          <Link to={`/login`} rel="noopener noreferrer">
-            Login
-          </Link>
-        </Menu.Item>,
-      ]);
-    }
-  }, [history, setUser, user]);
-  */
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -167,7 +97,7 @@ function Header() {
             <div className="navLinksWrapper">
               {navLinks.map((link, key) => (
                 <Link className="navItem" key={key} to={link.to}>
-                  <a href="#">{link.text}</a>
+                  {link.text}
                 </Link>
               ))}
 
@@ -184,15 +114,7 @@ function Header() {
                 </Dropdown>
               ) : (
                 <Link to="/login">
-                  <Button
-                    size="large"
-                    className="authButton"
-                    onClick={() => {
-                      logoutUser();
-                      setUser(defaultUser);
-                      history.push('/');
-                    }}
-                  >
+                  <Button size="large" className="authButton">
                     <h4>Login</h4>
                   </Button>
                 </Link>
@@ -209,7 +131,7 @@ function Header() {
       <div className={`mobileDropDown ${menuOpen ? 'open' : ''}`}>
         {navLinks.map((link, key) => (
           <Link className="mobileNavItem" key={key} to={link.to}>
-            <a href="#">{link.text}</a>
+            {link.text}
           </Link>
         ))}
         
@@ -217,10 +139,10 @@ function Header() {
         {user.loggedIn ? (
           <>
           <Link className="mobileNavItem" to="/profile">
-            <a href="#">Profile</a>
+            Profile
           </Link>
           <Link className="mobileNavItem" to="/portal">
-            <a href="#">Portal</a>
+            Portal
           </Link>
           <div
             className="logOutOption"
@@ -231,12 +153,12 @@ function Header() {
               history.push('/');
             }}
           >
-            <a href="#">Logout</a>
+            Logout
           </div>
           </>
         ) : (
           <Link className="mobileNavItem" to="/login">
-            <a href="#">Login</a>
+            Login
           </Link>
         )}
       </div>

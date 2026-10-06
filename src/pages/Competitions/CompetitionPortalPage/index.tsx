@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Row, Col, Layout, Button, Input, Modal, Upload, AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip, Pagination, Table, Tag, Select} from 'antd';
-import type { UploadProps } from 'antd';
-import TextArea from "antd/es/input/TextArea";
+import { Row, Col, Layout, Button, Input, Modal, Skeleton, Tabs, message, Tooltip, Tag, Select} from 'antd';
 
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { IoHelp, IoRefresh, IoSearch, IoTime, IoEllipsisVertical, IoPersonAdd, IoExit } from "react-icons/io5";
-import { FaCheck, FaClock, FaStar } from "react-icons/fa";
+import { UploadOutlined } from '@ant-design/icons';
+import { IoEllipsisVertical, IoPersonAdd, IoExit } from "react-icons/io5";
+import { FaClock } from "react-icons/fa";
 
-import UserContext, { User } from "../../../UserContext";
+import UserContext from "../../../UserContext";
 import { Link, useHistory } from 'react-router-dom';
 import {
     getTeamInfo,
@@ -18,13 +16,12 @@ import {
     getSubmissionDetails
 } from '../../../actions/teams/utils';
 import DefaultLayout from "../../../components/layouts/default";
-import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
+import { CompetitionData, getLeaderboard, getMetaData, getPortalCompetition, registerCompetitionUser } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import { createAvatar } from '@dicebear/core';
-import { botttsNeutral, identicon } from '@dicebear/collection';
+import { botttsNeutral } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
 import LineChart from "./LineChart";
-import SubmissionEntryCard from "./SubmissionEntryCard";
 
 import LeaderBoardTab from "./Leaderboard";
 import FindTeamsTab from "./FindTeams";
@@ -33,98 +30,6 @@ import path from 'path';
 import './index.less';
 
 const { Content } = Layout;
-
-/**
- * Renders the submission preview list for the user's team
- * 
- * @param {any} teamInfo The team's general information
- * @param {string} competitionName The name of the current competition
- *
- */
-const SubmissionsPreview = ({teamInfo, competitionName}: {teamInfo: any, competitionName: string}) => {
-
-    const [submissions, setSubmissions] = useState<any[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    /* The actual data inside the teamInfo.submitHistory will be a list of mongoose object ids
-       that point to each competition entry object. This component will query the
-       recent entries and display them in a list view */
-
-    const dummyData = [
-        "63c396f9671b14068b17f681"
-    ];
-
-    const fetchRecents = async() => {
-        setSubmissions([]);
-        setIsLoading(true);
-
-        if (teamInfo) {
-            teamInfo.submitHistory.slice(0, 3).map((id: any) => {
-                getSubmissionDetails(competitionName, id).then((res) => {
-                let submission = res.data[0];
-                if (!submission) return;
-                let date = new Date(submission.submissionDate);
-                let submissionDetails = {
-                    date: date,
-                    status: submission.status,
-                    dateString:
-                    date.toLocaleDateString() + ' at ' + date.toLocaleTimeString(),
-                    description: submission.description,
-                    tags: submission.tags.join(', '),
-                    score: submission.score,
-                    key: id,
-                };
-                setSubmissions((submissionData: any) => [
-                    ...submissionData,
-                    submissionDetails,
-                ]);
-            });
-        })
-
-        setTimeout(() => {
-            // Your code to be executed after the delay
-            console.log("Delayed code executed!");
-            setIsLoading(false);
-        }, 500);
-
-      }
-
-    }
-
-
-    useEffect(() => {
-        fetchRecents();
-    }, []);
-
-    return (
-        <div id = "submissionsPreviewSection">
-            <span id = "submissionsPreviewHeader">
-                <h3>Submission Log</h3>
-                <span>
-                    <Button id = "viewSubmissionsButton" type = "link" icon = {<IoRefresh size = {20} />} onClick={()=> fetchRecents()}/>
-                    <Link to={`/${competitionName}/submissionLog/${teamInfo.teamName}`} rel="noopener noreferrer">
-                        <Button type="text" id = "viewAllSubmissionsButton"><p>view all</p></Button>
-                    </Link>
-                </span>
-            </span>
-
-            <section id = "submissionsPreviewColumn">
-                {isLoading ? <Skeleton active   paragraph={{ rows: 10 }}/> :
-                    <List
-                        split={false}
-                        // loading = {isLoading}
-                        dataSource={submissions}
-                        renderItem={(data: any) => (
-                            <List.Item>
-                                <SubmissionEntryCard entry = {data}  />
-                            </List.Item>
-                        )}
-                    />
-                }     
-            </section>
-        </div>
-    );
-}
 
 /**
  * Generates a unique avatar for each team member 
@@ -230,20 +135,13 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
     
     // Form field to create a new team with a name
     const [newTeamName, setNewTeamName] = useState<string>("");
-    const [newTeamGroup, setNewTeamGroup] = useState<string | undefined>(metaData?.teamGroups?.[0]);
+    const [newTeamGroup, setNewTeamGroup] = useState<string>();
+    const teamGroup = newTeamGroup ?? metaData?.teamGroups?.[0];
 
     // Modal states 
     const [isInviteModalVisible, setIsInviteModalVisible] = useState<boolean>(false);
     const [isLeaveModalVisible, setIsLeaveModalVisible] = useState<boolean>(false);
     
-    // Submission description input
-    const [desc, setDesc] = useState<string>('');
-
-    // Submission tags input (not being used for now as there isn't UI to add tags yet)
-    // const [tags, setTags] = useState<Array<string>>([]); 
-
-    const [submissionFile, setFile] = useState<any>();
-    const [uploading, setUploading] = useState<boolean>(false);
     const [latestSubmissionResult, setLatestSubmissionResult] = useState<any>(null);
     const [isLoadingLatestSubmissionResult, setIsLoadingLatestSubmissionResult] = useState<boolean>(false);
 
@@ -251,8 +149,11 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         setIsLeaveModalVisible(true);
     };
 
+    const maxTeamSize = metaData?.maxTeamSize;
+    const teamFull = typeof maxTeamSize === 'number' && compUser.competitionTeam?.teamMembers.length >= maxTeamSize;
+
     const showTeamLimitReached = () => {
-        message.error("Your team has reached max team size of 2!")
+        message.error(`Your team has reached max team size of ${maxTeamSize}!`)
     }
 
     const handleLeaveModalClose = () => {
@@ -265,66 +166,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
     const handleInviteModalClose = () => {
         setIsInviteModalVisible(false);
-    };
-
-    // Upload submission
-    const { Dragger } = Upload;
-    const uploadProps: UploadProps = {
-        name: 'file',
-        multiple: false,
-        // TODO: replace placeholder link with actual file uploading logic
-        // action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-        onChange(info) {
-            const { status } = info.file;
-            if (status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully.`);
-                setFile(info.file)
-            } else if (status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-    };
-
-    /**
-     * Helper function to refresh the submission history or log
-     * when the user successfully uploads a submission. Also
-     * performs a refresh of the team data in case the eval server
-     * updates the team's ranking, score, etc.
-     * 
-     * @param event A react form event
-     */
-    const handleSubmit = (event: React.FormEvent) => {
-
-        event.preventDefault();
-        fetchTeamsCallback();
-
-        /* TODO: When eval servers are up, uncomment this portion
-        event.preventDefault();
-        setUploading(true);
-        uploadSubmission(
-          submissionFile,
-          // use the username as first tag value
-          [compUser.username],
-          desc,
-          compUser.competitionName,
-          compUser.username as string
-        )
-          .then((res) => {
-            message.success('Submission Uploaded Succesfully');
-            fetchTeamsCallback();
-          })
-          .catch((err) => {
-            message.error(`${err}`);
-          })
-          .finally(() => {
-            setUploading(false);
-          }); */
     };
 
     /**
@@ -350,9 +191,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
             handleLeaveModalClose();
             fetchTeamsCallback();
         })
-        .catch((error) => (
-            message.error(error)
-        ));
+        .catch(() => {});
     }
 
     /**
@@ -367,22 +206,19 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
             return;
         }
 
-        if (metaData?.teamGroups && (!newTeamGroup || !metaData.teamGroups.includes(newTeamGroup))) {
+        if (metaData?.teamGroups && (!teamGroup || !metaData.teamGroups.includes(teamGroup))) {
             message.info('Division is not valid');
             return;
         }
 
         setIsLoading(true);
 
-        createTeam(compUser.competitionName, compUser.username, newTeamName, metaData?.teamGroups ? newTeamGroup : undefined).then((res) => {
+        createTeam(compUser.competitionName, compUser.username, newTeamName, metaData?.teamGroups ? teamGroup : undefined).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
-
         })
-        .catch((error) => {
-            // message.error(error.message);
-        });
-        setIsLoading(false);
+        .catch(() => {})
+        .finally(() => setIsLoading(false));
     }
 
     useEffect(() => {
@@ -443,7 +279,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                         {teamInfo.teamName}
                                         {teamInfo.teamGroup && <Tag style={{marginLeft: "12px"}}>{teamInfo.teamGroup}</Tag>}
                                     </h3>
-                                    <p id = "rankingTag">{getOrdinal(rankData.rank)} place</p>
+                                    <p id = "rankingTag">{rankData.rank ? `${getOrdinal(rankData.rank)} place` : "Unranked"}</p>
                                 </article>
                             
                                 <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28} style = {{color: "black"}}/>}></Button>
@@ -468,12 +304,12 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         <div id = "uploadFileSection">
                             <span id = "uploadFileHeader">
                                 <h3>Upload Submission</h3>
-                                <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
+                                <Tooltip title = {<p id = "submissionCountDown">{metaData?.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
                                     <FaClock size = {28} />
                                 </Tooltip>
                             </span>
                             
-                            <Link to={{ pathname: `competitions/${metaData.competitionName}/upload`}} >
+                            <Link to={{ pathname: `competitions/${compUser.competitionName}/upload`}} >
                                 <Button size="large" className="uploadButton" icon = {<UploadOutlined size = {14}/>}>Upload</Button>
                             </Link>
 
@@ -502,46 +338,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                             )}
                         </div>
 
-                        {/* <form id = "uploadFileSection">
-                            <span id = "uploadFileHeader">
-                                <h3>Upload Submission</h3>
-                                <Tooltip title = {<p id = "submissionCountDown">{metaData.submissionsEnabled ? <CountdownTimer endDate={metaData.endDate}/> : "Submissions have closed" }</p> }>
-                                    <FaClock size = {28} />
-                                </Tooltip>
-                            
-                            </span>
-
-                            <TextArea
-                                id ="uploadDescription"
-                                rows={1}
-                                autoSize
-                                maxLength={300}
-                                size="large"
-                                placeholder="Add a description. Max character limit of 300"
-                                value={desc}
-                                onChange={(evt) => setDesc(evt.target.value)}
-                            />
-
-                            <Dragger id = "uploadDragArea" style = {{borderRadius: "20px", background: "white", border: "none"}}height={150} {...uploadProps}>
-                                <p id="antUploadDragIcon">
-                                    <InboxOutlined style={{color: "darkgray"}}/>
-                                </p>
-                                <p id="antUploadText">Click or drag file to this area to upload</p>
-                            </Dragger>
-                        
-                            <Button
-                                size = "large"
-                                htmlType="submit"
-                                id ="submitFileButton"
-                                onClick = {(event) => handleSubmit(event)}
-                                disabled = {metaData.submissionsEnabled ? false : true}
-                            >
-                                Submit
-                            </Button>   
-                        </form> 
-                        */}
-
-                        {/* <SubmissionsPreview  teamInfo={teamInfo} competitionName= {metaData.competitionName} /> */}
                     </div>
 
                     <div id ="sideContent">
@@ -561,11 +357,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                             onOk: handleLeaveTeam,
                                         });
                                     }}>Leave</Button>
-                                {
-                                    compUser.competitionTeam?.teamMembers.length >= 2 ? 
-                                    <Button size="large" id="inviteButton" onClick={showTeamLimitReached} icon = {<IoPersonAdd size = {14}/>}>Invite</Button> :
-                                    <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
-                                }
+                                <Button size="large" id="inviteButton" onClick={teamFull ? showTeamLimitReached : showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
 
                                 </div>
                                 
@@ -630,14 +422,13 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         <Select
                             placeholder="New Team Division"
                             style={{ width: '100%' }}
-                            value={newTeamGroup}
+                            value={teamGroup}
                             onChange={(value) => {
                                 setNewTeamGroup(value);
                             }}
                             options={metaData.teamGroups.map((g: string) => ({
                                 label: g, value: g
                             }))}
-                            defaultOpen={true}
                         />
                         </>
                     )}
@@ -662,10 +453,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 /**
  * Renders the entire dashboard for the competition portal.
  */
-function CompetitionPortalPage() {
-
-    // This enables us to specify the most current competition
-    const competitionName = "Stellatro.AI";
+function CompetitionPortal({ competitionName }: { competitionName: string }) {
     const history = useHistory();
 
     // User profile data
@@ -713,7 +501,9 @@ function CompetitionPortalPage() {
         endDate: string;
         submissionsEnabled: boolean;
         leaderboardEnabled?: boolean;
+        leaderboardType?: string;
         teamGroups?: string[];
+        maxTeamSize?: number;
     } | null>(null);
 
 
@@ -737,6 +527,8 @@ function CompetitionPortalPage() {
         getCompetitionUser(competitionName, user.username).then((res) => {
             if (!res.data.registered) {
                 message.info("you are not registered!");
+                setTeamInfo(null);
+                setIsLoadingTeamInfo(false);
 
                 // Expose the register modal. When user registers, the page will reload
                 showModal();
@@ -754,7 +546,7 @@ function CompetitionPortalPage() {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.error(error);
                 });
             }
         })
@@ -816,9 +608,9 @@ function CompetitionPortalPage() {
             setLastRefresh(new Date());
             setRankingsData(newData);
             setIsLoadingLeaderBoard(false);
-            setTimeout(() => {
+            if (teamInfo?.teamName) {
                 setIsLoadingTeamInfo(false);
-              }, 800);
+            }
         });
     };
 
@@ -872,27 +664,17 @@ function CompetitionPortalPage() {
      * 
      */
     useEffect(() => {
-        setIsLoadingTeamInfo(true);
+        if (Object.keys(compUser).length === 0) return;
 
-        // If comp user is in a team, grab the team information
-        if (Object.keys(compUser).length !== 0) {
-            if (compUser.competitionTeam != null) {
-                updateTeamInformation();
-            }
-            else {
-                setTeamInfo(null)
-                setTimeout(() => {
-                    setIsLoadingTeamInfo(false);
-                  }, 800);
-            }
+        // Team members wait for rankings, see updateRankings
+        if (compUser.competitionTeam != null) {
+            setIsLoadingTeamInfo(true);
+            updateTeamInformation();
         }
         else {
-            setTeamInfo(null)
-            setTimeout(() => {
-                setIsLoadingTeamInfo(false);
-              }, 800);
+            setTeamInfo(null);
+            setIsLoadingTeamInfo(false);
         }
-
     }, [compUser])
 
 
@@ -919,6 +701,8 @@ function CompetitionPortalPage() {
             }
         })
     }
+
+    const isWld = metaData?.leaderboardType === 'wld';
 
     return (
         <DefaultLayout>
@@ -991,7 +775,7 @@ function CompetitionPortalPage() {
                                         <Col span={6} className="stat-title">Submissions</Col>
                                         <Col span={6} className="stat-title">Latest Score</Col>
                                         <Col span={6} className="stat-title">Ranking</Col>
-                                        {/* <Col span={6} className="stat-title">W-L-D</Col> */}
+                                        {isWld && <Col span={6} className="stat-title">W-L-D</Col>}
                                         </Row>
                                         
                                         {/* Values Row */}
@@ -1010,25 +794,16 @@ function CompetitionPortalPage() {
                                             </Col>
 
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">{userRankData.rank}</div>
+                                                <div className="stat-value">{userRankData.rank || "-"}</div>
                                             </Col>
 
-                                            {/* <Col span={6} className="stat-col">
-                                                <div className="stat-value">
-                                                {userRankData.winHistory?.length > 0
-                                                    ? userRankData.winHistory[userRankData.winHistory?.length - 1]
-                                                    : 0
-                                                }-
-                                                {userRankData.drawHistory?.length > 0
-                                                    ? userRankData.drawHistory[userRankData.drawHistory?.length - 1]
-                                                    : 0
-                                                }-
-                                                {userRankData.lossHistory?.length > 0
-                                                    ? userRankData.lossHistory[userRankData.lossHistory?.length - 1]
-                                                    : 0
-                                                }
-                                                </div>
-                                            </Col> */}
+                                            {isWld && (
+                                                <Col span={6} className="stat-col">
+                                                    <div className="stat-value">
+                                                        {userRankData.winHistory?.at(-1) ?? 0}-{userRankData.lossHistory?.at(-1) ?? 0}-{userRankData.drawHistory?.at(-1) ?? 0}
+                                                    </div>
+                                                </Col>
+                                            )}
                                         </Row>
                                     </section>
                                 }
@@ -1059,9 +834,10 @@ function CompetitionPortalPage() {
                                         lastRefresh={lastRefresh}
                                         updateRankingsCallback={updateRankings}
                                         isLoading={isLoadingLeaderBoard} 
-                                        competitionName={competitionName}
                                         teamGroups={metaData?.teamGroups}
-                                        leaderboardEnabled={metaData?.leaderboardEnabled}/>
+                                        leaderboardEnabled={metaData?.leaderboardEnabled}
+                                        leaderboardType={metaData?.leaderboardType}
+                                        metaLoaded={!!metaData}/>
                                 },
                                 {
                                     label: <p>Find Teams</p>,
@@ -1095,6 +871,35 @@ function CompetitionPortalPage() {
 
         </DefaultLayout>
     );
+}
+
+/**
+ * Loads the competition admins put in the portal.
+ */
+function CompetitionPortalPage() {
+    const [competitionName, setCompetitionName] = useState<string | null>();
+
+    useEffect(() => {
+        getPortalCompetition()
+            .then((res) => setCompetitionName(res.data.competitionName))
+            .catch(() => setCompetitionName(null));
+    }, []);
+
+    if (competitionName === undefined) {
+        return <DefaultLayout><Skeleton active /></DefaultLayout>;
+    }
+
+    if (competitionName === null) {
+        return (
+            <DefaultLayout>
+                <Content className="CompetitionPortalPage">
+                    <p>No competition is running right now. Check back soon!</p>
+                </Content>
+            </DefaultLayout>
+        );
+    }
+
+    return <CompetitionPortal competitionName={competitionName} />;
 }
 
 export default CompetitionPortalPage;

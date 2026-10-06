@@ -3,12 +3,12 @@ import axios, { AxiosResponse } from 'axios';
 import { COOKIE_NAME } from '../configs';
 import { getToken } from '../utils/token';
 
-export type PastCompetition = {
-  name: string;
-  year: number;
-  description: string;
-  route: string;
-};
+export const LEADERBOARD_TYPES = ['wld', 'public_private', 'basic_score', 'mse'] as const;
+
+export type LeaderboardType = (typeof LEADERBOARD_TYPES)[number];
+
+export const isLeaderboardType = (type?: string): type is LeaderboardType =>
+  LEADERBOARD_TYPES.includes(type as LeaderboardType);
 
 export interface CompetitionData {
     rank: number;
@@ -183,6 +183,9 @@ export const updateCompetitionDescription = async (competitionName: string, desc
 export type UpdateCompetitionSettingsPayload = {
   submissionsEnabled?: boolean;
   leaderboardEnabled?: boolean;
+  leaderboardType?: LeaderboardType;
+  submissionFileName?: string;
+  inPortal?: boolean;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
@@ -197,6 +200,7 @@ export type NewCompetitionSettingsPayload = {
   submissionCooldown?: number;
   submissionsEnabled: boolean;
   leaderboardEnabled: boolean;
+  leaderboardType: LeaderboardType;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores: boolean;
@@ -230,6 +234,9 @@ export const updateCompetitionSettings = async (
     throw error;
   }
 };
+
+export const getPortalCompetition = async (): Promise<AxiosResponse> =>
+  axios.get(process.env.REACT_APP_API + '/v1/competitions/portal');
 
 export const getMetaData = async (
   competitionid: string
@@ -312,72 +319,6 @@ export const registerCompetitionUser = async (
   });
 };
 
-export const getSubmissionMatches = async (
-  competitionid: string,
-  submissionid: string
-): Promise<AxiosResponse> => {
-  let token = getToken(COOKIE_NAME);
-  return new Promise((resolve, reject) => {
-    axios
-      .get(
-        process.env.REACT_APP_API +
-          `/v1/competitions/matches/${competitionid}/match/entry/${submissionid}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res: AxiosResponse) => {
-        resolve(res);
-      })
-      .catch((error) => {
-        message.error('Could not get submission matches');
-        reject(error);
-      });
-  });
-};
-
-export const getSubmissionReplay = async (
-  competitionid: string,
-  matchId: string
-): Promise<AxiosResponse> => {
-  let token = getToken(COOKIE_NAME);
-  return new Promise((resolve, reject) => {
-    axios
-      .get(
-        process.env.REACT_APP_API +
-          `/v1/competitions/matches/${competitionid}/match/${matchId}/replay`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          responseType: 'blob',
-        }
-      )
-      .then((res: AxiosResponse) => {
-        // create file link in browser's memory
-        const href = URL.createObjectURL(res.data);
-
-        // create "a" HTML element with href to file & click
-        const link = document.createElement('a');
-        link.href = href;
-        link.setAttribute('download', 'replay.zip'); //or any other extension
-        document.body.appendChild(link);
-        link.click();
-
-        // clean up "a" element & remove ObjectURL
-        document.body.removeChild(link);
-        URL.revokeObjectURL(href);
-        resolve(res);
-      })
-      .catch((error) => {
-        message.error('Could not get match replay');
-        reject(error);
-      });
-  });
-};
-
 export const getSubmissionFileName = async (competitionid: string) => {
   try {
     const response = await axios.get(process.env.REACT_APP_API + `/v1/competitions/${competitionid}/submissionFileName`);
@@ -387,3 +328,41 @@ export const getSubmissionFileName = async (competitionid: string) => {
     throw error;
   }
 }
+export type AdminTeam = {
+  teamName: string;
+  teamMembers: string[];
+  submitHistory: string[];
+  scoreHistory: number[];
+  publicScoreHistory: number[];
+  privateScoreHistory: number[];
+  disqualified?: boolean;
+};
+
+export type TeamEntry = {
+  _id: string;
+  submissionDate: string;
+  score: number;
+  description: string;
+  message?: string;
+  error?: string;
+  evaluationOk?: boolean;
+};
+
+export type TeamScore = { score?: number; publicScore?: number; privateScore?: number };
+
+const teamUrl = (competitionName: string, teamName: string) =>
+  process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/${encodeURIComponent(teamName)}`;
+
+const authHeader = () => ({ headers: { Authorization: `Bearer ${getToken(COOKIE_NAME)}` } });
+
+export const getAdminTeams = async (competitionName: string): Promise<AdminTeam[]> =>
+  (await axios.get(process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/all`, authHeader())).data;
+
+export const getTeamEntries = async (competitionName: string, teamName: string): Promise<TeamEntry[]> =>
+  (await axios.get(teamUrl(competitionName, teamName) + '/entries', authHeader())).data;
+
+export const overrideTeamScore = async (competitionName: string, teamName: string, scores: TeamScore) =>
+  (await axios.post(teamUrl(competitionName, teamName) + '/score', scores, authHeader())).data;
+
+export const setTeamDisqualified = async (competitionName: string, teamName: string, disqualified: boolean) =>
+  (await axios.post(teamUrl(competitionName, teamName) + '/disqualify', { disqualified }, authHeader())).data;

@@ -26,7 +26,7 @@ function ForgotPasswordPage({ location }: RouteComponentProps) {
     resetPassword(body).then(() => {
       message.success('Password Changed! Redirecting to login page');
       history.push('/login');
-    });
+    }).catch(() => {});
   };
   return (
     <DefaultLayout>
