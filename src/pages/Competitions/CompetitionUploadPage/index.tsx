@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './index.less';
 import DefaultLayout from '../../../components/layouts/default';
-import { Form, Button, Upload, message, Input } from 'antd';
+import { Button, Upload, message, Input } from 'antd';
 import { useForm } from 'react-hook-form';
 // import Card from '../../../components/Card';
 import { useHistory, useParams } from 'react-router-dom';
@@ -12,7 +12,6 @@ import { minimatch } from 'minimatch';
 import path from 'path';
 import BackLink from '../../../components/BackLink';
 // import CheckableTagList from '../../../components/CheckableTagList'
-import { Tag, Tooltip } from 'antd';
 
 const { TextArea } = Input;
 const MAX_UPLOAD_SIZE_BYTES = 80 * 1024 * 1024;
@@ -104,7 +103,7 @@ const CompetitionUploadPage = () => {
         history.replace('/portal');
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         message.error(`${err}`);
       })
       .finally(() => {

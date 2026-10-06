@@ -5,7 +5,6 @@ import {
   useHistory,
 } from 'react-router-dom';
 import { UserProvider } from './UserContext';
-import { TournamentProvider } from './contexts/tournament';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -19,17 +18,14 @@ import LoginPage from './pages/Auth/LoginPage';
 import { getCookie } from './utils/cookie';
 import { verifyToken, getUserFromToken } from './actions/auth';
 import {
-  DIMENSION_ID,
   COOKIE_NAME,
   defaultUser,
-  defaultTournament,
 } from './configs';
 import { message } from 'antd';
 import CompetitionsPage from './pages/CompetitionsPage';
 import AboutPage from './pages/AboutPage';
 import AlumniPage from './pages/AlumniPage';
 import EventsPage from './pages/EventsPage';
-import EventHasNotStartedPage from './pages/EventHasNotStarted';
 import ForgotPasswordPage from './pages/Auth/ForgotPassword';
 import requestreset from './pages/Auth/RequestReset';
 
@@ -40,17 +36,12 @@ import NNRanksPage from './pages/Competitions/NNRankPage';
 
 import CompetitionLandingPage from './pages/Competitions/CompetitionLandingPage';
 import CompetitionUploadPage from './pages/Competitions/CompetitionUploadPage';
-import CompetitionSpecificTeamPage from './pages/Competitions/CompetitionTeamPages/SpecificTeamPage';
-import CompetitionAllTeamsPage from './pages/Competitions/CompetitionTeamPages/AllTeamsPage';
 import CompetitionLeaderboardPage from './pages/Competitions/CompetitionLeaderboardPage';
-import CompetitionSubmissionDetailsPage from './pages/Competitions/CompetitionTeamPages/SubmissionDetailsPage';
 import CompetitionPortalPage from './pages/Competitions/CompetitionPortalPage';
 import NotFoundPage from './pages/404Page';
 
 import ProjectPage from './pages/ProjectsPage/index';
-import JoinTeamsPage from './pages/Competitions/CompetitionTeamPages/JoinTeamsPage';
 import SubmissionLogPage from './pages/Competitions/CompetitionPortalPage/SubmissionLogPage';
-import MatchesPage from './pages/Competitions/CompetitionPortalPage/MatchesPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminPortalPage from './pages/AdminPortalPage';
 
@@ -72,14 +63,13 @@ function ScrollToTop() {
 
 function App() {
   const [user, setUser] = useState(defaultUser);
-  const [tournament, setTournament] = useState(defaultTournament);
   const [verifying, setVerifying] = useState(true);
   const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
 
   useEffect(() => {
     if (cookie) {
       // verify cookie
-      verifyToken(DIMENSION_ID, cookie)
+      verifyToken(cookie)
         .then(() => {
           let u = getUserFromToken(cookie);
           setUser(u);
@@ -111,7 +101,6 @@ function App() {
                 component={HideAndSeek2020Page}
               />
               <Route path="/events" exact component={EventsPage} />
-              <Route path="/eventhasnotstarted" exact component={EventHasNotStartedPage}/>
               
               {/* new competition format */}
               <Route
@@ -127,12 +116,6 @@ function App() {
               />  
 
               <Route
-                path="/matches/:id"
-                exact
-                component={MatchesPage}
-              /> 
-
-              <Route
                 path="/competitions/:id"
                 exact
                 component={CompetitionLandingPage}
@@ -146,26 +129,6 @@ function App() {
                 path="/competitions/:id/upload"
                 exact
                 component={CompetitionUploadPage}
-              />
-              <Route
-                path="/competitions/:competitionName/teams"
-                exact
-                component={CompetitionAllTeamsPage}
-              />
-              <Route
-                path="/competitions/:competitionName/teams/:teamName"
-                exact
-                component={CompetitionSpecificTeamPage}
-              />
-              <Route
-                path="/competitions/:competitionName/teams/:teamName/submissions/:submissionId"
-                exact
-                component={CompetitionSubmissionDetailsPage}
-              />
-              <Route
-                path="/competitions/:competitionName/add-to-team"
-                exact
-                component={JoinTeamsPage}
               />
 
               {/* accounts */}

@@ -6,7 +6,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { loginUser, getUserFromToken } from '../../../actions/auth';
 import { Link } from 'react-router-dom';
 import UserContext from '../../../UserContext';
-import { DIMENSION_ID } from '../../../configs';
 const { Content } = Layout;
 
 function LoginPage() {
@@ -16,7 +15,7 @@ function LoginPage() {
     // update step
     // setRegisterStep('processing');
 
-    loginUser(DIMENSION_ID, values).then((res: any) => {
+    loginUser(values).then((res: any) => {
       setUser(getUserFromToken(res));
       message.success('Logged in!');
       window.location.href = '/profile';

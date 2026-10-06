@@ -1,18 +1,12 @@
-import { Modal, Col, Button, Form, Input, message, Badge, Avatar, Tag } from "antd";
+import { Modal, Col, Button, Input, message, Tag } from "antd";
 import { useState } from "react";
 import { User } from "../../UserContext";
 import { addToTeam, leaveTeam } from '../../actions/teams/utils';
-import { BsPeopleFill } from "react-icons/bs";
-import { IoMdPerson } from "react-icons/io";
-import { ExpandAltOutlined } from '@ant-design/icons';
 
 import './index.less';
 import React from "react";
 
-import { useForm } from "react-hook-form";
-import { error } from "console";
 import { genColor } from "../../utils/colors";
-import { FaEllipsisV } from "react-icons/fa";
 
 /**
  * Modular component that displays a team's data. This is used in the 
@@ -53,7 +47,6 @@ const TeamCard = (
      const onSubmit = () => {
         setConfirmLoading(true);
 
-        console.log("Comp user", compUser)
         if(compUser.competitionTeam !== null) {
             if(compUser.competitionTeam.teamName !== team.teamName) {
                 message.info("Cannot join another team if you're already in one")
@@ -74,7 +67,7 @@ const TeamCard = (
             }
             )
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 message.error("An error occurred: ", error);
             });
         }

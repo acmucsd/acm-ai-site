@@ -11,8 +11,6 @@ const RequestResetPage = () => {
   const { handleSubmit, control } = useForm();
 
   const onSubmit = (values: any) => {
-    console.log(values.username);
-
     requestReset(values.username).then((res) => {
       message.success('Reset Link Sent! Check your email');
     }).catch(() => {});

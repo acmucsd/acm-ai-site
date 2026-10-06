@@ -1,4 +1,3 @@
-import * as React from 'react';
 import './index.less';
 import { Card as AntdCard } from 'antd';
 
