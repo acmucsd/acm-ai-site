@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Row, Col, Layout, Button, Input, Modal, Upload, AutoComplete, Drawer, List, Skeleton, Tabs, message, Empty, Tooltip, Pagination, Table, Tag, Select} from 'antd';
-import type { UploadProps } from 'antd';
-import TextArea from "antd/es/input/TextArea";
+import { Row, Col, Layout, Button, Input, Modal, List, Skeleton, Tabs, message, Tooltip, Tag, Select} from 'antd';
 
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { IoHelp, IoRefresh, IoSearch, IoTime, IoEllipsisVertical, IoPersonAdd, IoExit } from "react-icons/io5";
-import { FaCheck, FaClock, FaStar } from "react-icons/fa";
+import { UploadOutlined } from '@ant-design/icons';
+import { IoRefresh, IoEllipsisVertical, IoPersonAdd, IoExit } from "react-icons/io5";
+import { FaClock } from "react-icons/fa";
 
-import UserContext, { User } from "../../../UserContext";
+import UserContext from "../../../UserContext";
 import { Link, useHistory } from 'react-router-dom';
 import {
     getTeamInfo,
@@ -18,10 +16,10 @@ import {
     getSubmissionDetails
 } from '../../../actions/teams/utils';
 import DefaultLayout from "../../../components/layouts/default";
-import { CompetitionData, getLeaderboard, getMetaData, getRanks, registerCompetitionUser, uploadSubmission } from "../../../actions/competition";
+import { CompetitionData, getLeaderboard, getMetaData, registerCompetitionUser } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 import { createAvatar } from '@dicebear/core';
-import { botttsNeutral, identicon } from '@dicebear/collection';
+import { botttsNeutral } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
 import LineChart from "./LineChart";
 import SubmissionEntryCard from "./SubmissionEntryCard";

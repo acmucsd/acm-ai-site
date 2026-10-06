@@ -4,8 +4,7 @@ import { Content } from "antd/es/layout/layout";
 import "./index.less";
 import { generateTeamPicture } from "..";
 import { useParams } from "react-router-dom";
-import { Button, Input, List, Skeleton } from "antd";
-import Pagination from "antd/es/pagination/";
+import { List, Skeleton } from "antd";
 import { getSubmissionDetails, getTeamInfo } from "../../../../actions/teams/utils";
 import SubmissionEntryCard from "../SubmissionEntryCard";
 

@@ -1,18 +1,12 @@
-import { Modal, Col, Button, Form, Input, message, Badge, Avatar, Tag } from "antd";
+import { Modal, Col, Button, Input, message, Tag } from "antd";
 import { useState } from "react";
 import { User } from "../../UserContext";
 import { addToTeam, leaveTeam } from '../../actions/teams/utils';
-import { BsPeopleFill } from "react-icons/bs";
-import { IoMdPerson } from "react-icons/io";
-import { ExpandAltOutlined } from '@ant-design/icons';
 
 import './index.less';
 import React from "react";
 
-import { useForm } from "react-hook-form";
-import { error } from "console";
 import { genColor } from "../../utils/colors";
-import { FaEllipsisV } from "react-icons/fa";
 
 /**
  * Modular component that displays a team's data. This is used in the 

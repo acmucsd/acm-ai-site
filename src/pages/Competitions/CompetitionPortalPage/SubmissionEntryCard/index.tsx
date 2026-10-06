@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import './index.less';
-import { IoEllipse, IoEllipsisVertical, IoPerson, IoTime } from "react-icons/io5";
+import { IoPerson, IoTime } from "react-icons/io5";
 import moment from "moment";
-import { FaEllipsisH, FaLink, FaPaperclip } from "react-icons/fa";
+import { FaEllipsisH, FaLink } from "react-icons/fa";
 import { Button, Modal } from "antd";
 import { TeamMemberAvatar } from "../../CompetitionPortalPage";
-import { BsQuestion, BsQuestionLg } from "react-icons/bs";
+import { BsQuestionLg } from "react-icons/bs";
 import { BiStats } from "react-icons/bi";
 
 /**
