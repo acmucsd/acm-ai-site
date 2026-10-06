@@ -215,12 +215,9 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         createTeam(compUser.competitionName, compUser.username, newTeamName, metaData?.teamGroups ? newTeamGroup : undefined).then((res) => {
             message.success('Successfully made a new team!');
             fetchTeamsCallback();
-
         })
-        .catch((error) => {
-            // message.error(error.message);
-        });
-        setIsLoading(false);
+        .catch(() => {})
+        .finally(() => setIsLoading(false));
     }
 
     useEffect(() => {
