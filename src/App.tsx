@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  useLocation,
   useHistory,
 } from 'react-router-dom';
 import { UserProvider } from './UserContext';
@@ -12,7 +11,6 @@ import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import './styles/index.less';
-import ReactGA from 'react-ga';
 import MainPage from './pages/MainPage';
 
 import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
@@ -75,15 +73,11 @@ function ScrollToTop() {
 
 function App() {
   const [user, setUser] = useState(defaultUser);
-  const [initializedGA, setGA] = useState(false);
   const [tournament, setTournament] = useState(defaultTournament);
   const [verifying, setVerifying] = useState(true);
-  const location = useLocation();
   const antIcon = <LoadingOutlined style={{ fontSize: '2rem' }} spin />;
 
   useEffect(() => {
-    ReactGA.initialize('UA-167602471-1');
-    setGA(true);
     if (cookie) {
       // verify cookie
       verifyToken(DIMENSION_ID, cookie)
@@ -100,11 +94,6 @@ function App() {
       setVerifying(false);
     }
   }, []);
-  useEffect(() => {
-    if (initializedGA) {
-      ReactGA.pageview(location.pathname);
-    }
-  }, [initializedGA, location]);
 
   return (
     <Router>
