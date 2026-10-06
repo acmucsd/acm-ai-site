@@ -148,8 +148,11 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
         setIsLeaveModalVisible(true);
     };
 
+    const maxTeamSize = metaData?.maxTeamSize;
+    const teamFull = typeof maxTeamSize === 'number' && compUser.competitionTeam?.teamMembers.length >= maxTeamSize;
+
     const showTeamLimitReached = () => {
-        message.error("Your team has reached max team size of 2!")
+        message.error(`Your team has reached max team size of ${maxTeamSize}!`)
     }
 
     const handleLeaveModalClose = () => {
@@ -358,11 +361,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                             onOk: handleLeaveTeam,
                                         });
                                     }}>Leave</Button>
-                                {
-                                    compUser.competitionTeam?.teamMembers.length >= 2 ? 
-                                    <Button size="large" id="inviteButton" onClick={showTeamLimitReached} icon = {<IoPersonAdd size = {14}/>}>Invite</Button> :
-                                    <Button size="large" id="inviteButton" onClick={showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
-                                }
+                                <Button size="large" id="inviteButton" onClick={teamFull ? showTeamLimitReached : showInviteModal} icon = {<IoPersonAdd size = {14}/>}>Invite</Button>
 
                                 </div>
                                 
@@ -509,6 +508,7 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
         leaderboardEnabled?: boolean;
         leaderboardType?: string;
         teamGroups?: string[];
+        maxTeamSize?: number;
     } | null>(null);
 
 
