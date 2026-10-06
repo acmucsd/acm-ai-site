@@ -1,0 +1,70 @@
+@import '../../newStyles/variables.less';
+
+// shared by Energium2020Page and HideAndSeek2020Page
+.legacy-2020-page() {
+  // wider than container, left edge clipped. kept as is
+  margin-left: -48px;
+  margin-right: -48px;
+  overflow: hidden;
+
+  .main-section {
+    color: @white;
+    background: @b2;
+    position: relative;
+    padding: 6rem;
+    // old breakpoint. @md clips text with the -48px offset
+    @media only screen and (max-width: 992px) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+    ol {
+      padding-left: 2rem;
+      list-style: decimal;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    p, ul, ol, li {
+      font-size: @font3;
+    }
+    h3 {
+      color: @white;
+    }
+    strong {
+      font-weight: 600;
+    }
+    p {
+      margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .prize-title {
+      color: @white;
+      font-weight: 400;
+    }
+    .statement {
+      color: @white;
+      border-left: 4px solid @white;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+  .main-section:last-child {
+    padding-bottom: 12rem;
+  }
+  .main-section:nth-child(odd) {
+    background: @white;
+    color: @b2;
+    box-shadow: 0px 0px 40px rgba(30, 55, 77, 0.52);
+    z-index: 10;
+    .statement {
+      color: @b1;
+      font-weight: 600;
+      border-left: 0.5rem solid @b2;
+    }
+  }
+  .main-section .statement {
+    font-size: @font5;
+    font-weight: 600;
+    border-left: 0.5rem solid @white;
+  }
+}
