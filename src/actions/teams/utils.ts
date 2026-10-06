@@ -117,12 +117,13 @@ export const getSubmissionDetails = async (
   competitionName: string,
   submissionId: string
 ): Promise<AxiosResponse> => {
-  // let token = getToken(COOKIE_NAME);
+  let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     axios
       .get(
         process.env.REACT_APP_API +
-          `/v1/competitions/${competitionName}/entry/${submissionId}`
+          `/v1/competitions/${competitionName}/entry/${submissionId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res: AxiosResponse) => {
         resolve(res);
