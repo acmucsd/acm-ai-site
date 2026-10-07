@@ -450,3 +450,39 @@
     margin-left: 0 !important;
   }
 }
+
+.NoCompetition {
+  .center-both-ways();
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: @padding-base2;
+  text-align: center;
+
+  .graphic {
+    width: 160px;
+    margin-bottom: @margin-base3;
+  }
+
+  p {
+    color: var(--secondary);
+    margin: @margin-base2 0 @margin-base3;
+  }
+
+  .socialButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: @margin-base;
+  }
+
+  @media screen and (max-width: @xs) {
+    .title2 {
+      font-size: @font7;
+      line-height: @font7;
+    }
+  }
+}
