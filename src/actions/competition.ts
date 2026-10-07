@@ -186,6 +186,9 @@ export type UpdateCompetitionSettingsPayload = {
   leaderboardType?: LeaderboardType;
   submissionFileName?: string;
   inPortal?: boolean;
+  startDate?: string;
+  endDate?: string;
+  submissionCooldown?: number;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
