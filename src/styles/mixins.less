@@ -165,12 +165,15 @@
 }
 
 .button-colorful {
-    background: linear-gradient(var(--gradient-start), var(--gradient-end));
     border-style: none;
-    color: var(--text-inverse);
+
+    &, &:hover {
+        background: linear-gradient(var(--gradient-start), var(--gradient-end));
+        color: var(--text-inverse);
+    }
 
     &:hover {
-        color: var(--secondary);
+        filter: brightness(1.1);
     }
 }
 
