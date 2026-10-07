@@ -385,8 +385,8 @@ export default function AdminPortalPage(props: any) {
     const payload = {
       competitionName: newCompetitionName.trim(),
       description: newCompetitionDescription.trim(),
-      startDate: newStartDate.trim(),
-      endDate: newEndDate.trim(),
+      startDate: new Date(newStartDate).toISOString(),
+      endDate: new Date(newEndDate).toISOString(),
       submissionFileName: newSubmissionFileName.trim(),
       submissionCooldown: newSubmissionCooldown ?? undefined,
       submissionsEnabled: newSubmissionsEnabled,
