@@ -107,8 +107,9 @@ function ProjectsPage() {
           <div className="projectsHeader">
             <h1 className="title2">ACM AI Projects</h1>
             <h4>
-              Interested in getting hands-on experience with AI? Join our
-              quarterly ACM AI project teams.
+              Interested in getting hands-on experience with AI?
+              <br />
+              Join our quarterly ACM AI project teams.
             </h4>
 
             <Button
