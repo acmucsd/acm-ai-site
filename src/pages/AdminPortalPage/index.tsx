@@ -20,6 +20,9 @@ const { TextArea } = Input;
 
 const leaderboardTypeOptions = LEADERBOARD_TYPES.map((type) => ({ label: type, value: type }));
 
+const cleanGroups = (groups: string[]) =>
+  Array.from(new Set(groups.map((group) => group.trim()).filter(Boolean)));
+
 // ISO date -> datetime-local input value, in the admin's timezone
 const toLocalInput = (iso?: string) => {
   if (!iso) return '';
@@ -53,6 +56,7 @@ export default function AdminPortalPage(props: any) {
   const [submissionCooldown, setSubmissionCooldown] = useState<number | null>(null);
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
+  const [teamGroups, setTeamGroups] = useState<string[]>([]);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
   const [creatingCompetition, setCreatingCompetition] = useState(false);
   const [newCompetitionName, setNewCompetitionName] = useState<string>('');
@@ -68,6 +72,7 @@ export default function AdminPortalPage(props: any) {
   const [newSubmissionCooldown, setNewSubmissionCooldown] = useState<number | null>(null);
   const [newSubmissionsEnabled, setNewSubmissionsEnabled] = useState<boolean>(false);
   const [newTruthCSV, setNewtruthCSV] = useState<string>('');
+  const [newTeamGroups, setNewTeamGroups] = useState<string[]>([]);
 
   const history = useHistory();
 
@@ -158,6 +163,7 @@ export default function AdminPortalPage(props: any) {
           setSubmissionCooldown(data.submissionCooldown ?? null);
           setStartDate(toLocalInput(data.startDate));
           setEndDate(toLocalInput(data.endDate));
+          setTeamGroups(data.teamGroups ?? []);
         })
         .catch((error) => {
           message.error(`Failed to load details for ${competitionName}.`);
@@ -175,6 +181,7 @@ export default function AdminPortalPage(props: any) {
           setSubmissionCooldown(null);
           setStartDate('');
           setEndDate('');
+          setTeamGroups([]);
         });
     } else {
       setCompetitionDescription('');
@@ -189,6 +196,7 @@ export default function AdminPortalPage(props: any) {
       setSubmissionCooldown(null);
       setStartDate('');
       setEndDate('');
+      setTeamGroups([]);
     }
   }, [getCompetitionDetails]);
 
@@ -366,6 +374,7 @@ export default function AdminPortalPage(props: any) {
       submissionCooldown: submissionCooldown ?? undefined,
       startDate: new Date(startDate).toISOString(),
       endDate: new Date(endDate).toISOString(),
+      teamGroups: teamGroups.length ? teamGroups : null,
     };
 
     updateCompetitionSettings(selectedCompetition, payload)
@@ -426,6 +435,7 @@ export default function AdminPortalPage(props: any) {
       maxTeamSize: newMaxTeamSize ?? undefined,
       showPrivateScores: newShowPrivateScores,
       truthCSV: newTruthCSV.trim() !== '' ? newTruthCSV : undefined,
+      teamGroups: newTeamGroups.length ? newTeamGroups : undefined,
     };
     
     if (creatingCompetition) {
@@ -451,6 +461,7 @@ export default function AdminPortalPage(props: any) {
         setNewMaxTeamSize(null);
         setNewShowPrivateScores(false);
         setNewtruthCSV('');
+        setNewTeamGroups([]);
       })
       .catch((error) => {
         message.error(`Failed to create competition.`);
@@ -745,6 +756,17 @@ export default function AdminPortalPage(props: any) {
                             className="narrow"
                           />
                         </div>
+                        <div>
+                          <span>Divisions (optional)</span>
+                          <Select
+                            mode="tags"
+                            placeholder="Type a division, press Enter"
+                            value={teamGroups}
+                            onChange={(groups: string[]) => setTeamGroups(cleanGroups(groups))}
+                            open={false}
+                            className="divisions-select"
+                          />
+                        </div>
                       </div>
                       <Button
                         type="primary"
@@ -880,6 +902,17 @@ export default function AdminPortalPage(props: any) {
                       value={newSubmissionFileName}
                       onChange={handleNewSubmissionFileName}
                       className="spaced narrow"
+                    />
+                  </div>
+                  <div>
+                    <span>Divisions (optional)</span>
+                    <Select
+                      mode="tags"
+                      placeholder="Type a division, press Enter"
+                      value={newTeamGroups}
+                      onChange={(groups: string[]) => setNewTeamGroups(cleanGroups(groups))}
+                      open={false}
+                      className="divisions-select"
                     />
                   </div>
                   <div>
