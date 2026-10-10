@@ -23,6 +23,7 @@ import { botttsNeutral } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
 import LineChart from "./LineChart";
 
+import { formatMseScore } from "./leaderboardColumns";
 import LeaderBoardTab from "./Leaderboard";
 import FindTeamsTab from "./FindTeams";
 import NoCompetition from "./NoCompetition";
@@ -761,9 +762,11 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
 
                                             <Col span={6} className="stat-col">
                                                 <div className="stat-value"> 
-                                                    {userRankData.scoreHistory?.length > 0
-                                                        ? userRankData.scoreHistory[userRankData.scoreHistory?.length - 1]
-                                                        : 0
+                                                    {metaData?.leaderboardType === 'mse'
+                                                        ? (userRankData.team ? formatMseScore(userRankData.score) : '—')
+                                                        : userRankData.scoreHistory?.length > 0
+                                                            ? userRankData.scoreHistory[userRankData.scoreHistory?.length - 1]
+                                                            : 0
                                                     }
                                                 </div>
                                             </Col>
