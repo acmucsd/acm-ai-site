@@ -3,7 +3,7 @@ import './index.less';
 import { useHistory, useParams } from 'react-router-dom';
 import DefaultLayout from '../../../components/layouts/default';
 import { getMetaData, getLeaderboard, CompetitionData } from '../../../actions/competition';
-import { Table, Button } from 'antd';
+import { Table, Button, Alert } from 'antd';
 import path from 'path';
 import { getLeaderboardColumns } from '../CompetitionPortalPage/leaderboardColumns';
 
@@ -136,7 +136,7 @@ const CompetitionLeaderboardPage = () => {
         </p>
 
         {meta && !columns ? (
-          <p>This competition has no valid leaderboard type configured.</p>
+          <Alert type="warning" showIcon message="This competition has no valid leaderboard type configured." />
         ) : (
           <Table loading={loading || !meta} columns={columns ?? []} dataSource={data} />
         )}

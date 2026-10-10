@@ -117,6 +117,12 @@ const drawColumn: ColumnsType<CompetitionData>[number] = {
 const mseColumn: ColumnsType<CompetitionData>[number] = {
     title: 'MSE',
     dataIndex: 'score',
+    render: (value: number | null) => value == null ? '—' : value.toFixed(6),
+    sorter: (a, b) => {
+        if (a.score == null) return b.score == null ? 0 : 1;
+        if (b.score == null) return -1;
+        return a.score - b.score;
+    },
 };
 
 const columnsByLeaderboardType: Record<LeaderboardType, ColumnsType<CompetitionData>> = {
@@ -147,4 +153,5 @@ export {
     winColumn,
     lossColumn,
     drawColumn,
+    mseColumn,
 };

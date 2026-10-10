@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Table, Button } from 'antd';
+import { Layout, Table, Button, Alert } from 'antd';
 import { getLeaderboardColumns } from "./leaderboardColumns";
 import "./index.less";
 
@@ -45,7 +45,7 @@ const LeaderBoardTab: React.FC<LeaderBoardTabProps> = (
         return (
             <Content id="leaderBoardContainer">
                 <section>
-                    <p>This competition has no valid leaderboard type configured.</p>
+                    <Alert type="warning" showIcon message="This competition has no valid leaderboard type configured." />
                 </section>
             </Content>
         );
