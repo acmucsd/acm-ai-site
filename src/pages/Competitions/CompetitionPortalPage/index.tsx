@@ -25,6 +25,7 @@ import LineChart from "./LineChart";
 
 import LeaderBoardTab from "./Leaderboard";
 import FindTeamsTab from "./FindTeams";
+import NoCompetition from "./NoCompetition";
 
 import path from 'path';
 import './index.less';
@@ -864,13 +865,7 @@ function CompetitionPortalPage() {
     }
 
     if (competitionName === null) {
-        return (
-            <DefaultLayout>
-                <Content className="CompetitionPortalPage">
-                    <p>No competition is running right now. Check back soon!</p>
-                </Content>
-            </DefaultLayout>
-        );
+        return <DefaultLayout><NoCompetition /></DefaultLayout>;
     }
 
     return <CompetitionPortal competitionName={competitionName} />;
