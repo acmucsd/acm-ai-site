@@ -114,13 +114,24 @@ const drawColumn: ColumnsType<CompetitionData>[number] = {
     sorter: (a, b) => (a.drawHistory?.[a.drawHistory.length - 1] ?? 0) - (b.drawHistory?.[b.drawHistory.length - 1] ?? 0),
 };
 
+const isMissingScore = (value: number | null | undefined): boolean =>
+    value == null || !Number.isFinite(value);
+
+const formatMseScore = (value: number | null | undefined): string =>
+    value == null || !Number.isFinite(value)
+        ? '—'
+        : value.toLocaleString('en-US', { maximumSignificantDigits: 6, useGrouping: false });
+
 const mseColumn: ColumnsType<CompetitionData>[number] = {
     title: 'MSE',
     dataIndex: 'score',
-    render: (value: number | null) => value == null ? '—' : value.toFixed(6),
-    sorter: (a, b) => {
-        if (a.score == null) return b.score == null ? 0 : 1;
-        if (b.score == null) return -1;
+    render: (value: number | null) => formatMseScore(value),
+    sorter: (a, b, sortOrder) => {
+        const direction = sortOrder === 'descend' ? -1 : 1;
+        const aMissing = isMissingScore(a.score);
+        const bMissing = isMissingScore(b.score);
+        if (aMissing) return bMissing ? 0 : direction;
+        if (bMissing) return -direction;
         return a.score - b.score;
     },
 };
@@ -154,4 +165,5 @@ export {
     lossColumn,
     drawColumn,
     mseColumn,
+    formatMseScore,
 };
