@@ -5,28 +5,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
+import { theme } from './styles/theme';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <ConfigProvider
-        theme={{
-          components: {
-            Tabs: {
-              /* here is your component tokens */
-              itemActiveColor: '#f5621e',
-              itemHoverColor: '#f5621e',
-              itemSelectedColor: '#f5621e',
-            },
-            Timeline: {
-              dotBg: 'black',
-            },
-            Menu: {
-              colorPrimary: '#f5621e',
-            },
-          },
-        }}
-      >
+      <ConfigProvider theme={theme}>
         <App />
       </ConfigProvider>
     </Router>
