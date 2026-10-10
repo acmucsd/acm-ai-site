@@ -65,7 +65,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
         <Row className="eventInfoRow">
           <Row className="eventDateContainer">
             <div className="eventIconWrapper" id="calendar">
-              <AiFillCalendar size={20} color={'#FA5E5E'} />
+              <AiFillCalendar size={20} color={'var(--accent)'} />
             </div>
 
             <Col style={{ marginLeft: '1rem' }}>
@@ -132,7 +132,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
             <Col>
               <section className="eventDetailSection">
                 <div className="eventIconWrapper" id="calendar">
-                  <AiFillCalendar size={20} color={'#FA5E5E'} />
+                  <AiFillCalendar size={20} color={'var(--accent)'} />
                 </div>
                 <Col style={{ marginLeft: '1rem' }}>
                   <h4 className="eventDate">
@@ -147,9 +147,9 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
 
               <section className="eventDetailSection">
                 <div className="eventIconWrapper" id="location">
-                  <HiLocationMarker size={20} color={'#F87A51'} />
+                  <HiLocationMarker size={20} color={'var(--gradient-end)'} />
                 </div>
-                <h4 style={{ marginLeft: '1rem', color: '#F87A51' }}>
+                <h4 style={{ marginLeft: '1rem', color: 'var(--gradient-end)' }}>
                   {event.location}
                 </h4>
               </section>

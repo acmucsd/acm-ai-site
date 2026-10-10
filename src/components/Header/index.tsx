@@ -89,7 +89,7 @@ function Header() {
             <Button
               ghost
               className="menuButton"
-              icon={<HiOutlineMenu size={35} style = {{color: "black"}} />}
+              icon={<HiOutlineMenu size={35} style = {{color: 'var(--foreground)'}} />}
               onClick={() => toggleMenu()}
             />
           ) : (
