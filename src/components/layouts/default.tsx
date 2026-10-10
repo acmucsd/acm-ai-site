@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../Header';
 import Container from './container';
-import '../../newStyles/index.less';
 
 function DefaultLayout(props: any) {
   return (
