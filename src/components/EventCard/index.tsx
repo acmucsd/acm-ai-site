@@ -48,7 +48,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
             alt={event.title}
             style={{
               marginRight: '2rem',
-              boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
+              boxShadow: 'var(--card-shadow)',
               borderRadius: '16px',
               height: '88px',
               width: '88px',
@@ -118,7 +118,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
               alt={event.title}
               className="eventModalImage"
               style={{
-                boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
+                boxShadow: 'var(--card-shadow)',
                 width: '45%',
                 minWidth: '260px',
                 maxWidth: '400px',
