@@ -101,6 +101,16 @@ function Header() {
                 </Link>
               ))}
 
+              <Button
+                className="wikiButton"
+                href="https://wiki.ai.acmucsd.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                size="large"
+              >
+                Wiki
+              </Button>
+
               {user.loggedIn ? (
                 <Dropdown
                   menu={menuProps}
@@ -134,6 +144,15 @@ function Header() {
             {link.text}
           </Link>
         ))}
+
+        <a
+          className="mobileNavItem"
+          href="https://wiki.ai.acmucsd.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wiki
+        </a>
         
 
         {user.loggedIn ? (
