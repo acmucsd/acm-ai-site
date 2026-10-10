@@ -90,9 +90,10 @@ const CompetitionUploadPage = () => {
   };
 
   const beforeUpload = (file: any) => {
-    const isZipFile = file.name.toLowerCase().endsWith('.zip');
-    if (!isZipFile) {
-      message.error('You can only upload ZIP files!');
+    const correctFileExtension = submissionFilePattern.split(".").at(-1);
+    const isCorrectFileExtension = file.name.toLowerCase().endsWith(correctFileExtension);
+    if (!isCorrectFileExtension) {
+      message.error(`You can only upload ${correctFileExtension} files!`);
       return false;
     }
 
@@ -119,37 +120,37 @@ const CompetitionUploadPage = () => {
         <BackLink to="../" />
         <h2>Submission to {competitionID}</h2>
         <p>
-          You must submit a .zip file{submissionFilePattern ? ` matching the pattern: ${submissionFilePattern}` : ''} that contains your submission.
+          You must submit a file{submissionFilePattern ? ` matching the pattern: ${submissionFilePattern}` : ''} that contains your submission.
         </p>
         <br />
         {/* <Form> */}
-          {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-            <div className="upload-wrapper">
-              {/* <TextArea
+        {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+        <div className="upload-wrapper">
+          {/* <TextArea
                 className="desc"
                 rows={2}
                 value={desc}
                 onChange={(evt) => setDesc(evt.target.value)}
               /> */}
-              <Upload onChange={handleFileChange} 
-                      customRequest={dummyRequest} 
-                      beforeUpload={beforeUpload}
-                      accept=".zip,application/zip,application/x-zip-compressed"
-              >
-                <Button className="upload-btn">
-                  <UploadOutlined /> Click to add file
-                </Button>
-              </Upload>
-            </div>
-            <Button
-              htmlType="submit"
-              className="submit-button"
-              onClick={handleSubmit(onSubmit)}
-              disabled={uploading}
-            >
-              {uploading ? "Running benchmark" : "Submit"}
+          <Upload onChange={handleFileChange}
+            customRequest={dummyRequest}
+            beforeUpload={beforeUpload}
+            accept=".zip,application/zip,application/x-zip-compressed"
+          >
+            <Button className="upload-btn">
+              <UploadOutlined /> Click to add file
             </Button>
-          {/* </form> */}
+          </Upload>
+        </div>
+        <Button
+          htmlType="submit"
+          className="submit-button"
+          onClick={handleSubmit(onSubmit)}
+          disabled={uploading}
+        >
+          {uploading ? "Running benchmark" : "Submit"}
+        </Button>
+        {/* </form> */}
         {/* </Form> */}
       </div>
     </DefaultLayout>
