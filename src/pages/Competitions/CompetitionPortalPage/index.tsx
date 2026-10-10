@@ -17,7 +17,7 @@ import {
 } from '../../../actions/teams/utils';
 import DefaultLayout from "../../../components/layouts/default";
 import { CompetitionData, getLeaderboard, getMetaData, getPortalCompetition, registerCompetitionUser } from "../../../actions/competition";
-import { genColor } from "../../../utils/colors";
+import TeamAvatar from "../../../components/TeamAvatar";
 import { createAvatar } from '@dicebear/core';
 import { botttsNeutral } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
@@ -92,28 +92,6 @@ export const TeamMemberAvatar = ( {username}:{username: string}) => {
     </>
     )
 }
-
-export const generateTeamPicture = (teamName: any) => {
-
-    const color1 = genColor(teamName);
-    const color2 = genColor(`${teamName}_additional_seed`);
-    
-
-    return (
-        <div
-            style={{
-                display: 'inline-flex',
-                verticalAlign: 'middle',
-                borderRadius: '100%',
-                width: '4rem',
-                height: '4rem',
-                background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                marginRight: '2rem',
-            }}>
-        </div>
-    )
-}
-
 
 /**
  * Component that displays a team's data. Contains several components 
@@ -272,7 +250,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         <div id="teamHeader">
                             <div id="teamNameWrapper">
                                 <div>
-                                    {generateTeamPicture(teamInfo.teamName)}
+                                    <TeamAvatar teamName={teamInfo.teamName} size="large" />
                                 </div>
                                 <article>
                                     <h3>
@@ -372,11 +350,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 >
                                     <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
 
-                                    {/* inline style here needed */}
-                                    <h3 id = "inviteCode" style={{
-                                        fontWeight: 'bold',
-                                        marginTop: '12px'
-                                    }}>
+                                    <h3 id = "inviteCode">
                                         {compUser.competitionTeam && compUser.competitionTeam.joinCode}
                                     </h3>
                                 </Modal>
@@ -716,7 +690,7 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
                 open={isModalOpen}
                 maskClosable={false}
                 onCancel={handleCancel}
-                title={<h3 style={{ fontWeight: '700' }}>Register</h3>}
+                title={<h3 className="modal-title">Register</h3>}
                 footer={null}
             >
                 <p>

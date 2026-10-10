@@ -77,7 +77,7 @@ const FindTeamsTab: React.FC<FindTeamsTabProps>= (
                 size="large"
                 style={{ width: "100%" }}
             >
-                <Input allowClear bordered ={false} prefix={<IoSearch size = {20} id = "searchIcon" style = {{marginRight: "0.5rem", color: "lightgrey"}} />}  size="large" placeholder="Look up a team name"  />
+                <Input allowClear bordered ={false} prefix={<IoSearch size = {20} id = "searchIcon" />}  size="large" placeholder="Look up a team name"  />
             </AutoComplete>
 
             {/** List to preview all the teams based on the user's query */}

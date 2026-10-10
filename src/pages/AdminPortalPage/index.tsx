@@ -566,8 +566,7 @@ export default function AdminPortalPage(props: any) {
 
             <Select
               placeholder="Select Competition"
-              className="competitionDropdown"
-              style={{ width: '80%', maxWidth: 300, margin: '10px 0px'}}
+              className="competitionDropdown field"
               onChange={handleCompetitionSelect}
               value={selectedCompetition}
               loading={competitionsLoading}
@@ -596,7 +595,7 @@ export default function AdminPortalPage(props: any) {
               onClick={handleUploadResults}
               disabled={!resultsFile || uploadingResults}
               loading={uploadingResults}
-              style={{ marginTop: '10px' }}
+              className="spaced-top"
             >
               Upload Results
             </Button>
@@ -609,8 +608,7 @@ export default function AdminPortalPage(props: any) {
               <div className="competitionDescriptionSettings">
                 <Select
                   placeholder="Select Competition"
-                  className="competitionDropdown"
-                  style={{ margin: '10px 0px'}}
+                  className="competitionDropdown spaced"
                   onChange={handleCompetitionSelect}
                   value={selectedCompetition}
                   loading={competitionsLoading}
@@ -624,7 +622,7 @@ export default function AdminPortalPage(props: any) {
 
                 {selectedCompetition && (
                   <>
-                    <div style={{ margin: '10px 0px' }}>
+                    <div className="spaced">
                       <div className='settings-col'>
                         <div>
                           <span>Submissions Enabled</span>
@@ -658,7 +656,7 @@ export default function AdminPortalPage(props: any) {
                           <span>Leaderboard Type</span>
                           <Select
                             placeholder="Select Leaderboard Type"
-                            style={{ minWidth: 180 }}
+                            className="type-select"
                             value={leaderboardType}
                             onChange={setLeaderboardType}
                             options={leaderboardTypeOptions}
@@ -689,7 +687,7 @@ export default function AdminPortalPage(props: any) {
                             placeholder="Enter submission file name"
                             value={submissionFileName}
                             onChange={(e) => setSubmissionFileName(e.target.value)}
-                            style={{ maxWidth: 300 }}
+                            className="narrow"
                           />
                         </div>
                       </div>
@@ -698,7 +696,7 @@ export default function AdminPortalPage(props: any) {
                         onClick={handleUpdateSettings}
                         disabled={!selectedCompetition || updatingSettings}
                         loading={updatingSettings}
-                        style={{ marginTop: '10px', maxWidth: 300 }}
+                        className="action"
                       >
                         Update Settings
                       </Button>
@@ -709,7 +707,7 @@ export default function AdminPortalPage(props: any) {
                       placeholder="Enter new description"
                       value={competitionDescription}
                       onChange={handleDescriptionChange}
-                      style={{  margin: '10px 0px'}}
+                      className="spaced"
                     />
                   </>
                 )}
@@ -720,7 +718,7 @@ export default function AdminPortalPage(props: any) {
               onClick={handleUpdateDescription}
               disabled={!selectedCompetition || updatingDescription}
               loading={updatingDescription}
-              style={{ marginTop: '10px', maxWidth: 300}}
+              className="action"
             >
               Set New Description
             </Button>
@@ -740,10 +738,10 @@ export default function AdminPortalPage(props: any) {
               placeholder="Enter competition name"
               value={newCompetitionName}
               onChange={handleNewCompetitionNameChange}
-              style={{  margin: '10px 0px', maxWidth: 300}}
+              className="spaced narrow"
             />
             <>
-              <div style={{ margin: '10px 0px' }}>
+              <div className="spaced">
                 <div className='settings-col'>
                   <div>
                     <span>Submissions Enabled</span>
@@ -770,7 +768,7 @@ export default function AdminPortalPage(props: any) {
                     <span>Leaderboard Type</span>
                     <Select
                       placeholder="Select Leaderboard Type"
-                      style={{ minWidth: 180 }}
+                      className="type-select"
                       value={newLeaderboardType}
                       onChange={setNewLeaderboardType}
                       options={leaderboardTypeOptions}
@@ -826,7 +824,7 @@ export default function AdminPortalPage(props: any) {
                       placeholder="Enter submission file name"
                       value={newSubmissionFileName}
                       onChange={handleNewSubmissionFileName}
-                      style={{  margin: '10px 0px', maxWidth: 300}}
+                      className="spaced narrow"
                     />
                   </div>
                   <div>
@@ -836,7 +834,7 @@ export default function AdminPortalPage(props: any) {
                       placeholder="Enter Truth CSV"
                       value={newTruthCSV}
                       onChange={handleNewTruthCSV}
-                      style={{  margin: '10px 0px', maxWidth: 300}}
+                      className="spaced narrow"
                     />
                   </div>
                 </div>
@@ -850,7 +848,7 @@ export default function AdminPortalPage(props: any) {
                 placeholder="Competition description"
                 value={newCompetitionDescription}
                 onChange={handleNewDescriptionChange}
-                style={{  margin: '10px 0px'}}
+                className="spaced"
               />
               
             </>
@@ -858,7 +856,7 @@ export default function AdminPortalPage(props: any) {
               type="primary"
               onClick={handleNewCompetition}
               loading={creatingCompetition}
-              style={{ marginTop: '10px', maxWidth: 300}}
+              className="action"
             >
               Create New Competition
             </Button>
@@ -872,8 +870,7 @@ export default function AdminPortalPage(props: any) {
             <Select
               showSearch
               placeholder="Search User"
-              className="userSearchDropdown"
-              style={{ width: '80%', maxWidth: 300, margin: '10px 0px' }}
+              className="userSearchDropdown field"
               value={selectedUserToPromote}
               onChange={handleUserSelect}
               onSearch={handleSearchUser}
@@ -890,7 +887,7 @@ export default function AdminPortalPage(props: any) {
             </Select>
 
             {selectedUserToPromote && (
-              <Flex gap="middle" style={{ marginTop: '10px' }}>
+              <Flex gap="middle" className="spaced-top">
                 <Button
                   type="primary"
                   onClick={handlePromoteToAdmin}
@@ -915,8 +912,7 @@ export default function AdminPortalPage(props: any) {
             <Select
               showSearch
               placeholder="Search Usernames and Emails"
-              className="userIdentifierDropdown"
-              style={{ width: '80%', maxWidth: 300, margin: '10px 0px' }}
+              className="userIdentifierDropdown field"
               onSearch={handleSearchIdentifier}
               loading={identifiersLoading}
               filterOption={false}
