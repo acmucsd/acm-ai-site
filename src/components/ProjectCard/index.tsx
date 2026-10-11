@@ -101,12 +101,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
         footer={[
           project.github ? (
             <a href={project.github} target="_blank" rel="noopener noreferrer">
-              <GithubOutlined style={{ fontSize: '30px', color: 'black' }} />
+              <GithubOutlined style={{ fontSize: '30px', color: 'var(--foreground)' }} />
             </a>
           ) : null,
           project.link ? (
             <a href={project.link} target="_blank" rel="noopener noreferrer">
-              <LinkOutlined style={{ fontSize: '30px', color: 'black' }} />
+              <LinkOutlined style={{ fontSize: '30px', color: 'var(--foreground)' }} />
             </a>
           ) : null,
         ]}
