@@ -13,8 +13,8 @@
     }
     width: 100%;
     min-width: 180px;
-    background-color: @black;
-    color: @white;
+    background-color: var(--foreground);
+    color: var(--text-inverse);
 
     // Splits paragraph content and other resource content into
     // two sections along the same row
@@ -42,7 +42,7 @@
         min-width: 180px;
         height: 100%;
         a {
-          color: white;
+          color: var(--text-inverse);
         }
       }
 
@@ -79,11 +79,11 @@
 
     
     h4 a, p, h2, h3 {
-      color: @white;
+      color: var(--text-inverse);
     }
 
     h3 {
-      @color: @white;
+      color: var(--text-inverse);
       text-align: center;
     }
 

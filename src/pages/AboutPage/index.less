@@ -2,7 +2,7 @@
 .About {
   .noContainer();
 
-  background: #FAFAFA;
+  background: var(--surface-alt);
   
   .aboutHeader {
     .generic-centered-section();
@@ -32,7 +32,7 @@
       padding: 3rem 2rem;
 
       .iconWrapper {
-        background: white;
+        background: var(--surface);
         height: 50px;
         width: 50px;
         display: flex;
@@ -45,7 +45,7 @@
         font-weight: @semi-bold;
         max-width: 400px;
         text-align: center;
-        color: white;
+        color: var(--text-inverse);
         margin: 1rem 24px;
       }
 
@@ -70,7 +70,7 @@
         font-size: 1.5rem;
         height: unset;
         padding: 1rem 2rem;
-        border: 2px solid @mainred;
+        border: 2px solid var(--accent);
       }
     }
   }
@@ -119,7 +119,7 @@
       }
 
       p {
-        color: @text-gray;
+        color: var(--muted);
       }
     }
 
@@ -130,11 +130,11 @@
 
 
 .drawerButton {
-  background: @black;
+  background: var(--foreground);
   border: none;
   border-radius: @radius-base3;
-  box-shadow: @bx3;
-  color: white;
+  box-shadow: var(--card-shadow);
+  color: var(--text-inverse);
   font-weight: @semi-bold;
 
 }
@@ -181,14 +181,14 @@
       }
 
       p {
-        color: @text-gray;
+        color: var(--muted);
       }
     }
   }
 
   .bio {
     max-width: @sm;
-    background: @light-gray;
+    background: var(--surface-muted);
     padding: 2rem 0;
     border-radius: @radius-base4;
 
@@ -217,7 +217,7 @@
         margin-top: 1rem;
         display: flex;
         flex-direction: row;
-        background: @light-gray;
+        background: var(--surface-muted);
         border-radius: @radius-base3;
         align-items: center;
         height: 50px;
@@ -229,17 +229,17 @@
           justify-content: center;
           align-items: center;
           border-radius: @radius-base2;
-          background: white;
+          background: var(--surface);
           height: 35px;
           width: 35px;
         }
 
         a {
-          color: @text-gray;
+          color: var(--muted);
           padding-left: 0.5rem;
 
           :hover {
-            color: @mainred;
+            color: var(--accent);
           }
         }
       }
