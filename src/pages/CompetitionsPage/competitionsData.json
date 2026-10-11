@@ -4,6 +4,10 @@
       "icon": "../../../stellatro.png",
       "year": "2026",
       "stats": {
+        "Laptops Won": 3,
+        "Signups": 145,
+        "Submissions": 340,
+        "Teams": 31
       },
       "description": "Ante up in Stellatro.AI, our Balatro-inspired AI competition sponsored by Qualcomm! Build a bot that masters the art of poker hands and joker powerups to rack up the highest score possible. No matter your experience level, this is your chance to go all in and compete for a shot at winning AI development kits and Snapdragon X-Elite laptops!",
       "link": "/competitions/Stellatro.AI",
