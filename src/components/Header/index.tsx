@@ -102,8 +102,8 @@ function Header() {
               ))}
 
               <a
-                href='https://wiki.ai.acmucsd.com/'
-                className='navItem wikiButton'
+                href="https://wiki.ai.acmucsd.com/"
+                className="navItem"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -152,7 +152,6 @@ function Header() {
         >
           Wiki
         </a>
-
 
         {user.loggedIn ? (
           <>
