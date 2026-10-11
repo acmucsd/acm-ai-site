@@ -57,7 +57,6 @@ export const getTeamInfo = async (
 ): Promise<AxiosResponse> => {
   let token = getToken(COOKIE_NAME);
   const encodedTeamName = encodeURIComponent(teamName);
-  console.log("encode", encodedTeamName);
   return new Promise((resolve, reject) => {
     axios
       .get(
@@ -108,7 +107,7 @@ export const createTeam = async (
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
+        message.error(error.response?.data?.error?.message ?? 'Failed to create team.');
         reject(error);
       });
   });
@@ -118,12 +117,13 @@ export const getSubmissionDetails = async (
   competitionName: string,
   submissionId: string
 ): Promise<AxiosResponse> => {
-  // let token = getToken(COOKIE_NAME);
+  let token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     axios
       .get(
         process.env.REACT_APP_API +
-          `/v1/competitions/${competitionName}/entry/${submissionId}`
+          `/v1/competitions/${competitionName}/entry/${submissionId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res: AxiosResponse) => {
         resolve(res);
@@ -173,57 +173,6 @@ export const addToTeam = async (
   });
 };
 
-export const searchTeam = async(competitionName: string, input: string): Promise<AxiosResponse> => {
-
-  let token = getToken(COOKIE_NAME);
-
-  return new Promise((resolve, reject) => {
-    axios
-    .get(
-        process.env.REACT_APP_API + `/v1/teams/${competitionName}/search-team/${input}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }
-        }
-        
-    ).then((res: AxiosResponse) => {
-      resolve(res)
-    })
-    .catch((error) => {
-      message.error(error.response.data.error.message);
-      console.error(error);
-      reject(error);
-    });
-  })
-}
-
-export const searchUser = async(competitionName: string, input: string): Promise<AxiosResponse> => {
-
-  let token = getToken(COOKIE_NAME);
-
-  return new Promise((resolve, reject) => {
-    axios
-    .get(
-        process.env.REACT_APP_API + `/v1/teams/${competitionName}/search-user/${input}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }
-        }
-        
-    ).then((res: AxiosResponse) => {
-      resolve(res)
-    })
-    .catch((error) => {
-      message.error(error.response.data.error.message);
-      console.error(error);
-      reject(error);
-    });
-  })
-}
 export const leaveTeam = async(
   competitionName: string,
   username: string,
@@ -254,7 +203,7 @@ export const leaveTeam = async(
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data);
+        message.error(error.response?.data?.error?.message ?? 'Failed to leave team.');
         reject(error);
       });
   });

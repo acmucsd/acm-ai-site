@@ -4,6 +4,10 @@
       "icon": "../../../stellatro.png",
       "year": "2026",
       "stats": {
+        "Laptops Won": 3,
+        "Signups": 145,
+        "Submissions": 340,
+        "Teams": 31
       },
       "description": "Ante up in Stellatro.AI, our Balatro-inspired AI competition sponsored by Qualcomm! Build a bot that masters the art of poker hands and joker powerups to rack up the highest score possible. No matter your experience level, this is your chance to go all in and compete for a shot at winning AI development kits and Snapdragon X-Elite laptops!",
       "link": "/competitions/Stellatro.AI",
@@ -47,8 +51,7 @@
         "Teams": 50
       },
       "description": "Long ago, there was Sunny G. Using the four elements, he built and shaped the world, making the story of earth, water, fire, and air an ancient tale that has been told in many different cultures throughout history. Now the guardian of UCSD, Sunny G, tired of students not filling out CAPES, has decided to reward the power of elemental-bending to diligent students who fill out their CAPES. However, unsure on which element is the strongest, he has put together a competition for the elements to demonstrate their strength. We would like to thank our sponsor, Arjay Waran (RJ), for funding this competition to further AI and competitive programming. This competition has concluded. Congratulations to Team Shubham on their win.",
-      "link": "/competitions/Element.AI/",
-      "leaderboard": "/competitions/Element.AI/leaderboard"
+      "link": "/competitions/Element.AI/"
     },
     {
       "competitionName": "Neural Network Modeling",
@@ -75,7 +78,7 @@
     },
     {
       "competitionName": "Hide and Seek",
-      "icon": ".../../../hns.png",
+      "icon": "../../../hns.png",
       "year": "2020",
       "stats": {
         "Teams": 15,

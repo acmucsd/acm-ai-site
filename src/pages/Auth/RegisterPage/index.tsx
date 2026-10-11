@@ -21,7 +21,7 @@ function RegisterPage() {
     registerUser({ ...values, isUCSD: UCSDChecked }).then((res) => {
       message.success('Registered! Redirecting to login page');
       history.push('/login');
-    });
+    }).catch(() => {});
   };
 
   return (

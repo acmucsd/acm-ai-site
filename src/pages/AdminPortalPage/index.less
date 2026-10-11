@@ -1,14 +1,11 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-
+@import (reference) '../../styles/index.less';
 .AdminPortalPage {
   // removes any default white space margins
   .noContainer();
 
   // prevents layout shifts caused by scrollbar
   overflow-y: hidden;
-  background: @white;
+  background: var(--surface);
 
 
   .profileHeader {

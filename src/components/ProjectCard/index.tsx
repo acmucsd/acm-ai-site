@@ -62,7 +62,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
               alt={project.name}
               style={{
                 objectFit: 'cover',
-                boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
+                boxShadow: 'var(--card-shadow)',
                 borderRadius: '16px',
                 height: '60px',
                 width: '60px',
@@ -101,12 +101,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
         footer={[
           project.github ? (
             <a href={project.github} target="_blank" rel="noopener noreferrer">
-              <GithubOutlined style={{ fontSize: '30px', color: 'black' }} />
+              <GithubOutlined style={{ fontSize: '30px', color: 'var(--foreground)' }} />
             </a>
           ) : null,
           project.link ? (
             <a href={project.link} target="_blank" rel="noopener noreferrer">
-              <LinkOutlined style={{ fontSize: '30px', color: 'black' }} />
+              <LinkOutlined style={{ fontSize: '30px', color: 'var(--foreground)' }} />
             </a>
           ) : null,
         ]}

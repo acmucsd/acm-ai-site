@@ -1,8 +1,4 @@
-@import '../../../newStyles/text.less';
-@import '../../../newStyles/components.less';
-@import '../../../newStyles/variables.less';
-
-
+@import (reference) '../../../styles/index.less';
 .LoginPage {
 
   .noContainer();
@@ -47,7 +43,6 @@
       }
 
       .danger {
-        color: @danger;
         text-align: left;
         margin-top: -12px;
         margin-bottom: 24px;
@@ -73,14 +68,11 @@
 }
 
 .ant-input {
-  background-color: @white
+  background-color: var(--surface)
 }
 /*
 .LoginPage {
 
-  .danger {
-    color: @danger;
-  }
   .loginButton {
     margin-top: @margin-base;
   }

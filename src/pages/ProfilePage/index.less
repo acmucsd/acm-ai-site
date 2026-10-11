@@ -1,14 +1,11 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-
+@import (reference) '../../styles/index.less';
 .ProfilePage {
   // removes any default white space margins
   .noContainer();
 
   // prevents layout shifts caused by scrollbar
   overflow-y: hidden;
-  background: @white;
+  background: var(--surface);
 
 
   .profileHeader {
@@ -28,7 +25,7 @@
   .diamond {
     border: double 0.5em transparent;
     border-radius: 2em;
-    background-image: linear-gradient(white, white), linear-gradient(to right, @danger, @mainyellow);
+    background-image: linear-gradient(var(--surface), var(--surface)), linear-gradient(to right, var(--gradient-start), var(--gradient-yellow));
     background-origin: border-box;
     background-clip: content-box, border-box;
 
@@ -54,9 +51,9 @@
   .pinkContainer {
     display: flex;
     flex-direction: column;
-    border: 3px solid @mainred;
+    border: 3px solid var(--accent);
     border-radius: @radius-base5;
-    background-color: #FFF8F8;
+    background-color: var(--accent-tint);
     max-width: 80%;
     padding: 2rem 2rem;
     margin: 4rem 2rem;
@@ -107,7 +104,7 @@
         align-items: center;
         text-align: center;
         align-content: center;
-        border: 3px solid @mainred;
+        border: 3px solid var(--accent);
         border-radius: @radius-base5;
         max-width: 80%;
         padding: 5rem 10rem;
@@ -139,7 +136,7 @@
 
     .exploreCards {
       outline: solid;
-      outline: #F66161;
+      outline: var(--accent);
   
       display: flex;
       flex-wrap: wrap;
@@ -169,7 +166,7 @@
           }
     
           p {
-            color: @text-gray;
+            color: var(--muted);
           }
 
           .navButton {
@@ -183,10 +180,3 @@
   }
 }
 
-.colorful{
-  background: linear-gradient(#F66161, #FF8130);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;  /* For Firefox */
-  color: transparent;
-}

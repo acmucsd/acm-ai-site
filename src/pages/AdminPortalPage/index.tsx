@@ -8,14 +8,17 @@ import {
 } from '../../actions/users';
 import { Layout, Button, Flex, message, Upload, Select, Input, Switch, InputNumber } from 'antd';
 import MainFooter from '../../components/MainFooter';
+import TeamsAdmin from './TeamsAdmin';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings, uploadNewCompetition } from '../../actions/competition';
+import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings, uploadNewCompetition, LEADERBOARD_TYPES, LeaderboardType } from '../../actions/competition';
 import { getUsers as fetchUsers, getIdentifiers as fetchIdentifiers, 
   promoteUserToAdmin, promoteUserToPrimaryAdmin } from '../../actions/users';
 const { Content } = Layout;
 const { Option } = Select;
 const { TextArea } = Input;
+
+const leaderboardTypeOptions = LEADERBOARD_TYPES.map((type) => ({ label: type, value: type }));
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'long',
@@ -35,6 +38,9 @@ export default function AdminPortalPage(props: any) {
   const [submissionsEnabled, setSubmissionsEnabled] = useState<boolean>(false);
   const [showPrivateScores, setShowPrivateScores] = useState<boolean>(false);
   const [leaderboardEnabled, setLeaderboardEnabled] = useState<boolean>(false);
+  const [inPortal, setInPortal] = useState<boolean>(false);
+  const [leaderboardType, setLeaderboardType] = useState<LeaderboardType>();
+  const [submissionFileName, setSubmissionFileName] = useState<string>('');
   const [minTeamSize, setMinTeamSize] = useState<number | null>(null);
   const [maxTeamSize, setMaxTeamSize] = useState<number | null>(null);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
@@ -45,6 +51,7 @@ export default function AdminPortalPage(props: any) {
   const [newEndDate, setNewEndDate] = useState<string>('');
   const [newSubmissionFileName, setNewSubmissionFileName] = useState<string>('');
   const [newLeaderboardEnabled, setNewLeaderboardEnabled] = useState<boolean>(false);
+  const [newLeaderboardType, setNewLeaderboardType] = useState<LeaderboardType>();
   const [newMaxTeamSize, setNewMaxTeamSize] = useState<number | null>(null);
   const [newMinTeamSize, setNewMinTeamSize] = useState<number | null>(null);
   const [newShowPrivateScores, setNewShowPrivateScores]  = useState<boolean>(false);
@@ -133,6 +140,9 @@ export default function AdminPortalPage(props: any) {
           setShowPrivateScores(privateScoresEnabled);
           setCompetitionsLoading(false);
           setLeaderboardEnabled(lbEnabled);
+          setInPortal(data.inPortal === true);
+          setLeaderboardType(data.leaderboardType);
+          setSubmissionFileName(data.submissionFileName ?? '');
           setMinTeamSize(minSize);
           setMaxTeamSize(maxSize);
         })
@@ -144,6 +154,9 @@ export default function AdminPortalPage(props: any) {
           setSubmissionsEnabled(false);
           setShowPrivateScores(false);
           setLeaderboardEnabled(false);
+          setInPortal(false);
+          setLeaderboardType(undefined);
+          setSubmissionFileName('');
           setMinTeamSize(null);
           setMaxTeamSize(null);
         });
@@ -152,6 +165,9 @@ export default function AdminPortalPage(props: any) {
       setSubmissionsEnabled(false);
       setShowPrivateScores(false);
       setLeaderboardEnabled(false);
+      setInPortal(false);
+      setLeaderboardType(undefined);
+      setSubmissionFileName('');
       setMinTeamSize(null);
       setMaxTeamSize(null);
     }
@@ -294,6 +310,14 @@ export default function AdminPortalPage(props: any) {
       message.error('Please select a competition to update settings for.');
       return;
     }
+    if (!leaderboardType) {
+      message.error('Please select a leaderboard type.');
+      return;
+    }
+    if (!submissionFileName.trim()) {
+      message.error('Please enter a submission file name.');
+      return;
+    }
     if (
       typeof minTeamSize === 'number' &&
       typeof maxTeamSize === 'number' &&
@@ -307,6 +331,9 @@ export default function AdminPortalPage(props: any) {
       submissionsEnabled,
       showPrivateScores,
       leaderboardEnabled,
+      inPortal,
+      leaderboardType,
+      submissionFileName: submissionFileName.trim(),
       minTeamSize: typeof minTeamSize === 'number' ? minTeamSize : undefined,
       maxTeamSize: typeof maxTeamSize === 'number' ? maxTeamSize : undefined,
     };
@@ -343,6 +370,10 @@ export default function AdminPortalPage(props: any) {
       message.error('Enter a competition submission file name.');
       return;
     }
+    if (!newLeaderboardType) {
+      message.error('Select a leaderboard type.');
+      return;
+    }
     if (
       typeof newMinTeamSize === 'number' &&
       typeof newMaxTeamSize === 'number' &&
@@ -360,6 +391,7 @@ export default function AdminPortalPage(props: any) {
       submissionCooldown: newSubmissionCooldown ?? undefined,
       submissionsEnabled: newSubmissionsEnabled,
       leaderboardEnabled: newLeaderboardEnabled,
+      leaderboardType: newLeaderboardType,
       minTeamSize: newMinTeamSize ?? undefined,
       maxTeamSize: newMaxTeamSize ?? undefined,
       showPrivateScores: newShowPrivateScores,
@@ -384,6 +416,7 @@ export default function AdminPortalPage(props: any) {
         setNewSubmissionCooldown(null);
         setNewSubmissionsEnabled(false);
         setNewLeaderboardEnabled(false);
+        setNewLeaderboardType(undefined);
         setNewMinTeamSize(null);
         setNewMaxTeamSize(null);
         setNewShowPrivateScores(false);
@@ -615,6 +648,23 @@ export default function AdminPortalPage(props: any) {
                           />
                         </div>
                         <div>
+                          <span>Show in Portal</span>
+                          <Switch
+                            checked={inPortal}
+                            onChange={setInPortal}
+                          />
+                        </div>
+                        <div>
+                          <span>Leaderboard Type</span>
+                          <Select
+                            placeholder="Select Leaderboard Type"
+                            style={{ minWidth: 180 }}
+                            value={leaderboardType}
+                            onChange={setLeaderboardType}
+                            options={leaderboardTypeOptions}
+                          />
+                        </div>
+                        <div>
                           <span>Min Team Size</span>
                           <InputNumber
                             min={1}
@@ -630,6 +680,16 @@ export default function AdminPortalPage(props: any) {
                             value={maxTeamSize}
                             onChange={setMaxTeamSize}
                             placeholder="Max"
+                          />
+                        </div>
+                        <div>
+                          <span>Submission File Name</span>
+                          <TextArea
+                            rows={1}
+                            placeholder="Enter submission file name"
+                            value={submissionFileName}
+                            onChange={(e) => setSubmissionFileName(e.target.value)}
+                            style={{ maxWidth: 300 }}
                           />
                         </div>
                       </div>
@@ -666,6 +726,12 @@ export default function AdminPortalPage(props: any) {
             </Button>
           </div>
 
+          <div className="teamsAdmin">
+            <h2>Manage Teams</h2>
+            <p>View a team's submissions, set its score, or disqualify it.</p>
+            <TeamsAdmin competitions={competitions.map((comp) => comp.competitionName)} />
+          </div>
+
           <div className="createCompetition">
             <h2>Create Competition</h2>
             <p>Enter a new name and create a competition model.</p>
@@ -698,6 +764,16 @@ export default function AdminPortalPage(props: any) {
                     <Switch
                       checked={newLeaderboardEnabled}
                       onChange={setNewLeaderboardEnabled}
+                    />
+                  </div>
+                  <div>
+                    <span>Leaderboard Type</span>
+                    <Select
+                      placeholder="Select Leaderboard Type"
+                      style={{ minWidth: 180 }}
+                      value={newLeaderboardType}
+                      onChange={setNewLeaderboardType}
+                      options={leaderboardTypeOptions}
                     />
                   </div>
                   <div>

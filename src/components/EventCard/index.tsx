@@ -48,7 +48,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
             alt={event.title}
             style={{
               marginRight: '2rem',
-              boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
+              boxShadow: 'var(--card-shadow)',
               borderRadius: '16px',
               height: '88px',
               width: '88px',
@@ -65,7 +65,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
         <Row className="eventInfoRow">
           <Row className="eventDateContainer">
             <div className="eventIconWrapper" id="calendar">
-              <AiFillCalendar size={20} color={'#FA5E5E'} />
+              <AiFillCalendar size={20} color={'var(--accent)'} />
             </div>
 
             <Col style={{ marginLeft: '1rem' }}>
@@ -118,7 +118,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
               alt={event.title}
               className="eventModalImage"
               style={{
-                boxShadow: '0px 3px 5px 1px rgba(189, 189, 189, 0.5)',
+                boxShadow: 'var(--card-shadow)',
                 width: '45%',
                 minWidth: '260px',
                 maxWidth: '400px',
@@ -132,7 +132,7 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
             <Col>
               <section className="eventDetailSection">
                 <div className="eventIconWrapper" id="calendar">
-                  <AiFillCalendar size={20} color={'#FA5E5E'} />
+                  <AiFillCalendar size={20} color={'var(--accent)'} />
                 </div>
                 <Col style={{ marginLeft: '1rem' }}>
                   <h4 className="eventDate">
@@ -147,9 +147,9 @@ const EventCard = ({ event }: { event: ACMEvent }) => {
 
               <section className="eventDetailSection">
                 <div className="eventIconWrapper" id="location">
-                  <HiLocationMarker size={20} color={'#F87A51'} />
+                  <HiLocationMarker size={20} color={'var(--gradient-end)'} />
                 </div>
-                <h4 style={{ marginLeft: '1rem', color: '#F87A51' }}>
+                <h4 style={{ marginLeft: '1rem', color: 'var(--gradient-end)' }}>
                   {event.location}
                 </h4>
               </section>

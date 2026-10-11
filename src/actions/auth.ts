@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { message } from 'antd';
 import { setCookie, deleteCookie } from '../utils/cookie';
 import { User } from '../UserContext';
-import { COMPETITIONS_COOKIE_NAME, COOKIE_NAME } from '../configs';
+import { COOKIE_NAME } from '../configs';
 
 export const resetPassword = async (data: {
   username: string;
@@ -43,7 +43,7 @@ export const requestReset = async (username: string) => {
       })
       .catch((error) => {
         message.error('Request Failed');
-        //reject(error);
+        reject(error);
       });
   });
 };
@@ -66,18 +66,14 @@ export const registerUser = async (data: {
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
-        console.error(error);
-        //reject(error);
+        message.error(error.response?.data?.error?.message ?? 'Registration failed');
+        reject(error);
       });
   });
 };
 
 export const logoutUser = () => {
   deleteCookie(COOKIE_NAME);
-  for (const cookie_name of Object.values(COMPETITIONS_COOKIE_NAME)) {
-    deleteCookie(cookie_name);
-  }
 };
 export const getUserFromToken = (token: string): User => {
   let res = tokenGetClaims(token);
@@ -86,14 +82,6 @@ export const getUserFromToken = (token: string): User => {
     admin: false,
     username: res.username,
     id: res.playerID,
-    competitionRegistrations: {
-      energium: undefined,
-      openai: undefined,
-    },
-    competitionData: {
-      energium: undefined,
-      openai: undefined,
-    },
   };
 };
 
@@ -110,10 +98,7 @@ export const tokenGetClaims = (token: string): any => {
   );
 };
 
-export const loginUser = async (
-  dimensionID: string,
-  data: { username: string; password: string }
-) => {
+export const loginUser = async (data: { username: string; password: string }) => {
   return new Promise((resolve, reject) => {
     axios
       .post(process.env.REACT_APP_API + '/v1/auth/login', data)
@@ -122,13 +107,13 @@ export const loginUser = async (
         resolve(res.data.token);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
-        //reject(error);
+        message.error(error.response?.data?.error?.message ?? 'Login failed');
+        reject(error);
       });
   });
 };
 
-export const verifyToken = async (dimensionID: string, token: string) => {
+export const verifyToken = async (token: string) => {
   return new Promise((resolve, reject) => {
     axios
       .post(
@@ -142,8 +127,8 @@ export const verifyToken = async (dimensionID: string, token: string) => {
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
-        //reject(error);
+        message.error(error.response?.data?.error?.message ?? 'Session check failed');
+        reject(error);
       });
   });
 };

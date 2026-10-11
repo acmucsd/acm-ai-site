@@ -86,7 +86,7 @@ const FindTeamsTab: React.FC<FindTeamsTabProps>= (
                 pagination={{ position, align, pageSize: 6 }}
                 dataSource={options}
                 renderItem={(team: any) => (
-                    <List.Item key={team.competitionName}>
+                    <List.Item key={team.teamName}>
                         {<TeamCard team={team} user={user} compUser={compUser} fetchTeamCallback={fetchTeamsCallback} updateRankings={updateRankings} />}
                     </List.Item>
                 )}

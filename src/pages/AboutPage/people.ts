@@ -1,4 +1,3 @@
-import Papa from "papaparse";
 import axios from 'axios';
 
 export interface Socials {

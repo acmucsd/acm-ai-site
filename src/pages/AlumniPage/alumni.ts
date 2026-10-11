@@ -28,10 +28,9 @@ const sheetYears = [
 
 const KEY = process.env.REACT_APP_BOARD_SHEET_KEY as string;
 const SHEET_ID = process.env.REACT_APP_BOARD_SHEET_ID as string;
-const BOARD_BIOS_URL = process.env.REACT_APP_BOARD_BIOS as string;
 const BASE_URL = "https://sheets.googleapis.com/v4/spreadsheets";
 
-const fetchData = async (): Promise<Record<string, Person[]>>=> {
+const fetchData = async (): Promise<Record<string, Person[]>> => {
   const years: Record<string, Person[]> = {
     YR_25_26: [],
     YR_24_25: [],
@@ -43,41 +42,37 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
 
   for (let year of sheetYears) {
     try {
-      const response = 
-          await axios.get(
-            year === '25-26' && BOARD_BIOS_URL
-              ? BOARD_BIOS_URL
-              : `${BASE_URL}/${SHEET_ID}/values/${year}?key=${KEY}`
-          );
+      const response =
+        await axios.get(`${BASE_URL}/${SHEET_ID}/values/${year}?key=${KEY}`);
       const rows = response.data.values;
 
-      let team = '', role = '', picture = '', github = '', website = '', 
-          major = '', linkedin = '';
+      let team = '', role = '', picture = '', github = '', website = '',
+        major = '', linkedin = '';
 
-      if (rows && rows.length > 0) {  
+      if (rows && rows.length > 0) {
         rows.slice(1).forEach((row: string[]) => {
           // Account for different sheet formatting over different years
           switch (year) {
             case '25-26':
-              major = row[3];
-              picture = row[5];
-              github = row[6];
-              linkedin = row[7];
-              website = row[8];
+              major = row[13]
+              picture = row[20];
+              website = row[12];
+              github = row[10];
+              linkedin = row[11];
               break;
             case '24-25':
-              major = row[13] 
-              picture = row[20]; 
-              website = row[12]; 
-              github = row[10]; 
-              linkedin = row[11]; 
+              major = row[13]
+              picture = row[20];
+              website = row[12];
+              github = row[10];
+              linkedin = row[11];
               break;
             case '23-24':
-              major = row[13] 
-              picture = row[20]; 
-              website = row[12]; 
-              github = row[10]; 
-              linkedin = row[11]; 
+              major = row[13]
+              picture = row[20];
+              website = row[12];
+              github = row[10];
+              linkedin = row[11];
               break;
             case '22-23':
               major = row[13];
@@ -116,67 +111,67 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
             name: row[2] || '',
             major: major || '',
             gradYear: row[14] || '',
-            picture: picture?.startsWith("https://cdn.discordapp.com/") ? 
-                "/logo512.png" : picture || "/logo512.png", 
+            picture: picture?.startsWith("https://cdn.discordapp.com/") ?
+              "/logo512.png" : picture || "/logo512.png",
             socials: {
               github: github ? (github.includes('https://')
-                  ? github
-                  : github.includes("github.com")
+                ? github
+                : github.includes("github.com")
                   ? (`https://${github}`)
                   : (`https://github.com/${github}`))
-                  : '',
+                : '',
               linkedin: linkedin ? (linkedin.includes('https://')
-                  ? linkedin 
-                  : (`https://${linkedin}`))
-                  : '',
+                ? linkedin
+                : (`https://${linkedin}`))
+                : '',
               website: website || '',
             }
           }
 
-          if ((year === '25-26' || person.team === "AI" || person.team === "ACM AI") && person.name) {
-              switch (year) {
-                case '25-26':
-                  if (!years["YR_25_26"].find(element => element.name === person.name)) {
-                    years["YR_25_26"].push(person);
-                    break;
-                  }
-                case '24-25': 
-                  if (!years["YR_24_25"].find(element => element.name === person.name)) {
-                      years["YR_24_25"].push(person);
-                      break;
-                  }
-                case '23-24': 
-                  if (!years["YR_23_24"].find(element => element.name === person.name)) {
-                    years["YR_23_24"].push(person);
-                    break;
-                  }
-                case '22-23':
-                  if (!years["YR_22_23"].find(element => element.name === person.name)) {
-                    years["YR_22_23"].push(person);
-                    break;
-                  }
-                case '21-22':
-                  if (!years["YR_21_22"].find(element => element.name === person.name)) {
-                    years["YR_21_22"].push(person);
-                    break;
-                  }
-                case '20-21':
-                  if (!years["YR_20_21"].find(element => element.name === person.name)) {
-                    years["YR_20_21"].push(person);
-                    break;
-                  }
-                default:
+          if ((person.team === "AI" || person.team === "ACM AI") && person.name) {
+            switch (year) {
+              case '25-26':
+                if (!years["YR_25_26"].find(element => element.name === person.name)) {
+                  years["YR_25_26"].push(person);
                   break;
-              }
+                }
+              case '24-25':
+                if (!years["YR_24_25"].find(element => element.name === person.name)) {
+                  years["YR_24_25"].push(person);
+                  break;
+                }
+              case '23-24':
+                if (!years["YR_23_24"].find(element => element.name === person.name)) {
+                  years["YR_23_24"].push(person);
+                  break;
+                }
+              case '22-23':
+                if (!years["YR_22_23"].find(element => element.name === person.name)) {
+                  years["YR_22_23"].push(person);
+                  break;
+                }
+              case '21-22':
+                if (!years["YR_21_22"].find(element => element.name === person.name)) {
+                  years["YR_21_22"].push(person);
+                  break;
+                }
+              case '20-21':
+                if (!years["YR_20_21"].find(element => element.name === person.name)) {
+                  years["YR_20_21"].push(person);
+                  break;
+                }
+              default:
+                break;
             }
+          }
         });
       }
     } catch (error) {
       console.error("Error fetching or processing Google Sheets data:", error);
       return {
-        YR_20_21: [], 
-        YR_21_22: [], 
-        YR_22_23: [], 
+        YR_20_21: [],
+        YR_21_22: [],
+        YR_22_23: [],
         YR_23_24: [],
         YR_25_26: [],
       };

@@ -1,13 +1,13 @@
 import React from "react";
 import type { ColumnsType } from "antd/es/table";
 import { Tag } from "antd";
-import { CompetitionData } from "../../../actions/competition";
+import { CompetitionData, LeaderboardType, isLeaderboardType } from "../../../actions/competition";
 import { genColor } from "../../../utils/colors";
 
 const rankColumn: ColumnsType<CompetitionData>[number] = {
     title: 'Rank',
     dataIndex: 'rank',
-    sorter: (a, b) => b.score - a.score,
+    sorter: (a, b) => a.rank - b.rank,
     defaultSortOrder: 'ascend',
 };
 
@@ -114,32 +114,26 @@ const drawColumn: ColumnsType<CompetitionData>[number] = {
     sorter: (a, b) => (a.drawHistory?.[a.drawHistory.length - 1] ?? 0) - (b.drawHistory?.[b.drawHistory.length - 1] ?? 0),
 };
 
-/**
- * Get columns configuration based on competition name and teamGroups
- * @param competitionName competition name
- * @param teamGroups array of division names or undefined
- */
-export const getColumnsForCompetition = (competitionName?: string, teamGroups?: string[]): ColumnsType<CompetitionData> => {
-    const baseColumns = [rankColumn, teamColumn];
+const mseColumn: ColumnsType<CompetitionData>[number] = {
+    title: 'MSE',
+    dataIndex: 'score',
+};
 
-    if (teamGroups && teamGroups.length > 0) { // Only add division column if divisions exist
-        baseColumns.push(createDivisionColumn(
-            teamGroups.map(g => ({ text: g, value: g }))
-        ));
-    }
-    
-    // Stellatro has score and benchmark score. (Update: Benchmark score hidden for comp)
-    if (competitionName?.includes('Stellatro.')) {
-        return [...baseColumns, scoreColumn, winColumn, lossColumn, drawColumn /*benchmarkScoreColumn*/];
-    }
+const columnsByLeaderboardType: Record<LeaderboardType, ColumnsType<CompetitionData>> = {
+    wld: [scoreColumn, winColumn, lossColumn, drawColumn],
+    public_private: [scoreColumn, publicScoreColumn, privateScoreColumn],
+    basic_score: [scoreColumn],
+    mse: [mseColumn],
+};
 
-    // StarChess has win/loss/draw
-    if (competitionName?.includes('StarChess.')) {
-        return [...baseColumns, scoreColumn, winColumn, lossColumn, drawColumn];
-    }
-    
-    // Defaults to public and private score (e.g. blockography uses this)
-    return [...baseColumns, scoreColumn, publicScoreColumn, privateScoreColumn];
+export const getLeaderboardColumns = (leaderboardType?: string, teamGroups?: string[]): ColumnsType<CompetitionData> | null => {
+    if (!isLeaderboardType(leaderboardType)) return null;
+
+    const divisionColumns = teamGroups?.length
+        ? [createDivisionColumn(teamGroups.map(g => ({ text: g, value: g })))]
+        : [];
+
+    return [rankColumn, teamColumn, ...divisionColumns, ...columnsByLeaderboardType[leaderboardType]];
 };
 
 export {
