@@ -1,29 +1,109 @@
-// This file is to organize classNames for generic containers and layouts
+// layout
+.center-both-ways {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+}
 
-@import './text.less';
-@import './layout.less';
-@import './variables.less';
+.noContainer { 
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;  // prevents user from scrolling horizontally
+}
 
+.center-horizontal {
+    display: flex;
+    justify-content: center;
+}
 
+.even-spaced-row {
+    justify-content: space-between;
+}
 
+// text
+
+// Super Big Title (for the main page only)
+.title1 {
+    font-size: @font10;
+    line-height: @font9;
+    font-weight: @bold;
+    font-family: @font-family-base;
+    @media screen and (max-width: @xs){
+        font-size: @font8;
+        line-height: @font7;
+    }
+}
+
+// Title for other pages
+.title2 {
+    font-size: @font6;
+    font-weight: @bold;
+    font-family: @font-family-base;
+    line-height: @font6;
+}
+
+// Used for smaller text underneath most titles
+// Usually this is used with a <h3> element
+.sub-title {
+    font-weight: @bold;
+    line-height: @font5;
+}
+
+// subTexts are for small paragraphs or buttons
+.sub-text-black {
+    color: @black;
+    font-weight: @regular;
+    .sub-text();
+}
+
+.sub-text-white {
+    color: @white;
+    font-weight: @regular;
+    .sub-text();
+}
+
+// text for buttons
+.button-text-black {
+    color: @black;
+    font-weight: @semi-bold;
+    .sub-text();
+}
+
+.button-text-white {
+    color: @white;
+    font-weight: @semi-bold;
+    .sub-text();
+}
+
+.sub-text {
+    font-size: @font3;
+    font-family: @font-family-base;
+}
+
+// text alignment stuff
+.alignCenter {
+    margin-top:0;
+    text-align: center;
+}
+
+// sections, buttons
 
 // provides app theme linear gradient: red -> yellow
 .gradient {
     background: linear-gradient(90deg, @mainred, @mainyellow);
 }
 
-
 // Every page has a header so it's better to keep a single source of truth here
 .header-section {
     .generic-section();
 }   
 
-
 .footer-section {
     display: flex;
     flex-direction: column;
 }
-
 
 // A generic container to hold new content centered nicely
 .generic-centered-section {
@@ -31,7 +111,7 @@
     .generic-section();
 }
 
-/* A constrained bounds has a width ratio of 70% and a
+/* A constrained bounds has a width ratio of 80% and a
  * max width of 1024px so it does not
  * extend all the way to the screen's edges. This way we get 
  * content with enough whitespace on the horizontal axis.
@@ -40,19 +120,14 @@
  * omitting this class and/or .generic-section
  */
 .constrained-bounds {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     max-width: 1024px;
 
     @media screen and (max-width: @sm){
         width: 100%;
     }
-
-    @media screen and (min-width: 769px){
-        width: 80%;
-    }
 }
-
 
 // A wrapper for most sections with content 
 .generic-section {
@@ -60,14 +135,11 @@
     box-sizing: border-box; /* Include padding and borders within the width */
 }
 
-
 // gradient bar for separating sections
 .gradient-bar {
   .gradient();
   padding: 3rem;
 }
-
-
 
 //  For Square Buttons
 .button-black-square {
@@ -75,7 +147,6 @@
     border-style: none;
     .button-black();
 }
-
 
 /* Used for giving basic styling for nay button*/
 .button-black {
@@ -114,4 +185,12 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;  /* For Firefox */
   color: transparent;
+}
+
+.colorful {
+    .text-colorful();
+}
+
+.danger {
+    color: @danger;
 }
