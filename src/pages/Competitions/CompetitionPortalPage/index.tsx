@@ -772,7 +772,7 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
                                             </Col>
 
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">{userRankData.rank || "-"}</div>
+                                                <div className="stat-value">{userRankData.rank || "—"}</div>
                                             </Col>
 
                                             {isWld && (
