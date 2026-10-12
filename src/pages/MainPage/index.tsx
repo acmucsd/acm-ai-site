@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
 import { Link } from 'react-router-dom';
@@ -8,26 +9,32 @@ import TeamImg from '../../../public/team.png';
 import AIMLImg from '../../../public/aimlpath.jpg';
 import ProjectIcon from '../../../public/project.png';
 import CompIcon from '../../../public/comp.png';
-import HomeIconMobile from '../../../public/home_icon_mobile.png'
+import ArrowIcon from '../../../public/arrow.svg';
+import HomeIconMobile from '../../../public/home_icon_mobile.png';
+import GradientDescent from './GradientDescent';
 
 const { Content } = Layout;
 
 function MainPage() {
+  const infoRef = useRef<HTMLElement>(null);
+
   return (
     <DefaultLayout>
 
     <Content className="homeHeader">
         <div className="homeContent"> 
-            <img src={HomeIconMobile} className="HomeIconMobile"/>
+            <img src={HomeIconMobile} alt="" className="HomeIconMobile"/>
             <div className="homeText">
                 <h1 className="homeTitle">ACM <span className="colorful">AI</span></h1>
-                <h3>Making AI accessible.</h3>
-                <p>We aspire to inspire the next generation of AI advocates, engineers, and scientists.</p>
+                <p className="homeTagline">
+                    <strong>Making AI accessible</strong> to every student.<br/>
+                    Inspiring tomorrow's AI scientists and engineers.
+                </p>
                 <div className="homeButtons">
                     <Link to={`/register`} rel="noopener noreferrer">
                         <Button size="large" shape="round" className="getStartedButton">Join us &gt;</Button>
                     </Link>
-                    
+                
                     <Link to={{ pathname: "https://acmurl.com/ai-newsletter" }} target="_blank" >
                         <Button size="large" shape="round" className="aboutButton">Newsletter &gt;</Button>
                     </Link>
@@ -42,9 +49,14 @@ function MainPage() {
             
         </div>
         <div className="wavy"/>
+        <GradientDescent/>
+        <button className="scrollArrow" onClick={() => infoRef.current?.scrollIntoView({ behavior: 'smooth' })}>
+            Learn more
+            <img src={ArrowIcon} alt=""/>
+        </button>
     </Content>
 
-    <Content className="homeInfo">
+    <Content className="homeInfo" ref={infoRef}>
         <Row className="splitInfoRow">
 
             <Col>
@@ -65,8 +77,12 @@ function MainPage() {
             
         </Row>
 
-        <Row className="splitInfoRow">
+        <Row className="splitInfoRow reverse">
 
+            <Col>
+                <img src={AIMLImg} alt="Four people standing in behind laptops for ACM AI Projects"/>
+            </Col>
+            
             <Col className="infoText">
                 <h3> Model Your <span className="colorful">AI/ML</span> Path</h3>
                 <p>
@@ -79,10 +95,6 @@ function MainPage() {
                 </Link>
             </Col>
 
-            <Col>
-                <img src={AIMLImg} alt="Four people standing in behind laptops for ACM AI Projects"/>
-            </Col>
-            
         </Row>
     </Content>
 
