@@ -38,6 +38,7 @@ function Header() {
       label: <Link to="/portal">Portal</Link>,
       key: '2',
     },
+    ...(user.admin ? [{ label: <Link to="/admin/portal" className="text-colorful">Admin</Link>, key: 'admin' }] : []),
     {
       label: 'Logout',
       key: '3',
@@ -161,6 +162,11 @@ function Header() {
             <Link className="mobileNavItem" to="/portal">
               Portal
             </Link>
+            {user.admin && (
+              <Link className="mobileNavItem text-colorful" to="/admin/portal">
+                Admin
+              </Link>
+            )}
             <div
               className="logOutOption"
               onClick={() => {
