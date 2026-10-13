@@ -163,3 +163,15 @@ export const getIdentifiers = async (): Promise<{ identifiers: string[] }> => {
       });
   });
 };
+
+export type Admin = { username: string; primaryAdmin: boolean };
+
+export const getAdmins = async (): Promise<Admin[]> =>
+  (await axios.get(process.env.REACT_APP_API + '/v1/users/admins', {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  })).data.admins;
+
+export const removeAdmin = async (userId: string) =>
+  axios.post(process.env.REACT_APP_API + `/v1/users/${userId}/removeAdmin`, {}, {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  });
