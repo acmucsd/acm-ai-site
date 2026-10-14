@@ -15,10 +15,6 @@ module.exports = override(
       lessOptions: {
         ...lessLoaderOptions,
         javascriptEnabled: true,
-        modifyVars: {
-          '@primary-color': '#D64550',
-          '@link-color': '#D64550',
-        },
       },
     };
   }),

@@ -158,14 +158,14 @@ const Section = ({
     <div className="banner">
       <div className="iconWrapper">
         {team === 'directors' && (
-          <HiOutlineBriefcase size={25} color={'#f5621e'} />
+          <HiOutlineBriefcase size={25} color={'var(--accent)'} />
         )}
-        {team === 'operations' && <FaRegCalendar size={25} color={'#f5621e'} />}
-        {team === 'socials' && <BsPeopleFill size={25} color={'#f5621e'} />}
-        {team === 'marketing' && <FaBullhorn size={25} color={'#f5621e'} />}
-        {team === 'competitions' && <FaTrophy size={25} color={'#f5621e'} />}
-        {team === 'developers' && <FaLaptopCode size={25} color={'#f5621e'} />}
-        {team === 'staff' && <FaHandsHelping size={25} color={'#f5621e'} />}
+        {team === 'operations' && <FaRegCalendar size={25} color={'var(--accent)'} />}
+        {team === 'socials' && <BsPeopleFill size={25} color={'var(--accent)'} />}
+        {team === 'marketing' && <FaBullhorn size={25} color={'var(--accent)'} />}
+        {team === 'competitions' && <FaTrophy size={25} color={'var(--accent)'} />}
+        {team === 'developers' && <FaLaptopCode size={25} color={'var(--accent)'} />}
+        {team === 'staff' && <FaHandsHelping size={25} color={'var(--accent)'} />}
       </div>
       <h4 className="statement">{statement}</h4>
     </div>
