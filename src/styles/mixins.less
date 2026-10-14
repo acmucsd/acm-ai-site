@@ -140,6 +140,62 @@
     box-sizing: border-box; /* Include padding and borders within the width */
 }
 
+// rendered competition markdown, shared by landing page and admin preview
+.markdown-content {
+    h1 {
+      font-size: @font5;
+      margin-top: 2rem;
+      line-height: 4rem;
+    }
+
+    h2 {
+      font-size: @font4;
+      margin-top: 4rem;
+      line-height: 2rem;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem auto;
+    }
+
+    iframe {
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem auto;
+    }
+
+    p {
+      margin-top: 2rem;
+      line-height: 2rem;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul, ol {
+      margin-top: 1rem;
+      padding-left: 2rem;
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+}
+
 // gradient bar for separating sections
 .gradient-bar {
   .gradient();
