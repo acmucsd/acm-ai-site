@@ -56,6 +56,24 @@
       margin: 10px 0;
     }
 
+    .markdownPreview {
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 1rem;
+      border-radius: 8px;
+      background: var(--surface-alt);
+      .markdown-content();
+
+      .previewLabel {
+        color: var(--secondary);
+        font-size: 0.85rem;
+      }
+
+      .previewLabel + * {
+        margin-top: 0.5rem;
+      }
+    }
+
     .narrow {
       max-width: 300px;
     }
