@@ -8,11 +8,14 @@ export const getCompetitionUser = (
   competitionName: string,
   username: string
 ): Promise<AxiosResponse> => {
+  // API returns the join code to team members only
+  const token = getToken(COOKIE_NAME);
   return new Promise((resolve, reject) => {
     axios
       .get(
         process.env.REACT_APP_API +
-          `/v1/competitions/${competitionName}/users/${username}`
+          `/v1/competitions/${competitionName}/users/${username}`,
+        token ? { headers: { Authorization: `Bearer ${token}` } } : {}
       )
       .then((res: AxiosResponse) => {
         resolve(res);
