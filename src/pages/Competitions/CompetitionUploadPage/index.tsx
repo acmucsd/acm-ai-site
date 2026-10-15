@@ -90,12 +90,6 @@ const CompetitionUploadPage = () => {
   };
 
   const beforeUpload = (file: any) => {
-    const isZipFile = file.name.toLowerCase().endsWith('.zip');
-    if (!isZipFile) {
-      message.error('You can only upload ZIP files!');
-      return false;
-    }
-
     const isWithinSizeLimit = file.size <= MAX_UPLOAD_SIZE_BYTES;
     if (!isWithinSizeLimit) {
       message.error(`File must be ${MAX_UPLOAD_SIZE_BYTES / (1024 * 1024)}MB or smaller.`);
@@ -119,7 +113,7 @@ const CompetitionUploadPage = () => {
         <BackLink to="../" />
         <h2>Submission to {competitionID}</h2>
         <p>
-          You must submit a .zip file{submissionFilePattern ? ` matching the pattern: ${submissionFilePattern}` : ''} that contains your submission.
+          You must submit a file{submissionFilePattern ? ` matching the pattern: ${submissionFilePattern}` : ''}.
         </p>
         <br />
         {/* <Form> */}
@@ -134,7 +128,7 @@ const CompetitionUploadPage = () => {
               <Upload onChange={handleFileChange} 
                       customRequest={dummyRequest} 
                       beforeUpload={beforeUpload}
-                      accept=".zip,application/zip,application/x-zip-compressed"
+                      accept={submissionFilePattern.match(/\.\w+$/)?.[0]}
               >
                 <Button className="upload-btn">
                   <UploadOutlined /> Click to add file
@@ -147,7 +141,7 @@ const CompetitionUploadPage = () => {
               onClick={handleSubmit(onSubmit)}
               disabled={uploading}
             >
-              {uploading ? "Running benchmark" : "Submit"}
+              {uploading ? "Scoring" : "Submit"}
             </Button>
           {/* </form> */}
         {/* </Form> */}
