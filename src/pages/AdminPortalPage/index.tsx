@@ -6,14 +6,14 @@ import {
   profileData,
   UserProfile,
 } from '../../actions/users';
-import { Layout, Button, Flex, message, Upload, Select, Input, Switch, InputNumber } from 'antd';
+import { Layout, Button, Flex, message, Upload, Select, Input, Switch, InputNumber, Table, Popconfirm, Modal } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import TeamsAdmin from './TeamsAdmin';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings, uploadNewCompetition, LEADERBOARD_TYPES, LeaderboardType } from '../../actions/competition';
 import { getUsers as fetchUsers, getIdentifiers as fetchIdentifiers, 
-  promoteUserToAdmin, promoteUserToPrimaryAdmin } from '../../actions/users';
+  promoteUserToAdmin, promoteUserToPrimaryAdmin, getAdmins, removeAdmin, Admin } from '../../actions/users';
 const { Content } = Layout;
 const { Option } = Select;
 const { TextArea } = Input;
@@ -41,6 +41,7 @@ export default function AdminPortalPage(props: any) {
   const [uploadingResults, setUploadingResults] = useState(false);
   const [resultsFile, setResultsFile] = useState<File | null>(null);
   const [selectedCompetition, setSelectedCompetition] = useState<string | undefined>(undefined);
+  const [resultsCompetition, setResultsCompetition] = useState<string>();
   const [competitions, setCompetitions] = useState<Array<{ competitionName: string }>>([]);
   const [competitionsLoading, setCompetitionsLoading] = useState(true);
   const [competitionDescription, setCompetitionDescription] = useState<string>('');
@@ -86,6 +87,9 @@ export default function AdminPortalPage(props: any) {
   const [usersLoading, setUsersLoading] = useState(true);
   const [identifiersLoading, setIdentifiersLoading] = useState(true);
   const [promotingUser, setPromotingUser] = useState(false);
+  const [admins, setAdmins] = useState<Admin[]>([]);
+  const [primaryToRemove, setPrimaryToRemove] = useState<string>();
+  const [confirmName, setConfirmName] = useState('');
 
   // admin check and load
   const checkAdminAccess = useCallback((profile: UserProfile | null) => {
@@ -217,6 +221,12 @@ export default function AdminPortalPage(props: any) {
       });
   }, [fetchUsers]);
 
+  const loadAdmins = useCallback(() => {
+    getAdmins()
+      .then(setAdmins)
+      .catch(() => message.error('Failed to load admins.'));
+  }, []);
+
   // for username/email fuzzy search
   const loadIdentifiers = useCallback(() => {
     setIdentifiersLoading(true);
@@ -239,7 +249,8 @@ export default function AdminPortalPage(props: any) {
     loadCompetitionsData();
     loadUsersData();
     loadIdentifiers();
-  }, [loadProfileData, loadCompetitionsData, loadUsersData, loadIdentifiers]);
+    loadAdmins();
+  }, [loadProfileData, loadCompetitionsData, loadUsersData, loadIdentifiers, loadAdmins]);
 
   useEffect(() => {
     if (selectedCompetition) {
@@ -281,14 +292,14 @@ export default function AdminPortalPage(props: any) {
       message.error('Please select a CSV file to upload for competition results.');
       return;
     } 
-    if (!selectedCompetition) {
+    if (!resultsCompetition) {
       message.error('Please select a competition to upload results for.');
       return;
     }
 
     setUploadingResults(true);
 
-    uploadCompetitionResults(resultsFile, selectedCompetition)
+    uploadCompetitionResults(resultsFile, resultsCompetition)
       .then(() => {
         message.success('Competition results uploaded successfully!');
         setResultsFile(null);
@@ -519,7 +530,8 @@ export default function AdminPortalPage(props: any) {
       .then(() => {
         message.success(`${selectedUserToPromote} has been promoted to admin.`);
         setSelectedUserToPromote(undefined);
-        loadUsersData(); 
+        loadUsersData();
+        loadAdmins();
       })
       .catch((error) => {
         message.error(`Failed to promote ${selectedUserToPromote} to admin.`);
@@ -541,6 +553,7 @@ export default function AdminPortalPage(props: any) {
         message.success(`${selectedUserToPromote} has been promoted to primary admin.`);
         setSelectedUserToPromote(undefined);
         loadUsersData();
+        loadAdmins();
       })
       .catch((error) => {
         message.error(`Failed to promote ${selectedUserToPromote} to primary admin.`);
@@ -549,6 +562,20 @@ export default function AdminPortalPage(props: any) {
       .finally(() => {
         setPromotingUser(false);
       });
+  };
+
+  const handleRemoveAdmin = (username: string) => {
+    removeAdmin(username)
+      .then(() => {
+        message.success(`${username} is no longer an admin.`);
+        loadAdmins();
+      })
+      .catch((error) => message.error(error.response?.data?.error?.message ?? `Failed to remove ${username}.`));
+  };
+
+  const closeRemoveModal = () => {
+    setPrimaryToRemove(undefined);
+    setConfirmName('');
   };
 
   // Identifier search (usernames and emails)
@@ -585,19 +612,22 @@ export default function AdminPortalPage(props: any) {
         <Content>
           <Flex
             className="profileHeader"
-            justify="space-between"
-            align="center"
+            vertical
           >
             <h1 className="title2">
               {!loading && user ? (
                 <>
-                  Welcome admin,{' '}
-                  <span className="profileName">{user.username}.</span>
+                  Welcome Admin{' '}
+                  <span className="profileName">{user.username}</span>
                 </>
               ) : (
                 <></>
               )}
             </h1>
+            <p>
+              You are {user.primaryAdmin ? 'a ' : 'an '}
+              <span className="text-colorful">{user.primaryAdmin ? 'primary admin' : 'admin'}</span>.
+            </p>
           </Flex>
         </Content>
         <Content className="settings">
@@ -608,8 +638,8 @@ export default function AdminPortalPage(props: any) {
             <Select
               placeholder="Select Competition"
               className="competitionDropdown field"
-              onChange={handleCompetitionSelect}
-              value={selectedCompetition}
+              onChange={setResultsCompetition}
+              value={resultsCompetition}
               loading={competitionsLoading}
             >
               {competitions.map((comp) => (
@@ -953,44 +983,86 @@ export default function AdminPortalPage(props: any) {
 
           <div className="userManagement">
             <h2>Manage Users</h2>
-            <p>Search for a user and promote them to admin or primary admin.</p>
-
-            <Select
-              showSearch
-              placeholder="Search User"
-              className="userSearchDropdown field"
-              value={selectedUserToPromote}
-              onChange={handleUserSelect}
-              onSearch={handleSearchUser}
-              loading={usersLoading}
-              filterOption={(input, option) =>
-                (option?.value as string)?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
+            <Table
+              size="small"
+              rowKey="username"
+              pagination={false}
+              dataSource={admins}
+              className="spaced"
+              columns={[
+                { title: 'Admin', dataIndex: 'username' },
+                { title: 'Role', render: (_, admin) => (admin.primaryAdmin ? 'Primary admin' : 'Admin') },
+                {
+                  render: (_, admin) => user.primaryAdmin && admin.username !== user.username && (
+                    admin.primaryAdmin ? (
+                      <Button danger size="small" onClick={() => setPrimaryToRemove(admin.username)}>Remove</Button>
+                    ) : (
+                      <Popconfirm title={`Remove admin access for ${admin.username}?`} onConfirm={() => handleRemoveAdmin(admin.username)}>
+                        <Button danger size="small">Remove</Button>
+                      </Popconfirm>
+                    )
+                  ),
+                },
+              ]}
+            />
+            <Modal
+              title={`Remove primary admin ${primaryToRemove}?`}
+              open={!!primaryToRemove}
+              okText="Remove"
+              okButtonProps={{ danger: true, disabled: confirmName !== primaryToRemove }}
+              onOk={() => {
+                handleRemoveAdmin(primaryToRemove!);
+                closeRemoveModal();
+              }}
+              onCancel={closeRemoveModal}
             >
-              {filteredUsers.map((user) => (
-                <Option key={user.username} value={user.username}>
-                  {user.username}
-                </Option>
-              ))}
-            </Select>
+              <p>They lose all admin access. Type <span className="text-colorful">{primaryToRemove}</span> to confirm.</p>
+              <Input value={confirmName} onChange={(e) => setConfirmName(e.target.value)} />
+            </Modal>
+            {user.primaryAdmin ? (
+              <>
+                <p>Search for a user and promote them to admin or primary admin.</p>
 
-            {selectedUserToPromote && (
-              <Flex gap="middle" className="spaced-top">
-                <Button
-                  type="primary"
-                  onClick={handlePromoteToAdmin}
-                  loading={promotingUser}
+                <Select
+                  showSearch
+                  placeholder="Search User"
+                  className="userSearchDropdown field"
+                  value={selectedUserToPromote}
+                  onChange={handleUserSelect}
+                  onSearch={handleSearchUser}
+                  loading={usersLoading}
+                  filterOption={(input, option) =>
+                    (option?.value as string)?.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
                 >
-                  Promote to Admin
-                </Button>
-                <Button
-                  type="primary"
-                  onClick={handlePromoteToPrimaryAdmin}
-                  loading={promotingUser}
-                >
-                  Promote to Primary Admin
-                </Button>
-              </Flex>
+                  {filteredUsers.map((user) => (
+                    <Option key={user.username} value={user.username}>
+                      {user.username}
+                    </Option>
+                  ))}
+                </Select>
+
+                {selectedUserToPromote && (
+                  <Flex gap="middle" className="spaced-top">
+                    <Button
+                      type="primary"
+                      onClick={handlePromoteToAdmin}
+                      loading={promotingUser}
+                    >
+                      Promote to Admin
+                    </Button>
+                    <Button
+                      type="primary"
+                      onClick={handlePromoteToPrimaryAdmin}
+                      loading={promotingUser}
+                    >
+                      Promote to Primary Admin
+                    </Button>
+                  </Flex>
+                )}
+              </>
+            ) : (
+              <p>Only primary admins can promote users.</p>
             )}
           </div>
           <div className='findUserIdentifiers'>
