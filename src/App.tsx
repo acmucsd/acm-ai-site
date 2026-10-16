@@ -16,6 +16,7 @@ import LoginPage from './pages/Auth/LoginPage';
 
 import { getCookie } from './utils/cookie';
 import { verifyToken, getUserFromToken } from './actions/auth';
+import { profileData } from './actions/users';
 import {
   COOKIE_NAME,
   defaultUser,
@@ -72,6 +73,11 @@ function App() {
           let u = getUserFromToken(cookie);
           setUser(u);
           message.success('Welcome back ' + u.username);
+          // admin only shows the nav link, server checks every admin request
+          profileData()
+            .then((profile) => setUser((current) =>
+              current.username === u.username ? { ...current, admin: profile.admin === true } : current))
+            .catch(() => {});
         })
         .catch(() => {})
         .finally(() => {
