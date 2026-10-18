@@ -115,7 +115,7 @@ const TeamCard = (
                  centered
                  open={isModalOpen}
                  onCancel={handleCancel}
-                 title={<h3 style={{ fontWeight: '700' }}>{team.teamName}</h3>}
+                 title={<h3 className="modal-title">{team.teamName}</h3>}
 
                  // Dynamically display join leave/join buttons based on user team membership status
                  footer = {
