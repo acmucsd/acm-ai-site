@@ -193,6 +193,7 @@ export type UpdateCompetitionSettingsPayload = {
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
+  evaluator?: string | null;
 };
 
 export type NewCompetitionSettingsPayload = {
@@ -359,6 +360,9 @@ const teamUrl = (competitionName: string, teamName: string) =>
   process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/${encodeURIComponent(teamName)}`;
 
 const authHeader = () => ({ headers: { Authorization: `Bearer ${getToken(COOKIE_NAME)}` } });
+
+export const getEvaluators = async (): Promise<string[]> =>
+  (await axios.get(process.env.REACT_APP_API + '/v1/competitions/evaluators', authHeader())).data.evaluators;
 
 export const getAdminTeams = async (competitionName: string): Promise<AdminTeam[]> =>
   (await axios.get(process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/all`, authHeader())).data;
