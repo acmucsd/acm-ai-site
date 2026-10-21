@@ -117,34 +117,32 @@ const CompetitionUploadPage = () => {
         </p>
         <br />
         {/* <Form> */}
-          {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-            <div className="upload-wrapper">
-              {/* <TextArea
+        {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+        <div className="upload-wrapper">
+          {/* <TextArea
                 className="desc"
                 rows={2}
                 value={desc}
                 onChange={(evt) => setDesc(evt.target.value)}
               /> */}
-              <Upload onChange={handleFileChange} 
-                      customRequest={dummyRequest} 
-                      beforeUpload={beforeUpload}
-                      accept={submissionFilePattern.match(/\.\w+$/)?.[0]}
-              >
-                <Button className="upload-btn">
-                  <UploadOutlined /> Click to add file
-                </Button>
-              </Upload>
-            </div>
-            <Button
-              htmlType="submit"
-              className="submit-button"
-              onClick={handleSubmit(onSubmit)}
-              disabled={uploading}
-            >
-              {uploading ? "Scoring" : "Submit"}
+          <Upload onChange={handleFileChange}
+            customRequest={dummyRequest}
+            beforeUpload={beforeUpload}
+            accept={submissionFilePattern.match(/\.\w+$/)?.[0]}
+          >
+            <Button className="upload-btn">
+              <UploadOutlined /> Click to add file
             </Button>
-          {/* </form> */}
-        {/* </Form> */}
+          </Upload>
+        </div>
+        <Button
+          htmlType="submit"
+          className="submit-button"
+          onClick={handleSubmit(onSubmit)}
+          disabled={uploading}
+        >
+          {uploading ? "Uploading" : "Submit"}
+        </Button>
       </div>
     </DefaultLayout>
   );
