@@ -102,10 +102,6 @@ const AboutCard = ({ card, onSelectPerson, showDrawer }: Props) => {
           ) : (
             <img
               className="aboutImage"
-              style={{
-                borderRadius: '20px 20px 0 0',
-                objectPosition: 'center top',
-              }}
               src={card.picture}
               alt={`profile of ${card.name}`}
             />
