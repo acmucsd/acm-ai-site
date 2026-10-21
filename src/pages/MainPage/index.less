@@ -196,6 +196,53 @@
   }
 }
 
+// between mobile and wide
+@media screen and (min-width: (@xs + 1)) and (max-width: @sm) {
+  .homeHeader {
+    .homeContent {
+      grid-template-columns: 3fr 2fr;
+
+      // under the curve peak
+      .ai-logo {
+        transform: translate(-5vw, 15vw);
+      }
+    }
+
+    .homeText {
+      max-width: 60vw;
+
+      .homeTitle {
+        font-size: 60px;
+      }
+
+      .homeTagline {
+        font-size: min(16px, 2.4vw);
+      }
+
+      .homeButtons {
+        .getStartedButton, .aboutButton {
+          width: 130px;
+          height: 40px;
+          font-size: 16px;
+        }
+      }
+    }
+
+    // curve and descent points share this box
+    .wavy {
+      height: 75%;
+    }
+
+    .gradientDescent {
+      top: 25%;
+    }
+
+    .scrollArrow {
+      top: 74%;
+    }
+  }
+}
+
 @media screen and (max-width: @xs) {
   .infoButton, .knowledgeButton {
     font-size: @font3;
