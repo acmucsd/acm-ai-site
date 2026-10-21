@@ -186,6 +186,10 @@ export type UpdateCompetitionSettingsPayload = {
   leaderboardType?: LeaderboardType;
   submissionFileName?: string;
   inPortal?: boolean;
+  startDate?: string;
+  endDate?: string;
+  submissionCooldown?: number;
+  teamGroups?: string[] | null;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
@@ -205,6 +209,7 @@ export type NewCompetitionSettingsPayload = {
   maxTeamSize?: number;
   showPrivateScores: boolean;
   truthCSV?: string;
+  teamGroups?: string[];
 };
 
 export const updateCompetitionSettings = async (
