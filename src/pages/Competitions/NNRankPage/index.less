@@ -1,14 +1,10 @@
-@import '../../../styles/base.less';
-@import '../../../newStyles/layout.less';
-@import '../../../newStyles/components.less';
-@import '../../../newStyles/variables.less';
-
+@import (reference) '../../../styles/index.less';
 .NNRankPage {
   .noContainer();
   .generic-section();
   h2 {
     margin-top: 100px;
-    color: @black;
+    color: var(--foreground);
   }
   .meta-data {
     font-size: @font2;

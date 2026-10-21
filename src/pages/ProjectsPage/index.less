@@ -1,7 +1,4 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-
+@import (reference) '../../styles/index.less';
 .ProjectsPage {
     .noContainer();
 
@@ -40,7 +37,7 @@
     .project-image {
         object-fit: cover;
         border-radius: @radius-base3;
-        box-shadow: @bx2;
+        box-shadow: var(--raised-shadow);
     }
 
     .project-info {

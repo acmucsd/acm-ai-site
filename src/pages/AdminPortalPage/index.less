@@ -1,14 +1,11 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-
+@import (reference) '../../styles/index.less';
 .AdminPortalPage {
   // removes any default white space margins
   .noContainer();
 
   // prevents layout shifts caused by scrollbar
   overflow-y: hidden;
-  background: @white;
+  background: var(--surface);
 
 
   .profileHeader {
@@ -16,7 +13,7 @@
     display: flex;
 
     h1 .profileName {
-      color: @orange;
+      color: var(--accent);
     }
 
     h1 {
@@ -47,6 +44,33 @@
         gap: 12px;
         align-items: center;
       }
+    }
+
+    .field {
+      width: 80%;
+      max-width: 300px;
+      margin: 10px 0;
+    }
+
+    .spaced {
+      margin: 10px 0;
+    }
+
+    .narrow {
+      max-width: 300px;
+    }
+
+    .action {
+      margin-top: 10px;
+      max-width: 300px;
+    }
+
+    .spaced-top {
+      margin-top: 10px;
+    }
+
+    .type-select {
+      min-width: 180px;
     }
   }
   

@@ -35,7 +35,7 @@ function CompetitionsPage(props: any) {
 
             <Row className="buttons">
               <Col>
-                  <a href="https://acmurl.com/ai-comp-signup" target="_blank" rel="noopener noreferrer">
+                  <a href="https://acmurl.com/ai-competition-fall2026-register" target="_blank" rel="noopener noreferrer">
                       <Button size="large" shape="round" className="interestButton">Interest Form &gt;</Button>
                   </a>
               </Col>

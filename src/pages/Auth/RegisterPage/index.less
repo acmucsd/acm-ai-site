@@ -1,13 +1,13 @@
-@import '../../../newStyles/text.less';
-@import '../../../newStyles/components.less';
-@import '../../../newStyles/variables.less';
-
-
+@import (reference) '../../../styles/index.less';
 .RegisterPage {
   .noContainer();
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .compact {
+    margin-bottom: 12px;
+  }
 
   .registerDetails {
     .generic-centered-section();
@@ -46,9 +46,6 @@
 
       .errorBox {
         margin-bottom: 2rem;
-        .danger {
-          color: @danger;
-        }
       }
 
       #registerButton {

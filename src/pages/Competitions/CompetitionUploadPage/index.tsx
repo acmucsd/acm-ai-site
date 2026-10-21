@@ -90,13 +90,6 @@ const CompetitionUploadPage = () => {
   };
 
   const beforeUpload = (file: any) => {
-    const correctFileExtension = submissionFilePattern.split(".").at(-1);
-    const isCorrectFileExtension = file.name.toLowerCase().endsWith(correctFileExtension);
-    if (!isCorrectFileExtension) {
-      message.error(`You can only upload ${correctFileExtension} files!`);
-      return false;
-    }
-
     const isWithinSizeLimit = file.size <= MAX_UPLOAD_SIZE_BYTES;
     if (!isWithinSizeLimit) {
       message.error(`File must be ${MAX_UPLOAD_SIZE_BYTES / (1024 * 1024)}MB or smaller.`);
@@ -120,7 +113,7 @@ const CompetitionUploadPage = () => {
         <BackLink to="../" />
         <h2>Submission to {competitionID}</h2>
         <p>
-          You must submit a file{submissionFilePattern ? ` matching the pattern: ${submissionFilePattern}` : ''} that contains your submission.
+          You must submit a file{submissionFilePattern ? ` matching the pattern: ${submissionFilePattern}` : ''}.
         </p>
         <br />
         {/* <Form> */}
@@ -132,13 +125,23 @@ const CompetitionUploadPage = () => {
                 value={desc}
                 onChange={(evt) => setDesc(evt.target.value)}
               /> */}
-          <Upload onChange={handleFileChange}
-            customRequest={dummyRequest}
-            beforeUpload={beforeUpload}
-            accept=".zip,application/zip,application/x-zip-compressed"
-          >
-            <Button className="upload-btn">
-              <UploadOutlined /> Click to add file
+              <Upload onChange={handleFileChange} 
+                      customRequest={dummyRequest} 
+                      beforeUpload={beforeUpload}
+                      accept={submissionFilePattern.match(/\.\w+$/)?.[0]}
+              >
+                <Button className="upload-btn">
+                  <UploadOutlined /> Click to add file
+                </Button>
+              </Upload>
+            </div>
+            <Button
+              htmlType="submit"
+              className="submit-button"
+              onClick={handleSubmit(onSubmit)}
+              disabled={uploading}
+            >
+              {uploading ? "Scoring" : "Submit"}
             </Button>
           </Upload>
         </div>

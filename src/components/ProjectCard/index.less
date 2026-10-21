@@ -1,9 +1,4 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-@import '../../newStyles/variables.less';
-
-
+@import (reference) '../../styles/index.less';
 .projectCardHeader {
   display: flex; 
   flex-direction: row;
@@ -27,7 +22,7 @@
     .title {
       font-weight: @semi-bold;
       margin-top: 1rem;
-      color: @b2;
+      color: var(--heading);
     }
 
     .projectCardInfo {
@@ -50,7 +45,7 @@
       p {
         margin: 0;
         white-space: normal;
-        color: @text-gray2;
+        color: var(--secondary);
 
       }
 
@@ -63,26 +58,26 @@
 
       .viewModalButton {
         border: none;
-        background: @black;
-        box-shadow: 0px 3px 5px 1px rgba(189, 189, 189, 0.5);
+        background: var(--foreground);
+        box-shadow: var(--card-shadow);
         display: flex;
         padding: 1rem;
         align-items: center;
         justify-content: center;
         p {
-          color: @white;
+          color: var(--text-inverse);
         }
 
       }
 
       .gitHubButton {
         border: none;
-        background: rgb(245, 245, 245);
+        background: var(--surface-alt);
         display: flex;
         padding: 1rem;
         align-items: center;
         p {
-          color: @black;
+          color: var(--foreground);
           @media screen and (max-width: @xs) {
             display: none;
             margin: none;
@@ -146,7 +141,7 @@
 .ant-modal-body {
   .projectModalDescriptionBox {
     margin: 1rem 0;
-    background: #F6F6F6;
+    background: var(--surface-alt);
     border-radius: @radius-base5;
     padding: 1rem;
     .description {

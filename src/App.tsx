@@ -8,7 +8,6 @@ import { UserProvider } from './UserContext';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
-import './styles/index.less';
 import MainPage from './pages/MainPage';
 
 import TournamentRankingsPageHistorical from './pages/TournamentRankingsPageHistorical';
