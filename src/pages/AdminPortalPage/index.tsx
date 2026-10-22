@@ -9,6 +9,7 @@ import {
 import { Layout, Button, Flex, message, Upload, Select, Input, Switch, InputNumber, Table, Popconfirm, Modal } from 'antd';
 import MainFooter from '../../components/MainFooter';
 import TeamsAdmin from './TeamsAdmin';
+import { Remark } from 'react-remark';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings, uploadNewCompetition, LEADERBOARD_TYPES, LeaderboardType } from '../../actions/competition';
@@ -816,6 +817,12 @@ export default function AdminPortalPage(props: any) {
                       onChange={handleDescriptionChange}
                       className="spaced"
                     />
+                    {competitionDescription && (
+                      <div className="markdownPreview spaced">
+                        <span className="previewLabel">Preview</span>
+                        <Remark>{competitionDescription}</Remark>
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -968,6 +975,12 @@ export default function AdminPortalPage(props: any) {
                 onChange={handleNewDescriptionChange}
                 className="spaced"
               />
+              {newCompetitionDescription && (
+                <div className="markdownPreview spaced">
+                  <span className="previewLabel">Preview</span>
+                  <Remark>{newCompetitionDescription}</Remark>
+                </div>
+              )}
               
             </>
             <Button
