@@ -260,6 +260,13 @@ export default function AdminPortalPage(props: any) {
     }
   }, [selectedCompetition, loadCompetitionDescription]);
 
+  // clear selection when its competition is renamed
+  useEffect(() => {
+    if (resultsCompetition && !competitions.some((comp) => comp.competitionName === resultsCompetition)) {
+      setResultsCompetition(undefined);
+    }
+  }, [competitions, resultsCompetition]);
+
   // file upload
   const handleResultsFileChange = (info: any) => {
     if (info.file.status === 'done') {
@@ -713,7 +720,7 @@ export default function AdminPortalPage(props: any) {
                     />
                     <Popconfirm
                       title={`Rename ${selectedCompetition} to ${renameTo.trim()}?`}
-                      description="Links using the old name stop working."
+                      description="Links using the old name stop working. Make sure to manually update competitionsData.json if needed."
                       onConfirm={handleRenameCompetition}
                       disabled={!renameTo.trim()}
                     >
