@@ -369,5 +369,12 @@ export const getTeamEntries = async (competitionName: string, teamName: string):
 export const overrideTeamScore = async (competitionName: string, teamName: string, scores: TeamScore) =>
   (await axios.post(teamUrl(competitionName, teamName) + '/score', scores, authHeader())).data;
 
+export const renameCompetition = async (competitionName: string, newName: string): Promise<{ competitionName: string }> =>
+  (await axios.post(
+    process.env.REACT_APP_API + `/v1/competitions/${encodeURIComponent(competitionName)}/rename`,
+    { newName },
+    authHeader(),
+  )).data;
+
 export const setTeamDisqualified = async (competitionName: string, teamName: string, disqualified: boolean) =>
   (await axios.post(teamUrl(competitionName, teamName) + '/disqualify', { disqualified }, authHeader())).data;

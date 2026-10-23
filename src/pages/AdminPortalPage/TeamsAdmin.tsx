@@ -127,6 +127,11 @@ export default function TeamsAdmin({ competitions }: { competitions: string[] })
     if (competition) loadTeams(competition);
   }, [competition, loadTeams]);
 
+  // clear selection when its competition is renamed
+  useEffect(() => {
+    if (competition && !competitions.includes(competition)) setCompetition(undefined);
+  }, [competition, competitions]);
+
   const toggleDisqualified = (team: AdminTeam) => {
     setTeamDisqualified(competition!, team.teamName, !team.disqualified)
       .then(() => {

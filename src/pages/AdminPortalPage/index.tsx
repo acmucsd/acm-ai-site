@@ -12,7 +12,7 @@ import TeamsAdmin from './TeamsAdmin';
 import { Remark } from 'react-remark';
 import { useHistory } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
-import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings, uploadNewCompetition, LEADERBOARD_TYPES, LeaderboardType } from '../../actions/competition';
+import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings, uploadNewCompetition, renameCompetition, LEADERBOARD_TYPES, LeaderboardType } from '../../actions/competition';
 import { getUsers as fetchUsers, getIdentifiers as fetchIdentifiers, 
   promoteUserToAdmin, promoteUserToPrimaryAdmin, getAdmins, removeAdmin, Admin } from '../../actions/users';
 const { Content } = Layout;
@@ -42,6 +42,7 @@ export default function AdminPortalPage(props: any) {
   const [uploadingResults, setUploadingResults] = useState(false);
   const [resultsFile, setResultsFile] = useState<File | null>(null);
   const [selectedCompetition, setSelectedCompetition] = useState<string | undefined>(undefined);
+  const [renameTo, setRenameTo] = useState('');
   const [resultsCompetition, setResultsCompetition] = useState<string>();
   const [competitions, setCompetitions] = useState<Array<{ competitionName: string }>>([]);
   const [competitionsLoading, setCompetitionsLoading] = useState(true);
@@ -259,6 +260,13 @@ export default function AdminPortalPage(props: any) {
     }
   }, [selectedCompetition, loadCompetitionDescription]);
 
+  // clear selection when its competition is renamed
+  useEffect(() => {
+    if (resultsCompetition && !competitions.some((comp) => comp.competitionName === resultsCompetition)) {
+      setResultsCompetition(undefined);
+    }
+  }, [competitions, resultsCompetition]);
+
   // file upload
   const handleResultsFileChange = (info: any) => {
     if (info.file.status === 'done') {
@@ -286,6 +294,17 @@ export default function AdminPortalPage(props: any) {
 
   const handleCompetitionSelect = (value: string) => {
     setSelectedCompetition(value);
+  };
+
+  const handleRenameCompetition = () => {
+    renameCompetition(selectedCompetition!, renameTo.trim())
+      .then(({ competitionName }) => {
+        message.success(`Renamed ${selectedCompetition} to ${competitionName}.`);
+        setRenameTo('');
+        setSelectedCompetition(competitionName);
+        loadCompetitionsData();
+      })
+      .catch((error) => message.error(error.response?.data?.error?.message ?? 'Failed to rename competition.'));
   };
 
   const handleUploadResults = () => {
@@ -691,6 +710,24 @@ export default function AdminPortalPage(props: any) {
                     </Option>
                   ))}
                 </Select>
+
+                {selectedCompetition && user.primaryAdmin && (
+                  <Flex gap="small" className="spaced">
+                    <Input
+                      placeholder="New competition name"
+                      value={renameTo}
+                      onChange={(e) => setRenameTo(e.target.value)}
+                    />
+                    <Popconfirm
+                      title={`Rename ${selectedCompetition} to ${renameTo.trim()}?`}
+                      description="Links using the old name stop working. Make sure to manually update competitionsData.json if needed."
+                      onConfirm={handleRenameCompetition}
+                      disabled={!renameTo.trim()}
+                    >
+                      <Button disabled={!renameTo.trim()}>Rename</Button>
+                    </Popconfirm>
+                  </Flex>
+                )}
 
                 {selectedCompetition && (
                   <>
