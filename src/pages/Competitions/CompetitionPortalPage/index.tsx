@@ -41,58 +41,13 @@ const { Content } = Layout;
  *
  */
 export const TeamMemberAvatar = ( {username}:{username: string}) => {
-    const [avatarUrl, setAvatarUrl] = useState('');
-    const [loadingImage, setLoadingImage] = useState(false);
-    
-    useEffect(() => {
-        setLoadingImage(true);
-        try {
-            // Generate avatar based on username using DiceBear
-            const svg = createAvatar(botttsNeutral, {
-                seed: username,
-                radius: 50,
-                backgroundType: ["gradientLinear"]
-            }).toString();
+    const src = createAvatar(botttsNeutral, {
+        seed: username,
+        radius: 50,
+        backgroundType: ["gradientLinear"]
+    }).toDataUriSync();
 
-            // Convert the SVG string to a data URL
-            const encodedSvg = btoa(encodeURIComponent(svg));
-            const dataUrl = `data:image/svg+xml;base64,${encodedSvg}`;
-
-            // Set the avatar URL
-            setAvatarUrl(dataUrl);
-            
-        } catch (error) {
-            console.error("Error generating avatar:", error);
-            // Handle the error gracefully (e.g., set a default avatar)
-            setAvatarUrl('/logo192.png'); // Replace with a default image
-        } finally {
-            setLoadingImage(false);
-        }
-        
-    }, [username]);
-
-    return (
-        <>
-        {loadingImage ? (
-           <Skeleton active = {true}  /> 
-        ) : (
-            <img
-                className="teamMemberImage"
-                src={avatarUrl}
-                style={{
-                    width: '3.5rem',
-                    height: '3.5rem',
-                    marginRight: '0.75rem'
-                }}
-                alt={`Avatar for ${username}`}
-                onError={() => {
-                    console.error("Error loading avatar image");
-                    setAvatarUrl('/logo192.png');
-                }}
-            />
-        )}
-    </>
-    )
+    return <img className="teamMemberImage" src={src} alt="" />;
 }
 
 /**

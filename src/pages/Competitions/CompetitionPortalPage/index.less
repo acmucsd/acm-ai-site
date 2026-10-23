@@ -400,13 +400,21 @@
 
       div.teamMember {
         display: flex;
+        align-items: center;
         padding: 8px;
         background: none;
         border-radius: @radius-base4;
         margin: 1rem 0rem 1rem 0;
         transition: 0.2s ease-in;
 
+        .teamMemberImage {
+          width: 3.5rem;
+          height: 3.5rem;
+          margin-right: 0.75rem;
+        }
+
         .teamMemberName {
+          margin: 0;
           font-weight: bold;
         }
       }
