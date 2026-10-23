@@ -3,6 +3,7 @@ import { Button, Flex, Input, InputNumber, Popconfirm, Select, Switch, message }
 import { Remark } from 'react-remark';
 import {
   getCompetitionDetails,
+  getEvaluators,
   updateCompetitionDescription,
   updateCompetitionSettings,
   renameCompetition,
@@ -46,6 +47,8 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [teamGroups, setTeamGroups] = useState<string[]>([]);
+  const [evaluator, setEvaluator] = useState<string | null>(null);
+  const [evaluators, setEvaluators] = useState<string[]>([]);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
 
   const loadCompetitionDescription = useCallback((competitionName: string) => {
@@ -65,6 +68,7 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
         setStartDate(toLocalInput(data.startDate));
         setEndDate(toLocalInput(data.endDate));
         setTeamGroups(data.teamGroups ?? []);
+        setEvaluator(data.evaluator ?? null);
       })
       .catch((error) => {
         message.error(`Failed to load details for ${competitionName}.`);
@@ -82,8 +86,15 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
         setStartDate('');
         setEndDate('');
         setTeamGroups([]);
+        setEvaluator(null);
       })
       .finally(() => setDetailsLoading(false));
+  }, []);
+
+  useEffect(() => {
+    getEvaluators()
+      .then(setEvaluators)
+      .catch(() => message.error('Failed to load evaluators.'));
   }, []);
 
   useEffect(() => {
@@ -170,6 +181,7 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
       startDate: new Date(startDate).toISOString(),
       endDate: new Date(endDate).toISOString(),
       teamGroups: teamGroups.length ? teamGroups : null,
+      evaluator,
     };
 
     updateCompetitionSettings(selectedCompetition, payload)
@@ -326,6 +338,17 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
                       onChange={(groups: string[]) => setTeamGroups(cleanGroups(groups))}
                       open={false}
                       className="divisions-select"
+                    />
+                  </div>
+                  <div>
+                    <span>Evaluator</span>
+                    <Select
+                      allowClear
+                      placeholder="None"
+                      value={evaluator ?? undefined}
+                      onChange={(value?: string) => setEvaluator(value ?? null)}
+                      options={evaluators.map((name) => ({ label: name, value: name }))}
+                      className="type-select"
                     />
                   </div>
                 </div>
