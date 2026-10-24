@@ -372,6 +372,9 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 >
                                     <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
 
+                                    {typeof metaData?.maxTeamSize === 'number' && (
+                                        <p>Max team size: {metaData.maxTeamSize}</p>
+                                    )}
                                     {/* inline style here needed */}
                                     <h3 id = "inviteCode" style={{
                                         fontWeight: 'bold',
