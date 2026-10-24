@@ -233,7 +233,8 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
 
                         <div id="teamScoreHistorySection">
                             <h3>Score History</h3>
-                            <LineChart scoreHistory={(teamInfo != null) ? teamInfo.scoreHistory.map(Number) : []}/>
+                            {/* public_private comps keep scores in publicScoreHistory */}
+                            <LineChart scoreHistory={(teamInfo != null) ? (teamInfo.publicScoreHistory?.length ? teamInfo.publicScoreHistory : teamInfo.scoreHistory).map(Number) : []}/>
                         </div>
 
                         <div id = "uploadFileSection">

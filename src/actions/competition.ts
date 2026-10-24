@@ -35,7 +35,8 @@ export const uploadSubmission = async (
   userid: string
 ): Promise<AxiosResponse> => {
   if (!file) {
-    throw new Error('No file selected. Please add a file before submitting.');
+    message.error('No file selected. Please add a file before submitting.');
+    throw new Error('No file selected');
   }
 
   let token = getToken(COOKIE_NAME);
@@ -61,7 +62,7 @@ export const uploadSubmission = async (
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
+        message.error(error.response?.data?.error?.message ?? 'Upload failed. Please try again.');
         reject(error);
       });
   });
