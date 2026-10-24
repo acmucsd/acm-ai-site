@@ -99,7 +99,8 @@ const LineChart = ({ scoreHistory }: {scoreHistory: Array<number>}) => {
         let lastTwo = scoreHistory.slice(-2);
         
         const diff = lastTwo[1] - lastTwo[0];
-        const percent = diff / lastTwo[0];
+        // as a percent. hidden when the previous score was 0
+        const percent = lastTwo[0] ? (diff / lastTwo[0]) * 100 : 0;
         setScoreHistoryPercentage(percent);
     }
     

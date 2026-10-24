@@ -62,13 +62,17 @@ const CompetitionUploadPage = () => {
       user.username as string
     )
       .then((res) => {
-        message.success('Submission Uploaded Succesfully');
+        if (res.data?.evaluationOk === false) {
+          message.warning('Submission failed validation. See Latest Submission Result for details.');
+        } else {
+          message.success('Submission uploaded successfully');
+        }
         localStorage.setItem("activeTab", JSON.stringify('3'));
         history.replace('/portal');
       })
       .catch((err) => {
+        // uploadSubmission already showed the error
         console.error(err);
-        message.error(`${err}`);
       })
       .finally(() => {
         setUploading(false);
@@ -90,6 +94,11 @@ const CompetitionUploadPage = () => {
   };
 
   const beforeUpload = (file: any) => {
+    if (file.size === 0) {
+      message.error('File is empty.');
+      return false;
+    }
+
     const isWithinSizeLimit = file.size <= MAX_UPLOAD_SIZE_BYTES;
     if (!isWithinSizeLimit) {
       message.error(`File must be ${MAX_UPLOAD_SIZE_BYTES / (1024 * 1024)}MB or smaller.`);
