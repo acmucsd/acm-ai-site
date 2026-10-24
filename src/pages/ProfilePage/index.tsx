@@ -134,7 +134,7 @@ export default function ProfilePage(props: any) {
             <div className='compsContainer'>
               <div className="compsHeader">
                   <h3 className='sub-title'>Most Recent Competition: <span className="colorful">
-                          Stellatro.AI (2026)</span></h3>
+                          Five Nights with AI (2026)</span></h3>
               </div>
               <p className='compsDescription'> Collaborate in a dynamic team environment and gain hands-on 
                         experience, while enjoying every step of the journey!
