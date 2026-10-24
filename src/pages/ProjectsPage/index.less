@@ -1,7 +1,4 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-
+@import (reference) '../../styles/index.less';
 .ProjectsPage {
     .noContainer();
 
@@ -10,6 +7,7 @@
         .constrained-bounds();
         text-align: center;
         margin-top: 4rem;
+        padding-bottom: 0;
 
         h4 {
             max-width: @max-width2;
@@ -22,14 +20,20 @@
       
             text-align: center;
           }
-        .sortDropDown {
+        .joinButton {
+            .button-colorful();
             margin-top: 2rem;
+        }
+
+        .sortDropDown {
+            margin-top: 6rem;
         }
     }
 
     .projectsSection {
         .constrained-bounds();
         .generic-section();
+        padding-top: 2rem;
         margin-bottom: 10rem;
 
         .ant-tag-checkable {
@@ -40,7 +44,7 @@
     .project-image {
         object-fit: cover;
         border-radius: @radius-base3;
-        box-shadow: @bx2;
+        box-shadow: var(--raised-shadow);
     }
 
     .project-info {

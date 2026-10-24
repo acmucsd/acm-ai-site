@@ -1,8 +1,4 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-@import '../../newStyles/variables.less';
-
+@import (reference) '../../styles/index.less';
 .CompetitionsPage {
   .noContainer();
 
@@ -42,14 +38,6 @@
       }
 
   
-
-      .colorful{
-        background: linear-gradient(#F66161, #FF8130);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;  /* For Firefox */
-        color: transparent;
-      }
 
       &::before {
         content: url('../../../public/trophy_bg.png'); // Add your trophy icon path
@@ -133,12 +121,12 @@
   }
 
   .pastCompetitionsHeader {
-    background: @orange;
+    background: var(--accent);
     margin-top: 4rem;
     padding: 5rem ;
     text-align: center;
     h1, h4 {
-      color: white;
+      color: var(--text-inverse);
       margin: auto;
     }
     h4 {
@@ -152,7 +140,7 @@
   .noCompetitionsBox {
     display: inline-block;
     border-radius: 50px;
-    background: #F6F6F6;
+    background: var(--surface-alt);
     margin-top: 3rem;
     padding: 1rem 2rem;
 
@@ -178,10 +166,9 @@
       margin-bottom: 3rem;
       margin-top: 3rem;
       padding: 4rem;
-      background: #f7f7f7;
-      border-radius: @radius-base5;
-      border: 2px solid @stat1;
-      background-color: #fffbfb;
+        border-radius: @radius-base5;
+      border: 2px solid var(--accent);
+      background-color: var(--accent-tint);
 
       h3 {
         font-weight: @bold;

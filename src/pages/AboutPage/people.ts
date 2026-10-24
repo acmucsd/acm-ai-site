@@ -41,7 +41,7 @@ const fetchData = async (): Promise<Record<string, Person[]>>=> {
           major: row[3] || '',
           bio: row[4] || '',
           picture: row[5]?.startsWith("https://drive.google.com") ? 
-                "/logo512.png" : row[5] || "/logo512.png",
+                "/aiperson.png" : row[5] || "/aiperson.png",
           socials: {
             github: row[6] || '',
             linkedin: row[7] || '',

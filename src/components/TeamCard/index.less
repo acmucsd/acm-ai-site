@@ -1,11 +1,8 @@
-@import '../../newStyles/variables.less';
-@import '../../newStyles/components.less';
-
-
+@import (reference) '../../styles/index.less';
 #teamModalContent {
 
     section#teamMembersContainer {
-        background: @gray;
+        background: var(--surface-strong);
         padding: @padding-base2;
         border-radius: @radius-base4;
         margin-top: 2rem;
@@ -33,10 +30,10 @@ div.teamPreviewCard {
     
     width: 100%;
     align-items: center;
-    background: @gray;
+    background: var(--surface-strong);
     padding: @padding-base2;
     border-radius: @radius-base4;
-    box-shadow: @bx3;
+    box-shadow: var(--card-shadow);
   
     span:first-child {
         display: flex;

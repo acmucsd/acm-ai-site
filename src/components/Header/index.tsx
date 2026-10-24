@@ -21,14 +21,14 @@ function Header() {
     { to: '/projects', text: 'Projects' },
   ];
   const handleMenuClick: MenuProps['onClick'] = (e) => {
-    if(e.key === "3"){
+    if (e.key === "3") {
       logoutUser();
       setUser(defaultUser);
       message.success('Logged out');
       history.push('/');
     }
   };
-  
+
   const items: MenuProps['items'] = [
     {
       label: <Link to="/profile">Profile</Link>,
@@ -38,12 +38,13 @@ function Header() {
       label: <Link to="/portal">Portal</Link>,
       key: '2',
     },
+    ...(user.admin ? [{ label: <Link to="/admin/portal" className="text-colorful">Admin</Link>, key: 'admin' }] : []),
     {
       label: 'Logout',
       key: '3',
     }
   ];
-  
+
   const menuProps = {
     items,
     onClick: handleMenuClick,
@@ -89,7 +90,7 @@ function Header() {
             <Button
               ghost
               className="menuButton"
-              icon={<HiOutlineMenu size={35} style = {{color: "black"}} />}
+              icon={<HiOutlineMenu size={35} style={{ color: 'var(--foreground)' }} />}
               onClick={() => toggleMenu()}
             />
           ) : (
@@ -100,6 +101,15 @@ function Header() {
                   {link.text}
                 </Link>
               ))}
+
+              <a
+                href="https://wiki.ai.acmucsd.com/"
+                className="navItem"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wiki
+              </a>
 
               {user.loggedIn ? (
                 <Dropdown
@@ -134,27 +144,40 @@ function Header() {
             {link.text}
           </Link>
         ))}
-        
+
+        <a
+          className="mobileNavItem"
+          href="https://wiki.ai.acmucsd.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wiki
+        </a>
 
         {user.loggedIn ? (
           <>
-          <Link className="mobileNavItem" to="/profile">
-            Profile
-          </Link>
-          <Link className="mobileNavItem" to="/portal">
-            Portal
-          </Link>
-          <div
-            className="logOutOption"
-            onClick={() => {
-              logoutUser();
-              setUser(defaultUser);
-              message.success('Logged out');
-              history.push('/');
-            }}
-          >
-            Logout
-          </div>
+            <Link className="mobileNavItem" to="/profile">
+              Profile
+            </Link>
+            <Link className="mobileNavItem" to="/portal">
+              Portal
+            </Link>
+            {user.admin && (
+              <Link className="mobileNavItem text-colorful" to="/admin/portal">
+                Admin
+              </Link>
+            )}
+            <div
+              className="logOutOption"
+              onClick={() => {
+                logoutUser();
+                setUser(defaultUser);
+                message.success('Logged out');
+                history.push('/');
+              }}
+            >
+              Logout
+            </div>
           </>
         ) : (
           <Link className="mobileNavItem" to="/login">

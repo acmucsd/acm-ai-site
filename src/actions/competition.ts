@@ -35,7 +35,7 @@ export const uploadSubmission = async (
   userid: string
 ): Promise<AxiosResponse> => {
   if (!file) {
-    throw new Error('No file selected. Please upload a .zip file before submitting.');
+    throw new Error('No file selected. Please add a file before submitting.');
   }
 
   let token = getToken(COOKIE_NAME);
@@ -186,9 +186,14 @@ export type UpdateCompetitionSettingsPayload = {
   leaderboardType?: LeaderboardType;
   submissionFileName?: string;
   inPortal?: boolean;
+  startDate?: string;
+  endDate?: string;
+  submissionCooldown?: number;
+  teamGroups?: string[] | null;
   minTeamSize?: number;
   maxTeamSize?: number;
   showPrivateScores?: boolean;
+  evaluator?: string | null;
 };
 
 export type NewCompetitionSettingsPayload = {
@@ -205,6 +210,7 @@ export type NewCompetitionSettingsPayload = {
   maxTeamSize?: number;
   showPrivateScores: boolean;
   truthCSV?: string;
+  teamGroups?: string[];
 };
 
 export const updateCompetitionSettings = async (
@@ -355,6 +361,9 @@ const teamUrl = (competitionName: string, teamName: string) =>
 
 const authHeader = () => ({ headers: { Authorization: `Bearer ${getToken(COOKIE_NAME)}` } });
 
+export const getEvaluators = async (): Promise<string[]> =>
+  (await axios.get(process.env.REACT_APP_API + '/v1/competitions/evaluators', authHeader())).data.evaluators;
+
 export const getAdminTeams = async (competitionName: string): Promise<AdminTeam[]> =>
   (await axios.get(process.env.REACT_APP_API + `/v1/competitions/teams/${competitionName}/all`, authHeader())).data;
 
@@ -363,6 +372,13 @@ export const getTeamEntries = async (competitionName: string, teamName: string):
 
 export const overrideTeamScore = async (competitionName: string, teamName: string, scores: TeamScore) =>
   (await axios.post(teamUrl(competitionName, teamName) + '/score', scores, authHeader())).data;
+
+export const renameCompetition = async (competitionName: string, newName: string): Promise<{ competitionName: string }> =>
+  (await axios.post(
+    process.env.REACT_APP_API + `/v1/competitions/${encodeURIComponent(competitionName)}/rename`,
+    { newName },
+    authHeader(),
+  )).data;
 
 export const setTeamDisqualified = async (competitionName: string, teamName: string, disqualified: boolean) =>
   (await axios.post(teamUrl(competitionName, teamName) + '/disqualify', { disqualified }, authHeader())).data;

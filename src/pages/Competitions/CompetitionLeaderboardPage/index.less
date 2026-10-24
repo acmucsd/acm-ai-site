@@ -1,7 +1,4 @@
-@import '../../../newStyles/layout.less';
-@import '../../../newStyles/layout.less';
-@import '../../../newStyles/components.less';
-@import '../../../newStyles/variables.less';
+@import (reference) '../../../styles/index.less';
 .CompetitionLeaderboardPage {
   .noContainer();
   .generic-section();
@@ -25,8 +22,8 @@
   .refresh-btn {
     margin-bottom: 1rem;
     margin-right: 1rem;
-    background: @black;
+    background: var(--foreground);
     border: none;
-    color: white;
+    color: var(--text-inverse);
   }
 }

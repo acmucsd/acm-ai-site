@@ -2,7 +2,7 @@ import React from "react";
 import type { ColumnsType } from "antd/es/table";
 import { Tag } from "antd";
 import { CompetitionData, LeaderboardType, isLeaderboardType } from "../../../actions/competition";
-import { genColor } from "../../../utils/colors";
+import TeamAvatar from "../../../components/TeamAvatar";
 
 const rankColumn: ColumnsType<CompetitionData>[number] = {
     title: 'Rank',
@@ -16,22 +16,9 @@ const teamColumn: ColumnsType<CompetitionData>[number] = {
     dataIndex: 'team',
     sorter: (a, b) => a.team.length - b.team.length,
     render(value, record, index) {
-        const color1 = genColor(record.team);
-        const color2 = genColor(`${record.team}_additional_seed`);
-
         return (
             <span>
-                <div
-                    style={{
-                        display: 'inline-block',
-                        verticalAlign: 'middle',
-                        borderRadius: '50%',
-                        width: '2rem',
-                        height: '2rem',
-                        background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                        marginRight: '0.75rem',
-                    }}
-                ></div>
+                <TeamAvatar teamName={record.team} size="small" />
                 {value.length > 28 ? (
                     <span>{value.substring(0, 28)}...</span>
                 ) : (
@@ -114,9 +101,26 @@ const drawColumn: ColumnsType<CompetitionData>[number] = {
     sorter: (a, b) => (a.drawHistory?.[a.drawHistory.length - 1] ?? 0) - (b.drawHistory?.[b.drawHistory.length - 1] ?? 0),
 };
 
+const isMissingScore = (value: number | null | undefined): boolean =>
+    value == null || !Number.isFinite(value);
+
+const formatMseScore = (value: number | null | undefined): string =>
+    value == null || !Number.isFinite(value)
+        ? '—'
+        : value.toLocaleString('en-US', { maximumSignificantDigits: 6, useGrouping: false });
+
 const mseColumn: ColumnsType<CompetitionData>[number] = {
     title: 'MSE',
     dataIndex: 'score',
+    render: (value: number | null) => formatMseScore(value),
+    sorter: (a, b, sortOrder) => {
+        const direction = sortOrder === 'descend' ? -1 : 1;
+        const aMissing = isMissingScore(a.score);
+        const bMissing = isMissingScore(b.score);
+        if (aMissing) return bMissing ? 0 : direction;
+        if (bMissing) return -direction;
+        return a.score - b.score;
+    },
 };
 
 const columnsByLeaderboardType: Record<LeaderboardType, ColumnsType<CompetitionData>> = {
@@ -147,4 +151,6 @@ export {
     winColumn,
     lossColumn,
     drawColumn,
+    mseColumn,
+    formatMseScore,
 };

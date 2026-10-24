@@ -1,5 +1,15 @@
 [
     {
+      "competitionName": "Five Nights with AI",
+      "icon": "../../../fivenightswithai.png",
+      "year": "2026",
+      "stats": {
+      },
+      "description": "Ever wondered if you could survive the night shift or if the animatronics would catch you first? Put your skills to the test by building a machine learning model to predict if you can make it to 4:00 PM! Compete for Raspberry Pis, an AI development kit, and other goodies, and attend workshops hosted by our sponsors: Google, SpaceX, and Voiskey!",
+      "link": "/competitions/Five Nights with AI",
+      "leaderboard": ""
+    },
+    {
       "competitionName": "Stellatro.AI",
       "icon": "../../../stellatro.png",
       "year": "2026",

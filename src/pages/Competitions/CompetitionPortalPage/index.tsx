@@ -17,14 +17,16 @@ import {
 } from '../../../actions/teams/utils';
 import DefaultLayout from "../../../components/layouts/default";
 import { CompetitionData, getLeaderboard, getMetaData, getPortalCompetition, registerCompetitionUser } from "../../../actions/competition";
-import { genColor } from "../../../utils/colors";
+import TeamAvatar from "../../../components/TeamAvatar";
 import { createAvatar } from '@dicebear/core';
 import { botttsNeutral } from '@dicebear/collection';
 import CountdownTimer from "./CountDownTimer";
 import LineChart from "./LineChart";
 
+import { formatMseScore } from "./leaderboardColumns";
 import LeaderBoardTab from "./Leaderboard";
 import FindTeamsTab from "./FindTeams";
+import NoCompetition from "./NoCompetition";
 
 import path from 'path';
 import './index.less';
@@ -39,81 +41,14 @@ const { Content } = Layout;
  *
  */
 export const TeamMemberAvatar = ( {username}:{username: string}) => {
-    const [avatarUrl, setAvatarUrl] = useState('');
-    const [loadingImage, setLoadingImage] = useState(false);
-    
-    useEffect(() => {
-        setLoadingImage(true);
-        try {
-            // Generate avatar based on username using DiceBear
-            const svg = createAvatar(botttsNeutral, {
-                seed: username,
-                radius: 50,
-                backgroundType: ["gradientLinear"]
-            }).toString();
+    const src = createAvatar(botttsNeutral, {
+        seed: username,
+        radius: 50,
+        backgroundType: ["gradientLinear"]
+    }).toDataUriSync();
 
-            // Convert the SVG string to a data URL
-            const encodedSvg = btoa(encodeURIComponent(svg));
-            const dataUrl = `data:image/svg+xml;base64,${encodedSvg}`;
-
-            // Set the avatar URL
-            setAvatarUrl(dataUrl);
-            
-        } catch (error) {
-            console.error("Error generating avatar:", error);
-            // Handle the error gracefully (e.g., set a default avatar)
-            setAvatarUrl('/logo192.png'); // Replace with a default image
-        } finally {
-            setLoadingImage(false);
-        }
-        
-    }, [username]);
-
-    return (
-        <>
-        {loadingImage ? (
-           <Skeleton active = {true}  /> 
-        ) : (
-            <img
-                className="teamMemberImage"
-                src={avatarUrl}
-                style={{
-                    width: '3.5rem',
-                    height: '3.5rem',
-                    marginRight: '0.75rem'
-                }}
-                alt={`Avatar for ${username}`}
-                onError={() => {
-                    console.error("Error loading avatar image");
-                    setAvatarUrl('/logo192.png');
-                }}
-            />
-        )}
-    </>
-    )
+    return <img className="teamMemberImage" src={src} alt="" />;
 }
-
-export const generateTeamPicture = (teamName: any) => {
-
-    const color1 = genColor(teamName);
-    const color2 = genColor(`${teamName}_additional_seed`);
-    
-
-    return (
-        <div
-            style={{
-                display: 'inline-flex',
-                verticalAlign: 'middle',
-                borderRadius: '100%',
-                width: '4rem',
-                height: '4rem',
-                background: `linear-gradient(30deg, ${color1}, ${color2})`,
-                marginRight: '2rem',
-            }}>
-        </div>
-    )
-}
-
 
 /**
  * Component that displays a team's data. Contains several components 
@@ -272,7 +207,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                         <div id="teamHeader">
                             <div id="teamNameWrapper">
                                 <div>
-                                    {generateTeamPicture(teamInfo.teamName)}
+                                    <TeamAvatar teamName={teamInfo.teamName} size="large" />
                                 </div>
                                 <article>
                                     <h3>
@@ -282,7 +217,7 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                     <p id = "rankingTag">{rankData.rank ? `${getOrdinal(rankData.rank)} place` : "Unranked"}</p>
                                 </article>
                             
-                                <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28} style = {{color: "black"}}/>}></Button>
+                                <Button type = "link" size="large" id = "leaveTeamButton" onClick={showLeaveModal} icon = {<IoEllipsisVertical size = {28} style = {{color: 'var(--foreground)'}}/>}></Button>
                                 <Modal
                                     centered
                                     title="Are you sure you want to leave this team?"
@@ -375,7 +310,6 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                     {typeof metaData?.maxTeamSize === 'number' && (
                                         <p>Max team size: {metaData.maxTeamSize}</p>
                                     )}
-                                    {/* inline style here needed */}
                                     <h3 id = "inviteCode" style={{
                                         fontWeight: 'bold',
                                         marginTop: '12px'
@@ -719,7 +653,7 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
                 open={isModalOpen}
                 maskClosable={false}
                 onCancel={handleCancel}
-                title={<h3 style={{ fontWeight: '700' }}>Register</h3>}
+                title={<h3 className="modal-title">Register</h3>}
                 footer={null}
             >
                 <p>
@@ -789,15 +723,17 @@ function CompetitionPortal({ competitionName }: { competitionName: string }) {
 
                                             <Col span={6} className="stat-col">
                                                 <div className="stat-value"> 
-                                                    {userRankData.scoreHistory?.length > 0
-                                                        ? userRankData.scoreHistory[userRankData.scoreHistory?.length - 1]
-                                                        : 0
+                                                    {metaData?.leaderboardType === 'mse'
+                                                        ? (userRankData.team ? formatMseScore(userRankData.score) : '—')
+                                                        : userRankData.scoreHistory?.length > 0
+                                                            ? userRankData.scoreHistory[userRankData.scoreHistory?.length - 1]
+                                                            : 0
                                                     }
                                                 </div>
                                             </Col>
 
                                             <Col span={6} className="stat-col">
-                                                <div className="stat-value">{userRankData.rank || "-"}</div>
+                                                <div className="stat-value">{userRankData.rank || "—"}</div>
                                             </Col>
 
                                             {isWld && (
@@ -893,13 +829,7 @@ function CompetitionPortalPage() {
     }
 
     if (competitionName === null) {
-        return (
-            <DefaultLayout>
-                <Content className="CompetitionPortalPage">
-                    <p>No competition is running right now. Check back soon!</p>
-                </Content>
-            </DefaultLayout>
-        );
+        return <DefaultLayout><NoCompetition /></DefaultLayout>;
     }
 
     return <CompetitionPortal competitionName={competitionName} />;

@@ -1,8 +1,4 @@
-@import '../../../newStyles/text.less';
-@import '../../../newStyles/components.less';
-@import '../../../newStyles/index.less';
-@import '../../../newStyles/variables.less';
-
+@import (reference) '../../../styles/index.less';
 .CompetitionLandingPage {
   .noContainer();
 
@@ -35,39 +31,7 @@
   .competitionMarkdown {
     .generic-section();
     .constrained-bounds();
-
-    h1 {
-      font-size: @font5;
-      margin-top: 2rem;
-      line-height: 4rem;
-    }
-
-    h2 {
-      font-size: @font4;
-      margin-top: 4rem;
-      line-height: 2rem;
-    }
-    
-    img {
-      max-width: 100%; 
-      height: auto; 
-      display: block;  
-      margin: 1rem auto;
-    }
-  
-    iframe {
-      max-width: 100%;
-      width: 100%;
-      height: auto;
-      display: block;
-      margin: 1rem auto;
-    }
-
-    p {
-      margin-top: 2rem;
-      line-height: 2rem;
-    }
-    
+    .markdown-content();
   }
 
 

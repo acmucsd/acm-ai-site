@@ -1,9 +1,6 @@
-@import '../../newStyles/text.less';
-@import '../../newStyles/components.less';
-@import '../../newStyles/index.less';
-
-
+@import (reference) '../../styles/index.less';
 .homeHeader {
+  position: relative;
   padding-top: 20rem;
   padding-bottom: 16rem;
 
@@ -17,33 +14,13 @@
     align-items: center;
     
 
-    .HomeIconMobile{
-      width: 40rem;
-      margin-bottom: @margin-base4;
-
-      @media screen and (min-width: @xs){
-        display: none;
-      }
-
-    }
-
     .ai-logo{
       width: 25vw;
-
-      @media screen and (max-width: @xs){
-        display:none;
-      }
-
-
     }
   }
 
   .homeText {
     width: 50vw;
-    @media screen and (max-width: @xs){
-      width: 60vw;
-    margin-right: 2rem;
-  }
 
   .homeButtons {
     margin-top: 2rem;
@@ -56,15 +33,27 @@
   
     .aboutButton {
       .button-red-outline();
-      border: 2px solid @mainred;
+      border: 2px solid var(--accent);
     }
   }
 
     margin-right: 2rem;
 
     .homeTitle{
-      font-size: @font8;
-      margin-bottom: @margin-base3;
+      font-size: min(84px, 6.5vw);
+      line-height: 1.1;
+      margin: @margin-base2 0 @margin-base;
+    }
+
+    .homeTagline {
+      font-size: min(24.5px, 1.9vw);
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--heading);
+
+      strong {
+        font-weight: 700;
+      }
     }
 
     h3{
@@ -82,7 +71,7 @@
     
       .aboutButton {
         .button-red-outline();
-        border: 2px solid @mainred;
+        border: 2px solid var(--accent);
       }
     }
   }
@@ -92,29 +81,167 @@
     width: 15vw;
   }
 
+  // between buttons and wave trough
+  .scrollArrow {
+    position: absolute;
+    top: 66%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: none;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: @font1;
+    cursor: pointer;
+
+    img {
+      width: 23px;
+    }
+  }
+
+  .HomeIconMobile {
+    display: none;
+  }
+
   @media screen and (max-width: @xs) {
-    padding-bottom: 0rem;
+    flex-direction: column;
+    padding: 64px 16px 48px;
+
     .homeContent {
       flex-direction: column;
-      align-items: center;
     }
 
-    .ai-logo {
-      width: 40%;
+    .HomeIconMobile {
+      display: block;
+      width: 55vw;
     }
 
-    .homeButtons {
-      flex-direction: column;
-      margin-bottom: 4rem;
+    .ai-logo, .wavy, .gradientDescent {
+      display: none;
     }
 
-    .getStartedButton, .aboutButton {
-      font-size: @font3;
-      padding: 0.5rem 0.5rem;
+    .homeText {
+      width: auto;
+      margin: 40px 0 0;
+      text-align: center;
+
+      .homeTitle {
+        font-size: 15vw;
+      }
+
+      .homeTagline {
+        font-size: 3.9vw;
+      }
+
+      .homeButtons {
+        justify-content: center;
+
+        .getStartedButton, .aboutButton {
+          width: 140px;
+          margin-right: 0;
+        }
+      }
+    }
+
+    .scrollArrow {
+      position: static;
+      transform: none;
+      margin-top: 48px;
+      font-size: 14px;
     }
   }
 }
 
+
+@media screen and (min-width: (@xs + 1)) {
+  .homeHeader {
+    .homeContent {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-items: center;
+    }
+
+    .homeText {
+      width: auto;
+      max-width: 44vw;
+      margin-right: 0;
+      text-align: center;
+      position: relative;
+      top: -12rem;
+
+      .homeButtons {
+        justify-content: center;
+
+        .getStartedButton, .aboutButton {
+          width: clamp(85px, 10.9vw, 140px);
+          height: clamp(24px, 3.1vw, 40px);
+          padding: 0;
+          font-size: clamp(9.75px, 1.25vw, 16px);
+        }
+      }
+    }
+  }
+
+  .floatingShapes {
+    position: absolute;
+    inset: 0;
+    padding-bottom: 0;
+    pointer-events: none;
+  }
+}
+
+// between mobile and wide
+@media screen and (min-width: (@xs + 1)) and (max-width: @sm) {
+  .homeHeader {
+    .homeContent {
+      grid-template-columns: 3fr 2fr;
+
+      // under the curve peak
+      .ai-logo {
+        transform: translate(-5vw, 15vw);
+      }
+    }
+
+    .homeText {
+      max-width: 60vw;
+
+      .homeTitle {
+        font-size: 60px;
+      }
+
+      .homeTagline {
+        font-size: min(16px, 2.4vw);
+      }
+
+      .homeButtons {
+        .getStartedButton, .aboutButton {
+          width: 130px;
+          height: 40px;
+          font-size: 16px;
+        }
+      }
+    }
+
+    // curve and descent points share this box
+    .wavy {
+      height: 75%;
+    }
+
+    .gradientDescent {
+      top: 25%;
+    }
+
+    .scrollArrow {
+      top: 74%;
+    }
+  }
+}
 
 @media screen and (max-width: @xs) {
   .infoButton, .knowledgeButton {
@@ -140,10 +267,11 @@
       }
 
       &.shapeBot {
-        width: 400px;
-        height: 400px;
-        top: 55%;
-        left: 10%;
+        width: 320px;
+        height: 320px;
+        top: 65%;
+        left: 55%;
+        transform: translate(-50%, -50%);
         background: url('../../../public/diamond_bottom_left.svg') no-repeat center center;
         background-size: 70%;
       }
@@ -163,15 +291,63 @@
   width: 100%;
   height:100%; 
   position: absolute;
-  background: url('../../../public/wavy.svg') no-repeat center center;
-  background-size: contain;
-  background-position: bottom;
+  background: url('../../../public/wavy.svg') no-repeat;
+  background-size: 100% 100%;
   bottom: 0;
   // @media only screen and (max-width: @md) {
   //   display: none;
   // }
 }
 
+// same box as .wavy so points land on the curve
+.gradientDescent {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 1s;
+
+  &.fading {
+    opacity: 0;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  line {
+    stroke: color-mix(in srgb, var(--gradient-end) var(--mix), var(--gradient-start));
+    stroke-opacity: 0.3;
+    stroke-width: 1.5;
+    stroke-dasharray: 1;
+    vector-effect: non-scaling-stroke;
+    animation: drawStep 0.3s ease-out both;
+  }
+
+  span {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: color-mix(in srgb, var(--gradient-end) var(--mix), var(--gradient-start));
+    opacity: 0.3;
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: showStep 0.3s 0.2s ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+@keyframes drawStep {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes showStep {
+  from { opacity: 0; }
+}
 
 .homeInfo {
   .generic-section();
@@ -188,6 +364,11 @@
     margin-bottom: 4rem;
     max-width: 80%;
     .constrained-bounds();
+
+    // image right on desktop, still above text when stacked
+    &.reverse {
+      flex-direction: row-reverse;
+    }
 
     img {
       flex: 0 1 50%;
@@ -238,9 +419,9 @@
     }
 
     .pinkContainer {
-      border: 3px solid @mainred;
+      border: 3px solid var(--accent);
       border-radius: @radius-base5;
-      background-color: #FFF8F8;
+      background-color: var(--accent-tint);
       max-width: 80%;
       padding: 3rem 5rem;
       margin-bottom: 5rem;
@@ -264,13 +445,9 @@
     }        
 }
 
-.colorful{
-  .text-colorful();
-}
-
 .homeBottomBar {
     box-sizing: border-box;
-    background: linear-gradient(to right, #F66161, #FE7C37);
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
     border: 0px solid transparent;
     background-clip: padding-box, border-box;
     background-origin: padding-box, border-box;

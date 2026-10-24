@@ -112,7 +112,7 @@ const fetchData = async (): Promise<Record<string, Person[]>> => {
             major: major || '',
             gradYear: row[14] || '',
             picture: picture?.startsWith("https://cdn.discordapp.com/") ?
-              "/logo512.png" : picture || "/logo512.png",
+              "/aiperson.png" : picture || "/aiperson.png",
             socials: {
               github: github ? (github.includes('https://')
                 ? github

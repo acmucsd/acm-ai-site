@@ -1,76 +1,28 @@
 import { useCallback, useEffect, useState } from 'react';
-import Fuse from 'fuse.js';
 import './index.less';
 import DefaultLayout from '../../components/layouts/default';
-import {
-  profileData,
-  UserProfile,
-} from '../../actions/users';
-import { Layout, Button, Flex, message, Upload, Select, Input, Switch, InputNumber } from 'antd';
+import { profileData, UserProfile } from '../../actions/users';
+import { Layout, Flex, Tabs, message } from 'antd';
 import MainFooter from '../../components/MainFooter';
-import TeamsAdmin from './TeamsAdmin';
-import { useHistory } from 'react-router-dom';
-import { UploadOutlined } from '@ant-design/icons';
-import { uploadCompetitionResults, getCompetitions, getCompetitionDetails, updateCompetitionDescription, updateCompetitionSettings, uploadNewCompetition, LEADERBOARD_TYPES, LeaderboardType } from '../../actions/competition';
-import { getUsers as fetchUsers, getIdentifiers as fetchIdentifiers, 
-  promoteUserToAdmin, promoteUserToPrimaryAdmin } from '../../actions/users';
+import { useHistory, useLocation } from 'react-router-dom';
+import { getCompetitions } from '../../actions/competition';
+import CompetitionsTab from './CompetitionsTab';
+import TeamsTab from './TeamsTab';
+import UsersTab from './UsersTab';
 const { Content } = Layout;
-const { Option } = Select;
-const { TextArea } = Input;
 
-const leaderboardTypeOptions = LEADERBOARD_TYPES.map((type) => ({ label: type, value: type }));
-
-const dateFormatter = new Intl.DateTimeFormat('en-US', {
-  month: 'long',
-  year: 'numeric',
-});
+const TABS = ['competitions', 'teams', 'users'];
 
 export default function AdminPortalPage(props: any) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [uploadingResults, setUploadingResults] = useState(false);
-  const [resultsFile, setResultsFile] = useState<File | null>(null);
-  const [selectedCompetition, setSelectedCompetition] = useState<string | undefined>(undefined);
-  const [competitions, setCompetitions] = useState<Array<{ competitionName: string }>>([]);
+  const [competitions, setCompetitions] = useState<string[]>([]);
   const [competitionsLoading, setCompetitionsLoading] = useState(true);
-  const [competitionDescription, setCompetitionDescription] = useState<string>('');
-  const [updatingDescription, setUpdatingDescription] = useState(false);
-  const [submissionsEnabled, setSubmissionsEnabled] = useState<boolean>(false);
-  const [showPrivateScores, setShowPrivateScores] = useState<boolean>(false);
-  const [leaderboardEnabled, setLeaderboardEnabled] = useState<boolean>(false);
-  const [inPortal, setInPortal] = useState<boolean>(false);
-  const [leaderboardType, setLeaderboardType] = useState<LeaderboardType>();
-  const [submissionFileName, setSubmissionFileName] = useState<string>('');
-  const [minTeamSize, setMinTeamSize] = useState<number | null>(null);
-  const [maxTeamSize, setMaxTeamSize] = useState<number | null>(null);
-  const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
-  const [creatingCompetition, setCreatingCompetition] = useState(false);
-  const [newCompetitionName, setNewCompetitionName] = useState<string>('');
-  const [newCompetitionDescription, setNewCompetitionDescription] = useState<string>('');
-  const [newStartDate, setNewStartDate] = useState<string>('');
-  const [newEndDate, setNewEndDate] = useState<string>('');
-  const [newSubmissionFileName, setNewSubmissionFileName] = useState<string>('');
-  const [newLeaderboardEnabled, setNewLeaderboardEnabled] = useState<boolean>(false);
-  const [newLeaderboardType, setNewLeaderboardType] = useState<LeaderboardType>();
-  const [newMaxTeamSize, setNewMaxTeamSize] = useState<number | null>(null);
-  const [newMinTeamSize, setNewMinTeamSize] = useState<number | null>(null);
-  const [newShowPrivateScores, setNewShowPrivateScores]  = useState<boolean>(false);
-  const [newSubmissionCooldown, setNewSubmissionCooldown] = useState<number | null>(null);
-  const [newSubmissionsEnabled, setNewSubmissionsEnabled] = useState<boolean>(false);
-  const [newTruthCSV, setNewtruthCSV] = useState<string>('');
 
   const history = useHistory();
-
-  // User Management State
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [users, setUsers] = useState<Array<{ username: string }>>([]);
-  const [identifiers, setIdentifiers] = useState<Array<{ identifier: string }>>([]);
-  const [filteredUsers, setFilteredUsers] = useState<Array<{ username: string }>>([]);
-  const [filteredIdentifiers, setFilteredIdentifiers] = useState<Array<{ identifier: string }>>([]);
-  const [selectedUserToPromote, setSelectedUserToPromote] = useState<string | undefined>(undefined);
-  const [usersLoading, setUsersLoading] = useState(true);
-  const [identifiersLoading, setIdentifiersLoading] = useState(true);
-  const [promotingUser, setPromotingUser] = useState(false);
+  const location = useLocation();
+  const tabParam = new URLSearchParams(location.search).get('tab') ?? '';
+  const activeTab = TABS.includes(tabParam) ? tabParam : TABS[0];
 
   // admin check and load
   const checkAdminAccess = useCallback((profile: UserProfile | null) => {
@@ -94,12 +46,11 @@ export default function AdminPortalPage(props: any) {
       });
   }, [history, checkAdminAccess]);
 
-  // for competition results upload
   const loadCompetitionsData = useCallback(() => {
     setCompetitionsLoading(true);
     getCompetitions()
       .then((data: { competitions: string[] }) => {
-        setCompetitions(data.competitions.map(name => ({ competitionName: name })));
+        setCompetitions(data.competitions);
         setCompetitionsLoading(false);
       })
       .catch((error) => {
@@ -107,428 +58,12 @@ export default function AdminPortalPage(props: any) {
         console.error('Error loading competitions:', error);
         setCompetitionsLoading(false);
       });
-  }, [getCompetitions]);
-
-  // for competition description upload
-  const loadCompetitionDescription = useCallback((competitionName: string) => {
-    if (competitionName) {
-      setCompetitionsLoading(true);
-      getCompetitionDetails(competitionName)
-        .then((data: any) => {
-          setCompetitionDescription(data.description || '');
-          const subsEnabled =
-            typeof data.submissionsEnabled === 'boolean'
-              ? data.submissionsEnabled
-              : false;
-          const privateScoresEnabled =
-            typeof data.showPrivateScores === 'boolean'
-              ? data.showPrivateScores
-              : false;
-          const lbEnabled = 
-            typeof data.leaderboardEnabled === 'boolean'
-              ? data.leaderboardEnabled
-              : false;
-          const minSize =
-            typeof data.minTeamSize === 'number'
-              ? data.minTeamSize
-              : null;
-          const maxSize =
-            typeof data.maxTeamSize === 'number'
-              ? data.maxTeamSize
-              : null;
-          setSubmissionsEnabled(subsEnabled);
-          setShowPrivateScores(privateScoresEnabled);
-          setCompetitionsLoading(false);
-          setLeaderboardEnabled(lbEnabled);
-          setInPortal(data.inPortal === true);
-          setLeaderboardType(data.leaderboardType);
-          setSubmissionFileName(data.submissionFileName ?? '');
-          setMinTeamSize(minSize);
-          setMaxTeamSize(maxSize);
-        })
-        .catch((error) => {
-          message.error(`Failed to load details for ${competitionName}.`);
-          console.error('Error loading competition details:', error);
-          setCompetitionsLoading(false);
-          setCompetitionDescription('');
-          setSubmissionsEnabled(false);
-          setShowPrivateScores(false);
-          setLeaderboardEnabled(false);
-          setInPortal(false);
-          setLeaderboardType(undefined);
-          setSubmissionFileName('');
-          setMinTeamSize(null);
-          setMaxTeamSize(null);
-        });
-    } else {
-      setCompetitionDescription('');
-      setSubmissionsEnabled(false);
-      setShowPrivateScores(false);
-      setLeaderboardEnabled(false);
-      setInPortal(false);
-      setLeaderboardType(undefined);
-      setSubmissionFileName('');
-      setMinTeamSize(null);
-      setMaxTeamSize(null);
-    }
-  }, [getCompetitionDetails]);
-
-  // for admin promotion
-  const loadUsersData = useCallback(() => {
-    setUsersLoading(true);
-    fetchUsers()
-      .then((data: { users: string[] }) => {
-        const userList = data.users.map(username => ({ username }));
-        setUsers(userList);
-        setFilteredUsers(userList);
-        setUsersLoading(false);
-      })
-      .catch((error) => {
-        message.error('Failed to load users.');
-        console.error('Error loading users:', error);
-        setUsersLoading(false);
-      });
-  }, [fetchUsers]);
-
-  // for username/email fuzzy search
-  const loadIdentifiers = useCallback(() => {
-    setIdentifiersLoading(true);
-    fetchIdentifiers()
-      .then((data: { identifiers: string[] }) => {
-        const identifierList = data.identifiers.map(identifier => ({ identifier }));
-        setIdentifiers(identifierList);
-        setFilteredIdentifiers(identifierList);
-        setIdentifiersLoading(false);
-      })
-      .catch((error) => {
-        message.error('Failed to load identifiers.');
-        console.error('Error loading identifiers:', error);
-        setIdentifiersLoading(false);
-      });
-  }, [fetchIdentifiers]);
+  }, []);
 
   useEffect(() => {
     loadProfileData();
     loadCompetitionsData();
-    loadUsersData();
-    loadIdentifiers();
-  }, [loadProfileData, loadCompetitionsData, loadUsersData, loadIdentifiers]);
-
-  useEffect(() => {
-    if (selectedCompetition) {
-      loadCompetitionDescription(selectedCompetition);
-    }
-  }, [selectedCompetition, loadCompetitionDescription]);
-
-  // file upload
-  const handleResultsFileChange = (info: any) => {
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file selected successfully`);
-      setResultsFile(info.file.originFileObj as File);
-    } else if (info.file.status === 'removed') {
-      setResultsFile(null);
-    }
-  };
-
-  const beforeResultsUpload = (file: File) => {
-    const isCSV = file.type === 'text/csv' || file.name.endsWith('.csv');
-    if (!isCSV) {
-      message.error('You can only upload CSV files for results!');
-    }
-    return isCSV;
-  };
-
-  // Prevent the default upload behavior
-  const dummyRequest = ({ onSuccess }: any) => {
-    setTimeout(() => {
-      onSuccess('ok');
-    }, 0);
-  };
-
-  const handleCompetitionSelect = (value: string) => {
-    setSelectedCompetition(value);
-  };
-
-  const handleUploadResults = () => {
-    if (!resultsFile) {
-      message.error('Please select a CSV file to upload for competition results.');
-      return;
-    } 
-    if (!selectedCompetition) {
-      message.error('Please select a competition to upload results for.');
-      return;
-    }
-
-    setUploadingResults(true);
-
-    uploadCompetitionResults(resultsFile, selectedCompetition)
-      .then(() => {
-        message.success('Competition results uploaded successfully!');
-        setResultsFile(null);
-      })
-      .catch((error) => {
-        message.error('Failed to upload competition results.');
-        console.error('Upload error:', error);
-        throw error;
-      })
-      .finally(() => {
-        setUploadingResults(false);
-      });
-  };
-
-  // comp description change
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCompetitionDescription(e.target.value);
-  };
-
-  const handleUpdateDescription = () => {
-    if (!selectedCompetition) {
-      message.error('Please select a competition to update the description for.');
-      return;
-    }
-    if (!competitionDescription) {
-      message.error('Please enter a new description.');
-      return;
-    }
-
-    setUpdatingDescription(true);
-    updateCompetitionDescription(selectedCompetition, competitionDescription)
-      .then(() => {
-        message.success(`Description for ${selectedCompetition} updated successfully!`);
-      })
-      .catch((error) => {
-        message.error(`Failed to update description for ${selectedCompetition}.`);
-        console.error('Error updating description:', error);
-      })
-      .finally(() => {
-        setUpdatingDescription(false);
-      });
-  };
-
-  const handleUpdateSettings = () => {
-    if (!selectedCompetition) {
-      message.error('Please select a competition to update settings for.');
-      return;
-    }
-    if (!leaderboardType) {
-      message.error('Please select a leaderboard type.');
-      return;
-    }
-    if (!submissionFileName.trim()) {
-      message.error('Please enter a submission file name.');
-      return;
-    }
-    if (
-      typeof minTeamSize === 'number' &&
-      typeof maxTeamSize === 'number' &&
-      minTeamSize > maxTeamSize
-    ) {
-      message.error('Min team size cannot be greater than max team size.');
-      return;
-    }
-    setUpdatingSettings(true);
-    const payload = {
-      submissionsEnabled,
-      showPrivateScores,
-      leaderboardEnabled,
-      inPortal,
-      leaderboardType,
-      submissionFileName: submissionFileName.trim(),
-      minTeamSize: typeof minTeamSize === 'number' ? minTeamSize : undefined,
-      maxTeamSize: typeof maxTeamSize === 'number' ? maxTeamSize : undefined,
-    };
-
-    updateCompetitionSettings(selectedCompetition, payload)
-      .then(() => {
-        message.success(`Settings for ${selectedCompetition} updated successfully!`);
-      })
-      .catch((error) => {
-        message.error(`Failed to update settings for ${selectedCompetition}.`);
-        console.error('Error updating competition settings:', error);
-      })
-      .finally(() => setUpdatingSettings(false));
-  };
-
-  const handleNewCompetition = () => {
-    if (!newCompetitionName.trim()) {
-      message.error('Enter a competition name.');
-      return;
-    }
-    if (!newCompetitionDescription.trim()) {
-      message.error('Enter a competition description.');
-      return;
-    }
-    if (!newStartDate.trim()) {
-      message.error('Enter a competition start date.');
-      return;
-    }
-    if (!newEndDate.trim()) {
-      message.error('Enter a competition end date.');
-      return;
-    }
-    if (!newSubmissionFileName.trim()) {
-      message.error('Enter a competition submission file name.');
-      return;
-    }
-    if (!newLeaderboardType) {
-      message.error('Select a leaderboard type.');
-      return;
-    }
-    if (
-      typeof newMinTeamSize === 'number' &&
-      typeof newMaxTeamSize === 'number' &&
-      newMinTeamSize > newMaxTeamSize
-    ) {
-      message.error('Min team size cannot be greater than max team size.');
-      return;
-    }
-    const payload = {
-      competitionName: newCompetitionName.trim(),
-      description: newCompetitionDescription.trim(),
-      startDate: newStartDate.trim(),
-      endDate: newEndDate.trim(),
-      submissionFileName: newSubmissionFileName.trim(),
-      submissionCooldown: newSubmissionCooldown ?? undefined,
-      submissionsEnabled: newSubmissionsEnabled,
-      leaderboardEnabled: newLeaderboardEnabled,
-      leaderboardType: newLeaderboardType,
-      minTeamSize: newMinTeamSize ?? undefined,
-      maxTeamSize: newMaxTeamSize ?? undefined,
-      showPrivateScores: newShowPrivateScores,
-      truthCSV: newTruthCSV.trim() !== '' ? newTruthCSV : undefined,
-    };
-    
-    if (creatingCompetition) {
-      return;
-    }
-
-    setCreatingCompetition(true)
-    uploadNewCompetition(payload)
-      .then(() => {
-        message.success(`New competition created successfully!`);
-        loadCompetitionsData();
-
-        setNewCompetitionName('');
-        setNewCompetitionDescription('');
-        setNewStartDate('');
-        setNewEndDate('');
-        setNewSubmissionFileName('');
-        setNewSubmissionCooldown(null);
-        setNewSubmissionsEnabled(false);
-        setNewLeaderboardEnabled(false);
-        setNewLeaderboardType(undefined);
-        setNewMinTeamSize(null);
-        setNewMaxTeamSize(null);
-        setNewShowPrivateScores(false);
-        setNewtruthCSV('');
-      })
-      .catch((error) => {
-        message.error(`Failed to create competition.`);
-        console.error('Error creating new competition:', error);
-      })
-      .finally(() => setCreatingCompetition(false));
-
-  };
-
-  // new competition handling
-  const handleNewCompetitionNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewCompetitionName(e.target.value);
-  };
-
-  const handleNewDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewCompetitionDescription(e.target.value);
-  };
-
-  const handleNewSubmissionFileName = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewSubmissionFileName(e.target.value);
-  };
-
-  const handleNewTruthCSV = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewtruthCSV(e.target.value);
-  };
-
-  const handleNewStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewStartDate(e.target.value);
-  };
-  
-  const handleNewEndDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewEndDate(e.target.value);
-  };
-
-  // admin promotion
-  const handleSearchUser = (value: string) => {
-    setSearchTerm(value);
-    const filtered = users.filter(user =>
-      user.username.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredUsers(filtered);
-  };
-
-  const handleUserSelect = (value: string) => {
-    setSelectedUserToPromote(value);
-  };
-
-  const handlePromoteToAdmin = () => {
-    if (!selectedUserToPromote) {
-      message.error('Please select a user to promote.');
-      return;
-    }
-    setPromotingUser(true);
-    promoteUserToAdmin(selectedUserToPromote)
-      .then(() => {
-        message.success(`${selectedUserToPromote} has been promoted to admin.`);
-        setSelectedUserToPromote(undefined);
-        loadUsersData(); 
-      })
-      .catch((error) => {
-        message.error(`Failed to promote ${selectedUserToPromote} to admin.`);
-        console.error('Error promoting user:', error);
-      })
-      .finally(() => {
-        setPromotingUser(false);
-      });
-  };
-
-  const handlePromoteToPrimaryAdmin = () => {
-    if (!selectedUserToPromote) {
-      message.error('Please select a user to promote to primary admin.');
-      return;
-    }
-    setPromotingUser(true);
-    promoteUserToPrimaryAdmin(selectedUserToPromote)
-      .then(() => {
-        message.success(`${selectedUserToPromote} has been promoted to primary admin.`);
-        setSelectedUserToPromote(undefined);
-        loadUsersData();
-      })
-      .catch((error) => {
-        message.error(`Failed to promote ${selectedUserToPromote} to primary admin.`);
-        console.error('Error promoting user:', error);
-      })
-      .finally(() => {
-        setPromotingUser(false);
-      });
-  };
-
-  // Identifier search (usernames and emails)
-  const handleSearchIdentifier = (value: string, ) => {
-    if (value.trim() === "") {
-       setFilteredIdentifiers(identifiers)
-       return;
-    }
-    else {
-      setSearchTerm(value);
-      const fuseOptions = {
-        keys: ["identifier"],
-        threshold: 0.8,
-      }
-      const fuse = new Fuse(
-        identifiers,
-        fuseOptions)
-      const filtered = fuse.search(value);
-      setFilteredIdentifiers(filtered.map(r => r.item));
-    };
-  };
+  }, [loadProfileData, loadCompetitionsData]);
 
   if (loading) {
     return <DefaultLayout>Loading...</DefaultLayout>;
@@ -544,390 +79,47 @@ export default function AdminPortalPage(props: any) {
         <Content>
           <Flex
             className="profileHeader"
-            justify="space-between"
-            align="center"
+            vertical
           >
             <h1 className="title2">
-              {!loading && user ? (
-                <>
-                  Welcome admin,{' '}
-                  <span className="profileName">{user.username}.</span>
-                </>
-              ) : (
-                <></>
-              )}
+              Welcome Admin{' '}
+              <span className="profileName">{user.username}</span>
             </h1>
+            <p>
+              You are {user.primaryAdmin ? 'a ' : 'an '}
+              <span className="text-colorful">{user.primaryAdmin ? 'primary admin' : 'admin'}</span>.
+            </p>
           </Flex>
         </Content>
         <Content className="settings">
-          <div className="competitionResults">
-            <h2>Upload Competition Results</h2>
-            <p>Select a CSV file containing competition results.</p>
-
-            <Select
-              placeholder="Select Competition"
-              className="competitionDropdown"
-              style={{ width: '80%', maxWidth: 300, margin: '10px 0px'}}
-              onChange={handleCompetitionSelect}
-              value={selectedCompetition}
-              loading={competitionsLoading}
-            >
-              {competitions.map((comp) => (
-                <Option key={comp.competitionName} value={comp.competitionName}>
-                  {comp.competitionName}
-                </Option>
-              ))}
-            </Select>
-
-            <Upload
-              className="competitionUpload"
-              beforeUpload={beforeResultsUpload}
-              onChange={handleResultsFileChange}
-              maxCount={1}
-              accept=".csv, text/csv"
-              onRemove={() => setResultsFile(null)}
-              customRequest={dummyRequest}
-            >
-              <Button icon={<UploadOutlined />}>Select CSV File</Button>
-            </Upload>
-
-            <Button
-              type="primary"
-              onClick={handleUploadResults}
-              disabled={!resultsFile || uploadingResults}
-              loading={uploadingResults}
-              style={{ marginTop: '10px' }}
-            >
-              Upload Results
-            </Button>
-          </div>
-
-          <div className="competitionDescription"> {/* This is called competitionDescription, but it updates other properties as well.*/}
-            <h2>Update Competition</h2>
-            <p>Select a competition to update. Description should be formatted in Markdown.</p>
-
-              <div className="competitionDescriptionSettings">
-                <Select
-                  placeholder="Select Competition"
-                  className="competitionDropdown"
-                  style={{ margin: '10px 0px'}}
-                  onChange={handleCompetitionSelect}
-                  value={selectedCompetition}
-                  loading={competitionsLoading}
-                >
-                  {competitions.map((comp) => (
-                    <Option key={comp.competitionName} value={comp.competitionName}>
-                      {comp.competitionName}
-                    </Option>
-                  ))}
-                </Select>
-
-                {selectedCompetition && (
-                  <>
-                    <div style={{ margin: '10px 0px' }}>
-                      <div className='settings-col'>
-                        <div>
-                          <span>Submissions Enabled</span>
-                          <Switch
-                            checked={submissionsEnabled}
-                            onChange={setSubmissionsEnabled}
-                          />
-                        </div>
-                        <div>
-                          <span>Show Private Scores</span>
-                          <Switch
-                            checked={showPrivateScores}
-                            onChange={setShowPrivateScores}
-                          />
-                        </div>
-                        <div>
-                          <span>Leaderboard Enabled</span>
-                          <Switch
-                            checked={leaderboardEnabled}
-                            onChange={setLeaderboardEnabled}
-                          />
-                        </div>
-                        <div>
-                          <span>Show in Portal</span>
-                          <Switch
-                            checked={inPortal}
-                            onChange={setInPortal}
-                          />
-                        </div>
-                        <div>
-                          <span>Leaderboard Type</span>
-                          <Select
-                            placeholder="Select Leaderboard Type"
-                            style={{ minWidth: 180 }}
-                            value={leaderboardType}
-                            onChange={setLeaderboardType}
-                            options={leaderboardTypeOptions}
-                          />
-                        </div>
-                        <div>
-                          <span>Min Team Size</span>
-                          <InputNumber
-                            min={1}
-                            value={minTeamSize}
-                            onChange={setMinTeamSize}
-                            placeholder="Min"
-                          />
-                        </div>
-                        <div>
-                          <span>Max Team Size</span>
-                          <InputNumber
-                            min={1}
-                            value={maxTeamSize}
-                            onChange={setMaxTeamSize}
-                            placeholder="Max"
-                          />
-                        </div>
-                        <div>
-                          <span>Submission File Name</span>
-                          <TextArea
-                            rows={1}
-                            placeholder="Enter submission file name"
-                            value={submissionFileName}
-                            onChange={(e) => setSubmissionFileName(e.target.value)}
-                            style={{ maxWidth: 300 }}
-                          />
-                        </div>
-                      </div>
-                      <Button
-                        type="primary"
-                        onClick={handleUpdateSettings}
-                        disabled={!selectedCompetition || updatingSettings}
-                        loading={updatingSettings}
-                        style={{ marginTop: '10px', maxWidth: 300 }}
-                      >
-                        Update Settings
-                      </Button>
-                    </div>
-
-                    <TextArea
-                      rows={4}
-                      placeholder="Enter new description"
-                      value={competitionDescription}
-                      onChange={handleDescriptionChange}
-                      style={{  margin: '10px 0px'}}
-                    />
-                  </>
-                )}
-              </div>
-
-            <Button
-              type="primary"
-              onClick={handleUpdateDescription}
-              disabled={!selectedCompetition || updatingDescription}
-              loading={updatingDescription}
-              style={{ marginTop: '10px', maxWidth: 300}}
-            >
-              Set New Description
-            </Button>
-          </div>
-
-          <div className="teamsAdmin">
-            <h2>Manage Teams</h2>
-            <p>View a team's submissions, set its score, or disqualify it.</p>
-            <TeamsAdmin competitions={competitions.map((comp) => comp.competitionName)} />
-          </div>
-
-          <div className="createCompetition">
-            <h2>Create Competition</h2>
-            <p>Enter a new name and create a competition model.</p>
-            <TextArea
-              rows={1}
-              placeholder="Enter competition name"
-              value={newCompetitionName}
-              onChange={handleNewCompetitionNameChange}
-              style={{  margin: '10px 0px', maxWidth: 300}}
-            />
-            <>
-              <div style={{ margin: '10px 0px' }}>
-                <div className='settings-col'>
-                  <div>
-                    <span>Submissions Enabled</span>
-                    <Switch
-                      checked={newSubmissionsEnabled}
-                      onChange={setNewSubmissionsEnabled}
-                    />
-                  </div>
-                  <div>
-                    <span>Show Private Scores</span>
-                    <Switch
-                      checked={newShowPrivateScores}
-                      onChange={setNewShowPrivateScores}
-                    />
-                  </div>
-                  <div>
-                    <span>Leaderboard Enabled</span>
-                    <Switch
-                      checked={newLeaderboardEnabled}
-                      onChange={setNewLeaderboardEnabled}
-                    />
-                  </div>
-                  <div>
-                    <span>Leaderboard Type</span>
-                    <Select
-                      placeholder="Select Leaderboard Type"
-                      style={{ minWidth: 180 }}
-                      value={newLeaderboardType}
-                      onChange={setNewLeaderboardType}
-                      options={leaderboardTypeOptions}
-                    />
-                  </div>
-                  <div>
-                    <span>Min Team Size</span>
-                    <InputNumber
-                      min={1}
-                      value={newMinTeamSize}
-                      onChange={setNewMinTeamSize}
-                      placeholder="Min"
-                    />
-                  </div>
-                  <div>
-                    <span>Max Team Size</span>
-                    <InputNumber
-                      min={1}
-                      value={newMaxTeamSize}
-                      onChange={setNewMaxTeamSize}
-                      placeholder="Max"
-                    />
-                  </div>
-                  <div>
-                    <span>Submission Cooldown in Seconds (default: 60)</span>
-                    <InputNumber
-                      min={0}
-                      value={newSubmissionCooldown}
-                      onChange={setNewSubmissionCooldown}
-                      placeholder="Cooldown"
-                    />
-                  </div>
-                  <div>
-                    <span>Start Date</span>
-                    <input 
-                      type="datetime-local" 
-                      value={newStartDate}
-                      onChange={handleNewStartDate}
-                    />
-                  </div>
-                  <div>
-                    <span>End Date</span>
-                    <input 
-                      type="datetime-local" 
-                      value={newEndDate}
-                      onChange={handleNewEndDate}
-                    />
-                  </div>
-                  <div>
-                    <span>Submission File Name</span>
-                    <TextArea
-                      rows={1}
-                      placeholder="Enter submission file name"
-                      value={newSubmissionFileName}
-                      onChange={handleNewSubmissionFileName}
-                      style={{  margin: '10px 0px', maxWidth: 300}}
-                    />
-                  </div>
-                  <div>
-                    <span>Truth CSV (not required, leave blank if not used)</span>
-                    <TextArea
-                      rows={1}
-                      placeholder="Enter Truth CSV"
-                      value={newTruthCSV}
-                      onChange={handleNewTruthCSV}
-                      style={{  margin: '10px 0px', maxWidth: 300}}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <label htmlFor='newCompDescription'>Enter a description: </label>
-              <TextArea
-                rows={4}
-                id="newCompDescription"
-                name="newCompDescription"
-                placeholder="Competition description"
-                value={newCompetitionDescription}
-                onChange={handleNewDescriptionChange}
-                style={{  margin: '10px 0px'}}
-              />
-              
-            </>
-            <Button
-              type="primary"
-              onClick={handleNewCompetition}
-              loading={creatingCompetition}
-              style={{ marginTop: '10px', maxWidth: 300}}
-            >
-              Create New Competition
-            </Button>
-
-          </div>
-
-          <div className="userManagement">
-            <h2>Manage Users</h2>
-            <p>Search for a user and promote them to admin or primary admin.</p>
-
-            <Select
-              showSearch
-              placeholder="Search User"
-              className="userSearchDropdown"
-              style={{ width: '80%', maxWidth: 300, margin: '10px 0px' }}
-              value={selectedUserToPromote}
-              onChange={handleUserSelect}
-              onSearch={handleSearchUser}
-              loading={usersLoading}
-              filterOption={(input, option) =>
-                (option?.value as string)?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              {filteredUsers.map((user) => (
-                <Option key={user.username} value={user.username}>
-                  {user.username}
-                </Option>
-              ))}
-            </Select>
-
-            {selectedUserToPromote && (
-              <Flex gap="middle" style={{ marginTop: '10px' }}>
-                <Button
-                  type="primary"
-                  onClick={handlePromoteToAdmin}
-                  loading={promotingUser}
-                >
-                  Promote to Admin
-                </Button>
-                <Button
-                  type="primary"
-                  onClick={handlePromoteToPrimaryAdmin}
-                  loading={promotingUser}
-                >
-                  Promote to Primary Admin
-                </Button>
-              </Flex>
-            )}
-          </div>
-          <div className='findUserIdentifiers'>
-            <h2>Find Usernames</h2>
-            <p>Find forgotten usernames with a fuzzy search.</p>
-
-            <Select
-              showSearch
-              placeholder="Search Usernames and Emails"
-              className="userIdentifierDropdown"
-              style={{ width: '80%', maxWidth: 300, margin: '10px 0px' }}
-              onSearch={handleSearchIdentifier}
-              loading={identifiersLoading}
-              filterOption={false}
-            >
-              {filteredIdentifiers.map((identifiers) => (
-                <Option key={identifiers.identifier} value={identifiers.identifier}>
-                  {identifiers.identifier}
-                </Option>
-              ))}
-            </Select>
-          </div>
+          <Tabs
+            activeKey={activeTab}
+            onChange={(tab) => history.replace({ search: `?tab=${tab}` })}
+            items={[
+              {
+                key: 'competitions',
+                label: 'Competitions',
+                children: (
+                  <CompetitionsTab
+                    competitions={competitions}
+                    competitionsLoading={competitionsLoading}
+                    primaryAdmin={user.primaryAdmin}
+                    reloadCompetitions={loadCompetitionsData}
+                  />
+                ),
+              },
+              {
+                key: 'teams',
+                label: 'Teams',
+                children: <TeamsTab competitions={competitions} competitionsLoading={competitionsLoading} />,
+              },
+              {
+                key: 'users',
+                label: 'Users',
+                children: <UsersTab user={user} />,
+              },
+            ]}
+          />
         </Content>
         <MainFooter />
       </Content>
