@@ -53,7 +53,7 @@ const publicScoreColumn: ColumnsType<CompetitionData>[number] = {
 const privateScoreColumn: ColumnsType<CompetitionData>[number] = {
     title: 'Private Score',
     dataIndex: 'privateScoreHistory',
-    render: (history: number[]) => history ? history[history.length - 1] : 0,
+    render: (history: number[]) => history?.length ? history[history.length - 1] : '—',
     sorter: (a, b) => {
         const aScore = Array.isArray(a.privateScoreHistory)
             ? a.privateScoreHistory.at(-1) ?? 0
