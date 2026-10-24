@@ -14,6 +14,16 @@ import {
 
 const latest = (history?: number[]) => history?.[history.length - 1] ?? '-';
 
+const scoreValue = (history?: number[]) => history?.[history.length - 1] ?? -1;
+
+type ScoreKey = 'scoreHistory' | 'publicScoreHistory' | 'privateScoreHistory';
+
+const scoreColumn = (title: string, key: ScoreKey): ColumnsType<AdminTeam>[number] => ({
+  title,
+  render: (_, team) => latest(team[key]),
+  sorter: (a, b) => scoreValue(a[key]) - scoreValue(b[key]),
+});
+
 const scoreLabels: Record<keyof TeamScore, string> = {
   score: 'Score',
   publicScore: 'Public score',
@@ -142,27 +152,26 @@ export default function TeamsAdmin({ competitions }: { competitions: string[] })
   };
 
   const columns: ColumnsType<AdminTeam> = [
-    { title: 'Team', dataIndex: 'teamName' },
+    { title: 'Team', dataIndex: 'teamName', sorter: (a, b) => a.teamName.localeCompare(b.teamName) },
     {
       title: 'Members',
       dataIndex: 'teamMembers',
       render: (members: string[]) => members.join(', '),
+      sorter: (a, b) => a.teamMembers.length - b.teamMembers.length,
     },
-    {
-      title: isPublicPrivate ? 'Public / Private' : 'Score',
-      render: (_, team) =>
-        isPublicPrivate
-          ? `${latest(team.publicScoreHistory)} / ${latest(team.privateScoreHistory)}`
-          : latest(team.scoreHistory),
-    },
+    ...(isPublicPrivate
+      ? [scoreColumn('Public', 'publicScoreHistory'), scoreColumn('Private', 'privateScoreHistory')]
+      : [scoreColumn('Score', 'scoreHistory')]),
     {
       title: 'Submissions',
       render: (_, team) => team.submitHistory.length,
+      sorter: (a, b) => a.submitHistory.length - b.submitHistory.length,
     },
     {
       title: 'Status',
       render: (_, team) =>
         team.disqualified ? <Tag color="error">Disqualified</Tag> : <Tag color="success">Active</Tag>,
+      sorter: (a, b) => Number(!!a.disqualified) - Number(!!b.disqualified),
     },
     {
       render: (_, team) => (
