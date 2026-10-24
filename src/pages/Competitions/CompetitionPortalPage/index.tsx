@@ -307,13 +307,10 @@ const MyTeamTab = ( { isLoadingTeamInfo, compUser, rankData, teamInfo, metaData 
                                 >
                                     <p>Share your Invite Code to your friend. Make sure to tell them your team name as well!</p>
 
-                                    {typeof metaData?.maxTeamSize === 'number' && (
-                                        <p>Max team size: {metaData.maxTeamSize}</p>
+                                    {typeof maxTeamSize === 'number' && (
+                                        <p>Max team size: {maxTeamSize}</p>
                                     )}
-                                    <h3 id = "inviteCode" style={{
-                                        fontWeight: 'bold',
-                                        marginTop: '12px'
-                                    }}>
+                                    <h3 id = "inviteCode">
                                         {compUser.competitionTeam && compUser.competitionTeam.joinCode}
                                     </h3>
                                 </Modal>
