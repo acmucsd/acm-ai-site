@@ -7,9 +7,6 @@ import moment from 'moment';
  * a competition ends at a provided data
  * 
  * @param {any} endDate represents the terminating date for a competition
- * 
- * NOTE: this component has a bug where the remaining time is incorrect
- * 
  */
 const CountdownTimer = ({ endDate }: { endDate: any }) => {
 
@@ -20,10 +17,11 @@ const CountdownTimer = ({ endDate }: { endDate: any }) => {
   const calculateTimeRemaining = () => {
     const now = moment();
     const endDateTime = moment(endDate);
-    const duration = moment.duration(endDateTime.diff(now));
+    // zero once the end date has passed
+    const duration = moment.duration(Math.max(endDateTime.diff(now), 0));
 
     return {
-      days: duration.days(),
+      days: Math.floor(duration.asDays()),
       hours: duration.hours(),
       minutes: duration.minutes(),
       seconds: duration.seconds(),
@@ -49,32 +47,10 @@ const CountdownTimer = ({ endDate }: { endDate: any }) => {
     }
   };
 
-  // Update the remaining time on a scheduled interval
+  // Update the remaining time every second
   useEffect(() => {
-    let intervalId: string | number | NodeJS.Timeout | undefined;
-
-    const updateInterval = () => {
-      const { minutes } = timeRemaining;
-
-      if (minutes > 1) {
-        // Use a longer interval when there's more than 1 minute remaining
-        return 60 * 1000; // 1 minute
-      } 
-      else {
-        // Switch to a shorter interval when there's 1 minute or less remaining
-        return 1000; // 1 second
-      }
-    };
-
-    const updateTimer = () => {
-      setTimeRemaining(calculateTimeRemaining());
-    };
-    intervalId = setInterval(updateTimer, updateInterval());
-
-    return () => {
-      clearInterval(intervalId);
-    };
-
+    const intervalId = setInterval(() => setTimeRemaining(calculateTimeRemaining()), 1000);
+    return () => clearInterval(intervalId);
   }, [endDate]);
 
 
