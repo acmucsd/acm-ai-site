@@ -99,7 +99,7 @@ export default function CreateCompetition({ onCreated }: { onCreated: () => void
         setNewTeamGroups([]);
       })
       .catch((error) => {
-        message.error(`Failed to create competition.`);
+        // uploadNewCompetition shows the error
         console.error('Error creating new competition:', error);
       })
       .finally(() => setCreatingCompetition(false));
