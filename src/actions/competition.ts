@@ -23,8 +23,6 @@ export interface CompetitionData {
     // blockography
     publicScoreHistory?: Array<number>;
     privateScoreHistory?: Array<number>;
-    // stellatro
-    benchmarkScore?: number | null;
 }
 
 export const uploadSubmission = async (

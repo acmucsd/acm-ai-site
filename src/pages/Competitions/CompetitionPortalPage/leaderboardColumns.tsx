@@ -14,7 +14,7 @@ const rankColumn: ColumnsType<CompetitionData>[number] = {
 const teamColumn: ColumnsType<CompetitionData>[number] = {
     title: 'Team',
     dataIndex: 'team',
-    sorter: (a, b) => a.team.length - b.team.length,
+    sorter: (a, b) => a.team.localeCompare(b.team),
     render(value, record, index) {
         return (
             <span>
@@ -70,15 +70,8 @@ const createDivisionColumn = (filters: { text: string; value: string }[]): Colum
     dataIndex: 'teamGroup',
     filters,
     render: (group: string) => <Tag>{group}</Tag>,
-    onFilter: (value, record) => record.teamGroup?.includes(value.toString()) ?? false,
+    onFilter: (value, record) => record.teamGroup === value,
 });
-
-const benchmarkScoreColumn: ColumnsType<CompetitionData>[number] = {
-    title: 'Benchmark Score',
-    dataIndex: 'benchmarkScore',
-    render: (value: number | null) => value != null ? value : 'N/A',
-    sorter: (a, b) => (a.benchmarkScore ?? 0) - (b.benchmarkScore ?? 0),
-};
 
 const winColumn: ColumnsType<CompetitionData>[number] = {
     title: 'W',
@@ -146,7 +139,6 @@ export {
     scoreColumn,
     publicScoreColumn,
     privateScoreColumn,
-    benchmarkScoreColumn,
     createDivisionColumn,
     winColumn,
     lossColumn,

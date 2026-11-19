@@ -114,14 +114,8 @@ export const promoteUserToAdmin = async (userId: string): Promise<void> => {
           headers: { Authorization: `Bearer ${token}` },
         }
       )
-      .then(() => {
-        message.success(`User ${userId} promoted to admin.`);
-        resolve();
-      })
-      .catch((error) => {
-        message.error(`Failed to promote user ${userId} to admin.`);
-        reject(error);
-      });
+      .then(() => resolve())
+      .catch(reject);
   });
 };
 
@@ -136,14 +130,8 @@ export const promoteUserToPrimaryAdmin = async (userId: string): Promise<void> =
           headers: { Authorization: `Bearer ${token}` },
         }
       )
-      .then(() => {
-        message.success(`User ${userId} promoted to primary admin.`);
-        resolve();
-      })
-      .catch((error) => {
-        message.error(`Failed to promote user ${userId} to primary admin.`);
-        reject(error);
-      });
+      .then(() => resolve())
+      .catch(reject);
   });
 };
 

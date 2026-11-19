@@ -41,7 +41,6 @@ const CompetitionLeaderboardPage = () => {
           winHistory: d.winHistory,
           lossHistory: d.lossHistory,
           drawHistory: d.drawHistory,
-          benchmarkScore: d.benchmarkScore ?? null,
         };
       });
       setLastRefresh(new Date());

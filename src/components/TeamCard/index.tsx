@@ -55,25 +55,17 @@ const TeamCard = (
             }
         }
 
-        if( team.teamMembers.length < 3 ){
-            addToTeam(team.competitionName, user.username, team.teamName, code).then(
-            () => {
-                message.success('Joined team!');
-                setConfirmLoading(false);
-                setIsModalOpen(false);
+        addToTeam(team.competitionName, user.username, team.teamName, code).then(
+        () => {
+            message.success('Joined team!');
+            setConfirmLoading(false);
+            setIsModalOpen(false);
 
-                // Trigger a refresh to refetch all the team data and update the compUser
-                fetchTeamCallback();
-            }
-            )
-            .catch((error) => {
-                console.error(error);
-                message.error("An error occurred: ", error);
-            });
+            // Trigger a refresh to refetch all the team data and update the compUser
+            fetchTeamCallback();
         }
-        else{
-            message.error(`Team ${team.teamName} is already full!`)
-        }
+        )
+        .catch((error) => console.error(error));
         setConfirmLoading(false);
     };
 

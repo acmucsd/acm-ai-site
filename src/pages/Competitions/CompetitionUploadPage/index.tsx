@@ -62,10 +62,13 @@ const CompetitionUploadPage = () => {
       user.username as string
     )
       .then((res) => {
+        // only sent for competitions with an evaluator
+        const left = res.data?.submissionsRemainingToday;
+        const leftText = typeof left === 'number' ? ` ${left} submission${left === 1 ? '' : 's'} left today.` : '';
         if (res.data?.evaluationOk === false) {
-          message.warning('Submission failed validation. See Latest Submission Result for details.');
+          message.warning(`Submission failed validation. See Latest Submission Result for details.${leftText}`);
         } else {
-          message.success('Submission uploaded successfully');
+          message.success(`Submission uploaded successfully.${leftText}`);
         }
         localStorage.setItem("activeTab", JSON.stringify('3'));
         history.replace('/portal');

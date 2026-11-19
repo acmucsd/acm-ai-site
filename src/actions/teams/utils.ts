@@ -169,7 +169,7 @@ export const addToTeam = async (
         resolve(res);
       })
       .catch((error) => {
-        message.error(error.response.data.error.message);
+        message.error(error.response?.data?.error?.message ?? 'Failed to join team.');
         console.error(error);
         reject(error);
       });
