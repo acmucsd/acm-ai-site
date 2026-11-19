@@ -7,7 +7,7 @@
       },
       "description": "Ever wondered if you could survive the night shift or if the animatronics would catch you first? Put your skills to the test by building a machine learning model to predict if you can make it to 4:00 PM! Compete for Raspberry Pis, an AI development kit, and other goodies, and attend workshops hosted by our sponsors: Google, SpaceX, and Voiskey!",
       "link": "/competitions/Five Nights with AI",
-      "leaderboard": ""
+      "leaderboard": "/competitions/Five Nights with AI/leaderboard"
     },
     {
       "competitionName": "Stellatro.AI",
@@ -21,7 +21,7 @@
       },
       "description": "Ante up in Stellatro.AI, our Balatro-inspired AI competition sponsored by Qualcomm! Build a bot that masters the art of poker hands and joker powerups to rack up the highest score possible. No matter your experience level, this is your chance to go all in and compete for a shot at winning AI development kits and Snapdragon X-Elite laptops!",
       "link": "/competitions/Stellatro.AI",
-      "leaderboard": ""
+      "leaderboard": "/competitions/Stellatro.AI/leaderboard"
     },
     {
       "competitionName": "Blockography.AI",
@@ -35,7 +35,7 @@
       },
       "description": "Join us for an exciting opportunity to build machine learning models to classify Minecraft biomes from real gameplay images. Compete against your peers to win Qualcomm Rubik Pi 3's, and get a chance to network with Qualcomm engineers!",
       "link": "/competitions/Blockography.AI",
-      "leaderboard": ""
+      "leaderboard": "/competitions/Blockography.AI/leaderboard"
     },
     {
       "competitionName": "StarChess.AI",
