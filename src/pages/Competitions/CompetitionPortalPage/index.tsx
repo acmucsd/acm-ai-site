@@ -26,7 +26,7 @@ import LineChart from "./LineChart";
 import { formatMseScore } from "./leaderboardColumns";
 import LeaderBoardTab from "./Leaderboard";
 import FindTeamsTab from "./FindTeams";
-import NoCompetition from "./NoCompetition";
+import NoticePage from "../../../components/NoticePage";
 
 import path from 'path';
 import './index.less';
@@ -827,7 +827,14 @@ function CompetitionPortalPage() {
     }
 
     if (competitionName === null) {
-        return <DefaultLayout><NoCompetition /></DefaultLayout>;
+        return (
+            <DefaultLayout>
+                <NoticePage
+                    title={<>We will be back <span className="colorful">soon</span></>}
+                    text="Our team is busy working on the next competition! Keep in touch with us to hear about when it will happen."
+                />
+            </DefaultLayout>
+        );
     }
 
     return <CompetitionPortal competitionName={competitionName} />;

@@ -43,8 +43,10 @@ import NotFoundPage from './pages/404Page';
 import ProjectPage from './pages/ProjectsPage/index';
 import ProfilePage from './pages/ProfilePage';
 import AdminPortalPage from './pages/AdminPortalPage';
+import CompetitionSite, { siteIdFromHost } from './competition-sites';
 
 let cookie = getCookie(COOKIE_NAME);
+const hostSiteId = siteIdFromHost();
 
 function ScrollToTop() {
   const history = useHistory();
@@ -93,6 +95,9 @@ function App() {
         <ScrollToTop />
           {!verifying ? (
             <UserProvider value={{ user: user, setUser: setUser }}>
+              {hostSiteId ? (
+                <CompetitionSite siteId={hostSiteId} basePath="" />
+              ) : (
               <Switch>
               <Route path="/" exact component={MainPage} />
               <Route path="/about" exact component={AboutPage} />
@@ -137,6 +142,14 @@ function App() {
               <Route path="/resetpassword" component={ForgotPasswordPage} />
               <Route path="/admin/portal" exact component={AdminPortalPage} />
 
+              {/* custom competition sites, see src/competition-sites */}
+              <Route
+                path="/comp/:siteId"
+                render={({ match }) => (
+                  <CompetitionSite siteId={match.params.siteId} basePath={match.url} />
+                )}
+              />
+
               {/* old competitions */}
               <Route  path="/old-competitions/hideandseek" exact component={HideAndSeek2020Page} />
               <Route
@@ -165,7 +178,8 @@ function App() {
 
               <Route path="*" component={NotFoundPage} />
               </Switch>
-              
+              )}
+
             </UserProvider>
           ) : (
             <div

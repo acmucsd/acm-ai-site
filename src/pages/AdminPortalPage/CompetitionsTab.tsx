@@ -11,6 +11,7 @@ import {
 } from '../../actions/competition';
 import CreateCompetition from './CreateCompetition';
 import { cleanGroups, leaderboardTypeOptions } from './competitionFields';
+import SiteFields from './SiteFields';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -49,6 +50,9 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
   const [teamGroups, setTeamGroups] = useState<string[]>([]);
   const [evaluator, setEvaluator] = useState<string | null>(null);
   const [evaluators, setEvaluators] = useState<string[]>([]);
+  const [customSite, setCustomSite] = useState<boolean>(false);
+  const [siteId, setSiteId] = useState<string>('');
+  const [siteAdminOnly, setSiteAdminOnly] = useState<boolean>(true);
   const [updatingSettings, setUpdatingSettings] = useState<boolean>(false);
 
   const loadCompetitionDescription = useCallback((competitionName: string) => {
@@ -69,6 +73,9 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
         setEndDate(toLocalInput(data.endDate));
         setTeamGroups(data.teamGroups ?? []);
         setEvaluator(data.evaluator ?? null);
+        setCustomSite(Boolean(data.siteId));
+        setSiteId(data.siteId ?? '');
+        setSiteAdminOnly(data.siteAdminOnly !== false);
       })
       .catch((error) => {
         message.error(`Failed to load details for ${competitionName}.`);
@@ -87,6 +94,9 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
         setEndDate('');
         setTeamGroups([]);
         setEvaluator(null);
+        setCustomSite(false);
+        setSiteId('');
+        setSiteAdminOnly(true);
       })
       .finally(() => setDetailsLoading(false));
   }, []);
@@ -167,6 +177,10 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
       message.error('Start date cannot be after end date.');
       return;
     }
+    if (customSite && !siteId.trim()) {
+      message.error('Please enter a site ID.');
+      return;
+    }
     setUpdatingSettings(true);
     const payload = {
       submissionsEnabled,
@@ -182,6 +196,8 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
       endDate: new Date(endDate).toISOString(),
       teamGroups: teamGroups.length ? teamGroups : null,
       evaluator,
+      siteId: customSite ? siteId.trim() : null,
+      siteAdminOnly,
     };
 
     updateCompetitionSettings(selectedCompetition, payload)
@@ -351,6 +367,14 @@ export default function CompetitionsTab({ competitions, competitionsLoading, pri
                       className="type-select"
                     />
                   </div>
+                  <SiteFields
+                    customSite={customSite}
+                    setCustomSite={setCustomSite}
+                    siteId={siteId}
+                    setSiteId={setSiteId}
+                    siteAdminOnly={siteAdminOnly}
+                    setSiteAdminOnly={setSiteAdminOnly}
+                  />
                 </div>
                 <Button
                   type="primary"

@@ -3,6 +3,7 @@ import { Button, Input, InputNumber, Select, Switch, message } from 'antd';
 import { Remark } from 'react-remark';
 import { uploadNewCompetition, LeaderboardType } from '../../actions/competition';
 import { cleanGroups, leaderboardTypeOptions } from './competitionFields';
+import SiteFields from './SiteFields';
 
 const { TextArea } = Input;
 
@@ -22,6 +23,9 @@ export default function CreateCompetition({ onCreated }: { onCreated: () => void
   const [newSubmissionsEnabled, setNewSubmissionsEnabled] = useState<boolean>(false);
   const [newTruthCSV, setNewtruthCSV] = useState<string>('');
   const [newTeamGroups, setNewTeamGroups] = useState<string[]>([]);
+  const [newCustomSite, setNewCustomSite] = useState<boolean>(false);
+  const [newSiteId, setNewSiteId] = useState<string>('');
+  const [newSiteAdminOnly, setNewSiteAdminOnly] = useState<boolean>(true);
 
   const handleNewCompetition = () => {
     if (!newCompetitionName.trim()) {
@@ -56,6 +60,10 @@ export default function CreateCompetition({ onCreated }: { onCreated: () => void
       message.error('Min team size cannot be greater than max team size.');
       return;
     }
+    if (newCustomSite && !newSiteId.trim()) {
+      message.error('Enter a site ID.');
+      return;
+    }
     const payload = {
       competitionName: newCompetitionName.trim(),
       description: newCompetitionDescription.trim(),
@@ -71,6 +79,8 @@ export default function CreateCompetition({ onCreated }: { onCreated: () => void
       showPrivateScores: newShowPrivateScores,
       truthCSV: newTruthCSV.trim() !== '' ? newTruthCSV : undefined,
       teamGroups: newTeamGroups.length ? newTeamGroups : undefined,
+      siteId: newCustomSite ? newSiteId.trim() : undefined,
+      siteAdminOnly: newCustomSite ? newSiteAdminOnly : undefined,
     };
 
     if (creatingCompetition) {
@@ -97,6 +107,9 @@ export default function CreateCompetition({ onCreated }: { onCreated: () => void
         setNewShowPrivateScores(false);
         setNewtruthCSV('');
         setNewTeamGroups([]);
+        setNewCustomSite(false);
+        setNewSiteId('');
+        setNewSiteAdminOnly(true);
       })
       .catch((error) => {
         // uploadNewCompetition shows the error
@@ -224,6 +237,14 @@ export default function CreateCompetition({ onCreated }: { onCreated: () => void
               className="spaced narrow"
             />
           </div>
+          <SiteFields
+            customSite={newCustomSite}
+            setCustomSite={setNewCustomSite}
+            siteId={newSiteId}
+            setSiteId={setNewSiteId}
+            siteAdminOnly={newSiteAdminOnly}
+            setSiteAdminOnly={setNewSiteAdminOnly}
+          />
         </div>
       </div>
 

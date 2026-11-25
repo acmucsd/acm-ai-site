@@ -1,21 +1,20 @@
+import { ReactNode } from 'react';
 import { Button, Layout } from 'antd';
 import { BiLogoDiscord, BiLogoInstagram, BiMailSend } from 'react-icons/bi';
-import CompIcon from '../../../../public/compAlt.png';
+import CompIcon from '../../../public/compAlt.png';
 import './index.less';
 
 const { Content } = Layout;
 
 /**
- * Portal fallback when no competition is in the portal.
+ * Full page notice with our social links, like "coming soon".
  */
-function NoCompetition() {
+export default function NoticePage({ title, text }: { title: ReactNode; text: string }) {
   return (
-    <Content className="NoCompetition">
+    <Content className="NoticePage">
       <img src={CompIcon} alt="" className="graphic" />
-      <h1 className="title2">
-        We will be back <span className="colorful">soon</span>
-      </h1>
-      <p>Our team is busy working on the next competition! Keep in touch with us to hear about when it will happen.</p>
+      <h1 className="title2">{title}</h1>
+      <p>{text}</p>
       <div className="socialButtons">
         <Button
           href="https://acmurl.com/ai-discord"
@@ -51,5 +50,3 @@ function NoCompetition() {
     </Content>
   );
 }
-
-export default NoCompetition;
