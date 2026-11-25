@@ -193,6 +193,8 @@ export type UpdateCompetitionSettingsPayload = {
   maxTeamSize?: number;
   showPrivateScores?: boolean;
   evaluator?: string | null;
+  siteId?: string | null;
+  siteAdminOnly?: boolean;
 };
 
 export type NewCompetitionSettingsPayload = {
@@ -210,6 +212,8 @@ export type NewCompetitionSettingsPayload = {
   showPrivateScores: boolean;
   truthCSV?: string;
   teamGroups?: string[];
+  siteId?: string;
+  siteAdminOnly?: boolean;
 };
 
 export const updateCompetitionSettings = async (
@@ -381,3 +385,9 @@ export const renameCompetition = async (competitionName: string, newName: string
 
 export const setTeamDisqualified = async (competitionName: string, teamName: string, disqualified: boolean) =>
   (await axios.post(teamUrl(competitionName, teamName) + '/disqualify', { disqualified }, authHeader())).data;
+
+export type CompetitionSiteInfo = { visible: boolean; competitionName?: string };
+
+// token only when logged in, an expired one would 401
+export const getCompetitionSite = async (siteId: string, loggedIn: boolean): Promise<CompetitionSiteInfo> =>
+  (await axios.get(process.env.REACT_APP_API + `/v1/competitions/sites/${siteId}`, loggedIn ? authHeader() : undefined)).data;
